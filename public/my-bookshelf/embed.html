@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Bookshelf — Top Favorites</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="embed.css" />
+</head>
+<body>
+  <div class="embed-app">
+    <header class="embed-header">
+      <h1 class="embed-title">My Bookshelf</h1>
+      <nav class="embed-nav" aria-hidden="true">
+        <span class="embed-nav__pill is-active">All</span>
+        <span class="embed-nav__pill">Movies</span>
+        <span class="embed-nav__pill">Books</span>
+        <span class="embed-nav__pill">Albums</span>
+      </nav>
+    </header>
+    <section class="embed-showcase">
+      <h2 class="embed-showcase__heading">Top Favorites</h2>
+      <div id="embed-grid" class="embed-grid">
+        <p class="embed-loading">Loading favorites…</p>
+      </div>
+    </section>
+  </div>
+  <script src="embed.js"></script>
+</body>
+</html>
