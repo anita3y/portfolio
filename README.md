@@ -14,12 +14,17 @@ npm install
 npm run dev
 ```
 
-## Build
+## Deploy (GitHub Pages)
 
-```bash
-npm run build
-npm run preview
-```
+The site is built automatically on every push to `main`.
+
+**One-time Pages setup** in [repo Settings → Pages](https://github.com/anita3y/portfolio/settings/pages):
+
+1. **Source:** Deploy from a branch
+2. **Branch:** `gh-pages` → `/ (root)`
+3. Save
+
+Live URL: **https://anita3y.github.io/portfolio/**
 
 ## Work in progress
 
