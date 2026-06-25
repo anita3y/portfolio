@@ -1,3 +1,5 @@
+import { assetUrl } from "../utils/assetUrl.js";
+
 export const ABOUT_SECTIONS = [{ id: "hello", title: "Hello!" }];
 
 /** Inline copy with external links — rendered in order */
@@ -8,18 +10,18 @@ export const ABOUT_OUTSIDE = [
   {
     type: "vinyls",
     label: "vinyls",
-    coverSrc: "/about/vinyl-undercurrent.png",
-    recordSrc: "/about/vinyl-record.png",
+    coverSrc: assetUrl("/about/vinyl-undercurrent.png"),
+    recordSrc: assetUrl("/about/vinyl-record.png"),
     alt: "Bill Evans and Jim Hall — Undercurrent album cover with vinyl record"
   },
   { type: "text", value: " in the East Village, or making " },
-  { type: "dotted", value: "mango sticky rice", hoverTag: "thai cuisine is one of my favorites!", imageSrc: "/about/mango-sticky-rice.png", imageAlt: "Mango sticky rice on a white plate" },
+  { type: "dotted", value: "mango sticky rice", hoverTag: "thai cuisine is one of my favorites!", imageSrc: assetUrl("/about/mango-sticky-rice.png"), imageAlt: "Mango sticky rice on a white plate" },
   { type: "text", value: "." }
 ];
 
 export const ABOUT_LINKEDIN = "https://www.linkedin.com/in/anita-yan-9ifg3426";
 
-export const ABOUT_PORTRAIT = "/about/portrait-photo.png";
+export const ABOUT_PORTRAIT = assetUrl("/about/portrait-photo.png");
 
 export const ABOUT_LOCATION = "NYC / TRT";
 
@@ -40,7 +42,7 @@ export const ABOUT_PHOTOS = [
   },
   {
     id: "flowers",
-    src: "/about/photo-flowers.png",
+    src: assetUrl("/about/photo-flowers.png"),
     alt: "Anita with friends and a bouquet of flowers",
     width: 542,
     height: 360

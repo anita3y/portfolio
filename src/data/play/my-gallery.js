@@ -1,3 +1,5 @@
+import { assetUrl } from "../../utils/assetUrl.js";
+
 /**
  * Add artwork images to public/gallery/ and set each item's `src`.
  * Example: src: "/gallery/untitled-01.jpg"
@@ -19,7 +21,7 @@ export const MY_GALLERY = {
       title: "Untitled study I",
       year: "2025",
       medium: "Graphite",
-      src: "/gallery/piece-01.jpg",
+      src: assetUrl("/gallery/piece-01.jpg"),
       aspect: "portrait"
     },
     {
@@ -27,7 +29,7 @@ export const MY_GALLERY = {
       title: "Untitled study II",
       year: "2025",
       medium: "Ink & wash",
-      src: "/gallery/piece-02.jpg",
+      src: assetUrl("/gallery/piece-02.jpg"),
       aspect: "square"
     },
     {
@@ -35,7 +37,7 @@ export const MY_GALLERY = {
       title: "Color field",
       year: "2024",
       medium: "Acrylic",
-      src: "/gallery/piece-03.jpg",
+      src: assetUrl("/gallery/piece-03.jpg"),
       aspect: "landscape"
     },
     {
@@ -43,7 +45,7 @@ export const MY_GALLERY = {
       title: "Interior light",
       year: "2024",
       medium: "Digital",
-      src: "/gallery/piece-04.jpg",
+      src: assetUrl("/gallery/piece-04.jpg"),
       aspect: "portrait"
     },
     {
@@ -51,7 +53,7 @@ export const MY_GALLERY = {
       title: "Still life",
       year: "2024",
       medium: "Colored pencil",
-      src: "/gallery/piece-05.jpg",
+      src: assetUrl("/gallery/piece-05.jpg"),
       aspect: "square"
     },
     {
@@ -59,7 +61,7 @@ export const MY_GALLERY = {
       title: "Composition in blue",
       year: "2023",
       medium: "Mixed media",
-      src: "/gallery/piece-06.jpg",
+      src: assetUrl("/gallery/piece-06.jpg"),
       aspect: "landscape"
     }
   ]

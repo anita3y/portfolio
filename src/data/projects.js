@@ -1,3 +1,5 @@
+import { assetUrl } from "../utils/assetUrl.js";
+
 export const WORK_PROJECTS = [
   {
     id: "design-for-america",
@@ -6,7 +8,7 @@ export const WORK_PROJECTS = [
     subtitle: "Trust, IA & nonprofit web",
     tags: ["Framer", "Content strategy", "Nonprofit"],
     href: "#",
-    thumbnail: "/thumbnails/dfa.jpg",
+    thumbnail: assetUrl("/thumbnails/dfa.jpg"),
     theme: "dfa"
   },
   {
@@ -16,7 +18,7 @@ export const WORK_PROJECTS = [
     subtitle: "Trust under pressure at check-in",
     tags: ["Systems", "Registration", "Physical × digital"],
     href: "#",
-    thumbnail: "/thumbnails/wac.jpg",
+    thumbnail: assetUrl("/thumbnails/wac.jpg"),
     theme: "wac"
   },
   {
@@ -26,7 +28,7 @@ export const WORK_PROJECTS = [
     subtitle: "Familiar patterns for wayfinding",
     tags: ["Concept", "AI product", "Research"],
     href: "#",
-    thumbnail: "/thumbnails/chatgpt-branches.jpg",
+    thumbnail: assetUrl("/thumbnails/chatgpt-branches.jpg"),
     theme: "branches"
   }
 ];
@@ -39,8 +41,8 @@ export const PLAY_PROJECTS = [
     subtitle: "Interactive · Multimedia",
     tags: ["Storytelling", "Web Audio", "Interactive"],
     href: "#",
-    thumbnail: "/thumbnails/anatomy-of-a-memory.jpg",
-    thumbnailVideo: "/play/anatomy-thumb.mov",
+    thumbnail: assetUrl("/thumbnails/anatomy-of-a-memory.jpg"),
+    thumbnailVideo: assetUrl("/play/anatomy-thumb.mov"),
     theme: "memory"
   },
   {
@@ -50,7 +52,7 @@ export const PLAY_PROJECTS = [
     subtitle: "Taste sharing · Music & media",
     tags: ["Firebase", "Social", "Web app"],
     href: "#",
-    thumbnail: "/thumbnails/our-bookshelf.jpg",
+    thumbnail: assetUrl("/thumbnails/our-bookshelf.jpg"),
     theme: "bookshelf"
   },
   {
@@ -60,7 +62,7 @@ export const PLAY_PROJECTS = [
     subtitle: "Art · Personal work",
     tags: ["Drawing", "Painting", "Mixed media"],
     href: "#",
-    thumbnail: "/thumbnails/my-gallery.jpg",
+    thumbnail: assetUrl("/thumbnails/my-gallery.jpg"),
     theme: "gallery"
   }
 ];

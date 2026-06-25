@@ -6,6 +6,7 @@ import {
   useState
 } from "react";
 import { useLocation } from "react-router-dom";
+import { assetUrl } from "../utils/assetUrl.js";
 import AboutPanel from "../components/AboutPanel.jsx";
 import PlayExpandPanel from "../components/PlayExpandPanel.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
@@ -44,7 +45,7 @@ function stepThumbSpring(value, velocity, target, dt) {
 }
 
 function CityWellScroll() {
-  const [appleSrc, setAppleSrc] = useState("/nyc-apple.png");
+  const [appleSrc, setAppleSrc] = useState(assetUrl("/nyc-apple.png"));
 
   return (
     <span className="city-well-track" aria-hidden="true">
@@ -55,14 +56,14 @@ function CityWellScroll() {
           alt=""
           decoding="async"
           onError={() => {
-            if (!appleSrc.endsWith(".svg")) setAppleSrc("/nyc-apple.svg");
+            if (!appleSrc.endsWith(".svg")) setAppleSrc(assetUrl("/nyc-apple.svg"));
           }}
         />
       </span>
       <span className="city-well-frame">
         <img
           className="city-well-maple"
-          src="/toronto-maple-syrup.png"
+          src={assetUrl("/toronto-maple-syrup.png")}
           alt=""
           decoding="async"
         />
