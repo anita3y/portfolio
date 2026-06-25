@@ -13,7 +13,7 @@ export const WAC_CASE_STUDY = {
       id: "problem",
       title: "The Problem",
       summary:
-        "The World Affairs Conference runs a large, in-person event every year—but registration and day-of check-in still relied on fragmented tools, manual spreadsheets, and a lot of volunteer guesswork.",
+        "The gap between what attendees expected from online sign-up and what volunteers faced at the door is a classic mental model mismatch. This wasn't a prettier-form problem—it was about trust under pressure, when stressed volunteers need a system that doesn't fail them at the check-in desk.",
       blocks: [
         {
           heading: "Manual registration chaos",
@@ -134,7 +134,7 @@ export const WAC_CASE_STUDY = {
       id: "solution",
       title: "Solution",
       summary:
-        "The final system centers on a single attendee record that travels from registration through check-in—so organizers and volunteers always see the same information.",
+        "The fix wasn't visual polish—it was making online registration and day-of check-in aware of each other, so organizers and volunteers always work from the same attendee record.",
       blocks: [
         {
           paragraphs: [

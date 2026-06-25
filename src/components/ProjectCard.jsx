@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, onExpand }) {
   const { title, year, subtitle, tags, href, thumbnail, thumbnailVideo, theme } = project;
   const isExternal = href.startsWith("http");
   const isInternal = href.startsWith("/");
-  const isLink = href !== "#";
+  const isLink = href !== "#" && !onExpand;
 
   const body = (
     <div className="project-card__frame">
@@ -33,32 +33,46 @@ function ProjectCard({ project }) {
           />
         )}
 
-        <div className="project-card__glass-tab">
+        <div className="project-card__glass-tab" data-cursor-morph="">
           <span className="project-card__name">{title}</span>
           {year && <span className="project-card__year">{year}</span>}
         </div>
-      </div>
 
-      {(subtitle || tags?.length > 0) && (
-        <div className="project-card__meta">
-          <div className="project-card__meta-inner">
-            {subtitle && <p className="project-card__subtitle">{subtitle}</p>}
-            {tags?.length > 0 && (
-              <ul className="project-card__tags" aria-label="Topics">
-                {tags.map((tag) => (
-                  <li key={tag} className="project-card__tag">
-                    {tag}
-                  </li>
-                ))}
-              </ul>
-            )}
+        {(subtitle || tags?.length > 0) && (
+          <div className="project-card__meta">
+            <div className="project-card__meta-inner">
+              {subtitle && <p className="project-card__subtitle">{subtitle}</p>}
+              {tags?.length > 0 && (
+                <ul className="project-card__tags" aria-label="Topics">
+                  {tags.map((tag) => (
+                    <li key={tag} className="project-card__tag">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 
   const label = year ? `${title}, ${year} — ${subtitle}` : `${title} — ${subtitle}`;
+
+  if (onExpand) {
+    return (
+      <button
+        type="button"
+        className="project-card project-card--expandable"
+        onClick={onExpand}
+        aria-label={label}
+        aria-haspopup="dialog"
+      >
+        {body}
+      </button>
+    );
+  }
 
   if (!isLink) {
     return (

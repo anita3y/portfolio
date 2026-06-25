@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
 import {
-  ABOUT_COMMUNITY,
+  ABOUT_OUTSIDE,
   ABOUT_PHILOSOPHY,
-  ABOUT_PORTRAIT,
-  ABOUT_SECTIONS,
-  MY_BOOKSHELF
+  ABOUT_SECTIONS
 } from "../data/about.js";
-import BookshelfEmbed from "./BookshelfEmbed.jsx";
+import AboutAnitaConnect from "./AboutAnitaConnect.jsx";
+import AboutDottedHover from "./AboutDottedHover.jsx";
+import AboutInlineVinyls from "./AboutInlineVinyls.jsx";
+import AboutTags from "./AboutTags.jsx";
 
 function renderPhilosophyParagraph(entry, key) {
   if (typeof entry === "string") {
@@ -33,103 +33,84 @@ function renderPhilosophyParagraph(entry, key) {
   );
 }
 
-export default function AboutPanel() {
-  const [activeId, setActiveId] = useState(ABOUT_SECTIONS[0]?.id ?? "");
-
-  useEffect(() => {
-    const ids = ABOUT_SECTIONS.map((s) => s.id);
-    const elements = ids.map((id) => document.getElementById(id)).filter(Boolean);
-    if (elements.length === 0) return undefined;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target?.id) setActiveId(visible[0].target.id);
-      },
-      { rootMargin: "-18% 0px -58% 0px", threshold: [0, 0.2, 0.45] }
+function renderOutsidePart(part, i) {
+  if (part.type === "link") {
+    return (
+      <a
+        key={`${part.href}-${i}`}
+        className="about-inline-link about-inline-link--heading"
+        href={part.href}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {part.label}
+      </a>
     );
+  }
 
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+  if (part.type === "dotted") {
+    return (
+      <AboutDottedHover
+        key={i}
+        label={part.value}
+        hoverTag={part.hoverTag}
+        imageSrc={part.imageSrc}
+        imageAlt={part.imageAlt}
+      />
+    );
+  }
 
+  if (part.type === "vinyls") {
+    return (
+      <AboutInlineVinyls
+        key={i}
+        label={part.label}
+        coverSrc={part.coverSrc}
+        recordSrc={part.recordSrc}
+        alt={part.alt}
+      />
+    );
+  }
+
+  return <span key={i}>{part.value}</span>;
+}
+
+const VINYL_PART_INDEX = ABOUT_OUTSIDE.findIndex((part) => part.type === "vinyls");
+const ABOUT_OUTSIDE_BEFORE_VINYL = ABOUT_OUTSIDE.slice(0, VINYL_PART_INDEX + 1);
+const ABOUT_OUTSIDE_AFTER_VINYL = ABOUT_OUTSIDE.slice(VINYL_PART_INDEX + 1);
+
+export default function AboutPanel() {
   return (
     <div className="about-page">
       <div className="about-body">
-        <aside className="about-sidebar" aria-label="About sections">
-          <ol className="about-sidebar__list">
-            {ABOUT_SECTIONS.map((section) => (
-              <li key={section.id}>
-                <a
-                  href={`#${section.id}`}
-                  className={activeId === section.id ? "is-active" : ""}
-                >
-                  {section.title}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </aside>
-
         <div className="about-content">
           <section id="hello" className="about-section about-section--hello">
-            <h2 className="about-section__title about-section__title--sr">hello!</h2>
+            <h2 className="about-section__title about-section__title--sr">
+              {ABOUT_SECTIONS.find((s) => s.id === "hello")?.title}
+            </h2>
             <div className="about-hello">
-              <img
-                className="about-portrait"
-                src={ABOUT_PORTRAIT}
-                alt="Portrait of Anita Yan"
-                width={320}
-                height={400}
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="about-hello__copy">
-                <p className="about-hello__heading">Hi, my name is Anita!</p>
-                <span className="about-tag about-tag--nyu">NYU</span>
+              <header className="about-hello__hero">
+                <div className="about-hello__intro">
+                  <p className="about-hello__heading">
+                    <span className="about-hello__chunk about-hello__chunk--intro">
+                      Hi, my name is <AboutAnitaConnect />!{" "}
+                    </span>
+                    <span className="about-hello__chunk about-hello__chunk--outside">
+                      {ABOUT_OUTSIDE_BEFORE_VINYL.map((part, i) => renderOutsidePart(part, i))}
+                    </span>
+                    <span className="about-hello__chunk about-hello__chunk--rest">
+                      {ABOUT_OUTSIDE_AFTER_VINYL.map((part, i) =>
+                        renderOutsidePart(part, i + VINYL_PART_INDEX + 1)
+                      )}
+                    </span>
+                  </p>
+                </div>
+              </header>
+              <div className="about-hello__body">
+                <AboutTags />
+                {ABOUT_PHILOSOPHY.map((entry, i) => renderPhilosophyParagraph(entry, i))}
               </div>
             </div>
-          </section>
-
-          <section id="philosophy" className="about-section about-section--philosophy">
-            <h2 className="about-section__title about-section__title--sr">philosophy</h2>
-            {ABOUT_PHILOSOPHY.map((entry, i) => renderPhilosophyParagraph(entry, i))}
-          </section>
-
-          <section id="bookshelf" className="about-section about-section--bookshelf">
-            <h2 className="about-section__title about-section__title--sr">my bookshelf</h2>
-            <BookshelfEmbed />
-            {MY_BOOKSHELF.paragraphs.map((p) => (
-              <p key={p} className="about-text">
-                {p}
-              </p>
-            ))}
-            <div className="about-links">
-              <a
-                className="about-link about-link--muted"
-                href={MY_BOOKSHELF.repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-            </div>
-          </section>
-
-          <section id="community" className="about-section">
-            <h2 className="about-section__title about-section__title--sr">community</h2>
-            {ABOUT_COMMUNITY.paragraphs.map((p) => (
-              <p key={p} className="about-text">
-                {p}
-              </p>
-            ))}
-            <ul className="about-list">
-              {ABOUT_COMMUNITY.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
           </section>
         </div>
       </div>

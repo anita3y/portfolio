@@ -1,35 +1,63 @@
-export const ABOUT_SECTIONS = [
-  { id: "hello", title: "hello!" },
-  { id: "philosophy", title: "philosophy" },
-  { id: "bookshelf", title: "my bookshelf" },
-  { id: "community", title: "community" }
+export const ABOUT_SECTIONS = [{ id: "hello", title: "Hello!" }];
+
+/** Inline copy with external links — rendered in order */
+export const ABOUT_OUTSIDE = [
+  { type: "text", value: "Outside of design you'll probably find me logging hidden gems on " },
+  { type: "link", label: "Corner", href: "https://www.corner.inc/nita3" },
+  { type: "text", value: ", hunting for " },
+  {
+    type: "vinyls",
+    label: "vinyls",
+    coverSrc: "/about/vinyl-undercurrent.png",
+    recordSrc: "/about/vinyl-record.png",
+    alt: "Bill Evans and Jim Hall — Undercurrent album cover with vinyl record"
+  },
+  { type: "text", value: " in the East Village, or making " },
+  { type: "dotted", value: "mango sticky rice", hoverTag: "thai cuisine is one of my favorites!", imageSrc: "/about/mango-sticky-rice.png", imageAlt: "Mango sticky rice on a white plate" },
+  { type: "text", value: "." }
 ];
 
+export const ABOUT_LINKEDIN = "https://www.linkedin.com/in/anita-yan-9ifg3426";
+
 export const ABOUT_PORTRAIT = "/about/portrait-photo.png";
+
+export const ABOUT_LOCATION = "NYC / TRT";
+
+export const ABOUT_EDUCATION = {
+  school: "NYU Tisch",
+  classYear: "Class of 2029",
+  major: "Interactive Media Arts Major",
+  minor: "Minor in Psychology"
+};
+
+export const ABOUT_PHOTOS = [
+  {
+    id: "portrait",
+    src: ABOUT_PORTRAIT,
+    alt: "Portrait of Anita Yan",
+    width: 724,
+    height: 1086
+  },
+  {
+    id: "flowers",
+    src: "/about/photo-flowers.png",
+    alt: "Anita with friends and a bouquet of flowers",
+    width: 542,
+    height: 360
+  }
+];
 
 export const ABOUT_PHILOSOPHY = [
   {
     before:
-      "I'm interested in art, psychology, and marketing, and how these intersect to design systems that help people ",
+      "I'm interested in behavior, systems, and information design, and how these intersect to help people ",
     emphasis: ["think", "decide", "act"],
     after: " more intuitively."
   },
-  "My work sits at the intersection of behavior, systems, and product—from designing habit-driven tools to structuring experiences that reduce friction and cognitive overload."
+  {
+    before: "My work puts that into practice—",
+    emphasis: ["solving complex and ambiguous problems"],
+    after:
+      "—from event registration and nonprofit platforms to AI navigation concepts, structuring experiences that reduce friction and cognitive overload when complexity starts to pile up."
+  }
 ];
-
-export const MY_BOOKSHELF = {
-  paragraphs: [
-    "A personal media library for movies, books, and albums I love—synced from Letterboxd, Goodreads, and Last.fm.",
-    "The three covers above are what I have pinned on my shelf right now. The full library is on the site linked in the corner."
-  ],
-  liveUrl: "https://anita3y.github.io/my-bookshelf/",
-  repoUrl: "https://github.com/anita3y/my-bookshelf"
-};
-
-export const ABOUT_COMMUNITY = {
-  paragraphs: [
-    "I'm part of Design for America @ NYU, where I care about making nonprofit and campus tools feel human—not just functional.",
-    "Outside formal projects, I like building in public: sharing works-in-progress, trading references, and learning from people who care about craft as much as shipping."
-  ],
-  items: ["Design for America @ NYU", "Campus design & product communities", "Open to collabs on playful web experiments"]
-};

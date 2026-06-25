@@ -13,7 +13,7 @@ export const CHATGPT_BRANCHES_CASE_STUDY = {
       id: "problem",
       title: "The Problem",
       summary:
-        "Long ChatGPT conversations become hard to navigate. You explore one tangent, lose the thread, and either start over or keep scrolling through a wall of text with no sense of where you are.",
+        "I studied why existing patterns work—iMessage, Slack, Notion—and what cognitive job they do: reduce search load in long conversations. The insight isn't a novel interaction language; familiarity beats novelty when people need to find their way back.",
       blocks: [
         {
           heading: "Linear threads don’t match how people think",
@@ -131,7 +131,7 @@ export const CHATGPT_BRANCHES_CASE_STUDY = {
       id: "solution",
       title: "Solution",
       summary:
-        "The concept combines Messages-style inline reply with a chapter system—so every branch has a clear origin and a place in the larger conversation.",
+        "The concept borrows proven mental models—inline reply and chapter navigation—so exploration feels reversible and the main thread stays readable.",
       blocks: [
         {
           heading: "Inline reply to any message",

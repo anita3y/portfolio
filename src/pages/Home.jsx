@@ -7,22 +7,28 @@ import {
 } from "react";
 import { useLocation } from "react-router-dom";
 import AboutPanel from "../components/AboutPanel.jsx";
-import HeroCurrently from "../components/HeroCurrently.jsx";
+import PlayExpandPanel from "../components/PlayExpandPanel.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
+import SiteFooter from "../components/SiteFooter.jsx";
+import WorkExpandPanel from "../components/WorkExpandPanel.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
 
 const TAGS = [
   { id: "product-designer", label: "product designer" },
-  { id: "jazz-enthusiast", label: "jazz-enthusiast" },
-  { id: "details-maximalist", label: "details maximalist" },
-  { id: "round-edges-warrior", label: "round-edges-warrior" },
-  { id: "storyteller", label: "storyteller" }
+  { id: "people-person", label: "people person" },
+  { id: "flow-mapper", label: "flow mapper" },
+  { id: "signpost-nerd", label: "signpost nerd" }
 ];
 
-const tabs = ["work", "play", "about"];
+const TABS = [
+  { id: "work", label: "Work" },
+  { id: "play", label: "Play" },
+  { id: "about", label: "About" }
+];
+const TAB_IDS = TABS.map((tab) => tab.id);
 
-/** Fixed apple-well width — matches storyteller label (longest stable slot). */
-const CITY_WELL_LABEL = "storyteller";
+/** Fixed apple-well width — matches longest hero tag label (stable slot). */
+const CITY_WELL_LABEL = "product designer";
 
 const PANEL_ANIM_MS = 480;
 const TAB_SWITCH_MS = 920;
@@ -65,11 +71,24 @@ function CityWellScroll() {
   );
 }
 
+const playIds = new Set(PLAY_PROJECTS.map((p) => p.id));
+const workIds = new Set(WORK_PROJECTS.map((p) => p.id));
+
 export default function Home() {
   const location = useLocation();
-  const initialTab = tabs.includes(location.state?.tab) ? location.state.tab : "work";
+  const initialTab = TAB_IDS.includes(location.state?.tab) ? location.state.tab : "work";
+  const initialOpenPlay =
+    typeof location.state?.openPlay === "string" && playIds.has(location.state.openPlay)
+      ? location.state.openPlay
+      : null;
+  const initialOpenWork =
+    typeof location.state?.openWork === "string" && workIds.has(location.state.openWork)
+      ? location.state.openWork
+      : null;
 
   const [activeTagId, setActiveTagId] = useState(TAGS[0].id);
+  const [openPlayId, setOpenPlayId] = useState(initialOpenPlay);
+  const [openWorkId, setOpenWorkId] = useState(initialOpenWork);
   const [panelMounted, setPanelMounted] = useState(false);
   const [panelPhase, setPanelPhase] = useState("closed");
   const [activeTab, setActiveTab] = useState(initialTab);
@@ -96,6 +115,22 @@ export default function Home() {
     document.title = "anita yan | Portfolio";
   }, []);
 
+  useEffect(() => {
+    const playId = location.state?.openPlay;
+    if (typeof playId === "string" && playIds.has(playId)) {
+      setActiveTab("play");
+      setOpenPlayId(playId);
+    }
+  }, [location.state?.openPlay]);
+
+  useEffect(() => {
+    const workId = location.state?.openWork;
+    if (typeof workId === "string" && workIds.has(workId)) {
+      setActiveTab("work");
+      setOpenWorkId(workId);
+    }
+  }, [location.state?.openWork]);
+
   const syncTagChipDims = useCallback(() => {
     const chip = tagChipRef.current;
     const slotLabel = tagSlotMeasureRef.current;
@@ -112,7 +147,7 @@ export default function Home() {
 
   const measureActiveTabThumb = useCallback(() => {
     const nav = tabsNavRef.current;
-    const idx = tabs.indexOf(activeTab);
+    const idx = TAB_IDS.indexOf(activeTab);
     const btn = tabBtnRefs.current[idx];
     if (!nav || !btn) return null;
     return {
@@ -262,11 +297,13 @@ export default function Home() {
   const selectTab = useCallback(
     (tab) => {
       if (tab === activeTab) return;
-      const from = tabs.indexOf(activeTab);
-      const to = tabs.indexOf(tab);
+      const from = TAB_IDS.indexOf(activeTab);
+      const to = TAB_IDS.indexOf(tab);
       setTabPanelDir(to === from ? 0 : to > from ? 1 : -1);
       setTabSwitching(true);
       setActiveTab(tab);
+      if (tab !== "play") setOpenPlayId(null);
+      if (tab !== "work") setOpenWorkId(null);
     },
     [activeTab]
   );
@@ -374,10 +411,7 @@ export default function Home() {
 
   return (
     <div className="page" style={chipCssVars}>
-      <p className="brand">anita yan</p>
-
       <header className="hero">
-        <div className="hero__stack">
         <h1>
           Anita is a{" "}
           <span
@@ -399,6 +433,7 @@ export default function Home() {
                 className={`chip-icon ${
                   chipMenuActive ? "chip-icon--close" : "chip-icon--plus"
                 }`}
+                data-cursor-morph={chipMenuActive ? undefined : ""}
                 aria-hidden="true"
               />
             </button>
@@ -433,7 +468,7 @@ export default function Home() {
             )}
           </span>
           <span ref={tagSlotMeasureRef} className="tag-slot-measure" aria-hidden="true">
-            <span className="tag-chip-label tag-chip--storyteller">{CITY_WELL_LABEL}</span>
+            <span className="tag-chip-label tag-chip--product-designer">{CITY_WELL_LABEL}</span>
           </span>
           <br />
           based in{" "}
@@ -449,8 +484,6 @@ export default function Home() {
             </span>
           </span>
         </h1>
-        <HeroCurrently />
-        </div>
       </header>
 
       <div className="main-nav">
@@ -460,17 +493,18 @@ export default function Home() {
           aria-label="Site sections"
         >
           <span className="tabs__thumb" ref={tabThumbRef} aria-hidden="true" />
-          {tabs.map((tab, i) => (
+          {TABS.map((tab, i) => (
             <button
-              key={tab}
+              key={tab.id}
               ref={(el) => {
                 tabBtnRefs.current[i] = el;
               }}
               type="button"
-              className={`tab ${activeTab === tab ? "active" : ""}`}
-              onClick={() => selectTab(tab)}
+              className={`tab ${activeTab === tab.id ? "active" : ""}`}
+              data-cursor-morph=""
+              onClick={() => selectTab(tab.id)}
             >
-              {tab}
+              {tab.label}
             </button>
           ))}
         </nav>
@@ -486,7 +520,10 @@ export default function Home() {
           <div className="project-grid" role="list">
             {WORK_PROJECTS.map((project) => (
               <div key={project.id} className="project-grid__item" role="listitem">
-                <ProjectCard project={project} />
+                <ProjectCard
+                  project={project}
+                  onExpand={() => setOpenWorkId(project.id)}
+                />
               </div>
             ))}
           </div>
@@ -496,7 +533,10 @@ export default function Home() {
           <div className="project-grid project-grid--play" role="list">
             {PLAY_PROJECTS.map((project) => (
               <div key={project.id} className="project-grid__item" role="listitem">
-                <ProjectCard project={project} />
+                <ProjectCard
+                  project={project}
+                  onExpand={() => setOpenPlayId(project.id)}
+                />
               </div>
             ))}
           </div>
@@ -504,6 +544,16 @@ export default function Home() {
 
         {activeTab === "about" && <AboutPanel />}
       </section>
+
+      <SiteFooter />
+
+      {openPlayId && (
+        <PlayExpandPanel playId={openPlayId} onClose={() => setOpenPlayId(null)} />
+      )}
+
+      {openWorkId && (
+        <WorkExpandPanel workId={openWorkId} onClose={() => setOpenWorkId(null)} />
+      )}
     </div>
   );
 }

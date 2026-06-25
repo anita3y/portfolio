@@ -13,7 +13,7 @@ export const DFA_CASE_STUDY = {
       id: "problem",
       title: "The Problem",
       summary:
-        "DFA @ NYU needed a consolidated digital platform to connect students, alumni, and partners—while the existing site no longer reflected how the chapter actually worked.",
+        "The problem wasn't aesthetics—it was that alumni, partners, and new members had no clear entry point, and content scattered across folders made the chapter's work invisible. Engagement died at the front door before anyone could see the impact.",
       blocks: [
         {
           heading: "A disconnected network",
@@ -120,7 +120,7 @@ export const DFA_CASE_STUDY = {
       id: "solution",
       title: "Solution",
       summary:
-        "The site was designed as a clean, modular system in Framer—supporting both current needs and future chapter growth.",
+        "The site addresses a structural trust problem—information architecture and scannable project stories so each audience can form an accurate picture of what the chapter does.",
       blocks: [
         {
           paragraphs: [

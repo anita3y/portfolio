@@ -1,19 +1,19 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import PlayProjectContent from "./PlayProjectContent.jsx";
+import GalleryContent from "./GalleryContent.jsx";
 
-export default function PlayProjectLayout({ project }) {
+export default function GalleryLayout({ gallery }) {
   useEffect(() => {
-    document.title = `${project.title} | anita yan`;
+    document.title = `${gallery.title} | anita yan`;
     return () => {
       document.title = "anita yan | Portfolio";
     };
-  }, [project.title]);
+  }, [gallery.title]);
 
   return (
-    <div className="play-page">
+    <div className="gallery-page">
       <nav className="cs-breadcrumb" aria-label="Breadcrumb">
-        {project.breadcrumb?.map((crumb, i) => (
+        {gallery.breadcrumb?.map((crumb, i) => (
           <span key={crumb}>
             {i > 0 && <span className="cs-breadcrumb__sep"> / </span>}
             {crumb}
@@ -21,9 +21,9 @@ export default function PlayProjectLayout({ project }) {
         ))}
       </nav>
 
-      <PlayProjectContent project={project} />
+      <GalleryContent gallery={gallery} />
 
-      <footer className="play-footer">
+      <footer className="gallery-footer">
         <Link className="cs-back" to="/" state={{ tab: "play" }}>
           ← Back to play
         </Link>
