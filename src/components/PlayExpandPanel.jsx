@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { getPlayEntry } from "../data/play/index.js";
-import GalleryContent from "./GalleryContent.jsx";
 import PlayProjectContent from "./PlayProjectContent.jsx";
 
 export default function PlayExpandPanel({ playId, onClose }) {
@@ -44,11 +43,7 @@ export default function PlayExpandPanel({ playId, onClose }) {
           </button>
         </div>
         <div className="play-expand__scroll">
-          {entry.type === "gallery" ? (
-            <GalleryContent gallery={entry.data} />
-          ) : (
-            <PlayProjectContent project={entry.data} />
-          )}
+          <PlayProjectContent project={entry.data} />
         </div>
       </div>
     </div>

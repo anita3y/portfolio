@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], input, textarea, select, label, summary, [data-cursor-hover]';
 
-const GROW_SELECTOR = ".brand, .project-card__media, [data-cursor-grow]";
+const GROW_SELECTOR = ".brand, [data-cursor-grow]";
 
 const DEFAULT_SIZE = 26;
 const GROW_SIZE = 40;
@@ -18,7 +18,7 @@ const LAYERED_MORPH_HOSTS = [
   { match: ".tab", host: ".tabs" },
   { match: ".chip-icon[data-cursor-morph]", host: ".tag-chip" },
   { match: ".site-footer__link[data-cursor-morph]", host: ".site-footer__nav" },
-  { match: ".project-card__glass-tab[data-cursor-morph]", host: ".project-card__media" },
+  { match: ".project-card__media[data-cursor-morph]", host: ".project-card__frame" },
   {
     match: ".work-expand__toggle[data-cursor-morph], .work-expand__close[data-cursor-morph]",
     host: ".work-expand__header-btn-host"

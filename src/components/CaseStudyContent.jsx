@@ -1,6 +1,46 @@
 import { useEffect, useState } from "react";
 import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
 
+const DEFAULT_HERO_SLIDE_MS = 500;
+
+function CaseStudyHeroMedia({ heroSlides, heroSlideInterval, heroPlaceholder }) {
+  const [slideIndex, setSlideIndex] = useState(0);
+  const slides = heroSlides?.length ? heroSlides : null;
+  const intervalMs = heroSlideInterval ?? DEFAULT_HERO_SLIDE_MS;
+
+  useEffect(() => {
+    if (!slides?.length) return undefined;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return undefined;
+
+    const timer = window.setInterval(() => {
+      setSlideIndex((current) => (current + 1) % slides.length);
+    }, intervalMs);
+
+    return () => window.clearInterval(timer);
+  }, [slides, intervalMs]);
+
+  if (slides) {
+    return (
+      <div className="cs-placeholder cs-placeholder--hero cs-hero-slides" aria-hidden="true">
+        {slides.map((src, index) => (
+          <img
+            key={src}
+            className={["cs-hero-slide", index === slideIndex && "is-active"].filter(Boolean).join(" ")}
+            src={src}
+            alt=""
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return <div className="cs-placeholder cs-placeholder--hero">{heroPlaceholder}</div>;
+}
+
 function CaseStudySection({ section, children }) {
   return (
     <section id={section.id} className="cs-section">
@@ -66,7 +106,7 @@ function TextBlock({ block }) {
 }
 
 export function CaseStudyPreview({ study, compact = false }) {
-  const { title, meta, heroPlaceholder } = study;
+  const { title, meta, heroPlaceholder, heroSlides, heroSlideInterval } = study;
 
   return (
     <header className={`cs-header cs-header--preview${compact ? " cs-header--compact" : ""}`}>
@@ -82,7 +122,11 @@ export function CaseStudyPreview({ study, compact = false }) {
           ))}
         </ul>
       )}
-      <div className="cs-placeholder cs-placeholder--hero">{heroPlaceholder}</div>
+      <CaseStudyHeroMedia
+        heroSlides={heroSlides}
+        heroSlideInterval={heroSlideInterval}
+        heroPlaceholder={heroPlaceholder}
+      />
     </header>
   );
 }

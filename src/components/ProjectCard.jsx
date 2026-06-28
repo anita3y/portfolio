@@ -1,59 +1,130 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+const DEFAULT_SLIDE_MS = 500;
+
+function ProjectCardMedia({
+  thumbnail,
+  thumbnailVideo,
+  thumbnailSlides,
+  thumbnailSlideInterval,
+  thumbMissing,
+  setThumbMissing
+}) {
+  const [slideIndex, setSlideIndex] = useState(0);
+  const slides = thumbnailSlides?.length ? thumbnailSlides : null;
+  const intervalMs = thumbnailSlideInterval ?? DEFAULT_SLIDE_MS;
+
+  useEffect(() => {
+    if (!slides?.length) return undefined;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return undefined;
+
+    const timer = window.setInterval(() => {
+      setSlideIndex((current) => (current + 1) % slides.length);
+    }, intervalMs);
+
+    return () => window.clearInterval(timer);
+  }, [slides, intervalMs]);
+
+  if (thumbnailVideo) {
+    return (
+      <video
+        className="project-card__video"
+        src={thumbnailVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        aria-hidden="true"
+        onError={() => setThumbMissing(true)}
+      />
+    );
+  }
+
+  if (slides) {
+    return (
+      <div className="project-card__slides" aria-hidden="true">
+        {slides.map((src, index) => (
+          <img
+            key={src}
+            className={["project-card__slide", index === slideIndex && "is-active"]
+              .filter(Boolean)
+              .join(" ")}
+            src={src}
+            alt=""
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+            onError={() => {
+              if (index === 0) setThumbMissing(true);
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      className="project-card__img"
+      src={thumbnail}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      onError={() => setThumbMissing(true)}
+    />
+  );
+}
+
 function ProjectCard({ project, onExpand }) {
-  const { title, year, subtitle, tags, href, thumbnail, thumbnailVideo, theme } = project;
+  const {
+    title,
+    year,
+    subtitle,
+    href,
+    thumbnail,
+    thumbnailVideo,
+    thumbnailSlides,
+    thumbnailSlideInterval,
+    theme
+  } = project;
+  const [thumbMissing, setThumbMissing] = useState(false);
   const isExternal = href.startsWith("http");
   const isInternal = href.startsWith("/");
   const isLink = href !== "#" && !onExpand;
 
   const body = (
     <div className="project-card__frame">
-      <div className={`project-card__media project-card__media--${theme}`}>
-        {thumbnailVideo ? (
-          <video
-            className="project-card__video"
-            src={thumbnailVideo}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            aria-hidden="true"
-          />
-        ) : (
-          <img
-            className="project-card__img"
-            src={thumbnail}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            onError={(e) => {
-              e.currentTarget.style.display = "none";
-            }}
-          />
-        )}
+      <div
+        className={[
+          "project-card__media",
+          `project-card__media--${theme}`,
+          thumbMissing && "project-card__media--no-thumb"
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        data-cursor-morph=""
+      >
+        <ProjectCardMedia
+          thumbnail={thumbnail}
+          thumbnailVideo={thumbnailVideo}
+          thumbnailSlides={thumbnailSlides}
+          thumbnailSlideInterval={thumbnailSlideInterval}
+          thumbMissing={thumbMissing}
+          setThumbMissing={setThumbMissing}
+        />
+      </div>
 
-        <div className="project-card__glass-tab" data-cursor-morph="">
-          <span className="project-card__name">{title}</span>
-          {year && <span className="project-card__year">{year}</span>}
-        </div>
-
-        {(subtitle || tags?.length > 0) && (
-          <div className="project-card__meta">
-            <div className="project-card__meta-inner">
-              {subtitle && <p className="project-card__subtitle">{subtitle}</p>}
-              {tags?.length > 0 && (
-                <ul className="project-card__tags" aria-label="Topics">
-                  {tags.map((tag) => (
-                    <li key={tag} className="project-card__tag">
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        )}
+      <div className="project-card__caption" aria-hidden="true">
+        <p className="project-card__caption-line">
+          <span className="project-card__caption-title">
+            <span className="project-card__name">{title}</span>
+            {year && <span className="project-card__year">{year}</span>}
+          </span>
+          {subtitle && <span className="project-card__subtitle">{subtitle}</span>}
+        </p>
       </div>
     </div>
   );

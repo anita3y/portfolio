@@ -1,13 +1,21 @@
+import { assetUrl } from "../../utils/assetUrl.js";
+
 export const DFA_CASE_STUDY = {
   id: "design-for-america",
   breadcrumb: ["Portfolio", "Work: Design for America"],
   title: "Design for America x NYU",
   meta: {
     role: "Product design · Web",
-    timeline: "2024–2025",
+    timeline: "2025",
     tools: ["Framer", "Figma", "Notion"]
   },
-  heroPlaceholder: "Hero — final site overview or key screen",
+  heroSlides: [
+    assetUrl("/case-studies/dfa/banner-01.png"),
+    assetUrl("/case-studies/dfa/banner-02.png"),
+    assetUrl("/case-studies/dfa/banner-03.png"),
+    assetUrl("/case-studies/dfa/banner-04.png")
+  ],
+  heroSlideInterval: 500,
   sections: [
     {
       id: "problem",

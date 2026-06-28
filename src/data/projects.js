@@ -2,30 +2,36 @@ import { assetUrl } from "../utils/assetUrl.js";
 
 export const WORK_PROJECTS = [
   {
-    id: "design-for-america",
-    title: "Design for America",
-    year: "2024",
-    subtitle: "Trust, IA & nonprofit web",
-    tags: ["Framer", "Content strategy", "Nonprofit"],
-    href: "#",
-    thumbnail: assetUrl("/thumbnails/dfa.jpg"),
-    theme: "dfa"
-  },
-  {
     id: "world-affairs-conference",
     title: "World Affairs Conference",
-    year: "2025",
-    subtitle: "Trust under pressure at check-in",
+    year: "2024",
+    subtitle: "Registration that works on event day",
     tags: ["Systems", "Registration", "Physical × digital"],
     href: "#",
-    thumbnail: assetUrl("/thumbnails/wac.jpg"),
+    thumbnail: assetUrl("/thumbnails/wac.png"),
     theme: "wac"
+  },
+  {
+    id: "design-for-america",
+    title: "Design for America",
+    year: "2025",
+    subtitle: "Scalable nonprofit site, easier to navigate",
+    tags: ["Framer", "Content strategy", "Nonprofit"],
+    href: "#",
+    thumbnailSlides: [
+      assetUrl("/thumbnails/dfa/frame-02.png"),
+      assetUrl("/thumbnails/dfa/frame-01.png"),
+      assetUrl("/thumbnails/dfa/frame-03.png"),
+      assetUrl("/thumbnails/dfa/frame-04.png")
+    ],
+    thumbnailSlideInterval: 500,
+    theme: "dfa"
   },
   {
     id: "chatgpt-branches",
     title: "ChatGPT Branches",
     year: "2025",
-    subtitle: "Familiar patterns for wayfinding",
+    subtitle: "Familiar navigation for long AI chats",
     tags: ["Concept", "AI product", "Research"],
     href: "#",
     thumbnail: assetUrl("/thumbnails/chatgpt-branches.jpg"),
@@ -44,25 +50,5 @@ export const PLAY_PROJECTS = [
     thumbnail: assetUrl("/thumbnails/anatomy-of-a-memory.jpg"),
     thumbnailVideo: assetUrl("/play/anatomy-thumb.mov"),
     theme: "memory"
-  },
-  {
-    id: "our-bookshelf",
-    title: "Our Bookshelf",
-    year: "2025",
-    subtitle: "Taste sharing · Music & media",
-    tags: ["Firebase", "Social", "Web app"],
-    href: "#",
-    thumbnail: assetUrl("/thumbnails/our-bookshelf.jpg"),
-    theme: "bookshelf"
-  },
-  {
-    id: "my-gallery",
-    title: "My Gallery",
-    year: "2025",
-    subtitle: "Art · Personal work",
-    tags: ["Drawing", "Painting", "Mixed media"],
-    href: "#",
-    thumbnail: assetUrl("/thumbnails/my-gallery.jpg"),
-    theme: "gallery"
   }
 ];

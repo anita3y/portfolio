@@ -4,7 +4,7 @@ export const WAC_CASE_STUDY = {
   title: "World Affairs Conference",
   meta: {
     role: "Product design · Systems",
-    timeline: "2024–2025",
+    timeline: "2024",
     tools: ["Figma", "Google Sheets", "Notion"]
   },
   heroPlaceholder: "Hero — registration dashboard or check-in flow overview",
