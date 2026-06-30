@@ -1,6 +1,8 @@
 import PlayProjectLayout from "../components/PlayProjectLayout.jsx";
-import { ANATOMY_OF_A_MEMORY } from "../data/play/anatomy-of-a-memory.js";
+import { getPlayStudy } from "../data/play/index.js";
 
 export default function AnatomyOfAMemoryPlay() {
-  return <PlayProjectLayout project={ANATOMY_OF_A_MEMORY} />;
+  const study = getPlayStudy("anatomy-of-a-memory");
+  if (!study) return null;
+  return <PlayProjectLayout study={study} />;
 }

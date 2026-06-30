@@ -83,12 +83,14 @@ function ProjectCard({ project, onExpand }) {
     title,
     year,
     subtitle,
+    tags,
     href,
     thumbnail,
     thumbnailVideo,
     thumbnailSlides,
     thumbnailSlideInterval,
-    theme
+    theme,
+    displayOnly
   } = project;
   const [thumbMissing, setThumbMissing] = useState(false);
   const isExternal = href.startsWith("http");
@@ -105,7 +107,7 @@ function ProjectCard({ project, onExpand }) {
         ]
           .filter(Boolean)
           .join(" ")}
-        data-cursor-morph=""
+        data-cursor-morph={displayOnly ? undefined : ""}
       >
         <ProjectCardMedia
           thumbnail={thumbnail}
@@ -115,16 +117,28 @@ function ProjectCard({ project, onExpand }) {
           thumbMissing={thumbMissing}
           setThumbMissing={setThumbMissing}
         />
-      </div>
 
-      <div className="project-card__caption" aria-hidden="true">
-        <p className="project-card__caption-line">
-          <span className="project-card__caption-title">
-            <span className="project-card__name">{title}</span>
-            {year && <span className="project-card__year">{year}</span>}
-          </span>
-          {subtitle && <span className="project-card__subtitle">{subtitle}</span>}
-        </p>
+        <div className="project-card__glass-tab" data-cursor-morph={displayOnly ? undefined : ""}>
+          <span className="project-card__name">{title}</span>
+          {year && <span className="project-card__year">{year}</span>}
+        </div>
+
+        {(subtitle || tags?.length > 0) && (
+          <div className="project-card__meta">
+            <div className="project-card__meta-inner">
+              {tags?.length > 0 && (
+                <ul className="project-card__tags" aria-label="Topics">
+                  {tags.map((tag) => (
+                    <li key={tag} className="project-card__tag">
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {subtitle && <p className="project-card__subtitle">{subtitle}</p>}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -147,7 +161,12 @@ function ProjectCard({ project, onExpand }) {
 
   if (!isLink) {
     return (
-      <article className="project-card" aria-label={label}>
+      <article
+        className={["project-card", displayOnly && "project-card--display-only"]
+          .filter(Boolean)
+          .join(" ")}
+        aria-label={label}
+      >
         {body}
       </article>
     );

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CaseStudyBody, CaseStudyPreview } from "./CaseStudyContent.jsx";
 
 export default function CaseStudyLayout({ study }) {
-  const { title } = study;
+  const { title, backTab = "work" } = study;
 
   useEffect(() => {
     document.title = `${title} | anita yan`;
@@ -18,8 +18,8 @@ export default function CaseStudyLayout({ study }) {
       <CaseStudyBody study={study} />
 
       <footer className="cs-footer">
-        <Link className="cs-back" to="/" state={{ tab: "work" }}>
-          ← Back to work
+        <Link className="cs-back" to="/" state={{ tab: backTab }}>
+          ← Back to {backTab}
         </Link>
       </footer>
     </div>

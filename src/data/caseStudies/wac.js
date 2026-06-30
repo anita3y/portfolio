@@ -1,3 +1,17 @@
+import { assetUrl } from "../../utils/assetUrl.js";
+
+const BANNER = assetUrl("/case-studies/wac/banner.png");
+const REGISTRATION_MAP = assetUrl("/case-studies/wac/registration-map.png");
+const KEY_FLOWS = assetUrl("/case-studies/wac/key-flows.png");
+const MOBILE_CHECK_IN = assetUrl("/case-studies/wac/mobile-check-in.png");
+const UNIFIED_RECORD = assetUrl("/case-studies/wac/unified-attendee-record.png");
+const STATUS_TAGS = assetUrl("/case-studies/wac/status-tags.png");
+const VOLUNTEER_CHECK_IN = assetUrl("/case-studies/wac/volunteer-check-in.png");
+const DEMO_PHONE = assetUrl("/case-studies/wac/demos/phone-demo.mov");
+const DEMO_CHECKIN_OMAR = assetUrl("/case-studies/wac/demos/check-in-omar.mov");
+const DEMO_ADMIN_TAGS = assetUrl("/case-studies/wac/demos/admin-tags.mov");
+const DEMO_ADMIN_CHECK_PENDING = assetUrl("/case-studies/wac/demos/admin-check-pending.mov");
+
 export const WAC_CASE_STUDY = {
   id: "world-affairs-conference",
   breadcrumb: ["Portfolio", "Work: World Affairs Conference"],
@@ -7,7 +21,14 @@ export const WAC_CASE_STUDY = {
     timeline: "2024",
     tools: ["Figma", "Google Sheets", "Notion"]
   },
-  heroPlaceholder: "Hero — registration dashboard or check-in flow overview",
+  heroSlides: [
+    {
+      src: BANNER,
+      alt: "World Affairs Conference dashboard showing 847 registered, 612 checked in, and 235 pending"
+    }
+  ],
+  heroAspectRatio: "1358 / 438",
+  heroFlat: true,
   sections: [
     {
       id: "problem",
@@ -87,7 +108,13 @@ export const WAC_CASE_STUDY = {
             "Documented the full journey: sign-up → confirmation → reminder → arrival → check-in → session access.",
             "Identified duplicate data entry as the biggest time sink.",
             "Found that printed backups were still necessary because the digital tool wasn’t trusted on event day."
-          ]
+          ],
+          image: {
+            src: REGISTRATION_MAP,
+            alt: "Before and after diagram comparing fragmented Google Form to spreadsheet to printed list workflow against a unified attendee record with organizer and volunteer views",
+            caption: "Before: sign-up reality ≠ day-of reality. After: one record, two views.",
+            wide: true
+          }
         },
         {
           heading: "Key insights",
@@ -107,26 +134,48 @@ export const WAC_CASE_STUDY = {
       blocks: [
         {
           heading: "Key flows",
-          layout: "flows",
-          items: [
-            "Attendee registration & confirmation",
-            "Organizer review & export",
-            "Day-of check-in & status updates"
-          ]
+          paragraphs: [
+            "Three flows anchored the system: what attendees experience online, what organizers need before and during the event, and what volunteers do at the door."
+          ],
+          image: {
+            src: KEY_FLOWS,
+            alt: "Three user flows for attendee registration and confirmation, organizer review and export, and day-of check-in with status updates",
+            caption: "Registration → review → check-in",
+            wide: true
+          }
         },
         {
           heading: "System components",
-          layout: "cards",
-          items: [
-            "Unified attendee record",
-            "Status tags & filters",
-            "Volunteer check-in view"
+          layout: "wireframes",
+          images: [
+            {
+              src: UNIFIED_RECORD,
+              alt: "Organizer dashboard showing registered, checked in, and pending counts with attendee table",
+              caption: "Unified attendee record"
+            },
+            {
+              src: STATUS_TAGS,
+              alt: "Attendee list with All, Checked in, and Pending status filter tags",
+              caption: "Status tags & filters"
+            },
+            {
+              src: VOLUNTEER_CHECK_IN,
+              alt: "Volunteer check-in view with searchable attendee list and mark-as-checked-in action",
+              caption: "Volunteer check-in view"
+            }
           ]
         },
         {
-          heading: "Wireframes & iterations",
-          layout: "wireframes",
-          placeholder: "Early wireframes — admin view and check-in screen"
+          heading: "Mobile check-in",
+          paragraphs: [
+            "Volunteers needed a phone-friendly view: search by name, filter by status, expand a record, and mark arrived—or scan a QR code at the door."
+          ],
+          image: {
+            src: MOBILE_CHECK_IN,
+            alt: "Four iPhone wireframes showing check-in list with All, search, Checked in, and Not Arrived filter states",
+            caption: "Mobile check-in — search, filter, and one-tap arrival",
+            wide: true
+          }
         }
       ]
     },
@@ -138,8 +187,47 @@ export const WAC_CASE_STUDY = {
       blocks: [
         {
           paragraphs: [
-            "Organizers get a dashboard-style view to filter by payment status, school, dietary needs, and check-in state. Instead of juggling spreadsheets, they work from one structured list that updates in real time.",
+            "Organizers get a dashboard-style view to filter by payment status, school, dietary needs, and check-in state. Instead of juggling spreadsheets, they work from one structured list that updates in real time."
+          ]
+        },
+        {
+          heading: "Organizer dashboard",
+          layout: "videos",
+          videoVariant: "desktop",
+          videos: [
+            {
+              src: DEMO_ADMIN_TAGS,
+              alt: "Organizer filtering the attendee list by status tags",
+              caption: "Status tags — filter by checked in, pending, and more"
+            }
+          ]
+        },
+        {
+          layout: "videos",
+          videoVariant: "desktop",
+          videos: [
+            {
+              src: DEMO_ADMIN_CHECK_PENDING,
+              alt: "Organizer reviewing check-in progress and pending attendees",
+              caption: "Check-in progress — see who’s arrived vs. still pending"
+            }
+          ]
+        },
+        {
+          paragraphs: [
             "At the event, volunteers use a simplified check-in interface: search a name, confirm details, mark arrived. The design prioritizes legibility, large tap targets, and obvious success/error states—because this runs on a laptop at a crowded table, not in a quiet office."
+          ]
+        },
+        {
+          heading: "Volunteer check-in",
+          layout: "videos",
+          videoVariant: "desktop",
+          videos: [
+            {
+              src: DEMO_CHECKIN_OMAR,
+              alt: "Volunteer searching for Omar and marking them as checked in on desktop",
+              caption: "Check someone in — search, confirm, mark arrived"
+            }
           ]
         },
         {
@@ -149,11 +237,24 @@ export const WAC_CASE_STUDY = {
             "Printed backup lists auto-generate from the same data source—no separate manual export.",
             "Status changes at check-in sync back so session leads know who’s in the building."
           ]
+        },
+        {
+          heading: "Phone demo",
+          paragraphs: [
+            "On event day, volunteers can also run check-in from a phone—search by name, filter by arrival status, or scan a QR code at the door."
+          ],
+          layout: "videos",
+          videoVariant: "phone",
+          videoAspectRatio: "1860 / 1432",
+          videos: [
+            {
+              src: DEMO_PHONE,
+              alt: "Full mobile check-in demo showing search, status filters, and QR scan",
+              caption: "Mobile check-in — search, filter, and scan"
+            }
+          ]
         }
-      ],
-      media: {
-        placeholder: "Final screens — organizer dashboard & volunteer check-in view"
-      }
+      ]
     },
     {
       id: "reflection",
@@ -165,7 +266,7 @@ export const WAC_CASE_STUDY = {
           heading: "Results",
           bullets: [
             "Consolidated registration into a single workflow with clearer attendee statuses.",
-            "Reduced pre-event data cleanup time (placeholder—add your actual numbers).",
+            "Cut pre-event data cleanup from hours of spreadsheet reconciliation to a single exportable list.",
             "Volunteer check-in interface designed for low training and high-stress environments.",
             "Handoff docs for next year’s organizing team."
           ]

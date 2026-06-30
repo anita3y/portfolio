@@ -9,6 +9,7 @@ export const WORK_PROJECTS = [
     tags: ["Systems", "Registration", "Physical × digital"],
     href: "#",
     thumbnail: assetUrl("/thumbnails/wac.png"),
+    thumbnailVideo: assetUrl("/case-studies/wac/demos/admin-tags.mov"),
     theme: "wac"
   },
   {
@@ -35,6 +36,7 @@ export const WORK_PROJECTS = [
     tags: ["Concept", "AI product", "Research"],
     href: "#",
     thumbnail: assetUrl("/thumbnails/chatgpt-branches.jpg"),
+    thumbnailVideo: assetUrl("/thumbnails/chatgpt-branches-card.mov"),
     theme: "branches"
   }
 ];
@@ -43,12 +45,34 @@ export const PLAY_PROJECTS = [
   {
     id: "anatomy-of-a-memory",
     title: "Anatomy of a Memory",
-    year: "2025",
+    year: "2026",
     subtitle: "Interactive · Multimedia",
     tags: ["Storytelling", "Web Audio", "Interactive"],
     href: "#",
     thumbnail: assetUrl("/thumbnails/anatomy-of-a-memory.jpg"),
-    thumbnailVideo: assetUrl("/play/anatomy-thumb.mov"),
+    thumbnailVideo: assetUrl("/thumbnails/anatomy-of-a-memory-card.mov"),
     theme: "memory"
+  },
+  {
+    id: "femizon-website",
+    title: "Femizon Website",
+    year: "2025",
+    subtitle: "Website walkthrough",
+    tags: ["Web", "Motion"],
+    href: "#",
+    thumbnailVideo: assetUrl("/thumbnails/femizon-website-card.mov"),
+    theme: "femizon",
+    displayOnly: true
+  },
+  {
+    id: "artifacts-poster",
+    title: "Artifacts Poster",
+    year: "2025",
+    subtitle: "Poster · Motion",
+    tags: ["Print", "Motion"],
+    href: "#",
+    thumbnailVideo: assetUrl("/thumbnails/artifacts-poster-card.mov"),
+    theme: "artifacts",
+    displayOnly: true
   }
 ];

@@ -1,33 +1,5 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import PlayProjectContent from "./PlayProjectContent.jsx";
+import CaseStudyLayout from "./CaseStudyLayout.jsx";
 
-export default function PlayProjectLayout({ project }) {
-  useEffect(() => {
-    document.title = `${project.title} | anita yan`;
-    return () => {
-      document.title = "anita yan | Portfolio";
-    };
-  }, [project.title]);
-
-  return (
-    <div className="play-page">
-      <nav className="cs-breadcrumb" aria-label="Breadcrumb">
-        {project.breadcrumb?.map((crumb, i) => (
-          <span key={crumb}>
-            {i > 0 && <span className="cs-breadcrumb__sep"> / </span>}
-            {crumb}
-          </span>
-        ))}
-      </nav>
-
-      <PlayProjectContent project={project} />
-
-      <footer className="play-footer">
-        <Link className="cs-back" to="/" state={{ tab: "play" }}>
-          ← Back to play
-        </Link>
-      </footer>
-    </div>
-  );
+export default function PlayProjectLayout({ study }) {
+  return <CaseStudyLayout study={study} />;
 }

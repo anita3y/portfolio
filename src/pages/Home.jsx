@@ -73,6 +73,9 @@ function CityWellScroll() {
 }
 
 const playIds = new Set(PLAY_PROJECTS.map((p) => p.id));
+const displayOnlyPlayIds = new Set(
+  PLAY_PROJECTS.filter((project) => project.displayOnly).map((project) => project.id)
+);
 const workIds = new Set(WORK_PROJECTS.map((p) => p.id));
 
 export default function Home() {
@@ -118,7 +121,7 @@ export default function Home() {
 
   useEffect(() => {
     const playId = location.state?.openPlay;
-    if (typeof playId === "string" && playIds.has(playId)) {
+    if (typeof playId === "string" && playIds.has(playId) && !displayOnlyPlayIds.has(playId)) {
       setActiveTab("play");
       setOpenPlayId(playId);
     }
@@ -536,7 +539,9 @@ export default function Home() {
               <div key={project.id} className="project-grid__item" role="listitem">
                 <ProjectCard
                   project={project}
-                  onExpand={() => setOpenPlayId(project.id)}
+                  onExpand={
+                    project.displayOnly ? undefined : () => setOpenPlayId(project.id)
+                  }
                 />
               </div>
             ))}

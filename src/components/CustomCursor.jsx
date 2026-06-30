@@ -19,6 +19,7 @@ const LAYERED_MORPH_HOSTS = [
   { match: ".chip-icon[data-cursor-morph]", host: ".tag-chip" },
   { match: ".site-footer__link[data-cursor-morph]", host: ".site-footer__nav" },
   { match: ".project-card__media[data-cursor-morph]", host: ".project-card__frame" },
+  { match: ".project-card__glass-tab[data-cursor-morph]", host: ".project-card__media" },
   {
     match: ".work-expand__toggle[data-cursor-morph], .work-expand__close[data-cursor-morph]",
     host: ".work-expand__header-btn-host"
