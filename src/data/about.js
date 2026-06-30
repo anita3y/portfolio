@@ -1,6 +1,11 @@
 import { assetUrl } from "../utils/assetUrl.js";
 
-export const ABOUT_SECTIONS = [{ id: "hello", title: "Hello!" }];
+export const ABOUT_SECTIONS = [
+  { id: "hello", title: "hello!" },
+  { id: "philosophy", title: "philosophy" },
+  { id: "bookshelf", title: "my bookshelf" },
+  { id: "community", title: "my communities" }
+];
 
 /** Inline copy with external links — rendered in order */
 export const ABOUT_OUTSIDE = [
@@ -15,13 +20,19 @@ export const ABOUT_OUTSIDE = [
     alt: "Bill Evans and Jim Hall — Undercurrent album cover with vinyl record"
   },
   { type: "text", value: " in the East Village, or making " },
-  { type: "dotted", value: "mango sticky rice", hoverTag: "thai cuisine is one of my favorites!", imageSrc: assetUrl("/about/mango-sticky-rice.png"), imageAlt: "Mango sticky rice on a white plate" },
+  {
+    type: "dotted",
+    value: "mango sticky rice",
+    hoverTag: "thai cuisine is one of my favorites!",
+    imageSrc: assetUrl("/about/mango-sticky-rice.png"),
+    imageAlt: "Mango sticky rice on a white plate"
+  },
   { type: "text", value: "." }
 ];
 
 export const ABOUT_LINKEDIN = "https://www.linkedin.com/in/anita-yan-9ifg3426";
 
-export const ABOUT_PORTRAIT = assetUrl("/about/portrait-photo.png");
+export const ABOUT_PORTRAIT = assetUrl("/about/headshot.png");
 
 export const ABOUT_LOCATION = "NYC / TRT";
 
@@ -34,7 +45,7 @@ export const ABOUT_EDUCATION = {
 
 export const ABOUT_PHOTOS = [
   {
-    id: "portrait",
+    id: "headshot",
     src: ABOUT_PORTRAIT,
     alt: "Portrait of Anita Yan",
     width: 724,
@@ -61,5 +72,32 @@ export const ABOUT_PHILOSOPHY = [
     emphasis: ["solving complex and ambiguous problems"],
     after:
       "—from event registration and nonprofit platforms to AI navigation concepts, structuring experiences that reduce friction and cognitive overload when complexity starts to pile up."
+  }
+];
+
+export const ABOUT_COMMUNITY = [
+  {
+    id: "ux-nyu",
+    title: "UX@NYU",
+    description:
+      "A student club that brings speakers from industry—Google, Figma, and more—and hosts hands-on workshops on tools like Framer and Luma.",
+    image: assetUrl("/about/community-ux-nyu.png"),
+    alt: "UX@NYU members at a speaker event in front of a brick wall"
+  },
+  {
+    id: "nydc-pivotal",
+    title: "New York Design Club · Pivotal Moments",
+    description:
+      "I helped market Pivotal Moments, NYDC's special zine edition book launch celebrating pivotal moments in design.",
+    image: assetUrl("/about/community-nydc-pivotal.png"),
+    alt: "Pivotal Moments books and zines at the New York Design Club launch table"
+  },
+  {
+    id: "a-studio",
+    title: "Adobe@NYU (A-Studio)",
+    description:
+      "A-Studio hosts workshops and mentorship programs connecting students with creative tools, craft, and people working in the field.",
+    image: assetUrl("/about/community-a-studio.png"),
+    alt: "Adobe@NYU A-Studio group photo at a speakers event"
   }
 ];

@@ -63,16 +63,5 @@ export const PLAY_PROJECTS = [
     thumbnailVideo: assetUrl("/thumbnails/femizon-website-card.mov"),
     theme: "femizon",
     displayOnly: true
-  },
-  {
-    id: "artifacts-poster",
-    title: "Artifacts Poster",
-    year: "2025",
-    subtitle: "Poster · Motion",
-    tags: ["Print", "Motion"],
-    href: "#",
-    thumbnailVideo: assetUrl("/thumbnails/artifacts-poster-card.mov"),
-    theme: "artifacts",
-    displayOnly: true
   }
 ];

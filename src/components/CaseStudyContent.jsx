@@ -45,6 +45,27 @@ function CaseStudyHeroMedia({
   }, [slides, intervalMs]);
 
   if (videoSrc) {
+    const video = (
+      <video
+        className={[
+          "cs-hero-video__player",
+          heroBackground && "cs-hero-video__player--contain"
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        src={videoSrc}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="metadata"
+        disablePictureInPicture
+        controls={false}
+        controlsList="nodownload noplaybackrate noremoteplayback"
+        aria-label={typeof heroVideo === "object" ? heroVideo.alt : "Case study banner"}
+      />
+    );
+
     return (
       <div
         className={[
@@ -61,24 +82,7 @@ function CaseStudyHeroMedia({
           ...(heroBackground ? { background: heroBackground } : {})
         }}
       >
-        <video
-          className={[
-            "cs-hero-video__player",
-            heroBackground && "cs-hero-video__player--contain"
-          ]
-            .filter(Boolean)
-            .join(" ")}
-          src={videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          disablePictureInPicture
-          controls={false}
-          controlsList="nodownload noplaybackrate noremoteplayback"
-          aria-label={typeof heroVideo === "object" ? heroVideo.alt : "Case study banner"}
-        />
+        {heroBorderless ? <div className="cs-hero-video__round">{video}</div> : video}
       </div>
     );
   }

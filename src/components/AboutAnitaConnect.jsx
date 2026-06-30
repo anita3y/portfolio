@@ -65,27 +65,32 @@ export default function AboutAnitaConnect() {
           {isExpanded && <span className="about-hello__name-connect-comma">,</span>}
         </span>
       </button>
-      {isExpanded && (
-        <span className="about-hello__name-connect-detail">
-          {" "}
-          {typedText}
-          {isTyping && <span className="about-hello__name-connect-caret" aria-hidden="true" />}
-        </span>
-      )}
-      {isExpanded && showLink && (
+      {isExpanded && showLink ? (
         <a
           className="about-hello__name-connect-link"
           href={ABOUT_LINKEDIN}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="LinkedIn profile"
+          aria-label="let's connect on LinkedIn"
         >
+          <span className="about-hello__name-connect-detail">
+            {" "}
+            {CONNECT_TEXT}
+          </span>
           <ExternalLinkArrow
             className="about-hello__name-connect-arrow"
             size={null}
             variant="sharp"
           />
         </a>
+      ) : (
+        isExpanded && (
+          <span className="about-hello__name-connect-detail">
+            {" "}
+            {typedText}
+            {isTyping && <span className="about-hello__name-connect-caret" aria-hidden="true" />}
+          </span>
+        )
       )}
     </span>
   );
