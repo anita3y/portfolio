@@ -68,6 +68,12 @@ export default function BookshelfEmbed() {
             <div className="shelf-preview__cover">
               <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
             </div>
+            <div className="shelf-preview__meta">
+              <span className="shelf-preview__name">{item.title}</span>
+              {item.creator ? (
+                <span className="shelf-preview__creator">{item.creator}</span>
+              ) : null}
+            </div>
           </article>
         ))}
       </div>
