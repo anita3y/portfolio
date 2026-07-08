@@ -2,17 +2,6 @@ import { assetUrl } from "../utils/assetUrl.js";
 
 export const WORK_PROJECTS = [
   {
-    id: "world-affairs-conference",
-    title: "World Affairs Conference",
-    year: "2024",
-    subtitle: "Registration that works on event day",
-    tags: ["Systems", "Registration", "Physical × digital"],
-    href: "#",
-    thumbnail: assetUrl("/thumbnails/wac.png"),
-    thumbnailVideo: assetUrl("/case-studies/wac/demos/admin-tags.mov"),
-    theme: "wac"
-  },
-  {
     id: "design-for-america",
     title: "Design for America",
     year: "2025",
@@ -27,6 +16,17 @@ export const WORK_PROJECTS = [
     ],
     thumbnailSlideInterval: 500,
     theme: "dfa"
+  },
+  {
+    id: "world-affairs-conference",
+    title: "World Affairs Conference",
+    year: "2024",
+    subtitle: "Registration that works on event day",
+    tags: ["Systems", "Registration", "Physical × digital"],
+    href: "#",
+    thumbnail: assetUrl("/thumbnails/wac.png"),
+    thumbnailVideo: assetUrl("/case-studies/wac/demos/admin-tags.mov"),
+    theme: "wac"
   },
   {
     id: "chatgpt-branches",

@@ -1272,9 +1272,10 @@ button:focus-visible {
 }
 
 .project-card__media--pivotal .project-card__img {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
-  padding: 0.35rem;
+  transform: scale(1.14);
+  transform-origin: center center;
 }
 
 .project-card__media--gallery {
