@@ -1267,6 +1267,16 @@ button:focus-visible {
   background: #f0ecf8;
 }
 
+.project-card__media--pivotal {
+  background: #e8e9ed;
+}
+
+.project-card__media--pivotal .project-card__img {
+  object-fit: contain;
+  object-position: center center;
+  padding: 0.35rem;
+}
+
 .project-card__media--gallery {
   background: #f5efea;
 }

@@ -38,6 +38,16 @@ export const WORK_PROJECTS = [
     thumbnail: assetUrl("/thumbnails/chatgpt-branches.jpg"),
     thumbnailVideo: assetUrl("/thumbnails/chatgpt-branches-card.mov"),
     theme: "branches"
+  },
+  {
+    id: "pivotal-moments",
+    title: "Pivotal Moments",
+    year: "2025",
+    subtitle: "NYDC launch · growth & marketing",
+    tags: ["Instagram", "Growth", "Editorial"],
+    href: "#",
+    thumbnail: assetUrl("/thumbnails/new-york-design-club-cover.png"),
+    theme: "pivotal"
   }
 ];
 
