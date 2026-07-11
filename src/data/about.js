@@ -75,6 +75,25 @@ export const ABOUT_PHILOSOPHY = [
   }
 ];
 
+export const ABOUT_PHILOSOPHY_QUOTES = [
+  {
+    id: "gustavson",
+    text:
+      "Whether it's for marketing or product, you can't design useful things without an understanding of the user and the business.",
+    author: "Steve Gustavson, Corporate Vice President of Design and Research, Microsoft",
+    source: {
+      label: "Figma Blog",
+      href: "https://www.figma.com/blog/business-design-education/",
+      title: "What they're not teaching in design class—and what you can do about it"
+    }
+  },
+  {
+    id: "friend",
+    text: "Make it first, then make it perfect.",
+    author: "my dear friend"
+  }
+];
+
 export const ABOUT_COMMUNITY = [
   {
     id: "ux-nyu",

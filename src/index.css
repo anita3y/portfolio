@@ -1703,7 +1703,7 @@ button:focus-visible {
   width: 100%;
   max-width: min(42rem, 100%);
   min-height: clamp(7.5rem, 22vw, 10.25rem);
-  margin: 0 0 1.35rem;
+  margin: 1.35rem 0 0;
   padding: 0;
   border: none;
   background: transparent;

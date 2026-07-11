@@ -3,6 +3,7 @@ import {
   ABOUT_COMMUNITY,
   ABOUT_OUTSIDE,
   ABOUT_PHILOSOPHY,
+  ABOUT_PHILOSOPHY_QUOTES,
   ABOUT_PHOTOS,
   ABOUT_SECTIONS
 } from "../data/about.js";
@@ -13,6 +14,7 @@ import AboutPhotoDeck from "./AboutPhotoDeck.jsx";
 import AboutSidebar from "./AboutSidebar.jsx";
 import AboutTags from "./AboutTags.jsx";
 import BookshelfEmbed from "./BookshelfEmbed.jsx";
+import PhilosophyQuoteDeck from "./PhilosophyQuoteDeck.jsx";
 
 function renderPhilosophyParagraph(entry, key) {
   if (typeof entry === "string") {
@@ -157,6 +159,7 @@ export default function AboutPanel() {
           <section id="philosophy" className="about-section about-section--philosophy">
             <h2 className="about-section__heading">Philosophy</h2>
             {ABOUT_PHILOSOPHY.map((entry, i) => renderPhilosophyParagraph(entry, i))}
+            <PhilosophyQuoteDeck quotes={ABOUT_PHILOSOPHY_QUOTES} />
           </section>
 
           <section id="bookshelf" className="about-section about-section--bookshelf">
