@@ -80,3 +80,10 @@ export const PLAY_PROJECTS = [
     displayOnly: true
   }
 ];
+
+export function getNextProject(projects, currentId) {
+  const navigable = projects.filter((project) => !project.displayOnly);
+  const index = navigable.findIndex((project) => project.id === currentId);
+  if (index === -1) return null;
+  return navigable[(index + 1) % navigable.length];
+}

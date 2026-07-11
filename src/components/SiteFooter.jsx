@@ -1,5 +1,3 @@
-import { assetUrl } from "../utils/assetUrl.js";
-
 const CHANGELOG = [
   { date: "Jul 10, 2026", time: "6:54 PM" },
   { date: "Jun 28, 2026", time: "2:15 PM" },
@@ -18,7 +16,7 @@ const CONNECT_LINKS = [
     id: "resume",
     label: "Resume (PDF)",
     text: "Resume",
-    href: assetUrl("/Anita-Yan-Resume.pdf"),
+    href: "https://drive.google.com/file/d/1dlnRnzvw0C67_oSKWwtrbIeTyTMRQQmK/view?usp=sharing",
     external: true,
     icon: "resume"
   },

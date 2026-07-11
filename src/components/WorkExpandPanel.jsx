@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { getCaseStudy } from "../data/caseStudies/index.js";
+import { getNextProject, WORK_PROJECTS } from "../data/projects.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
 
-export default function WorkExpandPanel({ workId, onClose }) {
+export default function WorkExpandPanel({ workId, onClose, onNavigate }) {
   const study = getCaseStudy(workId);
+  const nextProject = getNextProject(WORK_PROJECTS, workId);
   const scrollRef = useRef(null);
   const [mode, setMode] = useState("preview");
   useEffect(() => {
@@ -82,7 +84,13 @@ export default function WorkExpandPanel({ workId, onClose }) {
           ref={scrollRef}
           className={`work-expand__scroll${isFull ? "" : " work-expand__scroll--compact"}`}
         >
-          <CaseStudyFullContent study={study} scrollRoot={scrollRef} compact={!isFull} />
+          <CaseStudyFullContent
+            study={study}
+            scrollRoot={scrollRef}
+            compact={!isFull}
+            nextProject={nextProject}
+            onSeeNext={nextProject && onNavigate ? () => onNavigate(nextProject.id) : undefined}
+          />
         </div>
       </div>
     </div>

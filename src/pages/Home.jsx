@@ -426,7 +426,6 @@ export default function Home() {
                 className={`chip-icon ${
                   chipMenuActive ? "chip-icon--close" : "chip-icon--plus"
                 }`}
-                data-cursor-morph={chipMenuActive ? undefined : ""}
                 aria-hidden="true"
               />
             </button>
@@ -538,11 +537,19 @@ export default function Home() {
       <SiteFooter />
 
       {openPlayId && (
-        <PlayExpandPanel playId={openPlayId} onClose={() => setOpenPlayId(null)} />
+        <PlayExpandPanel
+          playId={openPlayId}
+          onClose={() => setOpenPlayId(null)}
+          onNavigate={setOpenPlayId}
+        />
       )}
 
       {openWorkId && (
-        <WorkExpandPanel workId={openWorkId} onClose={() => setOpenWorkId(null)} />
+        <WorkExpandPanel
+          workId={openWorkId}
+          onClose={() => setOpenWorkId(null)}
+          onNavigate={setOpenWorkId}
+        />
       )}
     </div>
   );

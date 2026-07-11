@@ -26,7 +26,8 @@ const LAYERED_MORPH_HOSTS = [
   },
   { match: ".cs-section-nav__btn[data-cursor-morph]", host: ".cs-section-nav" },
   { match: ".about-tags__tag[data-cursor-morph]", host: ".about-tags__item" },
-  { match: ".about-hello__name-connect-label[data-cursor-morph]", host: ".about-hello__name-connect-morph-host" }
+  { match: ".about-hello__name-connect-label[data-cursor-morph]", host: ".about-hello__name-connect-morph-host" },
+  { match: ".cs-study-footer__next[data-cursor-morph]", host: ".cs-study-footer__next-host" }
 ];
 
 const MORPH_PAD = 5;

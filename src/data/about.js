@@ -63,13 +63,13 @@ export const ABOUT_PHOTOS = [
 export const ABOUT_PHILOSOPHY = [
   {
     before:
-      "I'm interested in behavior, systems, and information design, and how these intersect to help people ",
+      "I'm interested in growth & marketing, design, and understanding user behavior, and how these intersect to help people ",
     emphasis: ["think", "decide", "act"],
     after: " more intuitively."
   },
   {
     before: "My work puts that into practice—",
-    emphasis: ["solving complex and ambiguous problems"],
+    emphasis: ["solving complex and ambiguous problems to drive growth and user retention"],
     after:
       "—from event registration and nonprofit platforms to AI navigation concepts, structuring experiences that reduce friction and cognitive overload when complexity starts to pile up."
   }

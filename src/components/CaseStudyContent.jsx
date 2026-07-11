@@ -532,7 +532,28 @@ export function CaseStudySectionNavBar({
   );
 }
 
-export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = false }) {
+function CaseStudyFooter({ nextProject, onSeeNext }) {
+  if (!nextProject || !onSeeNext) return null;
+
+  return (
+    <footer className="cs-study-footer">
+      <p className="cs-study-footer__name">Anita Yan</p>
+      <span className="cs-study-footer__next-host">
+        <button
+          type="button"
+          className="cs-study-footer__next"
+          data-cursor-morph=""
+          onClick={onSeeNext}
+          aria-label={`See next: ${nextProject.title}`}
+        >
+          See next?
+        </button>
+      </span>
+    </footer>
+  );
+}
+
+export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = false, nextProject, onSeeNext }) {
   const { sections, actions } = study;
 
   return (
@@ -566,11 +587,19 @@ export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = fa
           </section>
         )}
       </div>
+      <CaseStudyFooter nextProject={nextProject} onSeeNext={onSeeNext} />
     </div>
   );
 }
 
-export function CaseStudyFullContent({ study, scrollRoot, compact = false, hideNav = false }) {
+export function CaseStudyFullContent({
+  study,
+  scrollRoot,
+  compact = false,
+  hideNav = false,
+  nextProject,
+  onSeeNext
+}) {
   return (
     <div className={`cs-embed${compact ? " cs-embed--compact" : ""}`}>
       <CaseStudyPreview study={study} compact={compact} />
@@ -579,6 +608,8 @@ export function CaseStudyFullContent({ study, scrollRoot, compact = false, hideN
         scrollRoot={scrollRoot}
         compact={compact}
         hideNav={hideNav}
+        nextProject={nextProject}
+        onSeeNext={onSeeNext}
       />
     </div>
   );
