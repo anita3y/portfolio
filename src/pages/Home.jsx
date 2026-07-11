@@ -447,6 +447,7 @@ export default function Home() {
                       type="button"
                       role="option"
                       aria-selected={tag.id === activeTagId}
+                      data-cursor-morph=""
                       onClick={() => {
                         setActiveTagId(tag.id);
                         closePanel();

@@ -27,7 +27,8 @@ const LAYERED_MORPH_HOSTS = [
   { match: ".cs-section-nav__btn[data-cursor-morph]", host: ".cs-section-nav" },
   { match: ".about-tags__tag[data-cursor-morph]", host: ".about-tags__item" },
   { match: ".about-hello__name-connect-label[data-cursor-morph]", host: ".about-hello__name-connect-morph-host" },
-  { match: ".cs-study-footer__next[data-cursor-morph]", host: ".cs-study-footer__next-host" }
+  { match: ".cs-study-footer__next[data-cursor-morph]", host: ".cs-study-footer__next-host" },
+  { match: ".tag-option[data-cursor-morph]", host: ".tag-menu-inner" }
 ];
 
 const MORPH_PAD = 5;
@@ -56,10 +57,12 @@ function getLayeredMorphTarget(element, container) {
   const containerRect = container.getBoundingClientRect();
   const pad = element.matches(".chip-icon")
     ? 4
-    : element.matches(".about-tags__tag") ||
-        element.matches(".about-hello__name-connect-label")
-      ? 7
-      : MORPH_PAD;
+    : element.matches(".tag-option")
+      ? 5
+      : element.matches(".about-tags__tag") ||
+          element.matches(".about-hello__name-connect-label")
+        ? 7
+        : MORPH_PAD;
   const w = elRect.width + pad * 2;
   const h = elRect.height + pad * 2;
 
