@@ -17,11 +17,11 @@ const COMP_SIDE_MARKERS = assetUrl("/case-studies/chatgpt-branches/components/si
 
 export const CHATGPT_BRANCHES_CASE_STUDY = {
   id: "chatgpt-branches",
-  breadcrumb: ["Portfolio", "Work: ChatGPT Branches"],
+  breadcrumb: ["Portfolio", "Play: ChatGPT Branches"],
   title: "ChatGPT Branches",
   meta: {
     role: "Concept · Product design",
-    timeline: "2025",
+    timeline: "2026",
     tools: ["Figma", "Research", "Prototyping"]
   },
   heroSlides: [

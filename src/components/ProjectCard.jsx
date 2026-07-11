@@ -83,7 +83,6 @@ function ProjectCard({ project, onExpand }) {
     title,
     year,
     subtitle,
-    tags,
     href,
     thumbnail,
     thumbnailVideo,
@@ -123,19 +122,10 @@ function ProjectCard({ project, onExpand }) {
           {year && <span className="project-card__year">{year}</span>}
         </div>
 
-        {(subtitle || tags?.length > 0) && (
+        {subtitle && (
           <div className="project-card__meta">
             <div className="project-card__meta-inner">
-              {tags?.length > 0 && (
-                <ul className="project-card__tags" aria-label="Topics">
-                  {tags.map((tag) => (
-                    <li key={tag} className="project-card__tag">
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {subtitle && <p className="project-card__subtitle">{subtitle}</p>}
+              <p className="project-card__subtitle">{subtitle}</p>
             </div>
           </div>
         )}

@@ -8,9 +8,9 @@ const MAGAZINE_POSTS = assetUrl("/case-studies/pivotal-moments/magazine-availabi
 
 export const PIVOTAL_MOMENTS_CASE_STUDY = {
   id: "pivotal-moments",
-  breadcrumb: ["Portfolio", "Work: Pivotal Moments"],
+  breadcrumb: ["Portfolio", "Work: New York Design Club"],
   backTab: "work",
-  title: "Pivotal Moments",
+  title: "New York Design Club",
   meta: {
     role: "Growth · Marketing",
     timeline: "2025",

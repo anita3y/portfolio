@@ -29,24 +29,18 @@ export const WORK_PROJECTS = [
     theme: "wac"
   },
   {
-    id: "chatgpt-branches",
-    title: "ChatGPT Branches",
-    year: "2025",
-    subtitle: "Familiar navigation for long AI chats",
-    tags: ["Concept", "AI product", "Research"],
-    href: "#",
-    thumbnail: assetUrl("/thumbnails/chatgpt-branches.jpg"),
-    thumbnailVideo: assetUrl("/thumbnails/chatgpt-branches-card.mov"),
-    theme: "branches"
-  },
-  {
     id: "pivotal-moments",
-    title: "Pivotal Moments",
+    title: "New York Design Club",
     year: "2025",
     subtitle: "NYDC launch · growth & marketing",
     tags: ["Instagram", "Growth", "Editorial"],
     href: "#",
-    thumbnail: assetUrl("/thumbnails/new-york-design-club-cover.png"),
+    thumbnailSlides: [
+      assetUrl("/thumbnails/nydc/frame-01.png"),
+      assetUrl("/thumbnails/nydc/frame-02.png"),
+      assetUrl("/thumbnails/nydc/frame-03.png")
+    ],
+    thumbnailSlideInterval: 500,
     theme: "pivotal"
   }
 ];
@@ -62,6 +56,17 @@ export const PLAY_PROJECTS = [
     thumbnail: assetUrl("/thumbnails/anatomy-of-a-memory.jpg"),
     thumbnailVideo: assetUrl("/thumbnails/anatomy-of-a-memory-card.mov"),
     theme: "memory"
+  },
+  {
+    id: "chatgpt-branches",
+    title: "ChatGPT Branches",
+    year: "2026",
+    subtitle: "Familiar navigation for long AI chats",
+    tags: ["Concept", "AI product", "Research"],
+    href: "#",
+    thumbnail: assetUrl("/thumbnails/chatgpt-branches.jpg"),
+    thumbnailVideo: assetUrl("/thumbnails/chatgpt-branches-card.mov"),
+    theme: "branches"
   },
   {
     id: "femizon-website",

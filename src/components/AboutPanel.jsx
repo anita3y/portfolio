@@ -124,7 +124,7 @@ export default function AboutPanel() {
 
         <div className="about-content">
           <section id="hello" className="about-section about-section--hello">
-            <h2 className="about-section__title about-section__title--sr">hello!</h2>
+            <h2 className="about-section__title about-section__title--sr">Hello!</h2>
             <div className="about-hello">
               <header className="about-hello__hero">
                 <div className="about-hello__hero-row">
@@ -155,17 +155,17 @@ export default function AboutPanel() {
           </section>
 
           <section id="philosophy" className="about-section about-section--philosophy">
-            <h2 className="about-section__heading">philosophy</h2>
+            <h2 className="about-section__heading">Philosophy</h2>
             {ABOUT_PHILOSOPHY.map((entry, i) => renderPhilosophyParagraph(entry, i))}
           </section>
 
           <section id="bookshelf" className="about-section about-section--bookshelf">
-            <h2 className="about-section__heading">my bookshelf</h2>
+            <h2 className="about-section__heading">My bookshelf</h2>
             <BookshelfEmbed />
           </section>
 
           <section id="community" className="about-section about-section--community">
-            <h2 className="about-section__heading">my communities</h2>
+            <h2 className="about-section__heading">My communities</h2>
             <div className="about-community">
               <ul className="about-community__grid">
                 {ABOUT_COMMUNITY.map((item) => (

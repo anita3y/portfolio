@@ -1,3 +1,11 @@
+import { assetUrl } from "../utils/assetUrl.js";
+
+const CHANGELOG = [
+  { date: "Jul 10, 2026", time: "6:54 PM" },
+  { date: "Jun 28, 2026", time: "2:15 PM" },
+  { date: "May 12, 2026", time: "9:40 AM" }
+];
+
 const CONNECT_LINKS = [
   {
     id: "email",
@@ -5,6 +13,14 @@ const CONNECT_LINKS = [
     text: "anita3yan@gmail.com",
     href: "mailto:anita3yan@gmail.com",
     icon: "email"
+  },
+  {
+    id: "resume",
+    label: "Resume (PDF)",
+    text: "Resume",
+    href: assetUrl("/Anita-Yan-Resume.pdf"),
+    external: true,
+    icon: "resume"
   },
   {
     id: "linkedin",
@@ -23,6 +39,17 @@ function FooterLinkIcon({ name }) {
         <path
           fill="currentColor"
           d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"
+        />
+      </svg>
+    );
+  }
+
+  if (name === "resume") {
+    return (
+      <svg className="site-footer__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm0 2 4.5 4.5H14V4zM8 12h8v1.5H8V12zm0 3.5h8V17H8v-1.5z"
         />
       </svg>
     );
@@ -101,6 +128,12 @@ export default function SiteFooter() {
         </a>{" "}
         Hong Kong Milk Tea
       </p>
+
+      {CHANGELOG[0] ? (
+        <p className="site-footer__changelog">
+          Last updated {CHANGELOG[0].date} · {CHANGELOG[0].time}
+        </p>
+      ) : null}
     </footer>
   );
 }

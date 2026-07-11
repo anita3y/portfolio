@@ -1,10 +1,10 @@
 import { assetUrl } from "../utils/assetUrl.js";
 
 export const ABOUT_SECTIONS = [
-  { id: "hello", title: "hello!" },
-  { id: "philosophy", title: "philosophy" },
-  { id: "bookshelf", title: "my bookshelf" },
-  { id: "community", title: "my communities" }
+  { id: "hello", title: "Hello!" },
+  { id: "philosophy", title: "Philosophy" },
+  { id: "bookshelf", title: "My bookshelf" },
+  { id: "community", title: "My communities" }
 ];
 
 /** Inline copy with external links — rendered in order */

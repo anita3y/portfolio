@@ -6,19 +6,36 @@ import {
   useState
 } from "react";
 import { useLocation } from "react-router-dom";
-import { assetUrl } from "../utils/assetUrl.js";
 import AboutPanel from "../components/AboutPanel.jsx";
 import PlayExpandPanel from "../components/PlayExpandPanel.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import WorkExpandPanel from "../components/WorkExpandPanel.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
+import { assetUrl } from "../utils/assetUrl.js";
+
+function CityAppleWell() {
+  const [appleSrc, setAppleSrc] = useState(assetUrl("/nyc-apple.png"));
+
+  return (
+    <span className="city-well" aria-hidden="true">
+      <img
+        className="city-well-apple"
+        src={appleSrc}
+        alt=""
+        decoding="async"
+        onError={() => {
+          if (!appleSrc.endsWith(".svg")) setAppleSrc(assetUrl("/nyc-apple.svg"));
+        }}
+      />
+    </span>
+  );
+}
 
 const TAGS = [
   { id: "product-designer", label: "product designer" },
   { id: "people-person", label: "people person" },
-  { id: "flow-mapper", label: "flow mapper" },
-  { id: "signpost-nerd", label: "signpost nerd" }
+  { id: "growth-marketer", label: "growth marketer" }
 ];
 
 const TABS = [
@@ -42,34 +59,6 @@ function stepThumbSpring(value, velocity, target, dt) {
   const nextVelocity = velocity + accel * dt;
   const nextValue = value + nextVelocity * dt;
   return { value: nextValue, velocity: nextVelocity };
-}
-
-function CityWellScroll() {
-  const [appleSrc, setAppleSrc] = useState(assetUrl("/nyc-apple.png"));
-
-  return (
-    <span className="city-well-track" aria-hidden="true">
-      <span className="city-well-frame">
-        <img
-          className="city-well-apple"
-          src={appleSrc}
-          alt=""
-          decoding="async"
-          onError={() => {
-            if (!appleSrc.endsWith(".svg")) setAppleSrc(assetUrl("/nyc-apple.svg"));
-          }}
-        />
-      </span>
-      <span className="city-well-frame">
-        <img
-          className="city-well-maple"
-          src={assetUrl("/toronto-maple-syrup.png")}
-          alt=""
-          decoding="async"
-        />
-      </span>
-    </span>
-  );
 }
 
 const playIds = new Set(PLAY_PROJECTS.map((p) => p.id));
@@ -476,15 +465,10 @@ export default function Home() {
           </span>
           <br />
           based in{" "}
-          <span className="city-group" aria-label="Based in NYC — hover for Toronto">
-            <span className="city-well">
-              <span className="city-well-slot">
-                <CityWellScroll />
-              </span>
-            </span>
-            <span className="city-chip" aria-hidden="true">
-              <span className="city-chip-label city-chip-label--nyc">NYC</span>
-              <span className="city-chip-label city-chip-label--trt">TRT</span>
+          <span className="city-group">
+            <CityAppleWell />
+            <span className="hero-city" data-cursor-tag="and made in Toronto">
+              NYC
             </span>
           </span>
         </h1>
