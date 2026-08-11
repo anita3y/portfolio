@@ -1,15 +1,20 @@
-import { CHATGPT_BRANCHES_CASE_STUDY } from "../caseStudies/chatgpt-branches.js";
 import { ANATOMY_OF_A_MEMORY } from "./anatomy-of-a-memory.js";
+import { DEGREEPLANNING } from "./degreeplanning.js";
 import { FEMIZON_WEBSITE } from "./femizon-website.js";
+import { MY_BOOKSHELF } from "./my-bookshelf.js";
 
 export const PLAY_BY_ID = {
   "anatomy-of-a-memory": {
     type: "play",
     data: ANATOMY_OF_A_MEMORY
   },
-  "chatgpt-branches": {
+  "my-bookshelf": {
     type: "play",
-    data: CHATGPT_BRANCHES_CASE_STUDY
+    data: MY_BOOKSHELF
+  },
+  degreeplanning: {
+    type: "play",
+    data: DEGREEPLANNING
   },
   "femizon-website": {
     type: "play",

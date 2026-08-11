@@ -19,6 +19,12 @@ export const DFA_CASE_STUDY = {
   id: "design-for-america",
   breadcrumb: ["Portfolio", "Work: Design for America"],
   title: "Design for America x NYU",
+  details: [
+    { label: "role", value: "Product Designer" },
+    { label: "timeline", value: "Aug-Sept 2026" },
+    { label: "team", value: "1 Product Designer\n1 Product Manager" },
+    { label: "skills", value: "Product design,\nUser research" }
+  ],
   meta: {
     role: "Product design · Web",
     timeline: "2025",
@@ -33,10 +39,10 @@ export const DFA_CASE_STUDY = {
   heroSlideInterval: 500,
   sections: [
     {
-      id: "problem",
-      title: "The Problem",
+      id: "overview",
+      title: "overview",
       summary:
-        "The problem wasn't aesthetics—it was that alumni, partners, and new members had no clear entry point, and content scattered across folders made the chapter's work invisible. Engagement died at the front door before anyone could see the impact.",
+        "The site needed to do more than look better: it had to clarify the chapter's value, surface real impact, and make handoff easier for future leadership.",
       blocks: [
         {
           heading: "A disconnected network",
@@ -59,14 +65,7 @@ export const DFA_CASE_STUDY = {
             "The previous site didn’t showcase impact or current projects.",
             "Visual hierarchy and navigation didn’t match the chapter’s growth."
           ]
-        }
-      ]
-    },
-    {
-      id: "goal",
-      title: "The Goal",
-      summary: "Build a professional, scalable platform that showcases impact and hands off cleanly to future leaders.",
-      blocks: [
+        },
         {
           heading: "Objectives",
           bullets: [
@@ -87,8 +86,8 @@ export const DFA_CASE_STUDY = {
       ]
     },
     {
-      id: "research",
-      title: "Research & Insights",
+      id: "competitive-audit-research",
+      title: "competitive audit research",
       summary:
         "I audited how other DFA chapters present themselves online—what works for recruitment, what gets in the way, and where NYU could do better.",
       blocks: [
@@ -115,10 +114,10 @@ export const DFA_CASE_STUDY = {
       ]
     },
     {
-      id: "process",
-      title: "Design Process",
+      id: "discovery-research",
+      title: "discovery & research",
       summary:
-        "I aligned with our product manager on strategy first, then mapped site structure, visual direction, and wireframes before building in Framer.",
+        "Before designing, I aligned with our PM on audience, chapter priorities, and the specific stories the site needed to tell.",
       blocks: [
         {
           heading: "Strategy (Riko)",
@@ -143,7 +142,15 @@ export const DFA_CASE_STUDY = {
             "Advisor and past e-board context",
             "Contact paths—and a fun element (characters, animation) so the chapter feels approachable"
           ]
-        },
+        }
+      ]
+    },
+    {
+      id: "design-process",
+      title: "design process",
+      summary:
+        "Once the strategy was clear, I translated it into information architecture, wireframes, page flows, and a visual direction that could scale.",
+      blocks: [
         {
           heading: "Wireframes & visual direction",
           paragraphs: [
@@ -234,7 +241,7 @@ export const DFA_CASE_STUDY = {
     },
     {
       id: "solution",
-      title: "Solution",
+      title: "solution",
       summary:
         "Four core pages—team, archive, about, and homepage—built from a shared component library so future leads can swap content without redesigning from scratch.",
       blocks: [
@@ -307,9 +314,9 @@ export const DFA_CASE_STUDY = {
       ]
     },
     {
-      id: "reflection",
-      title: "Reflection",
-      summary: "What shipped, what scales, and what I’d carry into the next nonprofit or community product.",
+      id: "results-impact",
+      title: "results & impact",
+      summary: "What changed, what shipped, and what made the work sustainable beyond a single leadership cycle.",
       blocks: [
         {
           heading: "Results",
@@ -326,7 +333,14 @@ export const DFA_CASE_STUDY = {
             "Documented structure for onboarding new chapter leads.",
             "System designed for iteration—not a frozen one-off launch."
           ]
-        },
+        }
+      ]
+    },
+    {
+      id: "reflection",
+      title: "reflection",
+      summary: "What I’d carry forward into the next nonprofit or community product.",
+      blocks: [
         {
           heading: "Lessons learned",
           bullets: [

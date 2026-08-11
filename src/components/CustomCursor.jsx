@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { assetUrl } from "../utils/assetUrl.js";
 
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], input, textarea, select, label, summary, [data-cursor-hover]';
@@ -9,8 +10,16 @@ const GROW_SELECTOR = ".brand, [data-cursor-grow]";
 const DEFAULT_SIZE = 26;
 const GROW_SIZE = 40;
 
+/** Fixed pill size for “view case study” cursor morph. */
+const CASE_STUDY_W = 148;
+const CASE_STUDY_H = 32;
+const CASE_STUDY_R = 999;
+
+const CASE_STUDY_PILL = assetUrl("/cursors/view-case-study.png");
+
 /** Elements that get the iPadOS-style pill morph (extend over time). */
 const MORPH_SELECTOR = ".tab, .chip-icon[data-cursor-morph], [data-cursor-morph]";
+const CASE_STUDY_SELECTOR = "[data-cursor-case-study]";
 const CURSOR_TAG_SELECTOR = "[data-cursor-tag]";
 const CURSOR_TAG_OFFSET_X = 14;
 
@@ -18,8 +27,6 @@ const LAYERED_MORPH_HOSTS = [
   { match: ".tab", host: ".tabs" },
   { match: ".chip-icon[data-cursor-morph]", host: ".tag-chip" },
   { match: ".site-footer__link[data-cursor-morph]", host: ".site-footer__nav" },
-  { match: ".project-card__media[data-cursor-morph]", host: ".project-card__frame" },
-  { match: ".project-card__glass-tab[data-cursor-morph]", host: ".project-card__media" },
   {
     match: ".work-expand__toggle[data-cursor-morph], .work-expand__close[data-cursor-morph]",
     host: ".work-expand__header-btn-host"
@@ -97,6 +104,7 @@ export default function CustomCursor() {
   const morphTarget = useRef(null);
   const layerMorphTarget = useRef(null);
   const morphEl = useRef(null);
+  const caseStudyActive = useRef(false);
   const growing = useRef(false);
   const tagActive = useRef(false);
   const layerPortalHostRef = useRef(null);
@@ -107,6 +115,7 @@ export default function CustomCursor() {
   const [pressing, setPressing] = useState(false);
   const [morphing, setMorphing] = useState(false);
   const [layerMorphing, setLayerMorphing] = useState(false);
+  const [caseStudyMorphing, setCaseStudyMorphing] = useState(false);
   const [layerPortalHost, setLayerPortalHost] = useState(null);
   const [hovering, setHovering] = useState(false);
   const [growingHover, setGrowingHover] = useState(false);
@@ -122,7 +131,7 @@ export default function CustomCursor() {
 
     const syncMorphRect = () => {
       const el = morphEl.current;
-      if (!el) return;
+      if (!el || caseStudyActive.current) return;
 
       const host = getLayeredMorphHost(el);
       if (host) {
@@ -142,19 +151,42 @@ export default function CustomCursor() {
       if (host) resizeObserver.current.observe(host);
     };
 
-    const setMorphElement = (el) => {
+    const clearMorph = () => {
+      morphEl.current = null;
+      morphTarget.current = null;
+      layerMorphTarget.current = null;
+      caseStudyActive.current = false;
+      setMorphing(false);
+      setLayerMorphing(false);
+      setCaseStudyMorphing(false);
+      layerPortalHostRef.current = null;
+      setLayerPortalHost(null);
+      resizeObserver.current?.disconnect();
+    };
+
+    const setMorphElement = (el, { caseStudy = false } = {}) => {
+      if (!el) {
+        clearMorph();
+        return;
+      }
+
       morphEl.current = el;
 
-      if (!el) {
+      if (caseStudy) {
+        caseStudyActive.current = true;
         morphTarget.current = null;
         layerMorphTarget.current = null;
         setMorphing(false);
         setLayerMorphing(false);
+        setCaseStudyMorphing(true);
         layerPortalHostRef.current = null;
         setLayerPortalHost(null);
         resizeObserver.current?.disconnect();
         return;
       }
+
+      caseStudyActive.current = false;
+      setCaseStudyMorphing(false);
 
       const layeredHost = getLayeredMorphHost(el);
 
@@ -187,17 +219,24 @@ export default function CustomCursor() {
       if (tagTarget) {
         const tagLabel = tagTarget.getAttribute("data-cursor-tag") || "";
         setSubtitleTag((current) => (current === tagLabel ? current : tagLabel));
-        if (morphEl.current) {
+        if (morphEl.current || caseStudyActive.current) {
           setMorphElement(null);
         }
       } else {
         setSubtitleTag((current) => (current === null ? current : null));
 
-        const morphCandidate = event.target.closest(MORPH_SELECTOR);
-        if (morphCandidate !== morphEl.current) {
-          setMorphElement(morphCandidate);
-        } else if (morphCandidate) {
-          syncMorphRect();
+        const caseStudyCandidate = event.target.closest(CASE_STUDY_SELECTOR);
+        if (caseStudyCandidate) {
+          if (morphEl.current !== caseStudyCandidate || !caseStudyActive.current) {
+            setMorphElement(caseStudyCandidate, { caseStudy: true });
+          }
+        } else {
+          const morphCandidate = event.target.closest(MORPH_SELECTOR);
+          if (morphCandidate !== morphEl.current || caseStudyActive.current) {
+            setMorphElement(morphCandidate);
+          } else if (morphCandidate) {
+            syncMorphRect();
+          }
         }
       }
 
@@ -246,7 +285,7 @@ export default function CustomCursor() {
       }
 
       if (el) {
-        const sizeEase = reducedMotion ? 1 : 0.17;
+        const sizeEase = reducedMotion ? 1 : caseStudyActive.current ? 0.2 : 0.17;
         const layerEase = reducedMotion ? 1 : 0.22;
 
         let targetX = pointer.current.x;
@@ -259,6 +298,13 @@ export default function CustomCursor() {
           targetW = 0;
           targetH = 0;
           targetR = 0;
+        } else if (caseStudyActive.current) {
+          const pressScale = pressing ? 0.96 : 1;
+          targetW = CASE_STUDY_W * pressScale;
+          targetH = CASE_STUDY_H * pressScale;
+          targetR = CASE_STUDY_R;
+          targetX = pointer.current.x;
+          targetY = pointer.current.y;
         } else if (layerMorphTarget.current) {
           const hoverScale = hovering ? 1.15 : 1;
           const base = pressing ? 20 : DEFAULT_SIZE * hoverScale;
@@ -308,19 +354,28 @@ export default function CustomCursor() {
           targetR = base / 2;
         }
 
-        pos.current.x += (targetX - pos.current.x) * posEase;
+        if (!caseStudyActive.current) {
+          pos.current.x += (targetX - pos.current.x) * posEase;
+        }
         pos.current.y += (targetY - pos.current.y) * posEase;
         size.current.w += (targetW - size.current.w) * sizeEase;
         size.current.h += (targetH - size.current.h) * sizeEase;
         size.current.r += (targetR - size.current.r) * sizeEase;
 
-        const { x, y } = pos.current;
+        const { y } = pos.current;
         const { w, h, r } = size.current;
 
+        /* Case-study pill expands right from the pointer. */
+        if (caseStudyActive.current) {
+          const centeredX = pointer.current.x + w / 2;
+          pos.current.x += (centeredX - pos.current.x) * (reducedMotion ? 1 : 0.4);
+        }
+
+        const { x } = pos.current;
         el.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
         el.style.width = `${w}px`;
         el.style.height = `${h}px`;
-        el.style.borderRadius = `${r}px`;
+        el.style.borderRadius = `${Math.min(r, Math.min(w, h) / 2)}px`;
       }
 
       raf.current = requestAnimationFrame(animate);
@@ -353,10 +408,17 @@ export default function CustomCursor() {
     "custom-cursor",
     visible && !subtitleTag && "custom-cursor--visible",
     morphing && "custom-cursor--morph",
+    caseStudyMorphing && "custom-cursor--case-study",
     layerMorphing && "custom-cursor--tab-dot",
     pressing && "custom-cursor--pressing",
     growingHover && "custom-cursor--grow",
-    hovering && !morphing && !layerMorphing && !growingHover && !subtitleTag && "custom-cursor--hover"
+    hovering &&
+      !morphing &&
+      !layerMorphing &&
+      !caseStudyMorphing &&
+      !growingHover &&
+      !subtitleTag &&
+      "custom-cursor--hover"
   ]
     .filter(Boolean)
     .join(" ");
@@ -378,7 +440,18 @@ export default function CustomCursor() {
 
   return (
     <>
-      <div ref={cursorRef} className={className} aria-hidden="true" />
+      <div ref={cursorRef} className={className} aria-hidden="true">
+        <span className="custom-cursor__case-study">
+          <img
+            className="custom-cursor__case-study-img"
+            src={CASE_STUDY_PILL}
+            alt=""
+            width={CASE_STUDY_W}
+            height={CASE_STUDY_H}
+            draggable={false}
+          />
+        </span>
+      </div>
       <div ref={subtitleTagRef} className={subtitleTagClassName} aria-hidden="true">
         {subtitleTag}
       </div>

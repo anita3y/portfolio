@@ -1,12 +1,48 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
 import ExternalLinkArrow from "./ExternalLinkArrow.jsx";
+import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
+import { assetUrl } from "../utils/assetUrl.js";
 
 const DEFAULT_HERO_SLIDE_MS = 500;
+const ALL_PROJECTS = [...WORK_PROJECTS, ...PLAY_PROJECTS];
+const CASE_STUDY_TABS = [
+  { id: "work", label: "work" },
+  { id: "play", label: "play" },
+  { id: "about", label: "about" }
+];
+const CASE_STUDY_TAB_TRACK = assetUrl("/nav-tabs/track.png");
 
 function normalizeMediaItem(item) {
   if (typeof item === "string") return { src: item, alt: "" };
   return item;
+}
+
+function CaseStudyTopTabs({ activeTab = "work" }) {
+  return (
+    <div className="cs-top-tabs">
+      <nav className="tabs tabs--assets" aria-label="Site sections">
+        <img
+          className="tabs__track"
+          src={CASE_STUDY_TAB_TRACK}
+          alt=""
+          draggable={false}
+          aria-hidden="true"
+        />
+        {CASE_STUDY_TABS.map((tab) => (
+          <Link
+            key={tab.id}
+            className={`tab ${activeTab === tab.id ? "active" : ""}`}
+            to="/"
+            state={{ tab: tab.id }}
+          >
+            {tab.label}
+          </Link>
+        ))}
+      </nav>
+    </div>
+  );
 }
 
 function CaseStudyHeroMedia({
@@ -23,6 +59,7 @@ function CaseStudyHeroMedia({
   heroObjectPosition
 }) {
   const [slideIndex, setSlideIndex] = useState(0);
+  const [videoFailed, setVideoFailed] = useState(false);
   const slides = heroSlides?.length ? heroSlides.map(normalizeMediaItem) : null;
   const intervalMs = heroSlideInterval ?? DEFAULT_HERO_SLIDE_MS;
   const videoSrc = heroVideo
@@ -30,9 +67,14 @@ function CaseStudyHeroMedia({
       ? heroVideo
       : heroVideo.src
     : null;
+  const showVideo = Boolean(videoSrc) && !videoFailed;
 
   useEffect(() => {
-    if (!slides?.length) return undefined;
+    setVideoFailed(false);
+  }, [videoSrc]);
+
+  useEffect(() => {
+    if (!slides?.length || showVideo) return undefined;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) return undefined;
@@ -42,9 +84,9 @@ function CaseStudyHeroMedia({
     }, intervalMs);
 
     return () => window.clearInterval(timer);
-  }, [slides, intervalMs]);
+  }, [slides, intervalMs, showVideo]);
 
-  if (videoSrc) {
+  if (showVideo) {
     const video = (
       <video
         className={[
@@ -63,6 +105,7 @@ function CaseStudyHeroMedia({
         controls={false}
         controlsList="nodownload noplaybackrate noremoteplayback"
         aria-label={typeof heroVideo === "object" ? heroVideo.alt : "Case study banner"}
+        onError={() => setVideoFailed(true)}
       />
     );
 
@@ -127,7 +170,23 @@ function CaseStudyHeroMedia({
     );
   }
 
-  return <div className="cs-placeholder cs-placeholder--hero">{heroPlaceholder}</div>;
+  return (
+    <div
+      className={[
+        "cs-placeholder",
+        "cs-placeholder--hero",
+        heroBorderless && "cs-hero-video--borderless"
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={{
+        ...(heroAspectRatio ? { aspectRatio: heroAspectRatio } : {}),
+        ...(heroBackground ? { background: heroBackground } : {})
+      }}
+    >
+      {heroPlaceholder}
+    </div>
+  );
 }
 
 function CaseStudyFigure({ image, className }) {
@@ -211,11 +270,11 @@ function CaseStudyMedia({ media }) {
 function CaseStudySection({ section, children }) {
   return (
     <section id={section.id} className="cs-section">
-      <div className="cs-section__aside">
+      <div className="cs-section__main">
         <h2 className="cs-section__title">{section.title}</h2>
         {section.summary && <p className="cs-section__summary">{section.summary}</p>}
+        {children}
       </div>
-      <div className="cs-section__main">{children}</div>
     </section>
   );
 }
@@ -398,8 +457,9 @@ function TextBlock({ block }) {
 
 export function CaseStudyPreview({ study, compact = false }) {
   const {
+    id,
     title,
-    meta,
+    details,
     heroPlaceholder,
     heroVideo,
     heroSlides,
@@ -412,21 +472,35 @@ export function CaseStudyPreview({ study, compact = false }) {
     heroFit,
     heroObjectPosition
   } = study;
+  const projectCard = ALL_PROJECTS.find((project) => project.id === id) ?? null;
+  const detailItems = Array.isArray(details) ? details.filter((item) => item?.label && item?.value) : [];
+  const displayTitle = projectCard?.headline || title;
+  const metaParts = [
+    projectCard?.company,
+    projectCard?.status,
+    projectCard?.year
+  ].filter(Boolean);
+  const activeTopTab = projectCard && PLAY_PROJECTS.some((project) => project.id === projectCard.id) ? "play" : "work";
 
   return (
     <header className={`cs-header cs-header--preview${compact ? " cs-header--compact" : ""}`}>
-      <h1 className="cs-title">{title}</h1>
-      {meta && (
-        <ul className="cs-meta-pills" aria-label="Project details">
-          {meta.timeline && <li className="cs-meta-pill">{meta.timeline}</li>}
-          {meta.role && <li className="cs-meta-pill">{meta.role}</li>}
-          {meta.tools?.map((tool) => (
-            <li key={tool} className="cs-meta-pill">
-              {tool}
-            </li>
+      <CaseStudyTopTabs activeTab={activeTopTab} />
+      {metaParts.length > 0 && (
+        <p className="cs-project-meta">
+          {metaParts.map((part, index) => (
+            <span key={`${part}-${index}`}>
+              {index > 0 && (
+                <span className="cs-project-meta__sep" aria-hidden="true">
+                  {" "}
+                  •{" "}
+                </span>
+              )}
+              <span>{part}</span>
+            </span>
           ))}
-        </ul>
+        </p>
       )}
+      <h1 className="cs-title">{displayTitle}</h1>
       <CaseStudyHeroMedia
         heroVideo={heroVideo}
         heroSlides={heroSlides}
@@ -440,6 +514,19 @@ export function CaseStudyPreview({ study, compact = false }) {
         heroFit={heroFit}
         heroObjectPosition={heroObjectPosition}
       />
+      {detailItems.length > 0 && (
+        <div className="cs-details" aria-label="Project details">
+          {detailItems.map((item) => (
+            <div
+              key={item.label}
+              className={`cs-details__item cs-details__item--${item.label.toLowerCase().replaceAll(/\s+/g, "-")}`}
+            >
+              <p className="cs-details__label">{item.label}</p>
+              <p className="cs-details__value">{item.value}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </header>
   );
 }
@@ -517,7 +604,8 @@ function WorkExpandNavStuckSync({ scrollRoot }) {
 export function CaseStudySectionNavBar({
   study,
   scrollRoot,
-  fixedHeader = false
+  fixedHeader = false,
+  onBack
 }) {
   const { sections } = study;
   const activeId = useCaseStudyActiveSection(sections, scrollRoot);
@@ -528,6 +616,7 @@ export function CaseStudySectionNavBar({
       activeId={activeId}
       scrollRoot={scrollRoot}
       fixedHeader={fixedHeader}
+      onBack={onBack}
     />
   );
 }
@@ -553,13 +642,13 @@ function CaseStudyFooter({ nextProject, onSeeNext }) {
   );
 }
 
-export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = false, nextProject, onSeeNext }) {
+export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = false, nextProject, onSeeNext, onBack }) {
   const { sections, actions } = study;
 
   return (
     <div className={`cs-body${compact ? " cs-body--compact" : ""}`}>
       {scrollRoot && <WorkExpandNavStuckSync scrollRoot={scrollRoot} />}
-      {!hideNav && <CaseStudySectionNavBar study={study} scrollRoot={scrollRoot} />}
+      {!hideNav && <CaseStudySectionNavBar study={study} scrollRoot={scrollRoot} onBack={onBack} />}
       <div className="cs-content">
         {sections.map((section) => (
           <CaseStudySection key={section.id} section={section}>
@@ -598,7 +687,8 @@ export function CaseStudyFullContent({
   compact = false,
   hideNav = false,
   nextProject,
-  onSeeNext
+  onSeeNext,
+  onBack
 }) {
   return (
     <div className={`cs-embed${compact ? " cs-embed--compact" : ""}`}>
@@ -610,6 +700,7 @@ export function CaseStudyFullContent({
         hideNav={hideNav}
         nextProject={nextProject}
         onSeeNext={onSeeNext}
+        onBack={onBack}
       />
     </div>
   );

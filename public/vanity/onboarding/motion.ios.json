@@ -1,0 +1,344 @@
+{
+  "artboard": {
+    "width": 402,
+    "height": 874,
+    "safeTop": 54
+  },
+  "timing": {
+    "durationMs": 1200,
+    "staggerMs": 45,
+    "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "easingName": "easeOutQuint",
+    "copyFadeMs": 700,
+    "copyFadeDelayMs": 200,
+    "holdMs": 600,
+    "autoplay": true
+  },
+  "copy": {
+    "text": "Tired of oversaturated feeds\ntelling you what to buy?",
+    "startOpacity": 1,
+    "endOpacity": 0.15
+  },
+  "progress": {
+    "steps": 3,
+    "activeStart": 0,
+    "activeEnd": 0
+  },
+  "products": [
+    {
+      "id": "dior-glow-palette",
+      "asset": "dior-glow-palette.png",
+      "size": {
+        "width": 165,
+        "height": 173
+      },
+      "staggerIndex": 7,
+      "start": {
+        "origin": {
+          "x": 229,
+          "y": 483
+        },
+        "center": {
+          "x": 311.5,
+          "y": 569.5
+        },
+        "rotationDegrees": 0,
+        "scale": 1,
+        "zIndex": 0
+      },
+      "end": {
+        "origin": {
+          "x": 205,
+          "y": 335
+        },
+        "center": {
+          "x": 279.2,
+          "y": 412.9
+        },
+        "rotationDegrees": 5,
+        "scale": 0.9,
+        "zIndex": 7
+      }
+    },
+    {
+      "id": "dior-rosy-glow",
+      "asset": "dior-rosy-glow.png",
+      "size": {
+        "width": 137,
+        "height": 149
+      },
+      "staggerIndex": 3,
+      "start": {
+        "origin": {
+          "x": 184,
+          "y": 126
+        },
+        "center": {
+          "x": 252.5,
+          "y": 200.5
+        },
+        "rotationDegrees": 0,
+        "scale": 1,
+        "zIndex": 1
+      },
+      "end": {
+        "origin": {
+          "x": 150,
+          "y": 248
+        },
+        "center": {
+          "x": 213.0,
+          "y": 316.5
+        },
+        "rotationDegrees": 4,
+        "scale": 0.92,
+        "zIndex": 6
+      }
+    },
+    {
+      "id": "rare-beauty-blush",
+      "asset": "rare-beauty-blush.png",
+      "size": {
+        "width": 135,
+        "height": 137
+      },
+      "staggerIndex": 8,
+      "start": {
+        "origin": {
+          "x": 75,
+          "y": 253
+        },
+        "center": {
+          "x": 142.5,
+          "y": 321.5
+        },
+        "rotationDegrees": 0,
+        "scale": 1,
+        "zIndex": 2
+      },
+      "end": {
+        "origin": {
+          "x": 125,
+          "y": 318
+        },
+        "center": {
+          "x": 183.1,
+          "y": 376.9
+        },
+        "rotationDegrees": -2,
+        "scale": 0.86,
+        "zIndex": 2
+      }
+    },
+    {
+      "id": "charlotte-powder",
+      "asset": "charlotte-powder.png",
+      "size": {
+        "width": 132,
+        "height": 131
+      },
+      "staggerIndex": 6,
+      "start": {
+        "origin": {
+          "x": 163,
+          "y": 665
+        },
+        "center": {
+          "x": 229.0,
+          "y": 730.5
+        },
+        "rotationDegrees": 0,
+        "scale": 1,
+        "zIndex": 3
+      },
+      "end": {
+        "origin": {
+          "x": 138,
+          "y": 372
+        },
+        "center": {
+          "x": 205.3,
+          "y": 438.8
+        },
+        "rotationDegrees": 3,
+        "scale": 1.02,
+        "zIndex": 10
+      }
+    },
+    {
+      "id": "charlotte-spray",
+      "asset": "charlotte-spray.png",
+      "size": {
+        "width": 126,
+        "height": 205
+      },
+      "staggerIndex": 2,
+      "start": {
+        "origin": {
+          "x": 0,
+          "y": 619
+        },
+        "center": {
+          "x": 63.0,
+          "y": 721.5
+        },
+        "rotationDegrees": 0,
+        "scale": 1,
+        "zIndex": 4
+      },
+      "end": {
+        "origin": {
+          "x": 48,
+          "y": 348
+        },
+        "center": {
+          "x": 109.7,
+          "y": 448.4
+        },
+        "rotationDegrees": -8,
+        "scale": 0.98,
+        "zIndex": 8
+      }
+    },
+    {
+      "id": "ouai-detox",
+      "asset": "ouai-detox.png",
+      "size": {
+        "width": 126,
+        "height": 168
+      },
+      "staggerIndex": 4,
+      "start": {
+        "origin": {
+          "x": 266,
+          "y": 253
+        },
+        "center": {
+          "x": 329.0,
+          "y": 337.0
+        },
+        "rotationDegrees": 0,
+        "scale": 1,
+        "zIndex": 5
+      },
+      "end": {
+        "origin": {
+          "x": 235,
+          "y": 275
+        },
+        "center": {
+          "x": 286.7,
+          "y": 343.9
+        },
+        "rotationDegrees": 10,
+        "scale": 0.82,
+        "zIndex": 4
+      }
+    },
+    {
+      "id": "patrick-ta-duo",
+      "asset": "patrick-ta-duo.png",
+      "size": {
+        "width": 94,
+        "height": 177
+      },
+      "staggerIndex": 0,
+      "start": {
+        "origin": {
+          "x": 0,
+          "y": 146
+        },
+        "center": {
+          "x": 47.0,
+          "y": 234.5
+        },
+        "rotationDegrees": 0,
+        "scale": 1,
+        "zIndex": 6
+      },
+      "end": {
+        "origin": {
+          "x": 95,
+          "y": 285
+        },
+        "center": {
+          "x": 136.4,
+          "y": 362.9
+        },
+        "rotationDegrees": -6,
+        "scale": 0.88,
+        "zIndex": 3
+      }
+    },
+    {
+      "id": "tower-28-lip",
+      "asset": "tower-28-lip.png",
+      "size": {
+        "width": 130,
+        "height": 179
+      },
+      "staggerIndex": 5,
+      "start": {
+        "origin": {
+          "x": 0,
+          "y": 476
+        },
+        "center": {
+          "x": 65.0,
+          "y": 565.5
+        },
+        "rotationDegrees": 0,
+        "scale": 1,
+        "zIndex": 7
+      },
+      "end": {
+        "origin": {
+          "x": 78,
+          "y": 318
+        },
+        "center": {
+          "x": 135.2,
+          "y": 396.8
+        },
+        "rotationDegrees": -10,
+        "scale": 0.88,
+        "zIndex": 5
+      }
+    },
+    {
+      "id": "rhode-peptide",
+      "asset": "rhode-peptide.png",
+      "size": {
+        "width": 103,
+        "height": 95
+      },
+      "staggerIndex": 1,
+      "start": {
+        "origin": {
+          "x": 299,
+          "y": 729
+        },
+        "center": {
+          "x": 350.5,
+          "y": 776.5
+        },
+        "rotationDegrees": 0,
+        "scale": 1,
+        "zIndex": 8
+      },
+      "end": {
+        "origin": {
+          "x": 242,
+          "y": 385
+        },
+        "center": {
+          "x": 301.2,
+          "y": 439.6
+        },
+        "rotationDegrees": 8,
+        "scale": 1.15,
+        "zIndex": 9
+      }
+    }
+  ]
+}

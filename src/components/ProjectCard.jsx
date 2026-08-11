@@ -12,11 +12,17 @@ function ProjectCardMedia({
   setThumbMissing
 }) {
   const [slideIndex, setSlideIndex] = useState(0);
+  const [videoFailed, setVideoFailed] = useState(false);
   const slides = thumbnailSlides?.length ? thumbnailSlides : null;
   const intervalMs = thumbnailSlideInterval ?? DEFAULT_SLIDE_MS;
+  const showVideo = Boolean(thumbnailVideo) && !videoFailed;
 
   useEffect(() => {
-    if (!slides?.length) return undefined;
+    setVideoFailed(false);
+  }, [thumbnailVideo]);
+
+  useEffect(() => {
+    if (!slides?.length || showVideo) return undefined;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) return undefined;
@@ -26,9 +32,9 @@ function ProjectCardMedia({
     }, intervalMs);
 
     return () => window.clearInterval(timer);
-  }, [slides, intervalMs]);
+  }, [slides, intervalMs, showVideo]);
 
-  if (thumbnailVideo) {
+  if (showVideo) {
     return (
       <video
         className="project-card__video"
@@ -39,7 +45,13 @@ function ProjectCardMedia({
         playsInline
         preload="metadata"
         aria-hidden="true"
-        onError={() => setThumbMissing(true)}
+        onError={() => {
+          if (slides?.length || thumbnail) {
+            setVideoFailed(true);
+            return;
+          }
+          setThumbMissing(true);
+        }}
       />
     );
   }
@@ -66,6 +78,8 @@ function ProjectCardMedia({
     );
   }
 
+  if (!thumbnail) return null;
+
   return (
     <img
       className="project-card__img"
@@ -78,9 +92,40 @@ function ProjectCardMedia({
   );
 }
 
+function ProjectCardCaption({ headline, company, status, year, title }) {
+  const displayHeadline = headline || title;
+  const metaParts = [company, [status, year].filter(Boolean).join(" ")].filter(Boolean);
+
+  if (!displayHeadline && metaParts.length === 0) return null;
+
+  return (
+    <div className="project-card__caption">
+      {displayHeadline && <p className="project-card__headline">{displayHeadline}</p>}
+      {metaParts.length > 0 && (
+        <p className="project-card__meta-line">
+          {metaParts.map((part, index) => (
+            <span key={`${part}-${index}`}>
+              {index > 0 && (
+                <span className="project-card__meta-sep" aria-hidden="true">
+                  {" "}
+                  •{" "}
+                </span>
+              )}
+              <span>{part}</span>
+            </span>
+          ))}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function ProjectCard({ project, onExpand }) {
   const {
     title,
+    headline,
+    company,
+    status,
     year,
     subtitle,
     href,
@@ -106,7 +151,7 @@ function ProjectCard({ project, onExpand }) {
         ]
           .filter(Boolean)
           .join(" ")}
-        data-cursor-morph={displayOnly ? undefined : ""}
+        data-cursor-case-study={displayOnly ? undefined : ""}
       >
         <ProjectCardMedia
           thumbnail={thumbnail}
@@ -116,24 +161,25 @@ function ProjectCard({ project, onExpand }) {
           thumbMissing={thumbMissing}
           setThumbMissing={setThumbMissing}
         />
-
-        <div className="project-card__glass-tab" data-cursor-morph={displayOnly ? undefined : ""}>
-          <span className="project-card__name">{title}</span>
-          {year && <span className="project-card__year">{year}</span>}
-        </div>
-
-        {subtitle && (
-          <div className="project-card__meta">
-            <div className="project-card__meta-inner">
-              <p className="project-card__subtitle">{subtitle}</p>
-            </div>
-          </div>
-        )}
       </div>
+
+      <ProjectCardCaption
+        headline={headline}
+        company={company}
+        status={status}
+        year={year}
+        title={title}
+      />
     </div>
   );
 
-  const label = year ? `${title}, ${year} — ${subtitle}` : `${title} — ${subtitle}`;
+  const labelParts = [
+    headline || title,
+    company,
+    [status, year].filter(Boolean).join(" "),
+    subtitle
+  ].filter(Boolean);
+  const label = labelParts.join(" — ");
 
   if (onExpand) {
     return (
