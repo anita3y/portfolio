@@ -8,51 +8,97 @@ function ProjectCardMedia({
   thumbnailVideo,
   thumbnailSlides,
   thumbnailSlideInterval,
+  thumbnailSlideOnHover,
+  thumbnailStack,
   thumbMissing,
-  setThumbMissing
+  setThumbMissing,
+  isHovered,
+  comingSoon
 }) {
   const [slideIndex, setSlideIndex] = useState(0);
   const [videoFailed, setVideoFailed] = useState(false);
   const slides = thumbnailSlides?.length ? thumbnailSlides : null;
   const intervalMs = thumbnailSlideInterval ?? DEFAULT_SLIDE_MS;
-  const showVideo = Boolean(thumbnailVideo) && !videoFailed;
+  const stack = thumbnailStack?.length ? thumbnailStack : null;
+  const showVideo = Boolean(thumbnailVideo) && !videoFailed && !stack;
+  const playSlides = Boolean(slides?.length) && !showVideo && (!thumbnailSlideOnHover || isHovered);
 
   useEffect(() => {
     setVideoFailed(false);
   }, [thumbnailVideo]);
 
   useEffect(() => {
-    if (!slides?.length || showVideo) return undefined;
+    if (!playSlides) {
+      if (thumbnailSlideOnHover) setSlideIndex(0);
+      return undefined;
+    }
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) return undefined;
 
-    const timer = window.setInterval(() => {
+    const advance = () => {
       setSlideIndex((current) => (current + 1) % slides.length);
-    }, intervalMs);
+    };
 
-    return () => window.clearInterval(timer);
-  }, [slides, intervalMs, showVideo]);
+    // Hover-only loops (posters) should flip on hover, not after a full interval.
+    const firstDelay = thumbnailSlideOnHover ? 50 : intervalMs;
+    let intervalId;
+    const startId = window.setTimeout(() => {
+      advance();
+      intervalId = window.setInterval(advance, intervalMs);
+    }, firstDelay);
+
+    return () => {
+      window.clearTimeout(startId);
+      window.clearInterval(intervalId);
+    };
+  }, [playSlides, slides, intervalMs, thumbnailSlideOnHover]);
+
+  if (comingSoon) {
+    return <p className="project-card__coming-soon">{comingSoon}</p>;
+  }
+
+  if (stack) {
+    return (
+      <div className="project-card__stack" aria-hidden="true">
+        {stack.map((layer) => (
+          <div
+            key={layer.id}
+            className={`project-card__stack-layer project-card__stack-layer--${layer.id}`}
+          >
+            <img
+              src={layer.src}
+              alt=""
+              draggable={false}
+              onError={() => setThumbMissing(true)}
+            />
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   if (showVideo) {
     return (
-      <video
-        className="project-card__video"
-        src={thumbnailVideo}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="metadata"
-        aria-hidden="true"
-        onError={() => {
-          if (slides?.length || thumbnail) {
-            setVideoFailed(true);
-            return;
-          }
-          setThumbMissing(true);
-        }}
-      />
+      <div className="project-card__video-frame">
+        <video
+          className="project-card__video"
+          src={thumbnailVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          onError={() => {
+            if (slides?.length || thumbnail) {
+              setVideoFailed(true);
+              return;
+            }
+            setThumbMissing(true);
+          }}
+        />
+      </div>
     );
   }
 
@@ -92,30 +138,15 @@ function ProjectCardMedia({
   );
 }
 
-function ProjectCardCaption({ headline, company, status, year, title }) {
-  const displayHeadline = headline || title;
-  const metaParts = [company, [status, year].filter(Boolean).join(" ")].filter(Boolean);
+function ProjectCardTab({ company, year, title }) {
+  const displayTitle = company && company !== "Personal" ? company : title;
 
-  if (!displayHeadline && metaParts.length === 0) return null;
+  if (!displayTitle && !year) return null;
 
   return (
-    <div className="project-card__caption">
-      {displayHeadline && <p className="project-card__headline">{displayHeadline}</p>}
-      {metaParts.length > 0 && (
-        <p className="project-card__meta-line">
-          {metaParts.map((part, index) => (
-            <span key={`${part}-${index}`}>
-              {index > 0 && (
-                <span className="project-card__meta-sep" aria-hidden="true">
-                  {" "}
-                  •{" "}
-                </span>
-              )}
-              <span>{part}</span>
-            </span>
-          ))}
-        </p>
-      )}
+    <div className="project-card__tab">
+      {displayTitle && <p className="project-card__headline">{displayTitle}</p>}
+      {year && <p className="project-card__year">{year}</p>}
     </div>
   );
 }
@@ -133,13 +164,21 @@ function ProjectCard({ project, onExpand }) {
     thumbnailVideo,
     thumbnailSlides,
     thumbnailSlideInterval,
+    thumbnailStack,
     theme,
-    displayOnly
+    displayOnly,
+    comingSoon,
+    tabYear
   } = project;
   const [thumbMissing, setThumbMissing] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const isExternal = href.startsWith("http");
   const isInternal = href.startsWith("/");
   const isLink = href !== "#" && !onExpand;
+  const hoverProps = {
+    onMouseEnter: () => setIsHovered(true),
+    onMouseLeave: () => setIsHovered(false)
+  };
 
   const body = (
     <div className="project-card__frame">
@@ -153,23 +192,37 @@ function ProjectCard({ project, onExpand }) {
           .join(" ")}
         data-cursor-case-study={displayOnly ? undefined : ""}
       >
-        <ProjectCardMedia
-          thumbnail={thumbnail}
-          thumbnailVideo={thumbnailVideo}
-          thumbnailSlides={thumbnailSlides}
-          thumbnailSlideInterval={thumbnailSlideInterval}
-          thumbMissing={thumbMissing}
-          setThumbMissing={setThumbMissing}
+        <div className="project-card__visual">
+          <ProjectCardMedia
+            thumbnail={thumbnail}
+            thumbnailVideo={thumbnailVideo}
+            thumbnailSlides={thumbnailSlides}
+            thumbnailSlideInterval={thumbnailSlideInterval}
+            thumbnailSlideOnHover={project.thumbnailSlideOnHover}
+            thumbnailStack={thumbnailStack}
+            thumbMissing={thumbMissing}
+            setThumbMissing={setThumbMissing}
+            isHovered={isHovered}
+            comingSoon={comingSoon}
+          />
+        </div>
+        <ProjectCardTab
+          company={company}
+          year={tabYear ?? year}
+          title={title}
         />
       </div>
-
-      <ProjectCardCaption
-        headline={headline}
-        company={company}
-        status={status}
-        year={year}
-        title={title}
-      />
+      {(headline || status) && (
+        <div className="project-card__hover-copy">
+          {status && <p className="project-card__hover-status">{status}</p>}
+          {status && headline && (
+            <span className="project-card__hover-dot" aria-hidden="true">
+              ·
+            </span>
+          )}
+          {headline && <p className="project-card__hover-desc">{headline}</p>}
+        </div>
+      )}
     </div>
   );
 
@@ -189,6 +242,7 @@ function ProjectCard({ project, onExpand }) {
         onClick={onExpand}
         aria-label={label}
         aria-haspopup="dialog"
+        {...hoverProps}
       >
         {body}
       </button>
@@ -202,6 +256,7 @@ function ProjectCard({ project, onExpand }) {
           .filter(Boolean)
           .join(" ")}
         aria-label={label}
+        {...hoverProps}
       >
         {body}
       </article>
@@ -210,7 +265,7 @@ function ProjectCard({ project, onExpand }) {
 
   if (isInternal) {
     return (
-      <Link className="project-card" to={href} aria-label={label}>
+      <Link className="project-card" to={href} aria-label={label} {...hoverProps}>
         {body}
       </Link>
     );
@@ -221,6 +276,7 @@ function ProjectCard({ project, onExpand }) {
       className="project-card"
       href={href}
       aria-label={label}
+      {...hoverProps}
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
       {body}

@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { getPlayStudy } from "../data/play/index.js";
-import { getNextProject, PLAY_PROJECTS } from "../data/projects.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
 
 function PlayVideoOnlyPanel({ study, onClose }) {
@@ -78,9 +77,8 @@ function PlayVideoOnlyPanel({ study, onClose }) {
   );
 }
 
-export default function PlayExpandPanel({ playId, onClose, onNavigate }) {
+export default function PlayExpandPanel({ playId, onClose }) {
   const study = getPlayStudy(playId);
-  const nextProject = getNextProject(PLAY_PROJECTS, playId);
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -134,8 +132,6 @@ export default function PlayExpandPanel({ playId, onClose, onNavigate }) {
             study={study}
             scrollRoot={scrollRef}
             compact={false}
-            nextProject={nextProject}
-            onSeeNext={nextProject && onNavigate ? () => onNavigate(nextProject.id) : undefined}
             onBack={onClose}
           />
         </div>

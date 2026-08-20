@@ -60,6 +60,28 @@ export const ABOUT_PHOTOS = [
   }
 ];
 
+export const ABOUT_INTRO =
+  "My approach to problem-solving is rooted in craft and simplicity. I’m constantly cutting through complexity to make experiences feel obvious, from redesigning multi-step flows into single, low-friction screens to building systems that hold up under real-world pressure.";
+
+export const ABOUT_QUOTE_CARDS = [
+  {
+    id: "simplicity",
+    title: "on simplicity:",
+    text: "Simplicity is earned, not given. “Simple” design is achieved by wrestling with complexity and compressing it into a digestible form. The swan glides elegantly because it's paddling like hell underneath. Easy is what comes after hard.",
+    attribution: "Ryo Lu",
+    source: {
+      label: "from Jackson Dahl's Substack",
+      href: "https://jdahl.substack.com/p/cursors-ryo-lu-on-soulful-design"
+    }
+  },
+  {
+    id: "craft",
+    title: "on craft:",
+    text: "Your design taste is the moat. You can now design anything you imagine.",
+    attribution: "Michal Malewicz"
+  }
+];
+
 export const ABOUT_PHILOSOPHY = [
   {
     before:

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
-import ExternalLinkArrow from "./ExternalLinkArrow.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
 import { assetUrl } from "../utils/assetUrl.js";
 
@@ -46,6 +45,8 @@ function CaseStudyTopTabs({ activeTab = "work" }) {
 }
 
 function CaseStudyHeroMedia({
+  heroEmbed,
+  heroEmbedTitle,
   heroVideo,
   heroSlides,
   heroSlideInterval,
@@ -67,7 +68,7 @@ function CaseStudyHeroMedia({
       ? heroVideo
       : heroVideo.src
     : null;
-  const showVideo = Boolean(videoSrc) && !videoFailed;
+  const showVideo = Boolean(videoSrc) && !videoFailed && !heroEmbed;
 
   useEffect(() => {
     setVideoFailed(false);
@@ -85,6 +86,30 @@ function CaseStudyHeroMedia({
 
     return () => window.clearInterval(timer);
   }, [slides, intervalMs, showVideo]);
+
+  if (heroEmbed) {
+    return (
+      <div
+        className={[
+          "cs-placeholder",
+          "cs-placeholder--hero",
+          "cs-hero-embed",
+          heroBorderless && "cs-hero-embed--borderless"
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        style={heroBackground ? { background: heroBackground } : undefined}
+      >
+        <iframe
+          className="cs-hero-embed__frame"
+          src={heroEmbed}
+          title={heroEmbedTitle || "Live project"}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </div>
+    );
+  }
 
   if (showVideo) {
     const video = (
@@ -279,25 +304,27 @@ function CaseStudySection({ section, children }) {
   );
 }
 
-function CaseStudyActions({ actions }) {
+function CaseStudyActions({ actions, cues = false }) {
   if (!actions?.liveUrl) return null;
 
   return (
     <div className={`play-actions cs-actions__links${actions.centered ? " cs-actions__links--centered" : ""}`}>
       <a
-        className={[
-          "play-launch",
-          "cs-actions__launch",
-          actions.launchTheme && `play-launch--${actions.launchTheme}`
-        ]
-          .filter(Boolean)
-          .join(" ")}
+        className="play-launch cs-actions__launch"
         href={actions.liveUrl}
         target="_blank"
         rel="noopener noreferrer"
+        {...(cues
+          ? {
+              "data-cuelume-hover": "tick",
+              "data-cuelume-press": "pulse",
+              "data-cuelume-release": "release"
+            }
+          : {})}
       >
-        {actions.launchLabel ?? "Launch project"}
-        <ExternalLinkArrow className="play-launch__arrow" size={13} />
+        <span className="play-launch__pill">
+          {actions.launchLabel ?? "Launch project"}
+        </span>
       </a>
     </div>
   );
@@ -455,12 +482,13 @@ function TextBlock({ block }) {
   );
 }
 
-export function CaseStudyPreview({ study, compact = false }) {
+export function CaseStudyPreview({ study, compact = false, hideTabs = false }) {
   const {
     id,
     title,
     details,
     heroPlaceholder,
+    heroEmbed,
     heroVideo,
     heroSlides,
     heroSlideInterval,
@@ -481,11 +509,12 @@ export function CaseStudyPreview({ study, compact = false }) {
     projectCard?.year
   ].filter(Boolean);
   const activeTopTab = projectCard && PLAY_PROJECTS.some((project) => project.id === projectCard.id) ? "play" : "work";
+  const isPlay = activeTopTab === "play";
 
   return (
-    <header className={`cs-header cs-header--preview${compact ? " cs-header--compact" : ""}`}>
-      <CaseStudyTopTabs activeTab={activeTopTab} />
-      {metaParts.length > 0 && (
+    <header className={`cs-header cs-header--preview${compact ? " cs-header--compact" : ""}${isPlay ? " cs-header--play" : ""}`}>
+      {!hideTabs && <CaseStudyTopTabs activeTab={activeTopTab} />}
+      {!isPlay && metaParts.length > 0 && (
         <p className="cs-project-meta">
           {metaParts.map((part, index) => (
             <span key={`${part}-${index}`}>
@@ -502,6 +531,8 @@ export function CaseStudyPreview({ study, compact = false }) {
       )}
       <h1 className="cs-title">{displayTitle}</h1>
       <CaseStudyHeroMedia
+        heroEmbed={heroEmbed}
+        heroEmbedTitle={title}
         heroVideo={heroVideo}
         heroSlides={heroSlides}
         heroSlideInterval={heroSlideInterval}
@@ -621,32 +652,19 @@ export function CaseStudySectionNavBar({
   );
 }
 
-function CaseStudyFooter({ nextProject, onSeeNext }) {
-  if (!nextProject || !onSeeNext) return null;
-
-  return (
-    <footer className="cs-study-footer">
-      <p className="cs-study-footer__name">Anita Yan</p>
-      <span className="cs-study-footer__next-host">
-        <button
-          type="button"
-          className="cs-study-footer__next"
-          data-cursor-morph=""
-          onClick={onSeeNext}
-          aria-label={`See next: ${nextProject.title}`}
-        >
-          See next?
-        </button>
-      </span>
-    </footer>
-  );
-}
-
-export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = false, nextProject, onSeeNext, onBack }) {
+export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = false, onBack }) {
   const { sections, actions } = study;
 
   return (
-    <div className={`cs-body${compact ? " cs-body--compact" : ""}`}>
+    <div
+      className={[
+        "cs-body",
+        compact && "cs-body--compact",
+        hideNav && "cs-body--no-nav"
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       {scrollRoot && <WorkExpandNavStuckSync scrollRoot={scrollRoot} />}
       {!hideNav && <CaseStudySectionNavBar study={study} scrollRoot={scrollRoot} onBack={onBack} />}
       <div className="cs-content">
@@ -671,12 +689,11 @@ export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = fa
           >
             {!actions.centered && <div className="cs-section__aside" />}
             <div className="cs-section__main">
-              <CaseStudyActions actions={actions} />
+              <CaseStudyActions actions={actions} cues={hideNav} />
             </div>
           </section>
         )}
       </div>
-      <CaseStudyFooter nextProject={nextProject} onSeeNext={onSeeNext} />
     </div>
   );
 }
@@ -686,20 +703,17 @@ export function CaseStudyFullContent({
   scrollRoot,
   compact = false,
   hideNav = false,
-  nextProject,
-  onSeeNext,
+  hideTabs = false,
   onBack
 }) {
   return (
     <div className={`cs-embed${compact ? " cs-embed--compact" : ""}`}>
-      <CaseStudyPreview study={study} compact={compact} />
+      <CaseStudyPreview study={study} compact={compact} hideTabs={hideTabs} />
       <CaseStudyBody
         study={study}
         scrollRoot={scrollRoot}
         compact={compact}
         hideNav={hideNav}
-        nextProject={nextProject}
-        onSeeNext={onSeeNext}
         onBack={onBack}
       />
     </div>

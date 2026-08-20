@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
 import { getCaseStudy } from "../data/caseStudies/index.js";
-import { getNextProject, WORK_PROJECTS } from "../data/projects.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
 
-export default function WorkExpandPanel({ workId, onClose, onNavigate }) {
+export default function WorkExpandPanel({ workId, onClose }) {
   const study = getCaseStudy(workId);
-  const nextProject = getNextProject(WORK_PROJECTS, workId);
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -55,8 +53,6 @@ export default function WorkExpandPanel({ workId, onClose, onNavigate }) {
             study={study}
             scrollRoot={scrollRef}
             compact={false}
-            nextProject={nextProject}
-            onSeeNext={nextProject && onNavigate ? () => onNavigate(nextProject.id) : undefined}
             onBack={onClose}
           />
         </div>

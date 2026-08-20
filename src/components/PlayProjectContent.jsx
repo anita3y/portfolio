@@ -1,5 +1,3 @@
-import ExternalLinkArrow from "./ExternalLinkArrow.jsx";
-
 export default function PlayProjectContent({ project }) {
   const {
     title,
@@ -86,18 +84,23 @@ export default function PlayProjectContent({ project }) {
             href={liveUrl}
             target="_blank"
             rel="noopener noreferrer"
+            data-cuelume-hover="tick"
+            data-cuelume-press="pulse"
+            data-cuelume-release="release"
           >
-            {launchLabel}
-            <ExternalLinkArrow className="play-launch__arrow" size={13} />
+            <span className="play-launch__pill">{launchLabel}</span>
           </a>
           {repoUrl && (
             <a
-              className="play-repo"
+              className="play-launch play-repo"
               href={repoUrl}
               target="_blank"
               rel="noopener noreferrer"
+              data-cuelume-hover="tick"
+              data-cuelume-press="scan"
+              data-cuelume-release="release"
             >
-              View on GitHub
+              <span className="play-launch__pill">View on GitHub</span>
             </a>
           )}
         </div>

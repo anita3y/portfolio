@@ -2,36 +2,16 @@ import { assetUrl } from "../utils/assetUrl.js";
 
 export const WORK_PROJECTS = [
   {
-    id: "vanity-beauty",
-    title: "Vanity Beauty App",
-    headline: "Low-friction onboarding for iOS app",
-    company: "Vanity Beauty App",
-    status: "Shipping...",
-    year: "2026",
-    tags: ["iOS", "Onboarding", "Mobile"],
+    id: "world-affairs-conference",
+    title: "World Affairs Conference",
+    headline: "Unified registration process for 1,000+ attendees",
+    company: "World Affairs Conference",
+    status: "Shipped",
+    year: "2025",
+    tags: ["Systems", "Registration", "Physical × digital"],
     href: "#",
-    theme: "vanity"
-  },
-  {
-    id: "poster-designs",
-    title: "Poster Designs",
-    headline: "Poster Designs",
-    company: "Personal",
-    status: "Exploration",
-    year: "2026",
-    tags: ["Visual design", "Posters"],
-    href: "#",
-    thumbnailSlides: [
-      assetUrl("/thumbnails/poster-designs/frame-01.png"),
-      assetUrl("/thumbnails/poster-designs/frame-02.png"),
-      assetUrl("/thumbnails/poster-designs/frame-03.png"),
-      assetUrl("/thumbnails/poster-designs/frame-04.png"),
-      assetUrl("/thumbnails/poster-designs/frame-05.png"),
-      assetUrl("/thumbnails/poster-designs/frame-06.png"),
-      assetUrl("/thumbnails/poster-designs/frame-07.png")
-    ],
-    thumbnailSlideInterval: 1000,
-    theme: "poster-designs"
+    thumbnail: assetUrl("/thumbnails/wac-thumbnail.png"),
+    theme: "wac"
   },
   {
     id: "design-for-america",
@@ -52,34 +32,39 @@ export const WORK_PROJECTS = [
     theme: "dfa"
   },
   {
-    id: "pivotal-moments",
-    title: "New York Design Club",
-    headline: "Making 10k+ impressions through Instagram posts and reels",
-    company: "New York Design Club",
-    status: "Marketing",
+    id: "poster-designs",
+    title: "Poster Designs",
+    headline: "Poster Designs",
+    company: "Personal",
+    status: "Exploration",
     year: "2026",
-    tags: ["Instagram", "Growth", "Editorial"],
+    tags: ["Visual design", "Posters"],
     href: "#",
     thumbnailSlides: [
-      assetUrl("/thumbnails/nydc/frame-18.png"),
-      assetUrl("/thumbnails/nydc/frame-19.png"),
-      assetUrl("/thumbnails/nydc/frame-20.png")
+      assetUrl("/thumbnails/poster-designs/frame-01.png"),
+      assetUrl("/thumbnails/poster-designs/frame-02.png"),
+      assetUrl("/thumbnails/poster-designs/frame-03.png"),
+      assetUrl("/thumbnails/poster-designs/frame-04.png"),
+      assetUrl("/thumbnails/poster-designs/frame-05.png"),
+      assetUrl("/thumbnails/poster-designs/frame-06.png"),
+      assetUrl("/thumbnails/poster-designs/frame-07.png")
     ],
-    thumbnailSlideInterval: 1000,
-    theme: "pivotal"
+    thumbnailSlideInterval: 380,
+    thumbnailSlideOnHover: true,
+    theme: "poster-designs"
   },
   {
-    id: "world-affairs-conference",
-    title: "World Affairs Conference",
-    headline: "Unified registration process for 1,000+ attendees",
-    company: "World Affairs Conference",
-    status: "Shipped",
-    year: "2025",
-    tags: ["Systems", "Registration", "Physical × digital"],
+    id: "vanity-beauty",
+    title: "Vanity Beauty App",
+    headline: "Low-friction onboarding for iOS app",
+    company: "Vanity Beauty App",
+    status: "Shipping...",
+    year: "2026",
+    tabYear: "coming soon..",
+    tags: ["iOS", "Onboarding", "Mobile"],
     href: "#",
-    thumbnail: assetUrl("/thumbnails/wac.png"),
-    thumbnailVideo: assetUrl("/case-studies/wac/demos/admin-tags.mov"),
-    theme: "wac"
+    thumbnailVideo: assetUrl("/thumbnails/vanity/card.mov"),
+    theme: "vanity"
   },
   {
     id: "chatgpt-branches",
@@ -93,10 +78,35 @@ export const WORK_PROJECTS = [
     thumbnail: assetUrl("/thumbnails/chatgpt-branches.jpg"),
     thumbnailVideo: assetUrl("/thumbnails/chatgpt-branches-card.mov"),
     theme: "branches"
+  },
+  {
+    id: "pivotal-moments",
+    title: "New York Design Club",
+    headline: "Making 10k+ impressions through Instagram posts and reels",
+    company: "New York Design Club",
+    status: "Marketing",
+    year: "2026",
+    tags: ["Instagram", "Growth", "Editorial"],
+    href: "#",
+    thumbnailVideo: assetUrl("/thumbnails/nydc/card.mov"),
+    theme: "pivotal"
   }
 ];
 
 export const PLAY_PROJECTS = [
+  {
+    id: "degreeplanning",
+    title: "Degree Planning",
+    headline: "Graduation planner",
+    company: "Degree Planning",
+    status: "Shipped",
+    year: "2025",
+    tags: ["Web", "Planning", "Interactive"],
+    href: "#",
+    thumbnailVideo: assetUrl("/thumbnails/degreeplanning-card.mov"),
+    cover: assetUrl("/thumbnails/play/degreeplanning.png") + "?v=2",
+    theme: "degree"
+  },
   {
     id: "anatomy-of-a-memory",
     title: "Anatomy of a Memory",
@@ -108,7 +118,20 @@ export const PLAY_PROJECTS = [
     href: "#",
     thumbnail: assetUrl("/thumbnails/anatomy-of-a-memory.jpg"),
     thumbnailVideo: assetUrl("/thumbnails/anatomy-of-a-memory-card.mov"),
+    cover: assetUrl("/thumbnails/play/anatomy-of-a-memory.png"),
     theme: "memory"
+  },
+  {
+    id: "sticker-collection",
+    title: "Sticker Collection",
+    headline: "Sticker collection",
+    company: "Personal",
+    status: "Exploration",
+    year: "2026",
+    tags: ["Visual design"],
+    href: "#",
+    cover: assetUrl("/thumbnails/play/sticker-collection.png") + "?v=4",
+    theme: "stickers"
   },
   {
     id: "my-bookshelf",
@@ -125,19 +148,8 @@ export const PLAY_PROJECTS = [
       assetUrl("/thumbnails/bookshelf/grand-budapest.png")
     ],
     thumbnailSlideInterval: 1200,
+    cover: assetUrl("/thumbnails/play/bookshelf.png"),
     theme: "bookshelf"
-  },
-  {
-    id: "degreeplanning",
-    title: "Degree Planning",
-    headline: "Graduation planner",
-    company: "Degree Planning",
-    status: "Shipped",
-    year: "2025",
-    tags: ["Web", "Planning", "Interactive"],
-    href: "#",
-    thumbnailVideo: assetUrl("/thumbnails/degreeplanning-card.mov"),
-    theme: "degree"
   },
   {
     id: "femizon-website",
@@ -149,6 +161,7 @@ export const PLAY_PROJECTS = [
     tags: ["Web", "Motion"],
     href: "#",
     thumbnailVideo: assetUrl("/thumbnails/femizon-website-card.mov"),
+    cover: assetUrl("/thumbnails/play/femizon.png") + "?v=3",
     theme: "femizon",
     displayOnly: true
   }

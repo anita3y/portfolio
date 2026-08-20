@@ -1,11 +1,3 @@
-import { assetUrl } from "../../utils/assetUrl.js";
-
-const PREVIEW_VIDEO = assetUrl("/thumbnails/my-bookshelf-card.mov");
-const PREVIEW_SLIDES = [
-  assetUrl("/thumbnails/bookshelf/steve-lacy.png"),
-  assetUrl("/thumbnails/bookshelf/grand-budapest.png")
-];
-
 export const MY_BOOKSHELF = {
   id: "my-bookshelf",
   breadcrumb: ["Portfolio", "Play: My Bookshelf"],
@@ -16,9 +8,7 @@ export const MY_BOOKSHELF = {
     timeline: "2025",
     tools: ["Web", "Catalog", "Interactive"]
   },
-  heroVideo: PREVIEW_VIDEO,
-  heroSlides: PREVIEW_SLIDES,
-  heroAspectRatio: "1372 / 908",
+  heroEmbed: "https://anita3y.github.io/my-bookshelf/",
   heroBorderless: true,
   heroBackground: "#f0ecf8",
   actions: {

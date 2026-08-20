@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ABOUT_EDUCATION, ABOUT_LOCATION } from "../data/about.js";
 
 const TYPE_MS = 32;
@@ -19,9 +19,11 @@ function LocationPinIcon() {
 }
 
 function ExpandableTag({ baseLabel, expandedSuffix, variant, collapseLabel }) {
+  const ref = useRef(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [typedSuffix, setTypedSuffix] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [tug, setTug] = useState({ x: 0, y: 0, hovering: false });
   const expandedLabel = `${baseLabel} ${expandedSuffix}`;
 
   useEffect(() => {
@@ -55,24 +57,47 @@ function ExpandableTag({ baseLabel, expandedSuffix, variant, collapseLabel }) {
     return () => window.clearInterval(intervalId);
   }, [isExpanded, expandedSuffix]);
 
+  const onPointerMove = (event) => {
+    const el = ref.current;
+    if (!el) return;
+    const box = el.getBoundingClientRect();
+    const nx = (event.clientX - (box.left + box.width / 2)) / (box.width / 2);
+    const ny = (event.clientY - (box.top + box.height / 2)) / (box.height / 2);
+    setTug({
+      x: Math.max(-1, Math.min(1, nx)) * 7,
+      y: Math.max(-1, Math.min(1, ny)) * 5,
+      hovering: true
+    });
+  };
+
   return (
     <button
+      ref={ref}
       type="button"
       className={[
         "about-tags__tag",
         `about-tags__tag--${variant}`,
-        isExpanded && "is-expanded"
+        isExpanded && "is-expanded",
+        tug.hovering && "is-tugging"
       ]
         .filter(Boolean)
         .join(" ")}
+      style={{
+        "--tug-x": `${tug.x.toFixed(2)}px`,
+        "--tug-y": `${tug.y.toFixed(2)}px`
+      }}
       onClick={() => setIsExpanded((expanded) => !expanded)}
+      onPointerMove={onPointerMove}
+      onPointerLeave={() => setTug({ x: 0, y: 0, hovering: false })}
       aria-expanded={isExpanded}
       aria-label={
         isExpanded
           ? `${expandedLabel}. Click to collapse.`
           : `${baseLabel}. Click to ${collapseLabel}.`
       }
-      data-cursor-morph=""
+      data-cursor-hover=""
+      data-cuelume-hover="tick"
+      data-cuelume-toggle="toggle"
     >
       <span className="about-tags__tag-text">
         {baseLabel}

@@ -1,7 +1,3 @@
-import { assetUrl } from "../../utils/assetUrl.js";
-
-const PREVIEW_VIDEO = assetUrl("/thumbnails/degreeplanning-card.mov");
-
 export const DEGREEPLANNING = {
   id: "degreeplanning",
   breadcrumb: ["Portfolio", "Play: Degree Planning"],
@@ -12,10 +8,9 @@ export const DEGREEPLANNING = {
     timeline: "2025",
     tools: ["Web", "Planning", "Interactive"]
   },
-  heroVideo: PREVIEW_VIDEO,
-  heroAspectRatio: "1372 / 908",
+  heroEmbed: "https://anita3y.github.io/degreeplanning/",
   heroBorderless: true,
-  heroBackground: "#f4f6f8",
+  heroBackground: "#eceae4",
   actions: {
     liveUrl: "https://anita3y.github.io/degreeplanning/",
     launchLabel: "Open planner",

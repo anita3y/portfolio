@@ -1,43 +1,93 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import {
-  ABOUT_COMMUNITY,
+  ABOUT_INTRO,
   ABOUT_OUTSIDE,
-  ABOUT_PHILOSOPHY,
-  ABOUT_PHILOSOPHY_QUOTES,
   ABOUT_PHOTOS,
-  ABOUT_SECTIONS
+  ABOUT_QUOTE_CARDS
 } from "../data/about.js";
 import AboutAnitaConnect from "./AboutAnitaConnect.jsx";
 import AboutDottedHover from "./AboutDottedHover.jsx";
 import AboutInlineVinyls from "./AboutInlineVinyls.jsx";
+import AboutMediaShelves from "./AboutMediaShelves.jsx";
 import AboutPhotoDeck from "./AboutPhotoDeck.jsx";
-import AboutSidebar from "./AboutSidebar.jsx";
 import AboutTags from "./AboutTags.jsx";
-import BookshelfEmbed from "./BookshelfEmbed.jsx";
-import PhilosophyQuoteDeck from "./PhilosophyQuoteDeck.jsx";
+import CurrentlyBar from "./CurrentlyBar.jsx";
+import { assetUrl } from "../utils/assetUrl.js";
 
-function renderPhilosophyParagraph(entry, key) {
-  if (typeof entry === "string") {
-    return (
-      <p key={key} className="about-text">
-        {entry}
-      </p>
-    );
-  }
+const URL_TAB = assetUrl("/about/url-tab.png");
+const BOOKSHELF_URL = "anita3y.github.io/my-bookshelf";
+const BOOKSHELF_HREF = "https://anita3y.github.io/my-bookshelf/";
+const DRAG_IGNORE =
+  ".about-browser__dot, .about-quote-card, .about-inline-vinyls__stack, .about-inline-dotted__img-wrap, .about-photo-deck, .about-tags__tag--school, .about-tags__tag--major, .about-hello__name-connect, .about-hello__name-connect-link, .about-inline-link, .about-bookshelf-embed, .about-shelf-scroll, .play-launch";
 
-  const { before, emphasis, after } = entry;
+const WINDOWS = [
+  { id: "bio", label: "Hi, my name is", url: "nita.os" },
+  { id: "philosophy", label: "Philosophy", url: "anitasphilosophy.com" },
+  { id: "bookshelf", label: "My bookshelf", url: BOOKSHELF_URL, href: BOOKSHELF_HREF }
+];
+
+function AboutQuoteCard({ card, isFront, onFront }) {
+  const ref = useRef(null);
+  const [tug, setTug] = useState({ x: 0, y: 0, hovering: false });
+
+  const onPointerMove = (event) => {
+    const el = ref.current;
+    if (!el) return;
+    const box = el.getBoundingClientRect();
+    const nx = (event.clientX - (box.left + box.width / 2)) / (box.width / 2);
+    const ny = (event.clientY - (box.top + box.height / 2)) / (box.height / 2);
+    setTug({
+      x: Math.max(-1, Math.min(1, nx)) * 8,
+      y: Math.max(-1, Math.min(1, ny)) * 6,
+      hovering: true
+    });
+  };
 
   return (
-    <p key={key} className="about-text">
-      {before}
-      {emphasis.map((word, i) => (
-        <span key={word}>
-          {i > 0 && (i === emphasis.length - 1 ? ", and " : ", ")}
-          <strong className="about-text__emph">{word}</strong>
-        </span>
-      ))}
-      {after}
-    </p>
+    <blockquote
+      ref={ref}
+      className={[
+        "about-quote-card",
+        `about-quote-card--${card.id}`,
+        isFront && "is-front",
+        tug.hovering && "is-tugging"
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={{
+        "--tug-x": `${tug.x.toFixed(2)}px`,
+        "--tug-y": `${tug.y.toFixed(2)}px`
+      }}
+      data-cursor-hover=""
+      data-cuelume-hover="whisper"
+      data-cuelume-press="tick"
+      onPointerMove={onPointerMove}
+      onPointerLeave={() => setTug({ x: 0, y: 0, hovering: false })}
+      onClick={() => onFront(card.id)}
+    >
+      <p className="about-quote-card__title">{card.title}</p>
+      <p className="about-quote-card__text">“{card.text}”</p>
+      <footer className="about-quote-card__attr">
+        - {card.attribution}
+        {card.source ? (
+          <>
+            {" ("}
+            <a
+              className="about-quote-card__source"
+              href={card.source.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cuelume-hover="tick"
+              onClick={(event) => event.stopPropagation()}
+              onPointerDown={(event) => event.stopPropagation()}
+            >
+              {card.source.label}
+            </a>
+            {")"}
+          </>
+        ) : null}
+      </footer>
+    </blockquote>
   );
 }
 
@@ -50,6 +100,8 @@ function renderOutsidePart(part, i) {
         href={part.href}
         target="_blank"
         rel="noopener noreferrer"
+        data-cuelume-hover="tick"
+        data-cuelume-press="press"
       >
         {part.label}
       </a>
@@ -83,107 +135,312 @@ function renderOutsidePart(part, i) {
   return <span key={i}>{part.value}</span>;
 }
 
-const VINYL_PART_INDEX = ABOUT_OUTSIDE.findIndex((part) => part.type === "vinyls");
-const ABOUT_OUTSIDE_BEFORE_VINYL = ABOUT_OUTSIDE.slice(0, VINYL_PART_INDEX + 1);
-const ABOUT_OUTSIDE_AFTER_VINYL = ABOUT_OUTSIDE.slice(VINYL_PART_INDEX + 1);
+function UrlTab({ url, href, onPointerDown, onClick }) {
+  const inner = (
+    <>
+      <img className="about-browser__url-bg" src={URL_TAB} alt="" draggable={false} aria-hidden="true" />
+      <span className="about-browser__url-text">{url}</span>
+    </>
+  );
 
-function useAboutActiveSection(sections) {
-  const [activeId, setActiveId] = useState(sections[0]?.id ?? "");
-
-  useEffect(() => {
-    const ids = sections.map((section) => section.id);
-    const elements = ids.map((id) => document.getElementById(id)).filter(Boolean);
-    if (elements.length === 0) return undefined;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target?.id) setActiveId(visible[0].target.id);
-      },
-      {
-        root: null,
-        rootMargin: "-18% 0px -52% 0px",
-        threshold: [0, 0.2, 0.45, 0.7]
-      }
+  if (href) {
+    return (
+      <a
+        className="about-browser__url"
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cuelume-hover="tick"
+        data-cuelume-press="press"
+        onPointerDown={onPointerDown}
+        onClick={onClick}
+      >
+        {inner}
+      </a>
     );
+  }
 
-    elements.forEach((element) => observer.observe(element));
-    return () => observer.disconnect();
-  }, [sections]);
+  return (
+    <span className="about-browser__url" onPointerDown={onPointerDown}>
+      {inner}
+    </span>
+  );
+}
 
-  return activeId;
+function WindowChrome({ url, href, onClose, onShrink, onGreen, skipNavClickRef, isSmall }) {
+  const stop = (event) => event.stopPropagation();
+
+  return (
+    <header className="about-browser">
+      <span className="about-browser__dots">
+        <button
+          type="button"
+          className="about-browser__dot about-browser__dot--red"
+          aria-label="Close window"
+          onPointerDown={stop}
+          onClick={onClose}
+          data-cuelume-press="droplet"
+        />
+        <button
+          type="button"
+          className="about-browser__dot about-browser__dot--yellow"
+          aria-label={isSmall ? "Expand window" : "Make window smaller"}
+          onPointerDown={stop}
+          onClick={onShrink}
+          data-cuelume-toggle="toggle"
+        />
+        <button
+          type="button"
+          className="about-browser__dot about-browser__dot--green"
+          aria-label="Restore window"
+          onPointerDown={stop}
+          onClick={onGreen}
+          data-cuelume-press="bloom"
+        />
+      </span>
+      <UrlTab
+        url={url}
+        href={href}
+        onClick={(event) => {
+          if (skipNavClickRef?.current) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+        }}
+      />
+    </header>
+  );
 }
 
 export default function AboutPanel() {
-  const activeId = useAboutActiveSection(ABOUT_SECTIONS);
+  const [frontId, setFrontId] = useState("bio");
+  const [closed, setClosed] = useState({
+    bio: false,
+    philosophy: false,
+    bookshelf: false
+  });
+  const [small, setSmall] = useState({
+    bio: false,
+    philosophy: false,
+    bookshelf: false
+  });
+  const [frontCardId, setFrontCardId] = useState("craft");
+  const [draggingId, setDraggingId] = useState(null);
+  const windowRefs = useRef({});
+  const closedRef = useRef(closed);
+  const dragRef = useRef(null);
+  const offsetsRef = useRef({ bio: { x: 0, y: 0 }, philosophy: { x: 0, y: 0 }, bookshelf: { x: 0, y: 0 } });
+  const skipNavClickRef = useRef(false);
+  closedRef.current = closed;
+
+  const closeWindow = (id) => {
+    const remaining = WINDOWS.filter((item) => item.id !== id && !closedRef.current[item.id]);
+    if (remaining.length === 0) return;
+
+    const nextClosed = { ...closedRef.current, [id]: true };
+    closedRef.current = nextClosed;
+    setClosed(nextClosed);
+    setFrontId((currentFront) => (currentFront === id ? remaining[0].id : currentFront));
+  };
+
+  const openWindow = (id) => {
+    setFrontId(id);
+    if (!closedRef.current[id]) return;
+    const next = { ...closedRef.current, [id]: false };
+    closedRef.current = next;
+    setClosed(next);
+  };
+
+  const shrinkWindow = (id) => {
+    setFrontId(id);
+    setSmall((current) => ({ ...current, [id]: !current[id] }));
+  };
+
+  const restoreWindow = (id) => {
+    const reset = { bio: false, philosophy: false, bookshelf: false };
+    closedRef.current = reset;
+    setClosed(reset);
+    setFrontId(id);
+    setSmall((current) => ({ ...current, [id]: false }));
+  };
+
+  const beginDrag = (id, event) => {
+    openWindow(id);
+    if (event.button !== 0) return;
+    if (event.target.closest(DRAG_IGNORE)) return;
+
+    const node = windowRefs.current[id];
+    if (!node) return;
+
+    skipNavClickRef.current = false;
+    node.setPointerCapture(event.pointerId);
+    dragRef.current = {
+      id,
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      origX: offsetsRef.current[id].x,
+      origY: offsetsRef.current[id].y,
+      moved: false
+    };
+    setDraggingId(id);
+  };
+
+  const endDrag = (event) => {
+    const drag = dragRef.current;
+    if (!drag || (event && drag.pointerId !== event.pointerId)) return;
+    dragRef.current = null;
+    setDraggingId(null);
+    window.setTimeout(() => {
+      skipNavClickRef.current = false;
+    }, 0);
+  };
+
+  const onWindowPointerMove = (event) => {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+
+    const dx = event.clientX - drag.startX;
+    const dy = event.clientY - drag.startY;
+    if (!drag.moved && dx * dx + dy * dy < 16) return;
+    drag.moved = true;
+    skipNavClickRef.current = true;
+
+    const next = { x: drag.origX + dx, y: drag.origY + dy };
+    offsetsRef.current[drag.id] = next;
+    const node = windowRefs.current[drag.id];
+    if (!node) return;
+    node.style.setProperty("--drag-x", `${next.x}px`);
+    node.style.setProperty("--drag-y", `${next.y}px`);
+  };
+
+  const endPointer = (event) => {
+    endDrag(event);
+  };
+
+  const windowClass = (id) =>
+    [
+      "about-window",
+      `about-window--${id}`,
+      frontId === id && !closed[id] ? "is-front" : "",
+      small[id] ? "is-small" : "",
+      closed[id] ? "is-closed" : "",
+      draggingId === id ? "is-dragging" : ""
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+  const windowDragProps = (id) => ({
+    onPointerDown: (event) => beginDrag(id, event),
+    onPointerMove: onWindowPointerMove,
+    onPointerUp: endPointer,
+    onPointerCancel: endPointer
+  });
 
   return (
-    <div className="about-page">
-      <div className="about-body">
-        <AboutSidebar sections={ABOUT_SECTIONS} activeId={activeId} />
-
-        <div className="about-content">
-          <section id="hello" className="about-section about-section--hello">
-            <h2 className="about-section__title about-section__title--sr">Hello!</h2>
-            <div className="about-hello">
-              <header className="about-hello__hero">
-                <div className="about-hello__hero-row">
-                  <AboutPhotoDeck photos={ABOUT_PHOTOS} />
-                  <div className="about-hello__intro">
-                    <p className="about-hello__heading about-hello__heading--greeting">
-                      <span className="about-hello__chunk about-hello__chunk--intro">
-                        Hi, my name is <AboutAnitaConnect />!
-                      </span>
-                    </p>
-                    <p className="about-hello__heading about-hello__heading--outside">
-                      <span className="about-hello__chunk about-hello__chunk--outside">
-                        {ABOUT_OUTSIDE_BEFORE_VINYL.map((part, i) => renderOutsidePart(part, i))}
-                      </span>
-                      <span className="about-hello__chunk about-hello__chunk--rest">
-                        {ABOUT_OUTSIDE_AFTER_VINYL.map((part, i) =>
-                          renderOutsidePart(part, i + VINYL_PART_INDEX + 1)
-                        )}
-                      </span>
-                    </p>
-                    <div className="about-hello__intro-tags">
-                      <AboutTags />
-                    </div>
-                  </div>
-                </div>
-              </header>
-            </div>
-          </section>
-
-          <section id="philosophy" className="about-section about-section--philosophy">
-            <h2 className="about-section__heading">Philosophy</h2>
-            {ABOUT_PHILOSOPHY.map((entry, i) => renderPhilosophyParagraph(entry, i))}
-            <PhilosophyQuoteDeck quotes={ABOUT_PHILOSOPHY_QUOTES} />
-          </section>
-
-          <section id="bookshelf" className="about-section about-section--bookshelf">
-            <h2 className="about-section__heading">My bookshelf</h2>
-            <BookshelfEmbed />
-          </section>
-
-          <section id="community" className="about-section about-section--community">
-            <h2 className="about-section__heading">My communities</h2>
-            <div className="about-community">
-              <ul className="about-community__grid">
-                {ABOUT_COMMUNITY.map((item) => (
-                  <li key={item.id} className="about-community__item">
-                    <figure className="about-community__figure">
-                      <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
-                    </figure>
-                    <h3 className="about-community__item-title">{item.title}</h3>
-                    <p className="about-community__item-copy">{item.description}</p>
-                  </li>
+    <div className="about-page about-page--desktop">
+      <div className="about-desktop">
+        <article
+          ref={(node) => {
+            windowRefs.current.philosophy = node;
+          }}
+          className={windowClass("philosophy")}
+          {...windowDragProps("philosophy")}
+        >
+          <div className="about-window__tilt">
+            <WindowChrome
+              url="anitasphilosophy.com"
+              onClose={() => closeWindow("philosophy")}
+              onShrink={() => shrinkWindow("philosophy")}
+              onGreen={() => restoreWindow("philosophy")}
+              skipNavClickRef={skipNavClickRef}
+              isSmall={small.philosophy}
+            />
+            <p className="about-intro">{ABOUT_INTRO}</p>
+            <div className="about-quote-stack">
+              <div className="about-quote-deck">
+                {ABOUT_QUOTE_CARDS.map((card) => (
+                  <AboutQuoteCard
+                    key={card.id}
+                    card={card}
+                    isFront={frontCardId === card.id}
+                    onFront={setFrontCardId}
+                  />
                 ))}
-              </ul>
+              </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </article>
+
+        <article
+          ref={(node) => {
+            windowRefs.current.bio = node;
+          }}
+          className={windowClass("bio")}
+          {...windowDragProps("bio")}
+        >
+          <div className="about-window__tilt">
+            <WindowChrome
+              url="nita.os"
+              onClose={() => closeWindow("bio")}
+              onShrink={() => shrinkWindow("bio")}
+              onGreen={() => restoreWindow("bio")}
+              skipNavClickRef={skipNavClickRef}
+              isSmall={small.bio}
+            />
+            <CurrentlyBar />
+            <div className="about-window__bio-row">
+              <AboutPhotoDeck photos={ABOUT_PHOTOS} size="hero" />
+              <div className="about-window__bio-copy">
+                <p className="about-window__hello">
+                  Hi, my name is <AboutAnitaConnect />!{" "}
+                  {ABOUT_OUTSIDE.map(renderOutsidePart)}
+                </p>
+              </div>
+            </div>
+            <div className="about-window__bio-tags">
+              <AboutTags />
+            </div>
+          </div>
+        </article>
+
+        <article
+          ref={(node) => {
+            windowRefs.current.bookshelf = node;
+          }}
+          className={windowClass("bookshelf")}
+          {...windowDragProps("bookshelf")}
+        >
+          <div className="about-window__tilt">
+            <WindowChrome
+              url={BOOKSHELF_URL}
+              href={BOOKSHELF_HREF}
+              onClose={() => closeWindow("bookshelf")}
+              onShrink={() => shrinkWindow("bookshelf")}
+              onGreen={() => restoreWindow("bookshelf")}
+              skipNavClickRef={skipNavClickRef}
+              isSmall={small.bookshelf}
+            />
+            <div className="about-bookshelf-body">
+              <div className="about-bookshelf-embed">
+                <AboutMediaShelves />
+                <span className="about-bookshelf-fade" aria-hidden="true" />
+              </div>
+              <a
+                className="play-launch"
+                href={BOOKSHELF_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cursor-hover=""
+                data-cuelume-hover="tick"
+                data-cuelume-press="pulse"
+                data-cuelume-release="release"
+              >
+                <span className="play-launch__pill">open bookshelf</span>
+              </a>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   );
