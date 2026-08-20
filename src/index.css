@@ -5586,7 +5586,15 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .play-stage__study .cs-hero-embed {
   margin-top: 0.85rem;
-  margin-bottom: 1.65rem;
+  margin-bottom: clamp(3.5rem, 7vw, 5.25rem);
+}
+
+.play-stage__study .cs-header--preview .cs-placeholder--hero {
+  margin-bottom: clamp(3.5rem, 7vw, 5.25rem);
+}
+
+.play-stage__study .play-embed--video .play-embed__video-frame {
+  margin-bottom: clamp(3.5rem, 7vw, 5.25rem);
 }
 
 .play-stage__study .cs-title,
