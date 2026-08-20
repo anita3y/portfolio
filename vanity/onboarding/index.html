@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanity — Screen 1 product gather</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --phone-w: 402px;
+        --phone-h: 874px;
+        --brand: #4a2c1a;
+        --ink: #111111;
+        --track: #e8e4df;
+        --bg: #eceae6;
+        --panel: #ffffff;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background:
+          radial-gradient(1200px 600px at 50% -10%, #f7f4ef 0%, transparent 60%),
+          var(--bg);
+        color: #222;
+      }
+
+      .page {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 20px 64px;
+        display: grid;
+        grid-template-columns: minmax(280px, 402px) minmax(280px, 1fr);
+        gap: 40px;
+        align-items: start;
+      }
+
+      @media (max-width: 860px) {
+        .page {
+          grid-template-columns: 1fr;
+          justify-items: center;
+        }
+      }
+
+      .stage-wrap {
+        width: min(100%, var(--phone-w));
+      }
+
+      .phone {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 402 / 874;
+        background: #fff;
+        border-radius: 44px;
+        overflow: hidden;
+        box-shadow:
+          0 1px 0 rgba(255, 255, 255, 0.7) inset,
+          0 24px 60px rgba(40, 30, 20, 0.18);
+      }
+
+      .phone-chrome {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 40;
+      }
+
+      .notch {
+        position: absolute;
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 118px;
+        height: 34px;
+        background: #0b0b0b;
+        border-radius: 20px;
+      }
+
+      .brand {
+        position: absolute;
+        top: 58px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: 28px;
+        letter-spacing: 0.02em;
+        color: var(--brand);
+        z-index: 30;
+        pointer-events: none;
+      }
+
+      .progress {
+        position: absolute;
+        top: 98px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 168px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        z-index: 30;
+        pointer-events: none;
+      }
+
+      .progress span {
+        height: 3px;
+        border-radius: 99px;
+        background: var(--track);
+      }
+
+      .progress span[data-active="true"] {
+        background: #111;
+      }
+
+      .copy {
+        position: absolute;
+        left: 36px;
+        right: 36px;
+        top: 42%;
+        transform: translateY(-50%);
+        text-align: center;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 1.18;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        z-index: 5;
+        pointer-events: none;
+        will-change: opacity;
+      }
+
+      .products {
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+      }
+
+      .product {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: center center;
+        will-change: transform;
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .product img {
+        display: block;
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 8px 18px rgba(40, 30, 20, 0.12));
+      }
+
+      .home-bar {
+        position: absolute;
+        left: 50%;
+        bottom: 10px;
+        transform: translateX(-50%);
+        width: 128px;
+        height: 5px;
+        border-radius: 99px;
+        background: #1a1a1a;
+        z-index: 40;
+      }
+
+      .panel {
+        width: min(100%, 520px);
+        background: var(--panel);
+        border-radius: 20px;
+        padding: 24px 24px 20px;
+        box-shadow: 0 10px 30px rgba(40, 30, 20, 0.06);
+      }
+
+      .panel h1 {
+        margin: 0 0 6px;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: 28px;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+
+      .panel .sub {
+        margin: 0 0 20px;
+        color: #666;
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      button {
+        appearance: none;
+        border: 0;
+        border-radius: 999px;
+        padding: 10px 16px;
+        background: #161616;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      button.secondary {
+        background: #efeee9;
+        color: #222;
+      }
+
+      button:disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+
+      .scrub {
+        display: grid;
+        gap: 8px;
+        margin: 8px 0 18px;
+      }
+
+      .scrub label {
+        font-size: 12px;
+        color: #777;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        accent-color: #161616;
+      }
+
+      .spec {
+        border-top: 1px solid #eee;
+        padding-top: 16px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .spec h2 {
+        margin: 0;
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #888;
+        font-weight: 600;
+      }
+
+      .kv {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 8px;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .kv dt {
+        color: #888;
+      }
+
+      .kv dd {
+        margin: 0;
+        color: #222;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 12px;
+      }
+
+      .code {
+        margin: 0;
+        padding: 12px;
+        background: #f7f6f3;
+        border-radius: 12px;
+        overflow: auto;
+        font-size: 11.5px;
+        line-height: 1.45;
+        color: #333;
+      }
+
+      .note {
+        font-size: 13px;
+        color: #555;
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      a {
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="stage-wrap">
+        <div class="phone" id="phone" aria-label="Vanity onboarding screen 1 animation">
+          <div class="phone-chrome"><div class="notch"></div></div>
+          <div class="brand">vanity</div>
+          <div class="progress" id="progress" aria-hidden="true"></div>
+          <div class="copy" id="copy">
+            Tired of oversaturated feeds<br />telling you what to buy?
+          </div>
+          <div class="products" id="products"></div>
+          <div class="home-bar" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <h1>Screen 1 → gather</h1>
+        <p class="sub">
+          Developer prototype for the Screen&nbsp;1 reel: products converge from a
+          scattered orbit into a center pile and obscure the problem statement.
+          Progress stays on step&nbsp;1 (same onboarding screen).
+        </p>
+
+        <div class="controls">
+          <button id="playBtn" type="button">Play</button>
+          <button id="resetBtn" class="secondary" type="button">Reset</button>
+          <button id="loopBtn" class="secondary" type="button">Loop: off</button>
+        </div>
+
+        <div class="scrub">
+          <label
+            >Progress <span id="progressLabel">0%</span></label
+          >
+          <input id="scrub" type="range" min="0" max="1000" value="0" />
+        </div>
+
+        <div class="spec">
+          <h2>Motion spec</h2>
+          <dl class="kv" id="timingKv"></dl>
+          <p class="note">
+            Source of truth:
+            <a href="./motion.json"><code>motion.json</code></a>
+            + cutouts in
+            <a href="./products/"><code>products/</code></a>.
+            Coordinates are on a <strong>402×874</strong> artboard; scale by
+            <code>deviceWidth / 402</code> in the app.
+          </p>
+          <h2>iOS (SwiftUI sketch)</h2>
+          <pre class="code" id="swiftSnippet"></pre>
+          <h2>React Native / Reanimated sketch</h2>
+          <pre class="code" id="rnSnippet"></pre>
+        </div>
+      </aside>
+    </div>
+
+    <script type="module">
+      const res = await fetch("./motion.json");
+      const motion = await res.json();
+      const { artboard, timing, products, progress, copy } = motion;
+
+      const productsEl = document.getElementById("products");
+      const copyEl = document.getElementById("copy");
+      const progressEl = document.getElementById("progress");
+      const scrub = document.getElementById("scrub");
+      const progressLabel = document.getElementById("progressLabel");
+      const playBtn = document.getElementById("playBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const loopBtn = document.getElementById("loopBtn");
+      const phone = document.getElementById("phone");
+
+      // Progress bar (stays on step 1 for this reel)
+      for (let i = 0; i < progress.steps; i++) {
+        const s = document.createElement("span");
+        s.dataset.active = String(i === (progress.activeStart ?? 0));
+        progressEl.appendChild(s);
+      }
+
+      const nodes = products
+        .slice()
+        .sort((a, b) => a.start.z - b.start.z)
+        .map((p) => {
+          const el = document.createElement("div");
+          el.className = "product";
+          el.dataset.id = p.id;
+          el.style.width = `${(p.width / artboard.width) * 100}%`;
+          el.style.zIndex = String(p.start.z);
+          const img = document.createElement("img");
+          img.src = p.src;
+          img.alt = p.id;
+          img.draggable = false;
+          el.appendChild(img);
+          productsEl.appendChild(el);
+          return { el, data: p };
+        });
+
+      const totalMs =
+        timing.durationMs + timing.staggerMs * (products.length - 1);
+
+      function clamp01(n) {
+        return Math.max(0, Math.min(1, n));
+      }
+
+      // Approximate easeOutQuint
+      function easeOutQuint(t) {
+        return 1 - Math.pow(1 - t, 5);
+      }
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      function productLocalT(globalT, staggerIndex) {
+        const start = (timing.staggerMs * staggerIndex) / totalMs;
+        const dur = timing.durationMs / totalMs;
+        return easeOutQuint(clamp01((globalT - start) / dur));
+      }
+
+      function copyOpacity(globalT) {
+        const delay = (timing.copyFadeDelayMs ?? 0) / totalMs;
+        const dur = (timing.copyFadeMs ?? timing.durationMs) / totalMs;
+        const t = clamp01((globalT - delay) / dur);
+        return lerp(copy.startOpacity, copy.endOpacity, easeOutQuint(t));
+      }
+
+      function apply(globalT) {
+        const phoneW = phone.clientWidth;
+        const scale = phoneW / artboard.width;
+
+        for (const { el, data } of nodes) {
+          const t = productLocalT(globalT, data.staggerIndex ?? 0);
+          const x = lerp(data.start.x, data.end.x, t) * scale;
+          const y = lerp(data.start.y, data.end.y, t) * scale;
+          const r = lerp(data.start.rotation, data.end.rotation, t);
+          const s = lerp(data.start.scale, data.end.scale, t);
+          const z = Math.round(lerp(data.start.z, data.end.z, t));
+          el.style.zIndex = String(z);
+          el.style.transform = `translate(${x}px, ${y}px) rotate(${r}deg) scale(${s})`;
+        }
+
+        copyEl.style.opacity = String(copyOpacity(globalT));
+        scrub.value = String(Math.round(globalT * 1000));
+        progressLabel.textContent = `${Math.round(globalT * 100)}%`;
+      }
+
+      let raf = 0;
+      let playing = false;
+      let loop = false;
+      let t0 = 0;
+      let startT = 0;
+
+      function stop() {
+        playing = false;
+        cancelAnimationFrame(raf);
+        playBtn.textContent = "Play";
+      }
+
+      function playFrom(current) {
+        stop();
+        playing = true;
+        playBtn.textContent = "Pause";
+        startT = current;
+        t0 = performance.now();
+        const tick = (now) => {
+          if (!playing) return;
+          const elapsed = now - t0;
+          let g = startT + elapsed / totalMs;
+          if (g >= 1) {
+            apply(1);
+            if (loop) {
+              startT = 0;
+              t0 = now + (timing.holdMs || 0);
+              // hold at end, then restart
+              setTimeout(() => {
+                if (!playing) return;
+                t0 = performance.now();
+                startT = 0;
+                raf = requestAnimationFrame(tick);
+              }, timing.holdMs || 0);
+              return;
+            }
+            stop();
+            return;
+          }
+          apply(g);
+          raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      }
+
+      playBtn.addEventListener("click", () => {
+        if (playing) {
+          stop();
+          return;
+        }
+        const current = Number(scrub.value) / 1000;
+        playFrom(current >= 0.995 ? 0 : current);
+      });
+
+      resetBtn.addEventListener("click", () => {
+        stop();
+        apply(0);
+      });
+
+      loopBtn.addEventListener("click", () => {
+        loop = !loop;
+        loopBtn.textContent = `Loop: ${loop ? "on" : "off"}`;
+      });
+
+      scrub.addEventListener("input", () => {
+        stop();
+        apply(Number(scrub.value) / 1000);
+      });
+
+      window.addEventListener("resize", () => {
+        apply(Number(scrub.value) / 1000);
+      });
+
+      // Spec panel
+      const timingKv = document.getElementById("timingKv");
+      const rows = [
+        ["duration", `${timing.durationMs}ms per product`],
+        ["stagger", `${timing.staggerMs}ms × ${products.length}`],
+        ["total", `${totalMs}ms`],
+        ["easing", timing.easing],
+        ["copy fade", `${timing.copyFadeDelayMs}ms delay → ${timing.copyFadeMs}ms`],
+        ["artboard", `${artboard.width}×${artboard.height}`],
+      ];
+      timingKv.innerHTML = rows
+        .map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`)
+        .join("");
+
+      document.getElementById("swiftSnippet").textContent = `// Scale helpers
+let s = geo.size.width / 402
+
+ForEach(products) { p in
+  Image(p.id)
+    .resizable()
+    .frame(width: p.width * s)
+    .rotationEffect(.degrees(p.rotation))
+    .scaleEffect(p.scale)
+    .position(x: (p.x + p.width/2) * s,
+              y: (p.y + p.height/2) * s)
+}
+.animation(.timingCurve(0.22, 1, 0.36, 1,
+                        duration: 1.2)
+            .delay(Double(p.staggerIndex) * 0.045),
+           value: phase)`;
+
+      document.getElementById("rnSnippet").textContent = `const progress = useSharedValue(0);
+// on mount:
+progress.value = withDelay(0, withTiming(1, {
+  duration: ${totalMs},
+  easing: Easing.out(Easing.quint),
+}));
+
+// per product:
+const style = useAnimatedStyle(() => {
+  const t = productLocalT(progress.value, staggerIndex);
+  return {
+    transform: [
+      { translateX: interpolate(t, [0,1], [start.x, end.x]) * s },
+      { translateY: interpolate(t, [0,1], [start.y, end.y]) * s },
+      { rotate: \`\${interpolate(t,[0,1],[start.rotation,end.rotation])}deg\` },
+      { scale: interpolate(t, [0,1], [start.scale, end.scale]) },
+    ],
+  };
+});`;
+
+      apply(0);
+      // Autoplay once after short beat
+      setTimeout(() => playFrom(0), 500);
+    </script>
+  </body>
+</html>

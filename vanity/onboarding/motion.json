@@ -1,0 +1,263 @@
+{
+  "artboard": {
+    "width": 402,
+    "height": 874,
+    "safeTop": 54
+  },
+  "brand": {
+    "text": "vanity",
+    "color": "#4A2C1A"
+  },
+  "progress": {
+    "steps": 3,
+    "activeStart": 0,
+    "activeEnd": 0
+  },
+  "copy": {
+    "text": "Tired of oversaturated feeds\ntelling you what to buy?",
+    "startOpacity": 1,
+    "endOpacity": 0.15
+  },
+  "timing": {
+    "durationMs": 1200,
+    "staggerMs": 45,
+    "easing": "cubic-bezier(0.22, 1, 0.36, 1)",
+    "easingName": "easeOutQuint",
+    "copyFadeMs": 700,
+    "copyFadeDelayMs": 200,
+    "holdMs": 600,
+    "autoplay": true
+  },
+  "products": [
+    {
+      "id": "dior-glow-palette",
+      "src": "products/dior-glow-palette.png",
+      "width": 165,
+      "height": 173,
+      "start": {
+        "x": 229,
+        "y": 483,
+        "cx": 311.5,
+        "cy": 569.5,
+        "rotation": 0,
+        "scale": 1,
+        "z": 0
+      },
+      "end": {
+        "x": 205,
+        "y": 335,
+        "cx": 279.2,
+        "cy": 412.9,
+        "rotation": 5,
+        "scale": 0.9,
+        "z": 7
+      },
+      "staggerIndex": 7
+    },
+    {
+      "id": "dior-rosy-glow",
+      "src": "products/dior-rosy-glow.png",
+      "width": 137,
+      "height": 149,
+      "start": {
+        "x": 184,
+        "y": 126,
+        "cx": 252.5,
+        "cy": 200.5,
+        "rotation": 0,
+        "scale": 1,
+        "z": 1
+      },
+      "end": {
+        "x": 150,
+        "y": 248,
+        "cx": 213.0,
+        "cy": 316.5,
+        "rotation": 4,
+        "scale": 0.92,
+        "z": 6
+      },
+      "staggerIndex": 3
+    },
+    {
+      "id": "rare-beauty-blush",
+      "src": "products/rare-beauty-blush.png",
+      "width": 135,
+      "height": 137,
+      "start": {
+        "x": 75,
+        "y": 253,
+        "cx": 142.5,
+        "cy": 321.5,
+        "rotation": 0,
+        "scale": 1,
+        "z": 2
+      },
+      "end": {
+        "x": 125,
+        "y": 318,
+        "cx": 183.1,
+        "cy": 376.9,
+        "rotation": -2,
+        "scale": 0.86,
+        "z": 2
+      },
+      "staggerIndex": 8
+    },
+    {
+      "id": "charlotte-powder",
+      "src": "products/charlotte-powder.png",
+      "width": 132,
+      "height": 131,
+      "start": {
+        "x": 163,
+        "y": 665,
+        "cx": 229.0,
+        "cy": 730.5,
+        "rotation": 0,
+        "scale": 1,
+        "z": 3
+      },
+      "end": {
+        "x": 138,
+        "y": 372,
+        "cx": 205.3,
+        "cy": 438.8,
+        "rotation": 3,
+        "scale": 1.02,
+        "z": 10
+      },
+      "staggerIndex": 6
+    },
+    {
+      "id": "charlotte-spray",
+      "src": "products/charlotte-spray.png",
+      "width": 126,
+      "height": 205,
+      "start": {
+        "x": 0,
+        "y": 619,
+        "cx": 63.0,
+        "cy": 721.5,
+        "rotation": 0,
+        "scale": 1,
+        "z": 4
+      },
+      "end": {
+        "x": 48,
+        "y": 348,
+        "cx": 109.7,
+        "cy": 448.4,
+        "rotation": -8,
+        "scale": 0.98,
+        "z": 8
+      },
+      "staggerIndex": 2
+    },
+    {
+      "id": "ouai-detox",
+      "src": "products/ouai-detox.png",
+      "width": 126,
+      "height": 168,
+      "start": {
+        "x": 266,
+        "y": 253,
+        "cx": 329.0,
+        "cy": 337.0,
+        "rotation": 0,
+        "scale": 1,
+        "z": 5
+      },
+      "end": {
+        "x": 235,
+        "y": 275,
+        "cx": 286.7,
+        "cy": 343.9,
+        "rotation": 10,
+        "scale": 0.82,
+        "z": 4
+      },
+      "staggerIndex": 4
+    },
+    {
+      "id": "patrick-ta-duo",
+      "src": "products/patrick-ta-duo.png",
+      "width": 94,
+      "height": 177,
+      "start": {
+        "x": 0,
+        "y": 146,
+        "cx": 47.0,
+        "cy": 234.5,
+        "rotation": 0,
+        "scale": 1,
+        "z": 6
+      },
+      "end": {
+        "x": 95,
+        "y": 285,
+        "cx": 136.4,
+        "cy": 362.9,
+        "rotation": -6,
+        "scale": 0.88,
+        "z": 3
+      },
+      "staggerIndex": 0
+    },
+    {
+      "id": "tower-28-lip",
+      "src": "products/tower-28-lip.png",
+      "width": 130,
+      "height": 179,
+      "start": {
+        "x": 0,
+        "y": 476,
+        "cx": 65.0,
+        "cy": 565.5,
+        "rotation": 0,
+        "scale": 1,
+        "z": 7
+      },
+      "end": {
+        "x": 78,
+        "y": 318,
+        "cx": 135.2,
+        "cy": 396.8,
+        "rotation": -10,
+        "scale": 0.88,
+        "z": 5
+      },
+      "staggerIndex": 5
+    },
+    {
+      "id": "rhode-peptide",
+      "src": "products/rhode-peptide.png",
+      "width": 103,
+      "height": 95,
+      "start": {
+        "x": 299,
+        "y": 729,
+        "cx": 350.5,
+        "cy": 776.5,
+        "rotation": 0,
+        "scale": 1,
+        "z": 8
+      },
+      "end": {
+        "x": 242,
+        "y": 385,
+        "cx": 301.2,
+        "cy": 439.6,
+        "rotation": 8,
+        "scale": 1.15,
+        "z": 9
+      },
+      "staggerIndex": 1
+    }
+  ],
+  "intent": {
+    "name": "screen1.productGather",
+    "description": "Products converge from a scattered orbit into a dense center pile, obscuring the problem statement. Same onboarding step (progress stays on 1).",
+    "trigger": "autoplay after screen enter, or scrub/replay in prototype"
+  }
+}
