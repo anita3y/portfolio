@@ -589,23 +589,6 @@ button:focus-visible {
   overflow: visible;
 }
 
-@media (min-width: 1200px) {
-  .hero {
-    min-height: auto;
-    padding-top: calc(clamp(6rem, 11vh, 8.25rem) + 40px);
-    padding-bottom: clamp(4rem, 9vh, 6.5rem);
-  }
-
-  .tab-panel,
-  .chrome-sticky--play + .tab-panel {
-    margin-top: 4.5rem;
-  }
-
-  .tab-panel--about {
-    margin-top: 5.25rem;
-  }
-}
-
 .hero__lockup {
   margin: 0;
   display: flex;
