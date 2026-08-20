@@ -589,6 +589,49 @@ button:focus-visible {
   overflow: visible;
 }
 
+@media (min-width: 1400px) {
+  .hero {
+    min-height: calc(62svh - var(--page-pad-top));
+    padding-top: calc(clamp(9rem, 19vh, 14rem) + 40px);
+    padding-bottom: clamp(7rem, 16vh, 12rem);
+  }
+
+  .hero__lockup {
+    max-width: min(58rem, 88vw);
+    font-size: clamp(2.35rem, 2.85vw, 58px);
+    letter-spacing: -2.75px;
+    line-height: 1.08;
+  }
+
+  .tab-panel,
+  .chrome-sticky--play + .tab-panel {
+    margin-top: clamp(5.5rem, 8vh, 7.5rem);
+  }
+
+  .tab-panel--about {
+    margin-top: clamp(6.25rem, 9vh, 8.25rem);
+  }
+}
+
+@media (min-width: 1800px) {
+  .hero {
+    min-height: calc(66svh - var(--page-pad-top));
+    padding-top: calc(clamp(10rem, 20vh, 15.5rem) + 40px);
+    padding-bottom: clamp(8rem, 17vh, 13rem);
+  }
+
+  .hero__lockup {
+    max-width: min(62rem, 86vw);
+    font-size: clamp(2.65rem, 2.55vw, 64px);
+    letter-spacing: -3px;
+  }
+
+  .tab-panel,
+  .chrome-sticky--play + .tab-panel {
+    margin-top: clamp(6rem, 8.5vh, 8rem);
+  }
+}
+
 .hero__lockup {
   margin: 0;
   display: flex;
