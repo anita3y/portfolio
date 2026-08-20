@@ -584,7 +584,7 @@ button:focus-visible {
   justify-items: center;
   align-content: start;
   padding-top: calc(clamp(7.75rem, 22vh, 12.5rem) + 40px);
-  padding-bottom: clamp(2.75rem, 6.5vh, 4.75rem);
+  padding-bottom: clamp(5rem, 12vh, 8.5rem);
   box-sizing: border-box;
   overflow: visible;
 }
@@ -593,16 +593,16 @@ button:focus-visible {
   .hero {
     min-height: auto;
     padding-top: calc(clamp(6rem, 11vh, 8.25rem) + 40px);
-    padding-bottom: clamp(2.25rem, 4.5vh, 3rem);
+    padding-bottom: clamp(4rem, 9vh, 6.5rem);
   }
 
   .tab-panel,
   .chrome-sticky--play + .tab-panel {
-    margin-top: 2.1rem;
+    margin-top: 4.5rem;
   }
 
   .tab-panel--about {
-    margin-top: 2.85rem;
+    margin-top: 5.25rem;
   }
 }
 
@@ -2022,13 +2022,13 @@ button:focus-visible {
 }
 
 .tab-panel {
-  margin-top: 2.4rem;
+  margin-top: 5rem;
   overflow: visible;
   animation: tab-panel-enter 0.72s cubic-bezier(0.34, 1.02, 0.48, 1) both;
 }
 
 .chrome-sticky--play + .tab-panel {
-  margin-top: 2.4rem;
+  margin-top: 5rem;
 }
 
 .chrome-sticky--about .tabs--select {
@@ -2039,7 +2039,7 @@ button:focus-visible {
 }
 
 .tab-panel--about {
-  margin-top: 3.35rem;
+  margin-top: 5.75rem;
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -4976,16 +4976,16 @@ a.about-browser__url:hover .about-browser__url-text {
     min-height: auto;
     align-content: start;
     padding-top: calc(clamp(5.25rem, 13vh, 7rem) + 40px);
-    padding-bottom: clamp(1.85rem, 3.8vh, 2.45rem);
+    padding-bottom: clamp(3.25rem, 8vh, 5rem);
   }
 
   .tab-panel,
   .chrome-sticky--play + .tab-panel {
-    margin-top: 1.95rem;
+    margin-top: 3.75rem;
   }
 
   .tab-panel--about {
-    margin-top: 2.5rem;
+    margin-top: 4.25rem;
   }
 
   .hero h1 {
