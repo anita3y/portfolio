@@ -96,8 +96,6 @@ function ExpandableTag({ baseLabel, expandedSuffix, variant, collapseLabel }) {
           : `${baseLabel}. Click to ${collapseLabel}.`
       }
       data-cursor-hover=""
-      data-cuelume-hover="tick"
-      data-cuelume-toggle="toggle"
     >
       <span className="about-tags__tag-text">
         {baseLabel}

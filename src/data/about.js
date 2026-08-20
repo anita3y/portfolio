@@ -30,7 +30,7 @@ export const ABOUT_OUTSIDE = [
   { type: "text", value: "." }
 ];
 
-export const ABOUT_LINKEDIN = "https://www.linkedin.com/in/anita-yan-9ifg3426";
+export const ABOUT_LINKEDIN = "https://www.linkedin.com/in/anitayandesign/";
 
 export const ABOUT_PORTRAIT = assetUrl("/about/headshot.png");
 

@@ -84,9 +84,6 @@ export default function PlayProjectContent({ project }) {
             href={liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            data-cuelume-hover="tick"
-            data-cuelume-press="pulse"
-            data-cuelume-release="release"
           >
             <span className="play-launch__pill">{launchLabel}</span>
           </a>
@@ -96,9 +93,6 @@ export default function PlayProjectContent({ project }) {
               href={repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              data-cuelume-hover="tick"
-              data-cuelume-press="scan"
-              data-cuelume-release="release"
             >
               <span className="play-launch__pill">View on GitHub</span>
             </a>

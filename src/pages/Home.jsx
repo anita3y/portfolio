@@ -8,6 +8,7 @@ import { useLocation } from "react-router-dom";
 import AboutPanel from "../components/AboutPanel.jsx";
 import { PlayPicker, PlayStudy } from "../components/PlayStage.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
+import SiteFooter from "../components/SiteFooter.jsx";
 import StatusCorner from "../components/StatusCorner.jsx";
 import WorkExpandPanel from "../components/WorkExpandPanel.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
@@ -323,6 +324,8 @@ export default function Home() {
 
         {activeTab === "about" && <AboutPanel />}
       </section>
+
+      <SiteFooter />
 
       {openWorkId && (
         <WorkExpandPanel

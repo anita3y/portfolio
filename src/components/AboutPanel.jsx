@@ -59,8 +59,6 @@ function AboutQuoteCard({ card, isFront, onFront }) {
         "--tug-y": `${tug.y.toFixed(2)}px`
       }}
       data-cursor-hover=""
-      data-cuelume-hover="whisper"
-      data-cuelume-press="tick"
       onPointerMove={onPointerMove}
       onPointerLeave={() => setTug({ x: 0, y: 0, hovering: false })}
       onClick={() => onFront(card.id)}
@@ -77,7 +75,6 @@ function AboutQuoteCard({ card, isFront, onFront }) {
               href={card.source.href}
               target="_blank"
               rel="noopener noreferrer"
-              data-cuelume-hover="tick"
               onClick={(event) => event.stopPropagation()}
               onPointerDown={(event) => event.stopPropagation()}
             >
@@ -100,8 +97,6 @@ function renderOutsidePart(part, i) {
         href={part.href}
         target="_blank"
         rel="noopener noreferrer"
-        data-cuelume-hover="tick"
-        data-cuelume-press="press"
       >
         {part.label}
       </a>
@@ -150,8 +145,6 @@ function UrlTab({ url, href, onPointerDown, onClick }) {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        data-cuelume-hover="tick"
-        data-cuelume-press="press"
         onPointerDown={onPointerDown}
         onClick={onClick}
       >
@@ -179,7 +172,6 @@ function WindowChrome({ url, href, onClose, onShrink, onGreen, skipNavClickRef, 
           aria-label="Close window"
           onPointerDown={stop}
           onClick={onClose}
-          data-cuelume-press="droplet"
         />
         <button
           type="button"
@@ -187,7 +179,6 @@ function WindowChrome({ url, href, onClose, onShrink, onGreen, skipNavClickRef, 
           aria-label={isSmall ? "Expand window" : "Make window smaller"}
           onPointerDown={stop}
           onClick={onShrink}
-          data-cuelume-toggle="toggle"
         />
         <button
           type="button"
@@ -195,7 +186,6 @@ function WindowChrome({ url, href, onClose, onShrink, onGreen, skipNavClickRef, 
           aria-label="Restore window"
           onPointerDown={stop}
           onClick={onGreen}
-          data-cuelume-press="bloom"
         />
       </span>
       <UrlTab
@@ -432,9 +422,6 @@ export default function AboutPanel() {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-cursor-hover=""
-                data-cuelume-hover="tick"
-                data-cuelume-press="pulse"
-                data-cuelume-release="release"
               >
                 <span className="play-launch__pill">open bookshelf</span>
               </a>

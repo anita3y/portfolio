@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
-import { assetUrl } from "../utils/assetUrl.js";
 
 const DEFAULT_HERO_SLIDE_MS = 500;
 const ALL_PROJECTS = [...WORK_PROJECTS, ...PLAY_PROJECTS];
@@ -11,24 +10,26 @@ const CASE_STUDY_TABS = [
   { id: "play", label: "play" },
   { id: "about", label: "about" }
 ];
-const CASE_STUDY_TAB_TRACK = assetUrl("/nav-tabs/track.png");
-
 function normalizeMediaItem(item) {
   if (typeof item === "string") return { src: item, alt: "" };
   return item;
 }
 
 function CaseStudyTopTabs({ activeTab = "work" }) {
+  const activeIndex = Math.max(
+    0,
+    CASE_STUDY_TABS.findIndex((tab) => tab.id === activeTab)
+  );
+
   return (
     <div className="cs-top-tabs">
-      <nav className="tabs tabs--assets" aria-label="Site sections">
-        <img
-          className="tabs__track"
-          src={CASE_STUDY_TAB_TRACK}
-          alt=""
-          draggable={false}
-          aria-hidden="true"
-        />
+      <nav
+        className="tabs tabs--select"
+        style={{ "--tab-i": activeIndex }}
+        data-active={activeTab}
+        aria-label="Site sections"
+      >
+        <span className="tabs__thumb" aria-hidden="true" />
         {CASE_STUDY_TABS.map((tab) => (
           <Link
             key={tab.id}
@@ -304,7 +305,7 @@ function CaseStudySection({ section, children }) {
   );
 }
 
-function CaseStudyActions({ actions, cues = false }) {
+function CaseStudyActions({ actions }) {
   if (!actions?.liveUrl) return null;
 
   return (
@@ -314,13 +315,6 @@ function CaseStudyActions({ actions, cues = false }) {
         href={actions.liveUrl}
         target="_blank"
         rel="noopener noreferrer"
-        {...(cues
-          ? {
-              "data-cuelume-hover": "tick",
-              "data-cuelume-press": "pulse",
-              "data-cuelume-release": "release"
-            }
-          : {})}
       >
         <span className="play-launch__pill">
           {actions.launchLabel ?? "Launch project"}
@@ -689,7 +683,7 @@ export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = fa
           >
             {!actions.centered && <div className="cs-section__aside" />}
             <div className="cs-section__main">
-              <CaseStudyActions actions={actions} cues={hideNav} />
+              <CaseStudyActions actions={actions} />
             </div>
           </section>
         )}
