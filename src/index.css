@@ -2886,7 +2886,7 @@ button:focus-visible {
   top: 6%;
   width: min(19.5rem, 92%);
   height: auto;
-  max-height: min(22.5rem, 78vh);
+  max-height: min(24rem, 78vh);
   z-index: 2;
   --window-tilt: 0deg;
 }
@@ -3122,8 +3122,8 @@ a.about-browser__url:hover .about-browser__url-text {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 11.75rem;
-  max-height: 11.75rem;
+  min-height: 12.85rem;
+  max-height: 12.85rem;
   margin-top: 0.2rem;
   overflow: hidden;
   max-width: 100%;
@@ -3137,8 +3137,8 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .about-quote-deck {
   position: relative;
-  width: min(100%, 15.5rem);
-  height: 11.75rem;
+  width: min(100%, 16.75rem);
+  height: 12.85rem;
   flex-shrink: 0;
 }
 
@@ -3165,12 +3165,12 @@ a.about-browser__url:hover .about-browser__url-text {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 13.6rem;
+  width: 14.75rem;
   max-width: calc(100% - 0.7rem);
-  height: 9.85rem;
-  min-height: 9.85rem;
+  height: 10.85rem;
+  min-height: 10.85rem;
   margin: 0;
-  padding: 0.55rem 0.68rem;
+  padding: 1rem 1.25rem;
   border: 0;
   border-radius: 0.85rem;
   background: #ffffff;
@@ -3213,7 +3213,7 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .about-quote-card__title {
-  margin: 0 0 0.22rem;
+  margin: 0 0 0.35rem;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.78rem;
   font-weight: 500;
@@ -3233,7 +3233,7 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .about-quote-card__attr {
-  margin: 0.32rem 0 0;
+  margin: 0.45rem 0 0;
   flex-shrink: 0;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.62rem;
