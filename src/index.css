@@ -4403,8 +4403,8 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .about-inline-vinyls__stack {
   --vinyl-size: 1.28em;
-  --vinyl-tuck: 0.94;
-  --vinyl-pull: 0.14;
+  --vinyl-tuck: 0.72;
+  --vinyl-pull: 0.06;
   --tug-x: 0px;
   --tug-y: 0px;
   --vinyl-rot: -5deg;
