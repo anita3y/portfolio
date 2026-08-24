@@ -31,8 +31,8 @@ const SCRIBBLE_ROLE_UNDERLINE = assetUrl("/hero/stickers/scribbles/role-underlin
 const SCRIBBLE_CRAFT = assetUrl("/hero/stickers/scribbles/craft.png");
 const SCRIBBLE_SIMPLICITY = assetUrl("/hero/stickers/scribbles/simplicity.png");
 
-const playIds = new Set(PLAY_PROJECTS.map((p) => p.id));
-const workIds = new Set(WORK_PROJECTS.map((p) => p.id));
+const playIds = new Set(PLAY_PROJECTS.filter((p) => !p.displayOnly).map((p) => p.id));
+const workIds = new Set(WORK_PROJECTS.filter((p) => !p.displayOnly).map((p) => p.id));
 
 function HeroTugSticker({ src, className = "", children }) {
   const ref = useRef(null);
