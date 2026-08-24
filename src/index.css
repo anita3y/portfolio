@@ -5404,7 +5404,7 @@ a.about-browser__url:hover .about-browser__url-text {
   aspect-ratio: 1788 / 443;
   min-height: 0;
   padding: 0;
-  background: transparent;
+  background: #0b0b0c;
   color: inherit;
   overflow: hidden;
   border-radius: 2px;
@@ -5564,7 +5564,8 @@ a.about-browser__url:hover .about-browser__url-text {
   display: block;
   opacity: 0;
   z-index: 0;
-  transition: opacity 0.55s ease-in-out;
+  transition: opacity 0.45s ease-in-out;
+  will-change: opacity;
 }
 
 .cs-hero-slide.is-active {

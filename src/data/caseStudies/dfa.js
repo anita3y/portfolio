@@ -36,7 +36,8 @@ export const DFA_CASE_STUDY = {
     assetUrl("/case-studies/dfa/banner-03.png"),
     assetUrl("/case-studies/dfa/banner-04.png")
   ],
-  heroSlideInterval: 500,
+  heroSlideInterval: 1400,
+  heroBackground: "#0b0b0c",
   sections: [
     {
       id: "overview",
