@@ -2274,7 +2274,6 @@ button:focus-visible {
 .project-card__media--poster-designs .project-card__slide {
   object-fit: contain;
   object-position: center center;
-  transition: opacity 0.58s ease-in-out;
 }
 
 .project-card__media--wac {
@@ -2595,7 +2594,6 @@ button:focus-visible {
   inset: 0;
   opacity: 0;
   z-index: 0;
-  transition: opacity 0.48s ease-in-out;
 }
 
 .project-card__slide.is-active {
@@ -2778,9 +2776,7 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .project-card__media,
   .project-card__visual,
-  .project-card__hover-copy,
-  .project-card__slide,
-  .cs-hero-slide {
+  .project-card__hover-copy {
     transition-duration: 0.01ms;
   }
 
@@ -5564,8 +5560,6 @@ a.about-browser__url:hover .about-browser__url-text {
   display: block;
   opacity: 0;
   z-index: 0;
-  transition: opacity 0.45s ease-in-out;
-  will-change: opacity;
 }
 
 .cs-hero-slide.is-active {

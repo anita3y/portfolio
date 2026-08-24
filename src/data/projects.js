@@ -28,7 +28,7 @@ export const WORK_PROJECTS = [
       assetUrl("/thumbnails/dfa/frame-12.png"),
       assetUrl("/thumbnails/dfa/frame-13.png")
     ],
-    thumbnailSlideInterval: 1000,
+    thumbnailSlideInterval: 450,
     theme: "dfa"
   },
   {
@@ -49,7 +49,7 @@ export const WORK_PROJECTS = [
       assetUrl("/thumbnails/poster-designs/frame-06.png"),
       assetUrl("/thumbnails/poster-designs/frame-07.png")
     ],
-    thumbnailSlideInterval: 780,
+    thumbnailSlideInterval: 380,
     thumbnailSlideOnHover: true,
     theme: "poster-designs"
   },
