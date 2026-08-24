@@ -540,12 +540,14 @@ button:focus-visible {
   font-size: 0.8rem;
   transition:
     color 0.15s ease,
-    background 0.15s ease;
+    background 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .site-footer__links.tabs--select {
   --tabs-track-h: 1.85rem;
   box-shadow: none;
+  overflow: visible;
 }
 
 .site-footer__links .tab:hover,
@@ -554,6 +556,9 @@ button:focus-visible {
   background: #ffffff;
   border-radius: 999px;
   outline: none;
+  box-shadow:
+    0 1px 2px rgba(28, 30, 38, 0.06),
+    0 2px 5px rgba(28, 30, 38, 0.05);
 }
 
 @media (max-width: 720px) {
@@ -1999,7 +2004,7 @@ button:focus-visible {
     0 10px 24px rgba(28, 30, 38, 0.16),
     0 2px 6px rgba(28, 30, 38, 0.08);
   border-radius: 999px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .tabs--select .tabs__thumb {
@@ -2010,12 +2015,16 @@ button:focus-visible {
   background: #ffffff;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  box-shadow: none;
+  box-shadow:
+    0 1px 2px rgba(28, 30, 38, 0.06),
+    0 2px 5px rgba(28, 30, 38, 0.05);
   transform: translateX(calc(var(--tab-i, 0) * 100%));
 }
 
 .tabs--select.is-switching .tabs__thumb {
-  box-shadow: none;
+  box-shadow:
+    0 1px 2px rgba(28, 30, 38, 0.06),
+    0 2px 5px rgba(28, 30, 38, 0.05);
 }
 
 .tabs--select .tab {
