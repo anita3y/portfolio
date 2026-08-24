@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
 import CaseStudySeeMore from "./CaseStudySeeMore.jsx";
+import SiteFooter from "./SiteFooter.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
 
 const DEFAULT_HERO_SLIDE_MS = 500;
@@ -734,6 +735,7 @@ export function CaseStudyFullContent({
   compact = false,
   hideNav = false,
   hideTabs = false,
+  showFooter = false,
   onBack,
   onSelectTab,
   onSelectRelated
@@ -754,6 +756,7 @@ export function CaseStudyFullContent({
         onBack={onBack}
         onSelectRelated={onSelectRelated}
       />
+      {showFooter ? <SiteFooter /> : null}
     </div>
   );
 }

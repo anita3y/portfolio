@@ -53,6 +53,7 @@ export default function WorkExpandPanel({ workId, onClose, onSelectTab, onNaviga
             study={study}
             scrollRoot={scrollRef}
             compact={false}
+            showFooter
             onBack={onClose}
             onSelectTab={onSelectTab}
             onSelectRelated={onNavigate}

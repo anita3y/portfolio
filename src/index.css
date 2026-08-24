@@ -6114,6 +6114,17 @@ a.about-browser__url:hover .about-browser__url-text {
   max-width: 100%;
 }
 
+.cs-embed > .site-footer,
+.play-stage__study .site-footer {
+  margin-top: clamp(1.25rem, 3vh, 2rem);
+  padding-top: clamp(2.75rem, 7vh, 4.5rem);
+  padding-bottom: clamp(2.5rem, 6vh, 4rem);
+}
+
+.work-expand__scroll .cs-embed > .site-footer {
+  width: 100%;
+}
+
 .cs-study-footer {
   display: flex;
   align-items: center;
