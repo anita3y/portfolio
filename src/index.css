@@ -6039,34 +6039,37 @@ a.about-browser__url:hover .about-browser__url-text {
   margin-top: clamp(2.75rem, 6vh, 4rem);
   padding: clamp(1.75rem, 4vh, 2.5rem) 0 clamp(1.25rem, 3vh, 2rem);
   border-top: 1px solid rgba(206, 209, 218, 0.55);
+  text-align: center;
 }
 
 .cs-see-more__label {
   margin: 0 0 1.1rem;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.92rem;
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  color: #6d6d75;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  color: #111111;
 }
 
 .cs-see-more__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(0.75rem, 1.6vw, 1.15rem);
-  max-width: 36rem;
+  max-width: 28rem;
+  width: 100%;
+  margin-inline: auto;
 }
 
 .cs-see-more__card {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   gap: 0.55rem;
   margin: 0;
   padding: 0;
   border: none;
   background: transparent;
-  text-align: left;
+  text-align: center;
   font: inherit;
   color: inherit;
   cursor: pointer;
@@ -6122,10 +6125,10 @@ a.about-browser__url:hover .about-browser__url-text {
   margin: 0;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  font-weight: 400;
+  letter-spacing: -0.07em;
   line-height: 1.25;
-  color: #2f2f39;
+  color: #111111;
 }
 
 .play-stage__study > .cs-see-more {

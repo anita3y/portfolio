@@ -21,8 +21,6 @@ function SeeMoreThumb({ project }) {
       <video
         className="cs-see-more__media"
         src={media.src}
-        autoPlay
-        loop
         muted
         playsInline
         preload="metadata"

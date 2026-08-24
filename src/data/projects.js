@@ -76,7 +76,7 @@ export const WORK_PROJECTS = [
     year: "2026",
     tags: ["Concept", "AI product", "Research"],
     href: "#",
-    thumbnail: assetUrl("/thumbnails/chatgpt-branches.jpg"),
+    thumbnail: assetUrl("/case-studies/chatgpt-branches/banner.png"),
     thumbnailVideo: assetUrl("/thumbnails/chatgpt-branches-card.mov"),
     theme: "branches"
   },
@@ -89,6 +89,7 @@ export const WORK_PROJECTS = [
     year: "2026",
     tags: ["Instagram", "Growth", "Editorial"],
     href: "#",
+    thumbnail: assetUrl("/thumbnails/new-york-design-club-cover.png"),
     thumbnailVideo: assetUrl("/thumbnails/nydc/card.mov"),
     theme: "pivotal"
   }
