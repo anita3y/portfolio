@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { getCaseStudy } from "../data/caseStudies/index.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
 
-export default function WorkExpandPanel({ workId, onClose }) {
+export default function WorkExpandPanel({ workId, onClose, onSelectTab }) {
   const study = getCaseStudy(workId);
   const scrollRef = useRef(null);
 
@@ -54,6 +54,7 @@ export default function WorkExpandPanel({ workId, onClose }) {
             scrollRoot={scrollRef}
             compact={false}
             onBack={onClose}
+            onSelectTab={onSelectTab}
           />
         </div>
       </div>

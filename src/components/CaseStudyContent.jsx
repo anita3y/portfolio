@@ -15,7 +15,7 @@ function normalizeMediaItem(item) {
   return item;
 }
 
-function CaseStudyTopTabs({ activeTab = "work" }) {
+function CaseStudyTopTabs({ activeTab = "work", onSelectTab }) {
   const activeIndex = Math.max(
     0,
     CASE_STUDY_TABS.findIndex((tab) => tab.id === activeTab)
@@ -28,18 +28,40 @@ function CaseStudyTopTabs({ activeTab = "work" }) {
         style={{ "--tab-i": activeIndex }}
         data-active={activeTab}
         aria-label="Site sections"
+        role="tablist"
       >
         <span className="tabs__thumb" aria-hidden="true" />
-        {CASE_STUDY_TABS.map((tab) => (
-          <Link
-            key={tab.id}
-            className={`tab ${activeTab === tab.id ? "active" : ""}`}
-            to="/"
-            state={{ tab: tab.id }}
-          >
-            {tab.label}
-          </Link>
-        ))}
+        {CASE_STUDY_TABS.map((tab) => {
+          const className = `tab${activeTab === tab.id ? " active" : ""}`;
+          if (onSelectTab) {
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                role="tab"
+                className={className}
+                aria-selected={activeTab === tab.id}
+                onClick={() => onSelectTab(tab.id)}
+                data-cuelume-toggle="toggle"
+              >
+                {tab.label}
+              </button>
+            );
+          }
+
+          return (
+            <Link
+              key={tab.id}
+              className={className}
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              to="/"
+              state={{ tab: tab.id }}
+            >
+              {tab.label}
+            </Link>
+          );
+        })}
       </nav>
     </div>
   );
@@ -476,7 +498,7 @@ function TextBlock({ block }) {
   );
 }
 
-export function CaseStudyPreview({ study, compact = false, hideTabs = false }) {
+export function CaseStudyPreview({ study, compact = false, hideTabs = false, onSelectTab }) {
   const {
     id,
     title,
@@ -507,7 +529,7 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false }) {
 
   return (
     <header className={`cs-header cs-header--preview${compact ? " cs-header--compact" : ""}${isPlay ? " cs-header--play" : ""}`}>
-      {!hideTabs && <CaseStudyTopTabs activeTab={activeTopTab} />}
+      {!hideTabs && <CaseStudyTopTabs activeTab={activeTopTab} onSelectTab={onSelectTab} />}
       {!isPlay && metaParts.length > 0 && (
         <p className="cs-project-meta">
           {metaParts.map((part, index) => (
@@ -698,11 +720,17 @@ export function CaseStudyFullContent({
   compact = false,
   hideNav = false,
   hideTabs = false,
-  onBack
+  onBack,
+  onSelectTab
 }) {
   return (
     <div className={`cs-embed${compact ? " cs-embed--compact" : ""}`}>
-      <CaseStudyPreview study={study} compact={compact} hideTabs={hideTabs} />
+      <CaseStudyPreview
+        study={study}
+        compact={compact}
+        hideTabs={hideTabs}
+        onSelectTab={onSelectTab}
+      />
       <CaseStudyBody
         study={study}
         scrollRoot={scrollRoot}

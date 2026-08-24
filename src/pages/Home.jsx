@@ -114,7 +114,10 @@ export default function Home() {
   }, [location.state?.openWork]);
 
   useEffect(() => {
-    if (requestedTab) setActiveTab(requestedTab);
+    if (requestedTab) {
+      setActiveTab(requestedTab);
+      setOpenWorkId(null);
+    }
   }, [requestedTab]);
 
   useEffect(() => {
@@ -331,7 +334,10 @@ export default function Home() {
         <WorkExpandPanel
           workId={openWorkId}
           onClose={() => setOpenWorkId(null)}
-          onNavigate={setOpenWorkId}
+          onSelectTab={(tabId) => {
+            setOpenWorkId(null);
+            selectTab(tabId);
+          }}
         />
       )}
     </div>
