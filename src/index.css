@@ -5134,6 +5134,15 @@ a.about-browser__url:hover .about-browser__url-text {
   .philosophy-quote-deck__quote {
     padding: 0.8rem 0.9rem 0.75rem;
   }
+
+  .cs-see-more__grid {
+    max-width: 100%;
+    gap: 0.55rem;
+  }
+
+  .cs-see-more__title {
+    font-size: 0.7rem;
+  }
 }
 
 @media (max-width: 520px) {
@@ -6006,6 +6015,103 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .cs-section--actions {
   padding-bottom: 2rem;
+}
+
+.cs-see-more {
+  margin-top: clamp(2.75rem, 6vh, 4rem);
+  padding: clamp(1.75rem, 4vh, 2.5rem) 0 clamp(1.25rem, 3vh, 2rem);
+  border-top: 1px solid rgba(206, 209, 218, 0.55);
+}
+
+.cs-see-more__label {
+  margin: 0 0 1.1rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: #6d6d75;
+}
+
+.cs-see-more__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.6vw, 1.15rem);
+  max-width: 36rem;
+}
+
+.cs-see-more__card {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cs-see-more__card:focus-visible {
+  outline: none;
+}
+
+.cs-see-more__card:focus-visible .cs-see-more__thumb {
+  outline: 2px solid rgba(74, 132, 184, 0.4);
+  outline-offset: 3px;
+}
+
+.cs-see-more__thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1024 / 474;
+  overflow: hidden;
+  border-radius: clamp(0.7rem, 1.4vw, 0.95rem);
+  background: #000;
+  box-shadow:
+    0 1px 2px rgba(38, 42, 54, 0.04),
+    0 4px 12px rgba(38, 42, 54, 0.06);
+  transition:
+    transform 0.28s cubic-bezier(0.33, 1.06, 0.42, 1),
+    box-shadow 0.28s ease;
+}
+
+.cs-see-more__card:hover .cs-see-more__thumb,
+.cs-see-more__card:focus-visible .cs-see-more__thumb {
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 4px rgba(38, 42, 54, 0.05),
+    0 8px 18px rgba(38, 42, 54, 0.09);
+}
+
+.cs-see-more__media,
+.cs-see-more__placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cs-see-more__placeholder {
+  background: linear-gradient(145deg, #1a1a1e, #2c2c32);
+}
+
+.cs-see-more__title {
+  margin: 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: #2f2f39;
+}
+
+.play-stage__study > .cs-see-more {
+  max-width: 100%;
 }
 
 .cs-study-footer {

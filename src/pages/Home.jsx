@@ -334,6 +334,7 @@ export default function Home() {
         <WorkExpandPanel
           workId={openWorkId}
           onClose={() => setOpenWorkId(null)}
+          onNavigate={setOpenWorkId}
           onSelectTab={(tabId) => {
             setOpenWorkId(null);
             selectTab(tabId);

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getPlayStudy } from "../data/play/index.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
+import CaseStudySeeMore from "./CaseStudySeeMore.jsx";
 import StickerPlayground from "./StickerPlayground.jsx";
 
 function clamp(value, min, max) {
@@ -319,19 +320,27 @@ export function PlayStudy({ projects, selectedId, onSelect }) {
     <div className="play-stage__study" ref={studyRef}>
       <div key={selected.id}>
         {study?.playground ? (
-          <StickerPlayground project={selected} />
+          <>
+            <StickerPlayground project={selected} />
+            <CaseStudySeeMore studyId={selected.id} kind="play" onSelect={onSelect} />
+          </>
         ) : study?.videoOnly ? (
-          <PlayVideoEmbed project={selected} study={study} />
+          <>
+            <PlayVideoEmbed project={selected} study={study} />
+            <CaseStudySeeMore studyId={selected.id} kind="play" onSelect={onSelect} />
+          </>
         ) : study?.sections ? (
           <CaseStudyFullContent
             study={study}
             compact={false}
             hideNav
             hideTabs
+            onSelectRelated={onSelect}
           />
         ) : (
           <div className="play-embed play-embed--simple">
             <PlayMetaHeader project={selected} />
+            <CaseStudySeeMore studyId={selected.id} kind="play" onSelect={onSelect} />
           </div>
         )}
       </div>

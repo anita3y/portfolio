@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { getCaseStudy } from "../data/caseStudies/index.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
 
-export default function WorkExpandPanel({ workId, onClose, onSelectTab }) {
+export default function WorkExpandPanel({ workId, onClose, onSelectTab, onNavigate }) {
   const study = getCaseStudy(workId);
   const scrollRef = useRef(null);
 
@@ -55,6 +55,7 @@ export default function WorkExpandPanel({ workId, onClose, onSelectTab }) {
             compact={false}
             onBack={onClose}
             onSelectTab={onSelectTab}
+            onSelectRelated={onNavigate}
           />
         </div>
       </div>

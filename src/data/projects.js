@@ -173,3 +173,17 @@ export function getNextProject(projects, currentId) {
   if (index === -1) return null;
   return navigable[(index + 1) % navigable.length];
 }
+
+export function getRelatedProjects(projects, currentId, count = 3) {
+  const navigable = projects.filter((project) => !project.displayOnly);
+  const index = navigable.findIndex((project) => project.id === currentId);
+  if (navigable.length <= 1) return [];
+
+  if (index === -1) return navigable.slice(0, count);
+
+  const related = [];
+  for (let offset = 1; offset < navigable.length && related.length < count; offset += 1) {
+    related.push(navigable[(index + offset) % navigable.length]);
+  }
+  return related;
+}

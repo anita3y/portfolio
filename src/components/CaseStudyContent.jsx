@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
+import CaseStudySeeMore from "./CaseStudySeeMore.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
 
 const DEFAULT_HERO_SLIDE_MS = 500;
@@ -668,8 +669,16 @@ export function CaseStudySectionNavBar({
   );
 }
 
-export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = false, onBack }) {
+export function CaseStudyBody({
+  study,
+  scrollRoot,
+  compact = false,
+  hideNav = false,
+  onBack,
+  onSelectRelated
+}) {
   const { sections, actions } = study;
+  const isPlay = PLAY_PROJECTS.some((project) => project.id === study.id);
 
   return (
     <div
@@ -709,6 +718,11 @@ export function CaseStudyBody({ study, scrollRoot, compact = false, hideNav = fa
             </div>
           </section>
         )}
+        <CaseStudySeeMore
+          studyId={study.id}
+          kind={isPlay ? "play" : "work"}
+          onSelect={onSelectRelated}
+        />
       </div>
     </div>
   );
@@ -721,7 +735,8 @@ export function CaseStudyFullContent({
   hideNav = false,
   hideTabs = false,
   onBack,
-  onSelectTab
+  onSelectTab,
+  onSelectRelated
 }) {
   return (
     <div className={`cs-embed${compact ? " cs-embed--compact" : ""}`}>
@@ -737,6 +752,7 @@ export function CaseStudyFullContent({
         compact={compact}
         hideNav={hideNav}
         onBack={onBack}
+        onSelectRelated={onSelectRelated}
       />
     </div>
   );
