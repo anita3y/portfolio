@@ -64,7 +64,8 @@ export const WORK_PROJECTS = [
     tags: ["iOS", "Onboarding", "Mobile"],
     href: "#",
     thumbnailVideo: assetUrl("/thumbnails/vanity/card.mov"),
-    theme: "vanity"
+    theme: "vanity",
+    displayOnly: true
   },
   {
     id: "chatgpt-branches",

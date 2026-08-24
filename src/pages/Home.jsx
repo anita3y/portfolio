@@ -310,7 +310,11 @@ export default function Home() {
               <div key={project.id} className="project-grid__item" role="listitem">
                 <ProjectCard
                   project={project}
-                  onExpand={() => setOpenWorkId(project.id)}
+                  onExpand={
+                    project.displayOnly
+                      ? undefined
+                      : () => setOpenWorkId(project.id)
+                  }
                 />
               </div>
             ))}

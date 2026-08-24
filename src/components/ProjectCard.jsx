@@ -234,7 +234,7 @@ function ProjectCard({ project, onExpand }) {
   ].filter(Boolean);
   const label = labelParts.join(" — ");
 
-  if (onExpand) {
+  if (onExpand && !displayOnly) {
     return (
       <button
         type="button"
@@ -249,10 +249,10 @@ function ProjectCard({ project, onExpand }) {
     );
   }
 
-  if (!isLink) {
+  if (!isLink || displayOnly) {
     return (
       <article
-        className={["project-card", displayOnly && "project-card--display-only"]
+        className={["project-card", "project-card--display-only"]
           .filter(Boolean)
           .join(" ")}
         aria-label={label}
