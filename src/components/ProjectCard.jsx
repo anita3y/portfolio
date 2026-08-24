@@ -113,7 +113,7 @@ function ProjectCardMedia({
               .join(" ")}
             src={src}
             alt=""
-            loading={index === 0 ? "eager" : "lazy"}
+            loading={index === 0 || slides.length <= 8 ? "eager" : "lazy"}
             decoding="async"
             onError={() => {
               if (index === 0) setThumbMissing(true);

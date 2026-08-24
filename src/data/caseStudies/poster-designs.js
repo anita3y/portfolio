@@ -21,7 +21,7 @@ export const POSTER_DESIGNS_CASE_STUDY = {
     tools: ["Poster design"]
   },
   heroSlides: POSTER_FRAMES,
-  heroSlideInterval: 1000,
+  heroSlideInterval: 1100,
   heroAspectRatio: "1024 / 672",
   heroFit: "contain",
   heroBackground: "#000",

@@ -212,7 +212,7 @@ function CaseStudyHeroMedia({
               .join(" ")}
             src={slide.src}
             alt={slide.alt ?? ""}
-            loading={index === 0 ? "eager" : "lazy"}
+            loading={index === 0 || slides.length <= 8 ? "eager" : "lazy"}
             decoding="async"
           />
         ))}

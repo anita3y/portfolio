@@ -49,7 +49,7 @@ export const WORK_PROJECTS = [
       assetUrl("/thumbnails/poster-designs/frame-06.png"),
       assetUrl("/thumbnails/poster-designs/frame-07.png")
     ],
-    thumbnailSlideInterval: 380,
+    thumbnailSlideInterval: 780,
     thumbnailSlideOnHover: true,
     theme: "poster-designs"
   },
