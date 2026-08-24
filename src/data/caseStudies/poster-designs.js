@@ -25,5 +25,17 @@ export const POSTER_DESIGNS_CASE_STUDY = {
   heroAspectRatio: "1024 / 672",
   heroFit: "contain",
   heroBackground: "#000",
-  sections: []
+  sections: [
+    {
+      id: "gallery",
+      title: "gallery",
+      summary: "A set of poster explorations.",
+      media: {
+        images: POSTER_FRAMES.map((src, index) => ({
+          src,
+          alt: `Poster design ${index + 1}`
+        }))
+      }
+    }
+  ]
 };
