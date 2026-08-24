@@ -77,7 +77,7 @@ function PlayVideoOnlyPanel({ study, onClose }) {
   );
 }
 
-export default function PlayExpandPanel({ playId, onClose, onSelectTab, onNavigate }) {
+export default function PlayExpandPanel({ playId, onClose, onSelectTab }) {
   const study = getPlayStudy(playId);
   const scrollRef = useRef(null);
 
@@ -135,7 +135,6 @@ export default function PlayExpandPanel({ playId, onClose, onSelectTab, onNaviga
             showFooter
             onBack={onClose}
             onSelectTab={onSelectTab}
-            onSelectRelated={onNavigate}
           />
         </div>
       </div>

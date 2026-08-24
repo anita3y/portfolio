@@ -1,6 +1,5 @@
-import { PLAY_PROJECTS, WORK_PROJECTS, getRelatedProjects } from "../data/projects.js";
+import { WORK_PROJECTS, getRelatedProjects } from "../data/projects.js";
 import { getCaseStudy } from "../data/caseStudies/index.js";
-import { getPlayStudy } from "../data/play/index.js";
 
 function resolveThumbSrc(project) {
   if (project.thumbnail) return { type: "image", src: project.thumbnail };
@@ -47,18 +46,8 @@ function getWorkRelated(currentId) {
   return getRelatedProjects(withStudies, currentId, 3);
 }
 
-function getPlayRelated(currentId) {
-  const withStudies = PLAY_PROJECTS.filter((project) => {
-    if (project.displayOnly) return false;
-    const study = getPlayStudy(project.id);
-    return Boolean(study?.sections || study?.playground || study?.videoOnly);
-  });
-  return getRelatedProjects(withStudies, currentId, 3);
-}
-
-export default function CaseStudySeeMore({ studyId, kind = "work", onSelect }) {
-  const related =
-    kind === "play" ? getPlayRelated(studyId) : getWorkRelated(studyId);
+export default function CaseStudySeeMore({ studyId, onSelect }) {
+  const related = getWorkRelated(studyId);
 
   if (!related.length) return null;
 

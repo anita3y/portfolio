@@ -719,11 +719,12 @@ export function CaseStudyBody({
             </div>
           </section>
         )}
-        <CaseStudySeeMore
-          studyId={study.id}
-          kind={isPlay ? "play" : "work"}
-          onSelect={onSelectRelated}
-        />
+        {!isPlay && (
+          <CaseStudySeeMore
+            studyId={study.id}
+            onSelect={onSelectRelated}
+          />
+        )}
       </div>
     </div>
   );

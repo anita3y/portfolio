@@ -6131,10 +6131,6 @@ a.about-browser__url:hover .about-browser__url-text {
   color: #111111;
 }
 
-.play-stage__study > .cs-see-more {
-  max-width: 100%;
-}
-
 .cs-embed > .site-footer,
 .play-stage__study .site-footer {
   margin-top: clamp(1.25rem, 3vh, 2rem);
