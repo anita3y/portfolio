@@ -1,4 +1,3 @@
-import { play } from "cuelume";
 import { useRef, useState } from "react";
 import { PLAYGROUND_CAPTIONS, PLAYGROUND_STACK, PLAYGROUND_STICKERS } from "../data/play/sticker-collection.js";
 
@@ -88,7 +87,6 @@ function PlaygroundSticker({
       x: Math.max(8, Math.min(92, rx)),
       y: Math.max(8, Math.min(92, ry))
     });
-    play("sparkle", { volume: 0.45 });
   };
 
   const onPointerLeave = () => {
@@ -134,8 +132,6 @@ function PlaygroundSticker({
       }}
       aria-label={`Move ${sticker.label} sticker`}
       data-cursor-hover=""
-      data-cuelume-hover="tick"
-      data-cuelume-press="press"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
@@ -220,8 +216,6 @@ function PlaygroundCaption({ caption, x, y, z, onMove, onFront }) {
       }}
       aria-label={`Move ${caption.label}`}
       data-cursor-hover=""
-      data-cuelume-hover="tick"
-      data-cuelume-press="press"
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}

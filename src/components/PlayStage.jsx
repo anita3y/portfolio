@@ -243,8 +243,6 @@ export function PlayPicker({ projects, selectedId, onSelect }) {
               className={`play-flow__card${isSelected ? " is-selected" : ""}`}
               style={cardTransform(offset, reducedMotion)}
               onClick={(event) => onCardClick(event, project.id)}
-              data-cuelume-hover="tick"
-              data-cuelume-press="page"
             >
               <span className="play-flow__lift">
                 <img src={project.cover} alt="" draggable={false} />
@@ -275,8 +273,6 @@ export function PlayPicker({ projects, selectedId, onSelect }) {
               className={`play-scrubber__tick${isSelected ? " is-selected" : ""}`}
               onClick={() => onSelect(project.id)}
               data-cursor-hover=""
-              data-cuelume-hover="tick"
-              data-cuelume-press="tick"
             />
           );
         })}

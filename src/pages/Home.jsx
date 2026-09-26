@@ -59,7 +59,6 @@ function HeroTugSticker({ src, className = "", children }) {
     <span
       ref={ref}
       className={`hero-stamp ${className}${tug.hovering ? " is-tugging" : ""}`}
-      data-cuelume-hover="sparkle"
       style={{
         "--tug-x": `${tug.x.toFixed(2)}px`,
         "--tug-y": `${tug.y.toFixed(2)}px`
