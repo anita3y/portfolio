@@ -32,7 +32,7 @@ export const ABOUT_OUTSIDE = [
 
 export const ABOUT_LINKEDIN = "https://www.linkedin.com/in/anitayandesign/";
 
-export const ABOUT_PORTRAIT = assetUrl("/about/headshot.png");
+export const ABOUT_PORTRAIT = assetUrl("/about/headshot.jpg") + "?v=3";
 
 export const ABOUT_LOCATION = "NYC / TRT";
 
