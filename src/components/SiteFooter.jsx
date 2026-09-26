@@ -18,6 +18,12 @@ const FOOTER_LINKS = [
     label: "gmail",
     href: "mailto:anita3yan@gmail.com",
     external: false
+  },
+  {
+    id: "resume",
+    label: "Resume",
+    href: "https://drive.google.com/file/d/1wljlB9Q8NTNJkXMHq58ADp5DeAbFEW-5/view?usp=sharing",
+    external: true
   }
 ];
 
