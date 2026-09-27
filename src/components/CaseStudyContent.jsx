@@ -6,6 +6,7 @@ import SiteFooter from "./SiteFooter.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
 import {
   getCaseStudyPassword,
+  getCaseStudyRequestEmail,
   isCaseStudyUnlocked,
   unlockCaseStudy
 } from "../data/caseStudies/access.js";
@@ -508,11 +509,8 @@ function TextBlock({ block }) {
 function CaseStudyAccessGate({ study, onUnlock }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const requestEmail = study.access?.requestEmail ?? "[email]";
-  const mailto =
-    requestEmail && requestEmail !== "[email]"
-      ? `mailto:${requestEmail}?subject=${encodeURIComponent(`Access request: ${study.title}`)}`
-      : null;
+  const requestEmail = getCaseStudyRequestEmail(study);
+  const mailto = `mailto:${requestEmail}?subject=${encodeURIComponent(`Access request: ${study.title}`)}`;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -532,13 +530,9 @@ function CaseStudyAccessGate({ study, onUnlock }) {
         <h2 className="cs-section__title">full case study</h2>
         <p className="cs-section__summary">
           Full case study available with password. Request access at{" "}
-          {mailto ? (
-            <a className="cs-gate__email" href={mailto}>
-              {requestEmail}
-            </a>
-          ) : (
-            <span className="cs-gate__email-placeholder">{requestEmail}</span>
-          )}
+          <a className="cs-gate__email" href={mailto}>
+            {requestEmail}
+          </a>
           .
         </p>
         <form className="cs-gate" onSubmit={handleSubmit}>

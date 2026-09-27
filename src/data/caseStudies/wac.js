@@ -21,7 +21,7 @@ export const WAC_CASE_STUDY = {
   gated: true,
   access: {
     password: CASE_STUDY_PASSWORD,
-    requestEmail: "[email]"
+    requestEmail: "anita3yan@gmail.com"
   },
   details: [
     {
