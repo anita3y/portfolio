@@ -5260,7 +5260,7 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .cs-details__label {
-  font-family: "Doto", "Dotum", monospace;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 18px;
   line-height: 1.08;
@@ -5735,7 +5735,7 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .cs-section__title {
   margin: 0;
-  font-family: "Doto", "Dotum", monospace;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: -0.07em;
@@ -5801,7 +5801,7 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .cs-gate__label {
-  font-family: "Doto", "Dotum", monospace;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 0.95rem;
   letter-spacing: -0.07em;
