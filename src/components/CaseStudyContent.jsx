@@ -4,6 +4,11 @@ import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
 import CaseStudySeeMore from "./CaseStudySeeMore.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
+import {
+  getCaseStudyPassword,
+  isCaseStudyUnlocked,
+  unlockCaseStudy
+} from "../data/caseStudies/access.js";
 
 const DEFAULT_HERO_SLIDE_MS = 500;
 const ALL_PROJECTS = [...WORK_PROJECTS, ...PLAY_PROJECTS];
@@ -500,10 +505,112 @@ function TextBlock({ block }) {
   );
 }
 
+function CaseStudyAccessGate({ study, onUnlock }) {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const requestEmail = study.access?.requestEmail ?? "[email]";
+  const mailto =
+    requestEmail && requestEmail !== "[email]"
+      ? `mailto:${requestEmail}?subject=${encodeURIComponent(`Access request: ${study.title}`)}`
+      : null;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const expected = getCaseStudyPassword(study);
+    if (password.trim() === expected) {
+      unlockCaseStudy(study.id);
+      setError("");
+      onUnlock();
+      return;
+    }
+    setError("Incorrect password. Try again, or request access below.");
+  };
+
+  return (
+    <section className="cs-section cs-section--gate" aria-label="Full case study access">
+      <div className="cs-section__main">
+        <h2 className="cs-section__title">full case study</h2>
+        <p className="cs-section__summary">
+          Full case study available with password. Request access at{" "}
+          {mailto ? (
+            <a className="cs-gate__email" href={mailto}>
+              {requestEmail}
+            </a>
+          ) : (
+            <span className="cs-gate__email-placeholder">{requestEmail}</span>
+          )}
+          .
+        </p>
+        <form className="cs-gate" onSubmit={handleSubmit}>
+          <label className="cs-gate__label" htmlFor={`cs-password-${study.id}`}>
+            Password
+          </label>
+          <div className="cs-gate__row">
+            <input
+              id={`cs-password-${study.id}`}
+              className="cs-gate__input"
+              type="password"
+              name="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+                if (error) setError("");
+              }}
+              placeholder="Enter password"
+            />
+            <button className="cs-gate__submit" type="submit">
+              Unlock
+            </button>
+          </div>
+          {error ? (
+            <p className="cs-gate__error" role="alert">
+              {error}
+            </p>
+          ) : null}
+        </form>
+      </div>
+    </section>
+  );
+}
+
+function useCaseStudyUnlock(study) {
+  const gated = Boolean(study?.gated);
+  const [unlocked, setUnlocked] = useState(() => {
+    if (!gated) return true;
+    return isCaseStudyUnlocked(study.id);
+  });
+
+  useEffect(() => {
+    if (!gated) {
+      setUnlocked(true);
+      return;
+    }
+    setUnlocked(isCaseStudyUnlocked(study.id));
+  }, [gated, study.id]);
+
+  return {
+    gated,
+    unlocked: !gated || unlocked,
+    unlock: () => setUnlocked(true)
+  };
+}
+
+function getCaseStudyVisibleSections(study, unlocked) {
+  const teaser = Array.isArray(study.teaserSections) ? study.teaserSections : [];
+  const full = Array.isArray(study.sections) ? study.sections : [];
+  if (!study.gated) {
+    return teaser.length > 0 ? [...teaser, ...full] : full;
+  }
+  if (!unlocked) return teaser;
+  return [...teaser, ...full];
+}
+
 export function CaseStudyPreview({ study, compact = false, hideTabs = false, onSelectTab }) {
   const {
     id,
     title,
+    subtitle,
     details,
     heroPlaceholder,
     heroEmbed,
@@ -520,7 +627,8 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
   } = study;
   const projectCard = ALL_PROJECTS.find((project) => project.id === id) ?? null;
   const detailItems = Array.isArray(details) ? details.filter((item) => item?.label && item?.value) : [];
-  const displayTitle = projectCard?.headline || title;
+  const hasSubtitle = Boolean(subtitle);
+  const displayTitle = hasSubtitle ? title : projectCard?.headline || title;
   const metaParts = [
     projectCard?.company,
     projectCard?.status,
@@ -548,6 +656,7 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
         </p>
       )}
       <h1 className="cs-title">{displayTitle}</h1>
+      {hasSubtitle ? <p className="cs-subtitle">{subtitle}</p> : null}
       <CaseStudyHeroMedia
         heroEmbed={heroEmbed}
         heroEmbedTitle={title}
@@ -652,16 +761,17 @@ function WorkExpandNavStuckSync({ scrollRoot }) {
 
 export function CaseStudySectionNavBar({
   study,
+  sections,
   scrollRoot,
   fixedHeader = false,
   onBack
 }) {
-  const { sections } = study;
-  const activeId = useCaseStudyActiveSection(sections, scrollRoot);
+  const navSections = sections ?? study.sections ?? [];
+  const activeId = useCaseStudyActiveSection(navSections, scrollRoot);
 
   return (
     <CaseStudySectionNav
-      sections={sections}
+      sections={navSections}
       activeId={activeId}
       scrollRoot={scrollRoot}
       fixedHeader={fixedHeader}
@@ -678,7 +788,9 @@ export function CaseStudyBody({
   onBack,
   onSelectRelated
 }) {
-  const { sections, actions } = study;
+  const { actions } = study;
+  const { gated, unlocked, unlock } = useCaseStudyUnlock(study);
+  const visibleSections = getCaseStudyVisibleSections(study, unlocked);
   const isPlay = PLAY_PROJECTS.some((project) => project.id === study.id);
 
   return (
@@ -692,9 +804,16 @@ export function CaseStudyBody({
         .join(" ")}
     >
       {scrollRoot && <WorkExpandNavStuckSync scrollRoot={scrollRoot} />}
-      {!hideNav && <CaseStudySectionNavBar study={study} scrollRoot={scrollRoot} onBack={onBack} />}
+      {!hideNav && (
+        <CaseStudySectionNavBar
+          study={study}
+          sections={visibleSections}
+          scrollRoot={scrollRoot}
+          onBack={onBack}
+        />
+      )}
       <div className="cs-content">
-        {sections.map((section) => (
+        {visibleSections.map((section) => (
           <CaseStudySection key={section.id} section={section}>
             {section.blocks?.map((block, index) => (
               <TextBlock key={block.heading ?? `${block.layout ?? "block"}-${index}`} block={block} />
@@ -702,7 +821,8 @@ export function CaseStudyBody({
             {section.media && <CaseStudyMedia media={section.media} />}
           </CaseStudySection>
         ))}
-        {actions && (
+        {gated && !unlocked ? <CaseStudyAccessGate study={study} onUnlock={unlock} /> : null}
+        {actions && unlocked && (
           <section
             className={[
               "cs-section",
@@ -719,7 +839,7 @@ export function CaseStudyBody({
             </div>
           </section>
         )}
-        {!isPlay && (
+        {!isPlay && unlocked && (
           <CaseStudySeeMore
             studyId={study.id}
             onSelect={onSelectRelated}

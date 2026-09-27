@@ -5284,6 +5284,21 @@ a.about-browser__url:hover .about-browser__url-text {
   margin-bottom: 1.5rem;
 }
 
+.cs-header--preview .cs-title:has(+ .cs-subtitle) {
+  margin-bottom: 0.55rem;
+}
+
+.cs-subtitle {
+  margin: 0 0 1.5rem;
+  max-width: 38rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  letter-spacing: -0.05em;
+  line-height: 1.35;
+  color: #8a8d98;
+}
+
 .cs-header--preview .cs-placeholder--hero {
   margin-bottom: 1.5rem;
 }
@@ -5299,6 +5314,15 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-embed--compact .cs-header--compact .cs-title {
   font-size: clamp(1.45rem, 4vw, 1.85rem);
   margin-bottom: 1.35rem;
+}
+
+.cs-embed--compact .cs-header--compact .cs-title:has(+ .cs-subtitle) {
+  margin-bottom: 0.45rem;
+}
+
+.cs-embed--compact .cs-subtitle {
+  font-size: clamp(0.92rem, 2.2vw, 1.05rem);
+  margin-bottom: 1.25rem;
 }
 
 .cs-embed--compact .cs-project-meta {
@@ -5762,6 +5786,100 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .cs-block__list li + li {
   margin-top: 0.35rem;
+}
+
+.cs-section--gate {
+  padding-top: 0.5rem;
+}
+
+.cs-gate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-width: 28rem;
+  margin-top: 0.35rem;
+}
+
+.cs-gate__label {
+  font-family: "Doto", "Dotum", monospace;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.07em;
+  color: #8a8d98;
+}
+
+.cs-gate__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: stretch;
+}
+
+.cs-gate__input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  height: 2.35rem;
+  padding: 0 0.9rem;
+  border: 1px solid #d8d8de;
+  border-radius: 999px;
+  background: #ffffff;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.92rem;
+  letter-spacing: -0.04em;
+  color: #111111;
+}
+
+.cs-gate__input::placeholder {
+  color: #b0b3bd;
+}
+
+.cs-gate__input:focus {
+  outline: none;
+  border-color: #111111;
+  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.08);
+}
+
+.cs-gate__submit {
+  flex: 0 0 auto;
+  height: 2.35rem;
+  padding: 0 1.15rem;
+  border: none;
+  border-radius: 999px;
+  background: #111111;
+  color: #ffffff;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: -0.04em;
+  cursor: pointer;
+}
+
+.cs-gate__submit:hover {
+  background: #2a2a2a;
+}
+
+.cs-gate__submit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.22);
+}
+
+.cs-gate__error {
+  margin: 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.86rem;
+  letter-spacing: -0.04em;
+  line-height: 1.4;
+  color: #b42318;
+}
+
+.cs-gate__email,
+.cs-gate__email-placeholder {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.cs-gate__email-placeholder {
+  text-decoration-style: dashed;
 }
 
 .cs-flows {

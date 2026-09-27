@@ -1,4 +1,5 @@
 import { assetUrl } from "../../utils/assetUrl.js";
+import { CASE_STUDY_PASSWORD } from "./access.js";
 
 const BANNER = assetUrl("/case-studies/wac/banner.png");
 const REGISTRATION_MAP = assetUrl("/case-studies/wac/registration-map.png");
@@ -16,98 +17,111 @@ export const WAC_CASE_STUDY = {
   id: "world-affairs-conference",
   breadcrumb: ["Portfolio", "Work: World Affairs Conference"],
   title: "World Affairs Conference",
+  subtitle: "Redesigning registration and check-in for a 1,000-person student conference",
+  gated: true,
+  access: {
+    password: CASE_STUDY_PASSWORD,
+    requestEmail: "[email]"
+  },
+  details: [
+    {
+      label: "role",
+      value: "Product design,\nsystems thinking,\nvisual design"
+    },
+    {
+      label: "type",
+      value: "Concept redesign,\ninformed by time on\nthe WAC organizing team"
+    },
+    {
+      label: "timeline",
+      value: "2025"
+    },
+    {
+      label: "tools",
+      value: "Figma,\nGoogle Sheets,\nNotion"
+    }
+  ],
   meta: {
-    role: "Product design · Systems",
-    timeline: "2024",
+    role: "Product design, systems thinking, visual design",
+    timeline: "2025",
     tools: ["Figma", "Google Sheets", "Notion"]
   },
   heroSlides: [
     {
       src: BANNER,
-      alt: "World Affairs Conference dashboard showing 847 registered, 612 checked in, and 235 pending"
+      alt: "World Affairs Conference dashboard showing registered, checked in, and pending attendees"
     }
   ],
   heroAspectRatio: "1358 / 438",
   heroFlat: true,
+  /** Public teaser — always visible before the password gate. */
+  teaserSections: [
+    {
+      id: "overview",
+      title: "overview",
+      summary:
+        "8:42am. The keynote starts at 9. More than a hundred students are waiting in the hallway, and a volunteer is scrolling a spreadsheet looking for one name.",
+      blocks: [
+        {
+          paragraphs: [
+            "The World Affairs Conference brings together over 1,000 students each year. Online, registering feels simple. At the door, it falls apart: duplicate sign-ups, printed lists nobody trusts, and volunteers making judgment calls under pressure. Each year a new organizing team rebuilds the process from scratch, and each year the same problems come back.",
+            "I set out to redesign the system end to end, from the moment a student signs up to the moment they walk into the room."
+          ]
+        }
+      ]
+    },
+    {
+      id: "challenge",
+      title: "the challenge",
+      summary:
+        "How might we make online registration and day-of check-in feel like one experience, and build something simple enough that next year's team will actually keep it running?",
+      blocks: []
+    },
+    {
+      id: "inside",
+      title: "inside the case study",
+      summary: "What you’ll find once you unlock the full writeup.",
+      blocks: [
+        {
+          bullets: [
+            "Research with organizers, volunteers, attendees, and faculty advisors, and the one quote that reshaped the project",
+            "How other conferences, hackathons, and event platforms handle check-in",
+            "An answer to the obvious question: why not just use Google Sheets?",
+            "A mobile check-in experience designed for noise, crowds, and zero patience",
+            "A physical identity system of badges, posters, and wayfinding built from the same data"
+          ]
+        }
+      ]
+    }
+  ],
+  /** Full writeup — shown after password unlock. */
   sections: [
     {
-      id: "problem",
-      title: "The Problem",
-      summary:
-        "The gap between what attendees expected from online sign-up and what volunteers faced at the door is a classic mental model mismatch. This wasn't a prettier-form problem—it was about trust under pressure, when stressed volunteers need a system that doesn't fail them at the check-in desk.",
-      blocks: [
-        {
-          heading: "Manual registration chaos",
-          bullets: [
-            "Sign-ups lived across multiple forms with no single source of truth.",
-            "Organizers spent hours reconciling names, schools, and dietary restrictions before the event.",
-            "Last-minute changes were hard to track and easy to miss."
-          ]
-        },
-        {
-          heading: "A physical event with digital gaps",
-          bullets: [
-            "Students arrived at registration tables with no clear status—paid, waitlisted, or missing info.",
-            "Volunteers had to cross-reference printed lists and laptops under time pressure.",
-            "The on-site experience didn’t match the polish of the conference itself."
-          ]
-        },
-        {
-          heading: "Organizational pain at scale",
-          bullets: [
-            "Each year’s process was rebuilt from scratch instead of improving on the last.",
-            "Leadership turnover meant knowledge walked out the door every cycle.",
-            "Small errors compounded into long lines, frustrated attendees, and stressed staff."
-          ]
-        }
-      ]
-    },
-    {
-      id: "goal",
-      title: "The Goal",
-      summary:
-        "Design a registration system that reduces admin overhead, speeds up check-in, and bridges the gap between what happens online before the event and what happens at the door.",
-      blocks: [
-        {
-          heading: "Objectives",
-          bullets: [
-            "Consolidate registration data into one reliable workflow.",
-            "Cut time spent on pre-event data cleanup and day-of lookups.",
-            "Give volunteers a clear, low-training interface at check-in.",
-            "Support edge cases: walk-ins, no-shows, last-minute cancellations, dietary updates."
-          ]
-        },
-        {
-          heading: "Success criteria",
-          bullets: [
-            "Organizers can see attendee status at a glance before and during the event.",
-            "Check-in takes seconds per person, not minutes.",
-            "The system is simple enough for a new volunteer to use with minimal onboarding.",
-            "Documentation exists so next year’s team doesn’t start from zero."
-          ]
-        }
-      ]
-    },
-    {
       id: "research",
-      title: "Research & Insights",
+      title: "research",
       summary:
-        "I mapped how registration actually worked—not how it was supposed to work—by talking to organizers, volunteers, and attendees from previous years.",
+        "I talked to organizers, volunteers, attendees, and faculty advisors—and one quote reframed the entire project.",
       blocks: [
         {
-          heading: "Stakeholder interviews",
+          heading: "Who I talked to",
           bullets: [
             "Organizers described the week before the conference as the most stressful part of planning.",
             "Volunteers said they never felt fully confident at the registration table.",
-            "Attendees mostly cared about speed—long lines killed the opening energy of the day."
+            "Attendees mostly cared about speed—long lines killed the opening energy of the day.",
+            "Faculty advisors wanted a process that wouldn’t collapse when student leadership turned over."
+          ]
+        },
+        {
+          heading: "The quote that reshaped the project",
+          paragraphs: [
+            "“We don’t need a better spreadsheet. We need to trust that the person at the door has the same truth we have online.”",
+            "That line shifted the brief from “clean up registration forms” to “make online and day-of feel like one system”—and made handoff to next year’s team a first-class requirement."
           ]
         },
         {
           heading: "Process audit",
-          bullets: [
-            "Documented the full journey: sign-up → confirmation → reminder → arrival → check-in → session access.",
-            "Identified duplicate data entry as the biggest time sink.",
-            "Found that printed backups were still necessary because the digital tool wasn’t trusted on event day."
+          paragraphs: [
+            "I mapped how registration actually worked—not how it was supposed to work—from sign-up through confirmation, arrival, and session access."
           ],
           image: {
             src: REGISTRATION_MAP,
@@ -127,8 +141,73 @@ export const WAC_CASE_STUDY = {
       ]
     },
     {
+      id: "competitive",
+      title: "competitive & analog research",
+      summary:
+        "I looked at how other conferences, hackathons, and event platforms handle check-in—and what student organizers can actually sustain.",
+      blocks: [
+        {
+          heading: "What I looked at",
+          paragraphs: [
+            "[Placeholder — copy/visual] Competitive and analog scan across student conferences, hackathons, and tools like Eventbrite, Grip, and custom Notion/Airtable setups. Swap in the final research board and annotated takeaways when visuals are ready."
+          ],
+          layout: "wireframes",
+          placeholder: "[Placeholder — visual] Competitive / analog research board"
+        },
+        {
+          heading: "Patterns that transferred",
+          bullets: [
+            "One attendee record, multiple views (admin vs door staff).",
+            "Status that is obvious at a glance—paid, pending, checked in, walk-in.",
+            "Mobile-first door tools with large tap targets and forgiving search.",
+            "Printed backups generated from the same source of truth, not a parallel list."
+          ]
+        },
+        {
+          heading: "What didn’t fit WAC",
+          bullets: [
+            "Heavy enterprise event platforms priced and scoped for professional ops teams.",
+            "QR-only flows that fail when phones die, badges tear, or Wi-Fi drops.",
+            "Anything that requires a dedicated technical owner every year."
+          ]
+        }
+      ]
+    },
+    {
+      id: "why-not-sheets",
+      title: "why not google sheets?",
+      summary:
+        "Sheets already lived in the workflow. The question was whether the pain was the tool—or the lack of a shared mental model around it.",
+      blocks: [
+        {
+          heading: "What Sheets was already doing well",
+          bullets: [
+            "Familiar to every organizer and easy to hand off in theory.",
+            "Flexible enough for last-minute columns and one-off notes.",
+            "Fine for small events where one person owns the list."
+          ]
+        },
+        {
+          heading: "Where it broke at 1,000 people",
+          bullets: [
+            "Duplicate rows and conflicting edits with no clear “source of truth” at the door.",
+            "Printed exports drifted from the live sheet within hours.",
+            "Volunteers scrolled under pressure instead of confirming a status in one look.",
+            "Each new team rebuilt tabs and naming conventions from scratch."
+          ]
+        },
+        {
+          heading: "The decision",
+          paragraphs: [
+            "I didn’t throw Sheets away as a backend idea—I stopped asking volunteers to use a spreadsheet as a check-in UI. The redesign keeps a structured attendee record (exportable, auditable) and gives organizers and door staff purpose-built views on top of it.",
+            "[Placeholder — diagram] Optional: simple “Sheets as database vs Sheets as interface” comparison visual."
+          ]
+        }
+      ]
+    },
+    {
       id: "process",
-      title: "Design Process",
+      title: "design process",
       summary:
         "I focused on end-to-end flows first—registration, admin review, and on-site check-in—before polishing individual screens.",
       blocks: [
@@ -164,11 +243,18 @@ export const WAC_CASE_STUDY = {
               caption: "Volunteer check-in view"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      id: "mobile-check-in",
+      title: "mobile check-in",
+      summary:
+        "A door experience designed for noise, crowds, and zero patience—search, confirm, mark arrived.",
+      blocks: [
         {
-          heading: "Mobile check-in",
           paragraphs: [
-            "Volunteers needed a phone-friendly view: search by name, filter by status, expand a record, and mark arrived—or scan a QR code at the door."
+            "Volunteers needed a phone-friendly view: search by name, filter by status, expand a record, and mark arrived—or scan a QR code at the door. Legibility and large tap targets mattered more than density."
           ],
           image: {
             src: MOBILE_CHECK_IN,
@@ -176,19 +262,6 @@ export const WAC_CASE_STUDY = {
             caption: "Mobile check-in — search, filter, and one-tap arrival",
             wide: true
           }
-        }
-      ]
-    },
-    {
-      id: "solution",
-      title: "Solution",
-      summary:
-        "The fix wasn't visual polish—it was making online registration and day-of check-in aware of each other, so organizers and volunteers always work from the same attendee record.",
-      blocks: [
-        {
-          paragraphs: [
-            "Organizers get a dashboard-style view to filter by payment status, school, dietary needs, and check-in state. Instead of juggling spreadsheets, they work from one structured list that updates in real time."
-          ]
         },
         {
           heading: "Organizer dashboard",
@@ -214,12 +287,10 @@ export const WAC_CASE_STUDY = {
           ]
         },
         {
-          paragraphs: [
-            "At the event, volunteers use a simplified check-in interface: search a name, confirm details, mark arrived. The design prioritizes legibility, large tap targets, and obvious success/error states—because this runs on a laptop at a crowded table, not in a quiet office."
-          ]
-        },
-        {
           heading: "Volunteer check-in",
+          paragraphs: [
+            "At the event, volunteers use a simplified interface: search a name, confirm details, mark arrived. This runs on a laptop or phone at a crowded table—not in a quiet office."
+          ],
           layout: "videos",
           videoVariant: "desktop",
           videos: [
@@ -231,18 +302,7 @@ export const WAC_CASE_STUDY = {
           ]
         },
         {
-          heading: "Physical × digital bridge",
-          bullets: [
-            "QR or confirmation codes tie online registration to on-site lookup.",
-            "Printed backup lists auto-generate from the same data source—no separate manual export.",
-            "Status changes at check-in sync back so session leads know who’s in the building."
-          ]
-        },
-        {
           heading: "Phone demo",
-          paragraphs: [
-            "On event day, volunteers can also run check-in from a phone—search by name, filter by arrival status, or scan a QR code at the door."
-          ],
           layout: "videos",
           videoVariant: "phone",
           videoAspectRatio: "1860 / 1432",
@@ -257,10 +317,42 @@ export const WAC_CASE_STUDY = {
       ]
     },
     {
-      id: "reflection",
-      title: "Reflection",
+      id: "physical-identity",
+      title: "physical identity",
       summary:
-        "This project taught me that good event product design is mostly about reducing anxiety—for organizers, volunteers, and attendees.",
+        "Badges, posters, and wayfinding built from the same attendee data—so the hallway matches the dashboard.",
+      blocks: [
+        {
+          heading: "Same data, physical outputs",
+          bullets: [
+            "Name badges and dietary indicators generated from the unified attendee record.",
+            "Door lists and session signs that don’t require a separate manual export ritual.",
+            "Wayfinding and check-in signage that reuse the same status language as the digital UI."
+          ]
+        },
+        {
+          heading: "Badge & print system",
+          paragraphs: [
+            "[Placeholder — visual] Badge mockups, poster set, and wayfinding samples tied to registration fields (name, school, role, dietary tags). Replace with final print comps when ready."
+          ],
+          layout: "wireframes",
+          placeholder: "[Placeholder — visual] Badges, posters, and wayfinding"
+        },
+        {
+          heading: "Physical × digital bridge",
+          bullets: [
+            "QR or confirmation codes tie online registration to on-site lookup.",
+            "Printed backup lists auto-generate from the same data source—no parallel manual list.",
+            "Status changes at check-in sync back so session leads know who’s in the building."
+          ]
+        }
+      ]
+    },
+    {
+      id: "reflection",
+      title: "reflection",
+      summary:
+        "Good event product design is mostly about reducing anxiety—for organizers, volunteers, and attendees.",
       blocks: [
         {
           heading: "Results",
@@ -268,7 +360,7 @@ export const WAC_CASE_STUDY = {
             "Consolidated registration into a single workflow with clearer attendee statuses.",
             "Cut pre-event data cleanup from hours of spreadsheet reconciliation to a single exportable list.",
             "Volunteer check-in interface designed for low training and high-stress environments.",
-            "Handoff docs for next year’s organizing team."
+            "Handoff docs so next year’s organizing team doesn’t start from zero."
           ]
         },
         {
@@ -276,7 +368,8 @@ export const WAC_CASE_STUDY = {
           bullets: [
             "Earlier testing with real volunteers using mock check-in scenarios.",
             "Offline fallback for spotty venue Wi-Fi.",
-            "Automated reminder emails tied directly to registration status."
+            "Automated reminder emails tied directly to registration status.",
+            "[Placeholder — metrics] Add post-event quantitative outcomes when available."
           ]
         },
         {
