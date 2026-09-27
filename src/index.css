@@ -5357,13 +5357,14 @@ a.about-browser__url:hover .about-browser__url-text {
   }
 }
 
-.cs-embed--compact .cs-header--compact .cs-placeholder--hero:not(.cs-hero-slides):not(.cs-hero-video) {
+.cs-embed--compact .cs-header--compact .cs-placeholder--hero:not(.cs-hero-slides):not(.cs-hero-video):not(.cs-hero-bento) {
   min-height: 9.5rem;
   margin-bottom: 1.35rem;
 }
 
 .cs-embed--compact .cs-header--compact .cs-hero-slides,
-.cs-embed--compact .cs-header--compact .cs-hero-video {
+.cs-embed--compact .cs-header--compact .cs-hero-video,
+.cs-embed--compact .cs-header--compact .cs-hero-bento {
   margin-bottom: 1.35rem;
 }
 
@@ -5415,6 +5416,59 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-placeholder--hero {
   min-height: 14rem;
   margin-bottom: 3rem;
+}
+
+/* WAC-style 3-tile bento: tall poster | desktop / iPhone */
+.cs-hero-bento {
+  --cs-bento-gap-x: clamp(0.7rem, 3vw, 1.4rem);
+  --cs-bento-gap-y: clamp(0.35rem, 1.5vw, 0.7rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 0.74fr) minmax(0, 1fr);
+  gap: var(--cs-bento-gap-y) var(--cs-bento-gap-x);
+  align-items: stretch;
+  justify-items: stretch;
+  width: 100%;
+  aspect-ratio: 1.525 / 1;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  color: inherit;
+}
+
+.cs-hero-bento__tile {
+  position: relative;
+  display: block;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cs-hero-bento__tile--poster {
+  grid-row: 1 / -1;
+}
+
+.cs-hero-bento__tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@media (max-width: 720px) {
+  .cs-hero-bento {
+    --cs-bento-gap-x: 0.55rem;
+    --cs-bento-gap-y: 0.4rem;
+    aspect-ratio: 1.2 / 1;
+  }
 }
 
 .cs-hero-slides {
@@ -7323,6 +7377,14 @@ a.about-browser__url:hover .about-browser__url-text {
   margin-right: calc(-1 * var(--cs-hero-bleed));
   margin-bottom: 2.5rem;
   border-radius: 2px;
+}
+
+.work-expand__scroll .cs-header--preview .cs-placeholder--hero.cs-hero-bento,
+.work-expand__scroll .cs-embed--compact .cs-header--compact .cs-placeholder--hero.cs-hero-bento {
+  min-height: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
 }
 
 .work-expand__sheet--full .work-expand__scroll {

@@ -75,10 +75,37 @@ function CaseStudyTopTabs({ activeTab = "work", onSelectTab }) {
   );
 }
 
+function CaseStudyHeroBento({ heroBento, heroAspectRatio }) {
+  const poster = normalizeMediaItem(heroBento?.poster);
+  const desktop = normalizeMediaItem(heroBento?.desktop);
+  const iphone = normalizeMediaItem(heroBento?.iphone);
+  if (!poster?.src || !desktop?.src || !iphone?.src) return null;
+
+  return (
+    <div
+      className="cs-placeholder cs-placeholder--hero cs-hero-bento"
+      style={heroAspectRatio ? { aspectRatio: heroAspectRatio } : undefined}
+      role="img"
+      aria-label={[poster.alt, desktop.alt, iphone.alt].filter(Boolean).join(". ")}
+    >
+      <figure className="cs-hero-bento__tile cs-hero-bento__tile--poster">
+        <img src={poster.src} alt={poster.alt ?? ""} loading="eager" decoding="async" />
+      </figure>
+      <figure className="cs-hero-bento__tile cs-hero-bento__tile--desktop">
+        <img src={desktop.src} alt={desktop.alt ?? ""} loading="eager" decoding="async" />
+      </figure>
+      <figure className="cs-hero-bento__tile cs-hero-bento__tile--iphone">
+        <img src={iphone.src} alt={iphone.alt ?? ""} loading="eager" decoding="async" />
+      </figure>
+    </div>
+  );
+}
+
 function CaseStudyHeroMedia({
   heroEmbed,
   heroEmbedTitle,
   heroVideo,
+  heroBento,
   heroSlides,
   heroSlideInterval,
   heroPlaceholder,
@@ -99,14 +126,14 @@ function CaseStudyHeroMedia({
       ? heroVideo
       : heroVideo.src
     : null;
-  const showVideo = Boolean(videoSrc) && !videoFailed && !heroEmbed;
+  const showVideo = Boolean(videoSrc) && !videoFailed && !heroEmbed && !heroBento;
 
   useEffect(() => {
     setVideoFailed(false);
   }, [videoSrc]);
 
   useEffect(() => {
-    if (!slides?.length || showVideo) return undefined;
+    if (!slides?.length || showVideo || heroBento) return undefined;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) return undefined;
@@ -116,7 +143,11 @@ function CaseStudyHeroMedia({
     }, intervalMs);
 
     return () => window.clearInterval(timer);
-  }, [slides, intervalMs, showVideo]);
+  }, [slides, intervalMs, showVideo, heroBento]);
+
+  if (heroBento) {
+    return <CaseStudyHeroBento heroBento={heroBento} heroAspectRatio={heroAspectRatio} />;
+  }
 
   if (heroEmbed) {
     return (
@@ -609,6 +640,7 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
     heroPlaceholder,
     heroEmbed,
     heroVideo,
+    heroBento,
     heroSlides,
     heroSlideInterval,
     heroAspectRatio,
@@ -655,6 +687,7 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
         heroEmbed={heroEmbed}
         heroEmbedTitle={title}
         heroVideo={heroVideo}
+        heroBento={heroBento}
         heroSlides={heroSlides}
         heroSlideInterval={heroSlideInterval}
         heroPlaceholder={heroPlaceholder}

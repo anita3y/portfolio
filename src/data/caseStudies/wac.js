@@ -1,7 +1,9 @@
 import { assetUrl } from "../../utils/assetUrl.js";
 import { CASE_STUDY_PASSWORD } from "./access.js";
 
-const BANNER = assetUrl("/case-studies/wac/banner.png");
+const HERO_POSTER = assetUrl("/case-studies/wac/hero/poster.png");
+const HERO_DESKTOP = assetUrl("/case-studies/wac/hero/desktop-dashboard.png");
+const HERO_IPHONE = assetUrl("/case-studies/wac/hero/iphone-checkin.png");
 const REGISTRATION_MAP = assetUrl("/case-studies/wac/registration-map.png");
 const KEY_FLOWS = assetUrl("/case-studies/wac/key-flows.png");
 const MOBILE_CHECK_IN = assetUrl("/case-studies/wac/mobile-check-in.png");
@@ -46,14 +48,21 @@ export const WAC_CASE_STUDY = {
     timeline: "2025",
     tools: ["Figma", "Google Sheets", "Notion"]
   },
-  heroSlides: [
-    {
-      src: BANNER,
-      alt: "World Affairs Conference dashboard showing registered, checked in, and pending attendees"
+  heroBento: {
+    poster: {
+      src: HERO_POSTER,
+      alt: "World Affairs Conference 2025 poster — to the future"
+    },
+    desktop: {
+      src: HERO_DESKTOP,
+      alt: "World Affairs Conference desktop dashboard with registration and check-in stats"
+    },
+    iphone: {
+      src: HERO_IPHONE,
+      alt: "World Affairs Conference iPhone check-in screen"
     }
-  ],
-  heroAspectRatio: "1358 / 438",
-  heroFlat: true,
+  },
+  heroAspectRatio: "688 / 508",
   /** Public teaser — always visible before the password gate. */
   teaserSections: [
     {
