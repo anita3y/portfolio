@@ -1,9 +1,12 @@
 import { assetUrl } from "../../utils/assetUrl.js";
 import { CASE_STUDY_PASSWORD } from "./access.js";
 
-const HERO_POSTER = assetUrl("/case-studies/wac/hero/poster.png");
-const HERO_DESKTOP = assetUrl("/case-studies/wac/hero/desktop-dashboard.png");
-const HERO_IPHONE = assetUrl("/case-studies/wac/hero/iphone-checkin.png");
+const BANNER = assetUrl("/case-studies/wac/banner-three-panel.png");
+const BENTO_POSTER = assetUrl("/case-studies/wac/bento/poster.png");
+const BENTO_DESKTOP = assetUrl("/case-studies/wac/bento/desktop-dashboard.png");
+const BENTO_IPHONE = assetUrl("/case-studies/wac/bento/iphone-checkin.png");
+const PHOTO_BILL_WEIR = assetUrl("/case-studies/wac/photos/bill-weir.png");
+const PHOTO_POLAROID_PAIR = assetUrl("/case-studies/wac/photos/polaroid-pair.png");
 const REGISTRATION_MAP = assetUrl("/case-studies/wac/registration-map.png");
 const KEY_FLOWS = assetUrl("/case-studies/wac/key-flows.png");
 const MOBILE_CHECK_IN = assetUrl("/case-studies/wac/mobile-check-in.png");
@@ -14,6 +17,21 @@ const DEMO_PHONE = assetUrl("/case-studies/wac/demos/phone-demo.mov");
 const DEMO_CHECKIN_OMAR = assetUrl("/case-studies/wac/demos/check-in-omar.mov");
 const DEMO_ADMIN_TAGS = assetUrl("/case-studies/wac/demos/admin-tags.mov");
 const DEMO_ADMIN_CHECK_PENDING = assetUrl("/case-studies/wac/demos/admin-check-pending.mov");
+
+const PRODUCT_BENTO = {
+  poster: {
+    src: BENTO_POSTER,
+    alt: "World Affairs Conference 2025 poster — to the future"
+  },
+  desktop: {
+    src: BENTO_DESKTOP,
+    alt: "World Affairs Conference desktop dashboard with registration and check-in stats"
+  },
+  iphone: {
+    src: BENTO_IPHONE,
+    alt: "World Affairs Conference iPhone check-in screen"
+  }
+};
 
 export const WAC_CASE_STUDY = {
   id: "world-affairs-conference",
@@ -48,21 +66,16 @@ export const WAC_CASE_STUDY = {
     timeline: "2025",
     tools: ["Figma", "Google Sheets", "Notion"]
   },
-  heroBento: {
-    poster: {
-      src: HERO_POSTER,
-      alt: "World Affairs Conference 2025 poster — to the future"
-    },
-    desktop: {
-      src: HERO_DESKTOP,
-      alt: "World Affairs Conference desktop dashboard with registration and check-in stats"
-    },
-    iphone: {
-      src: HERO_IPHONE,
-      alt: "World Affairs Conference iPhone check-in screen"
+  heroSlides: [
+    {
+      src: BANNER,
+      alt: "World Affairs Conference 2025 — poster, about-the-theme card, and desktop dashboard"
     }
-  },
-  heroAspectRatio: "688 / 508",
+  ],
+  heroAspectRatio: "3960 / 1359",
+  heroFlat: true,
+  heroFit: "contain",
+  heroBackground: "#000000",
   /** Public teaser — always visible before the password gate. */
   teaserSections: [
     {
@@ -76,6 +89,10 @@ export const WAC_CASE_STUDY = {
             "The World Affairs Conference brings together over 1,000 students each year. Online, registering feels simple. At the door, it falls apart: duplicate sign-ups, printed lists nobody trusts, and volunteers making judgment calls under pressure. Each year a new organizing team rebuilds the process from scratch, and each year the same problems come back.",
             "I set out to redesign the system end to end, from the moment a student signs up to the moment they walk into the room."
           ]
+        },
+        {
+          layout: "bento",
+          ...PRODUCT_BENTO
         }
       ]
     },
@@ -98,6 +115,29 @@ export const WAC_CASE_STUDY = {
             "An answer to the obvious question: why not just use Google Sheets?",
             "A mobile check-in experience designed for noise, crowds, and zero patience",
             "A physical identity system of badges, posters, and wayfinding built from the same data"
+          ]
+        }
+      ]
+    }
+  ],
+  /** Public photos — always visible, placed after the password gate. */
+  afterGateSections: [
+    {
+      id: "photos",
+      title: "photos from WAC 2025",
+      blocks: [
+        {
+          layout: "polaroids",
+          images: [
+            {
+              src: PHOTO_BILL_WEIR,
+              alt: "Polaroid of Bill Weir speaking on stage at World Affairs Conference 2025",
+              caption: "our keynote speak, Bill Weir! climate correspondent at CNN"
+            },
+            {
+              src: PHOTO_POLAROID_PAIR,
+              alt: "Overlapping Polaroids from WAC 2025 — keynote stage conversation and smiling attendees"
+            }
           ]
         }
       ]

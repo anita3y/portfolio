@@ -5418,7 +5418,8 @@ a.about-browser__url:hover .about-browser__url-text {
   margin-bottom: 3rem;
 }
 
-/* WAC-style 3-tile bento: tall poster | desktop / iPhone */
+/* 3-tile bento: tall poster | desktop / iPhone */
+.cs-bento,
 .cs-hero-bento {
   --cs-bento-gap-x: clamp(0.7rem, 3vw, 1.4rem);
   --cs-bento-gap-y: clamp(0.35rem, 1.5vw, 0.7rem);
@@ -5429,7 +5430,7 @@ a.about-browser__url:hover .about-browser__url-text {
   align-items: stretch;
   justify-items: stretch;
   width: 100%;
-  aspect-ratio: 1.525 / 1;
+  aspect-ratio: 688 / 508;
   min-height: 0;
   padding: 0;
   border: none;
@@ -5438,8 +5439,14 @@ a.about-browser__url:hover .about-browser__url-text {
   box-shadow: none;
   overflow: visible;
   color: inherit;
+  place-items: stretch;
 }
 
+.cs-bento--body {
+  margin: 1.35rem 0 0.35rem;
+}
+
+.cs-bento__tile,
 .cs-hero-bento__tile {
   position: relative;
   display: block;
@@ -5447,12 +5454,15 @@ a.about-browser__url:hover .about-browser__url-text {
   min-width: 0;
   min-height: 0;
   overflow: hidden;
+  line-height: 0;
 }
 
+.cs-bento__tile--poster,
 .cs-hero-bento__tile--poster {
   grid-row: 1 / -1;
 }
 
+.cs-bento__tile img,
 .cs-hero-bento__tile img {
   display: block;
   width: 100%;
@@ -5464,10 +5474,47 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 @media (max-width: 720px) {
+  .cs-bento,
   .cs-hero-bento {
     --cs-bento-gap-x: 0.55rem;
     --cs-bento-gap-y: 0.4rem;
     aspect-ratio: 1.2 / 1;
+  }
+}
+
+.cs-polaroids {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.35rem);
+  align-items: start;
+  margin-top: 0.35rem;
+}
+
+.cs-polaroids__item {
+  margin: 0;
+  min-width: 0;
+}
+
+.cs-polaroids__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: clamp(1.1rem, 2.4vw, 1.75rem);
+}
+
+.cs-polaroids__caption {
+  margin: 0.7rem 0.15rem 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 1.35;
+  color: #8a8d98;
+}
+
+@media (max-width: 720px) {
+  .cs-polaroids {
+    grid-template-columns: 1fr;
   }
 }
 
