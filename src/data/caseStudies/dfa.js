@@ -8,6 +8,8 @@ const FLOW_JOIN_SECTION = assetUrl("/case-studies/dfa/flows/join-us-now.png");
 const FLOW_JOIN_BUTTON = assetUrl("/case-studies/dfa/flows/join-now-button.png");
 const FLOW_CONTACT = assetUrl("/case-studies/dfa/flows/contact-button.png");
 const KEY_FLOWS_MAP = assetUrl("/case-studies/dfa/flows/key-flows-map.png");
+const AUDIT_RISDXBROWN = assetUrl("/case-studies/dfa/competitive-audit-risdxbrown.png");
+const AUDIT_CMU = assetUrl("/case-studies/dfa/competitive-audit-cmu.png");
 
 const SOLUTION_TEAM = assetUrl("/case-studies/dfa/solution/team.jpg");
 const SOLUTION_ARCHIVE = assetUrl("/case-studies/dfa/solution/archive.jpg");
@@ -103,14 +105,26 @@ export const DFA_CASE_STUDY = {
           bullets: [
             "Pros: playful interactivity, simple navigation, intuitive hierarchy, strong project showcase.",
             "Cons: feels built for clients more than prospective members—weak “why join,” little on member benefits or commitment, and key paths like joining or events aren’t prioritized."
-          ]
+          ],
+          image: {
+            src: AUDIT_RISDXBROWN,
+            alt: "Competitive audit board for DFA at RISDxBrown with pros and cons sticky notes",
+            caption: "RISDxBrown — competitive audit",
+            wide: true
+          }
         },
         {
           heading: "DFA @ CMU",
           bullets: [
             "Pros: warm, inviting branding; balances recruitment and client-facing work; clear mission focus.",
             "Cons: dense About page that’s hard to skim; long paragraphs with weak visual hierarchy before visitors reach a call to action."
-          ]
+          ],
+          image: {
+            src: AUDIT_CMU,
+            alt: "Competitive audit board for DFA at CMU with pros and cons sticky notes",
+            caption: "CMU — competitive audit",
+            wide: true
+          }
         }
       ]
     },
