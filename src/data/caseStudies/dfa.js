@@ -45,12 +45,12 @@ export const DFA_CASE_STUDY = {
       blocks: [
         {
           paragraphs: [
-            "DFA @ NYU’s site needed more than a visual refresh. It had to clarify the chapter’s value, surface real impact, and stay easy to hand off."
+            "Design for America @ NYU had 1,000+ members but no centralized website. As the chapter started taking on projects and expanding into design services and student work, not just tutorials and speaker series, they needed a place to hold past projects and clarify what the chapter does."
           ],
           callout: {
             emoji: "🧩",
             label: "Problem",
-            text: "Project work lived in scattered folders, alumni and partners had no clear entry point, and new members struggled to understand what DFA @ NYU actually does."
+            text: "No central home for the chapter. Past projects lived in scattered folders, and new members couldn’t easily see what DFA @ NYU actually does."
           }
         },
         {
@@ -165,7 +165,7 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Final wireframes",
           paragraphs: [
-            "High-fidelity wireframes for the four core pages—Landing, About, Archive, and Team—with CTAs mapped to each key flow. Purple annotations mark animation and motion specs for dev handoff."
+            "High-fidelity wireframes for the four core pages (Landing, About, Archive, and Team), with CTAs mapped to each key flow. Purple annotations mark animation and motion specs for dev handoff."
           ]
         },
         {

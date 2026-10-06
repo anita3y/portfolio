@@ -5766,28 +5766,28 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .cs-callout {
   display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
+  align-items: center;
+  gap: 0.7rem;
   margin: 0.15rem 0 1.35rem;
-  padding: 0.85rem 0.95rem;
+  padding: 0.95rem 1rem;
   border-radius: 0.75rem;
-  border: 1px solid rgba(206, 209, 218, 0.95);
+  border: none;
   background: #f3f4f8;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  box-shadow: none;
 }
 
 .cs-callout__emoji {
   flex-shrink: 0;
-  margin-top: 0.05rem;
-  font-size: 1.05rem;
-  line-height: 1.2;
+  margin-top: 0;
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
 .cs-callout__body {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.25rem;
 }
 
 .cs-callout__label {
@@ -5802,10 +5802,10 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-callout__text {
   margin: 0;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.08rem;
   font-weight: 400;
   letter-spacing: -0.03em;
-  line-height: 1.5;
+  line-height: 1.45;
   color: #2f323c;
 }
 
