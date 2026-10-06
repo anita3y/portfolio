@@ -5905,8 +5905,7 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .cs-uf__path,
-.cs-uf__branch-wrap,
-.cs-uf__rows {
+.cs-uf__branch-wrap {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -5923,8 +5922,13 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-uf__stack {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0.45rem;
   min-width: 0;
+}
+
+.cs-uf__rows {
+  width: 100%;
 }
 
 .cs-uf__path--join {

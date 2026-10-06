@@ -1,11 +1,8 @@
 import { assetUrl } from "../../utils/assetUrl.js";
 
 const FIGMA_WIREFRAMES = assetUrl("/case-studies/dfa/figma-wireframes.png");
-const FLOW_MISSION = assetUrl("/case-studies/dfa/flows/mission-learn-more.png");
-const FLOW_FEATURED = assetUrl("/case-studies/dfa/flows/featured-projects.png");
-const FLOW_JOIN_SECTION = assetUrl("/case-studies/dfa/flows/join-us-now.png");
-const FLOW_JOIN_BUTTON = assetUrl("/case-studies/dfa/flows/join-now-button.png");
 const FLOW_CONTACT = assetUrl("/case-studies/dfa/flows/contact-button.png");
+const COMPONENTS_UI = assetUrl("/case-studies/dfa/components-ui.png");
 const AUDIT_RISDXBROWN = assetUrl("/case-studies/dfa/competitive-audit-risdxbrown.png");
 const AUDIT_CMU = assetUrl("/case-studies/dfa/competitive-audit-cmu.png");
 const VISUAL_BRAINSTORM_1 = assetUrl("/case-studies/dfa/visual-brainstorm-1.png");
@@ -232,42 +229,16 @@ export const DFA_CASE_STUDY = {
           layout: "userFlowMap"
         },
         {
-          heading: "Discover projects & impact",
+          heading: "Components",
           paragraphs: [
-            "The mission window and featured projects section both pull visitors deeper. Learn more routes to About, See more opens the full project archive."
+            "UI pieces that carry the key flows: mission and featured projects for discovery, plus the join CTAs that repeat across the site."
           ],
-          layout: "wireframes",
-          images: [
-            {
-              src: FLOW_MISSION,
-              alt: "Our Mission card with Learn more button leading to the About page",
-              caption: "Our Mission → Learn more → About"
-            },
-            {
-              src: FLOW_FEATURED,
-              alt: "Featured projects section with See more button leading to the project archive",
-              caption: "Featured projects → See more → Archive"
-            }
-          ]
-        },
-        {
-          heading: "Join / get involved",
-          paragraphs: [
-            "Join CTAs repeat across the site, from a persistent header button to a bottom-of-page section with the interest form and WhatsApp group."
-          ],
-          layout: "wireframes",
-          images: [
-            {
-              src: FLOW_JOIN_SECTION,
-              alt: "Join us now section with group interest form and WhatsApp buttons",
-              caption: "Join us now — interest form & WhatsApp"
-            },
-            {
-              src: FLOW_JOIN_BUTTON,
-              alt: "Join now pill button in the site header",
-              caption: "Join now — header CTA"
-            }
-          ]
+          image: {
+            src: COMPONENTS_UI,
+            alt: "UI components for Discover projects and impact and Join get involved, including Our Mission, Featured Projects, Join us now, and Join now",
+            caption: "Discover and join UI pieces",
+            wide: true
+          }
         },
         {
           heading: "Contact & partner outreach",
@@ -287,8 +258,15 @@ export const DFA_CASE_STUDY = {
       id: "solution",
       title: "solution",
       summary:
-        "Four core pages—team, archive, about, and homepage—built from a shared component library so future leads can swap content without redesigning from scratch.",
+        "Four core pages (team, archive, about, homepage) built from a shared component library so future leads can swap content without redesigning from scratch.",
       blocks: [
+        {
+          callout: {
+            emoji: "💡",
+            label: "Solution",
+            text: "Four core pages (team, archive, about, homepage) from a shared component library so future leads can swap content without redesigning from scratch. Scannable project stories, a welcoming team, and clear join paths, with shared tabs, folder cards, and CTAs ready for a later Framer build."
+          }
+        },
         {
           paragraphs: [
             "Final design prioritizes scannable project stories, a welcoming team presence, and clear paths for visitors to participate.",
