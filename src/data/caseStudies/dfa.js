@@ -63,7 +63,7 @@ export const DFA_CASE_STUDY = {
           ]
         },
         {
-          heading: "Success criteria",
+          heading: "Success Criteria",
           bullets: [
             "Clear information architecture for projects, team, and get-involved flows.",
             "Consistent visual system built for growth, not one-off pages.",
@@ -85,7 +85,7 @@ export const DFA_CASE_STUDY = {
           ]
         },
         {
-          heading: "Audience & site needs",
+          heading: "Audience & Site Needs",
           paragraphs: [
             "Primary audience: NYU freshmen through juniors across schools. Make why join clear, and show the team, past projects, and how to reach out.",
             "The site needed a landing with Join, mission/about/team/archive/projects, contact paths, and a bit of play so the chapter feels approachable."
@@ -95,12 +95,12 @@ export const DFA_CASE_STUDY = {
       subsections: [
         {
           id: "competitive-audit-research",
-          title: "Competitive audit research",
+          title: "Competitive Audit Research",
           summary:
             "I audited how other DFA chapters present themselves online: what works for recruitment, what gets in the way, and where NYU could do better.",
           blocks: [
             {
-              heading: "Competitive audit",
+              heading: "Competitive Audit",
               paragraphs: [
                 "I reviewed peer chapter sites to understand how they balance showcasing work with welcoming new members."
               ]
@@ -159,10 +159,10 @@ export const DFA_CASE_STUDY = {
               }
             },
             {
+              heading: "Content and Visual Brainstorm with Riko (Product Manager)",
               image: {
                 src: VISUAL_BRAINSTORM_1,
-                alt: "BRAINSTORM board with strategy notes, color palettes, puzzle motif, and folder references",
-                caption: "BRAINSTORM board",
+                alt: "Brainstorm board with strategy notes, color palettes, puzzle motif, and folder references",
                 wide: true
               }
             },
@@ -170,7 +170,7 @@ export const DFA_CASE_STUDY = {
               image: {
                 src: VISUAL_BRAINSTORM_2,
                 alt: "DFA at NYU Design Guide Brainstorm exploring play and education with a folders concept",
-                caption: "Design guide brainstorm",
+                caption: "Design Guide Brainstorm",
                 wide: true
               }
             },
@@ -188,7 +188,7 @@ export const DFA_CASE_STUDY = {
               ]
             },
             {
-              heading: "IA decision",
+              heading: "IA Decision",
               paragraphs: [
                 "I eliminated a standalone Get Involved page. Get Involved lives on pages that already give context to new students before they hit join, so they're not dropped into a CTA with no story. Principle: every page should earn its place."
               ]
@@ -198,7 +198,7 @@ export const DFA_CASE_STUDY = {
       ],
       blocks: [
         {
-          heading: "Wireframes & visual direction",
+          heading: "Wireframes & Visual Direction",
           paragraphs: [
             "From there I mapped information architecture, carried the folders theme forward, and wireframed key pages before moving into high-fidelity design."
           ],
@@ -210,14 +210,14 @@ export const DFA_CASE_STUDY = {
           }
         },
         {
-          heading: "Final wireframes",
+          heading: "Final Wireframes",
           paragraphs: [
             "Page frames for Home, Projects, About, and Team, plus an optional Newsletter. Get Involved was explored as its own frame, then cut; join CTAs stay in the header and on pages with context. Folder tabs and layered cards stay consistent so one developer can implement a shared pattern and reuse it across pages."
           ],
           layout: "dfaWireframes"
         },
         {
-          heading: "Key flows",
+          heading: "Key Flows",
           paragraphs: [
             "Every major page routes visitors toward one of three goals: discover what we do, join the club, or get in touch. I mapped how each CTA connects pages before wireframing the details."
           ],
@@ -231,12 +231,12 @@ export const DFA_CASE_STUDY = {
           image: {
             src: COMPONENTS_UI,
             alt: "UI components for Discover projects and impact and Join get involved, including Our Mission, Featured Projects, Join us now, and Join now",
-            caption: "Discover and join UI pieces",
+            caption: "Discover and Join UI Pieces",
             wide: true
           }
         },
         {
-          heading: "Contact & partner outreach",
+          heading: "Contact & Partner Outreach",
           paragraphs: [
             "A Contact button in the landing page header gives visitors a direct path to reach the chapter, alongside join CTAs at the bottom of every page."
           ],
