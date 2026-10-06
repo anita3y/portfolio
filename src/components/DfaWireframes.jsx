@@ -120,29 +120,6 @@ const PAGES = [
     )
   },
   {
-    id: "newsletter",
-    label: "Newsletter",
-    optional: true,
-    active: "Home",
-    body: (
-      <>
-        <p className="dfa-wf__section-label">Stay updated</p>
-        <div className="dfa-wf__folder-card">
-          <div className="dfa-wf__folder-tab">Newsletter</div>
-          <div className="dfa-wf__folder-body">
-            <div className="dfa-wf__line" />
-            <div className="dfa-wf__line dfa-wf__line--mid" />
-            <div className="dfa-wf__form-row">
-              <span className="dfa-wf__field" />
-              <span className="dfa-wf__pill">Subscribe</span>
-            </div>
-          </div>
-        </div>
-        <p className="dfa-wf__hint">Optional page for events and chapter updates</p>
-      </>
-    )
-  },
-  {
     id: "get-involved",
     label: "Get Involved",
     cut: true,
@@ -168,7 +145,7 @@ const PAGES = [
   }
 ];
 
-function WireframeChrome({ active, children, label, optional, cut }) {
+function WireframeChrome({ active, children, label, cut }) {
   return (
     <figure className={["dfa-wf__frame", cut && "dfa-wf__frame--cut"].filter(Boolean).join(" ")}>
       <div className="dfa-wf__browser" aria-hidden="true">
@@ -196,7 +173,6 @@ function WireframeChrome({ active, children, label, optional, cut }) {
       </div>
       <figcaption className="dfa-wf__caption">
         {label}
-        {optional ? <span className="dfa-wf__optional"> optional</span> : null}
         {cut ? <span className="dfa-wf__optional"> cut</span> : null}
       </figcaption>
     </figure>
@@ -208,7 +184,7 @@ export default function DfaWireframes() {
     <div
       className="dfa-wf"
       role="img"
-      aria-label="Wireframes for Home, Projects, About, Team, optional Newsletter, and Get Involved cut, with folder tabs and layered cards"
+      aria-label="Wireframes for Home, Projects, About, Team, and Get Involved cut, with folder tabs and layered cards"
     >
       <div className="dfa-wf__grid">
         {PAGES.map((page) => (
@@ -216,7 +192,6 @@ export default function DfaWireframes() {
             key={page.id}
             active={page.active}
             label={page.label}
-            optional={page.optional}
             cut={page.cut}
           >
             {page.body}

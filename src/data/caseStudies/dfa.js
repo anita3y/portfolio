@@ -220,7 +220,7 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Final Wireframes",
           paragraphs: [
-            "Page frames for Home, Projects, About, and Team, plus an optional Newsletter. Get Involved was explored as its own frame, then cut; join CTAs stay in the header and on pages with context. Folder tabs and layered cards stay consistent so one developer can implement a shared pattern and reuse it across pages."
+            "Page frames for Home, Projects, About, and Team. Get Involved was explored as its own frame, then cut; join CTAs stay in the header and on pages with context. Folder tabs and layered cards stay consistent so one developer can implement a shared pattern and reuse it across pages."
           ],
           layout: "dfaWireframes"
         },
