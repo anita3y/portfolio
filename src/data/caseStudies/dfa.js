@@ -95,7 +95,7 @@ export const DFA_CASE_STUDY = {
       subsections: [
         {
           id: "competitive-audit-research",
-          title: "competitive audit research",
+          title: "Competitive audit research",
           summary:
             "I audited how other DFA chapters present themselves online: what works for recruitment, what gets in the way, and where NYU could do better.",
           blocks: [
