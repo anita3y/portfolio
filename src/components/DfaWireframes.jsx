@@ -1,4 +1,4 @@
-const NAV = ["Home", "Projects", "About", "Team", "Get Involved"];
+const NAV = ["Home", "Projects", "About", "Team"];
 
 const PAGES = [
   {
@@ -145,7 +145,8 @@ const PAGES = [
   {
     id: "get-involved",
     label: "Get Involved",
-    active: "Get Involved",
+    cut: true,
+    active: "Home",
     body: (
       <>
         <div className="dfa-wf__folder-card dfa-wf__folder-card--accent">
@@ -162,14 +163,15 @@ const PAGES = [
         </div>
         <div className="dfa-wf__line dfa-wf__line--mid" />
         <div className="dfa-wf__line dfa-wf__line--short" />
+        <p className="dfa-wf__hint">Explored, then cut — join lives in context on other pages</p>
       </>
     )
   }
 ];
 
-function WireframeChrome({ active, children, label, optional }) {
+function WireframeChrome({ active, children, label, optional, cut }) {
   return (
-    <figure className="dfa-wf__frame">
+    <figure className={["dfa-wf__frame", cut && "dfa-wf__frame--cut"].filter(Boolean).join(" ")}>
       <div className="dfa-wf__browser" aria-hidden="true">
         <div className="dfa-wf__tabs">
           {NAV.map((tab) => (
@@ -180,8 +182,7 @@ function WireframeChrome({ active, children, label, optional }) {
                 tab === active && "dfa-wf__tab--active",
                 tab === "Projects" && "dfa-wf__tab--projects",
                 tab === "About" && "dfa-wf__tab--about",
-                tab === "Team" && "dfa-wf__tab--team",
-                tab === "Get Involved" && "dfa-wf__tab--join"
+                tab === "Team" && "dfa-wf__tab--team"
               ]
                 .filter(Boolean)
                 .join(" ")}
@@ -197,6 +198,7 @@ function WireframeChrome({ active, children, label, optional }) {
       <figcaption className="dfa-wf__caption">
         {label}
         {optional ? <span className="dfa-wf__optional"> optional</span> : null}
+        {cut ? <span className="dfa-wf__optional"> cut</span> : null}
       </figcaption>
     </figure>
   );
@@ -207,7 +209,7 @@ export default function DfaWireframes() {
     <div
       className="dfa-wf"
       role="img"
-      aria-label="Portfolio-style wireframes for Home, Projects, About, Team, Newsletter, and Get Involved, with folder tabs and layered cards"
+      aria-label="Portfolio-style wireframes for Home, Projects, About, Team, optional Newsletter, and a Get Involved frame that was explored then cut, with folder tabs and layered cards"
     >
       <div className="dfa-wf__grid">
         {PAGES.map((page) => (
@@ -216,6 +218,7 @@ export default function DfaWireframes() {
             active={page.active}
             label={page.label}
             optional={page.optional}
+            cut={page.cut}
           >
             {page.body}
           </WireframeChrome>

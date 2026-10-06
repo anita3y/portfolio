@@ -197,6 +197,12 @@ export const DFA_CASE_STUDY = {
                 "Studio-based work",
                 "Systems thinking"
               ]
+            },
+            {
+              heading: "IA decision",
+              paragraphs: [
+                "I eliminated a standalone Get Involved page. Get Involved lives on pages that already give context to new students before they hit join, so they're not dropped into a CTA with no story. Principle: every page should earn its place."
+              ]
             }
           ]
         }
@@ -217,7 +223,7 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Final wireframes",
           paragraphs: [
-            "Page frames for Home, Projects, About, Team, Get Involved, and an optional Newsletter. Folder tabs and layered cards stay consistent so one developer can implement a shared pattern and reuse it across pages."
+            "Page frames for Home, Projects, About, and Team, plus an optional Newsletter. Get Involved was explored as its own frame, then cut; join CTAs stay in the header and on pages with context. Folder tabs and layered cards stay consistent so one developer can implement a shared pattern and reuse it across pages."
           ],
           layout: "dfaWireframes"
         },

@@ -5354,7 +5354,8 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .cs-embed--compact .cs-section__title {
-  font-size: 1.12rem;
+  font-size: 1.35rem;
+  font-weight: 800;
 }
 
 .cs-embed--compact .cs-section__summary {
@@ -5730,12 +5731,15 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .cs-section__title {
   margin: 0;
-  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: -0.07em;
-  line-height: 1.2;
+  font-family: "Doto", "Dotum", monospace;
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
   color: #111111;
+  text-transform: lowercase;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
 }
 
 .cs-subsection {
@@ -6452,6 +6456,10 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .dfa-wf__optional {
   color: #9a9da8;
+}
+
+.dfa-wf__frame--cut {
+  opacity: 0.72;
 }
 
 @media (max-width: 720px) {
@@ -8661,9 +8669,7 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .play-stage__study .cs-title,
-.play-stage__study .cs-section__title,
 .play-stage__study .cs-section__summary,
-.play-stage__study .cs-details__label,
 .play-stage__study .cs-study-footer__name,
 .play-stage__study .cs-study-footer__next,
 .play-stage__study .play-text,
