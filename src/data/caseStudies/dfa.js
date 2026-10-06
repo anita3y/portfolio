@@ -42,30 +42,16 @@ export const DFA_CASE_STUDY = {
     {
       id: "overview",
       title: "overview",
-      summary:
-        "The site needed to do more than look better: it had to clarify the chapter's value, surface real impact, and make handoff easier for future leadership.",
       blocks: [
         {
-          heading: "A disconnected network",
-          bullets: [
-            "Project work lived in scattered folders and outdated pages.",
-            "Alumni and partners had no clear entry point to stay involved.",
-            "New members struggled to understand what DFA @ NYU does."
-          ]
-        },
-        {
-          heading: "Scaling across chapters",
-          bullets: [
-            "Other DFA chapters needed a model they could adapt—not a one-off NYU site.",
-            "Content had to stay maintainable without a dedicated dev team."
-          ]
-        },
-        {
-          heading: "An outdated web presence",
-          bullets: [
-            "The previous site didn’t showcase impact or current projects.",
-            "Visual hierarchy and navigation didn’t match the chapter’s growth."
-          ]
+          paragraphs: [
+            "DFA @ NYU’s site needed more than a visual refresh—it had to clarify the chapter’s value, surface real impact, and stay easy to hand off."
+          ],
+          callout: {
+            emoji: "🧩",
+            label: "Problem",
+            text: "Project work lived in scattered folders, alumni and partners had no clear entry point, and new members struggled to understand what DFA @ NYU actually does."
+          }
         },
         {
           heading: "Objectives",

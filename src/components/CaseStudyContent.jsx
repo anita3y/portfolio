@@ -358,6 +358,21 @@ function TextBlock({ block }) {
           {p}
         </p>
       ))}
+      {block.callout && (
+        <aside className="cs-callout" aria-label={block.callout.label || "Callout"}>
+          {block.callout.emoji ? (
+            <span className="cs-callout__emoji" aria-hidden="true">
+              {block.callout.emoji}
+            </span>
+          ) : null}
+          <div className="cs-callout__body">
+            {block.callout.label ? (
+              <span className="cs-callout__label">{block.callout.label}</span>
+            ) : null}
+            <p className="cs-callout__text">{block.callout.text}</p>
+          </div>
+        </aside>
+      )}
       {block.bullets && (
         <ul className="cs-block__list">
           {block.bullets.map((item) => (

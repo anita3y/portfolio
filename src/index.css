@@ -5369,7 +5369,7 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .cs-embed--compact .cs-block__text,
 .cs-embed--compact .cs-block__list {
-  font-size: 0.88rem;
+  font-size: 0.94rem;
 }
 
 .cs-embed--compact .cs-placeholder--wide,
@@ -5764,6 +5764,51 @@ a.about-browser__url:hover .about-browser__url-text {
   margin-top: 0.35rem;
 }
 
+.cs-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin: 0.15rem 0 1.35rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(206, 209, 218, 0.95);
+  background: #f3f4f8;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.cs-callout__emoji {
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.cs-callout__body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cs-callout__label {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #6f7280;
+}
+
+.cs-callout__text {
+  margin: 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 1.5;
+  color: #2f323c;
+}
+
 /* Inline user-flow chart (case studies) */
 .cs-uf {
   --uf-neutral-bg: #f4f5f8;
@@ -6097,15 +6142,15 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-flow__card p {
   margin: 0;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.88rem;
-  letter-spacing: -0.07em;
-  color: #8a8d98;
+  font-size: 0.92rem;
+  letter-spacing: -0.03em;
+  color: #6f7280;
 }
 
 .cs-flow--visual .cs-flow__card p {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   line-height: 1.45;
-  color: #8a8d98;
+  color: #6f7280;
 }
 
 .cs-cards {
@@ -6149,9 +6194,9 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-card p {
   margin: 0;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: -0.07em;
-  color: #8a8d98;
+  font-size: 0.9rem;
+  letter-spacing: -0.03em;
+  color: #6f7280;
 }
 
 .cs-wireframes {
@@ -6280,9 +6325,11 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .cs-video__caption {
   margin-top: 0.55rem;
-  font-size: 0.82rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: -0.03em;
   line-height: 1.4;
-  color: #8a8d98;
+  color: #7a7d88;
   text-align: center;
 }
 
