@@ -92,6 +92,18 @@ export const WORK_PROJECTS = [
     thumbnail: assetUrl("/thumbnails/new-york-design-club-cover.png"),
     thumbnailVideo: assetUrl("/thumbnails/nydc/card.mov"),
     theme: "pivotal"
+  },
+  {
+    id: "nme-hiring",
+    title: "Hiring NME Leads",
+    headline: "Hiring flyer for UX Team NME Fall 2026 leads",
+    company: "UXC NYU · UX Team NME",
+    status: "Marketing",
+    year: "2026",
+    tags: ["Hiring", "Curriculum", "Visual design"],
+    href: "#",
+    thumbnail: assetUrl("/about/community-ux-nyu.png"),
+    theme: "nme"
   }
 ];
 

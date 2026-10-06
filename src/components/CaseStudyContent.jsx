@@ -318,11 +318,30 @@ function CaseStudyMedia({ media }) {
 }
 
 function CaseStudySection({ section, children }) {
+  const problem = section.problem;
+
   return (
     <section id={section.id} className="cs-section">
       <div className="cs-section__main">
         <h2 className="cs-section__title">{section.title}</h2>
-        {section.summary && <p className="cs-section__summary">{section.summary}</p>}
+        {(section.summary || problem) && (
+          <p className="cs-section__summary">
+            {section.summary}
+            {problem ? (
+              <>
+                {section.summary ? " " : null}
+                <span className="cs-inline-callout">
+                  {problem.emoji ? (
+                    <span className="cs-inline-callout__emoji" aria-hidden="true">
+                      {problem.emoji}
+                    </span>
+                  ) : null}
+                  <span className="cs-inline-callout__text">{problem.text}</span>
+                </span>
+              </>
+            ) : null}
+          </p>
+        )}
         {children}
       </div>
     </section>
@@ -742,7 +761,15 @@ export function CaseStudyFullContent({
   onSelectRelated
 }) {
   return (
-    <div className={`cs-embed${compact ? " cs-embed--compact" : ""}`}>
+    <div
+      className={[
+        "cs-embed",
+        compact && "cs-embed--compact",
+        study.sansTitles && "cs-embed--sans-titles"
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <CaseStudyPreview
         study={study}
         compact={compact}
