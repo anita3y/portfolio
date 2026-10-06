@@ -76,12 +76,19 @@ export const DFA_CASE_STUDY = {
       id: "discovery-research",
       title: "discovery & research",
       summary:
-        "Before designing, I aligned with our PM on the recruitment goal and audited how peer chapters present themselves online.",
+        "Before designing, I aligned with our PM on who the site was for and what it had to carry, then audited how peer chapters present themselves online.",
       blocks: [
         {
           heading: "Strategy (Riko)",
           paragraphs: [
             "Our PM Riko framed the revamp around one goal: get more students to reach out. The site had to make joining feel obvious, not buried behind project galleries."
+          ]
+        },
+        {
+          heading: "Audience & site needs",
+          paragraphs: [
+            "Primary audience: NYU freshmen through juniors across schools. Make why join clear, and show the team, past projects, and how to reach out.",
+            "The site needed a landing with Join, mission/about/team/archive/projects, contact paths, and a bit of play so the chapter feels approachable."
           ]
         }
       ],
