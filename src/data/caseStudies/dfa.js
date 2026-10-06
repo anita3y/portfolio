@@ -1,6 +1,7 @@
 import { assetUrl } from "../../utils/assetUrl.js";
 
 const FIGMA_WIREFRAMES = assetUrl("/case-studies/dfa/figma-wireframes.png");
+const FINAL_WIREFRAMES = assetUrl("/case-studies/dfa/flows/final-wireframes.png");
 const FLOW_MISSION = assetUrl("/case-studies/dfa/flows/mission-learn-more.png");
 const FLOW_FEATURED = assetUrl("/case-studies/dfa/flows/featured-projects.png");
 const FLOW_JOIN_SECTION = assetUrl("/case-studies/dfa/flows/join-us-now.png");
@@ -25,7 +26,7 @@ export const DFA_CASE_STUDY = {
   details: [
     { label: "role", value: "Product Designer" },
     { label: "timeline", value: "Aug-Sept 2026" },
-    { label: "team", value: "1 Product Designer\n1 Product Manager" },
+    { label: "team", value: "1 Product Designer\n1 Product Manager\n1 Developer" },
     { label: "skills", value: "Product design,\nUser research" }
   ],
   meta: {
@@ -166,9 +167,9 @@ export const DFA_CASE_STUDY = {
               ],
               image: {
                 src: RIKO_STRATEGY_IA,
-                alt: "Riko's document mapping Main User Types to Info-Architecture with colored connection lines",
+                alt: "Riko's document mapping four Main User Types to Info-Architecture, including Current member and About",
                 caption:
-                  "Riko's map connecting the needs she listed to information architecture: prospective NYU students, external viewers, and DFA National / other chapters → Home, Projects, Team, Newsletter, Get Involved.",
+                  "Riko's map connecting user needs to information architecture: prospective NYU students, external viewers, current members, and DFA National / other chapters → Home, Projects, About, Team, Newsletter, Get Involved.",
                 wide: true
               }
             },
@@ -220,8 +221,14 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Final wireframes",
           paragraphs: [
-            "High-fidelity wireframes for the four core pages (Landing, About, Archive, and Team), with CTAs mapped to each key flow. Purple annotations mark animation and motion specs for dev handoff."
-          ]
+            "High-fidelity wireframes for the four core pages (Landing, About, Archive, and Team), with CTAs mapped to each key flow. Purple annotations mark animation and motion specs for handoff."
+          ],
+          image: {
+            src: FINAL_WIREFRAMES,
+            alt: "Final wireframes for DFA NYU landing, about, archive, and team pages with purple motion and handoff comments",
+            caption: "Landing · About · Archive · Team, with motion and handoff notes",
+            wide: true
+          }
         },
         {
           heading: "Key flows",
@@ -291,7 +298,7 @@ export const DFA_CASE_STUDY = {
         {
           paragraphs: [
             "Final design prioritizes scannable project stories, a welcoming team presence, and clear paths for visitors to participate.",
-            "Every page reuses the same tab navigation, folder cards, CTAs, and typography—mapped to real content types for easy handoff in Framer."
+            "Every page reuses the same tab navigation, folder cards, CTAs, and typography, mapped to real content types so a later Framer build can reuse the same pieces."
           ]
         },
         {
@@ -372,9 +379,9 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Scaling for the future",
           bullets: [
-            "Framer components match the content types we actually publish, so new pages reuse the same pieces.",
-            "Wrote down how the site is structured so new leads can pick it up.",
-            "Built to change over time, not freeze after launch."
+            "Documented the content patterns and page structure so whoever builds in Framer later can reuse the same pieces.",
+            "Wrote down how the site is structured so new leads can pick it up without starting from scratch.",
+            "Designed for change over time, not a freeze after launch, so the handoff stays usable."
           ]
         }
       ]

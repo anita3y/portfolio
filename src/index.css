@@ -7430,6 +7430,7 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .work-expand__scroll {
   --cs-pad-x: clamp(2.75rem, 7.5vw, 4.5rem);
+  --cs-pad-right: clamp(3.75rem, 11vw, 6.5rem);
   --cs-hero-bleed: clamp(1.5rem, 3.5vw, 2.35rem);
   --work-expand-scroll-top: calc(
     var(--work-expand-corner-inset) + var(--work-expand-header-btn) + 1.35rem
@@ -7442,6 +7443,7 @@ a.about-browser__url:hover .about-browser__url-text {
   overflow: auto;
   overscroll-behavior: contain;
   padding: 0 var(--cs-pad-x) 3.25rem;
+  padding-right: var(--cs-pad-right);
   scrollbar-width: thin;
   scrollbar-color: rgba(28, 30, 38, 0.28) transparent;
 }
@@ -7517,11 +7519,13 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .work-expand__sheet--full .work-expand__scroll {
   --cs-pad-x: clamp(1.5rem, 3vw, 3rem);
+  --cs-pad-right: clamp(2.75rem, 8vw, 5rem);
   --cs-hero-bleed: 0rem;
   --work-expand-scroll-top: calc(
     var(--work-expand-corner-inset) + var(--work-expand-header-btn) + 1.35rem
   );
   padding: 0 var(--cs-pad-x) 3.5rem;
+  padding-right: var(--cs-pad-right);
 }
 
 .work-expand__sheet--full .work-expand__scroll .cs-header--preview .cs-title {
@@ -7568,6 +7572,7 @@ a.about-browser__url:hover .about-browser__url-text {
 
   .work-expand__scroll {
     --cs-pad-x: clamp(1.75rem, 6vw, 2.5rem);
+    --cs-pad-right: clamp(2.25rem, 8vw, 3.5rem);
     padding-bottom: 2.5rem;
   }
 
@@ -7577,6 +7582,7 @@ a.about-browser__url:hover .about-browser__url-text {
 
   .work-expand__sheet--full .work-expand__scroll {
     --cs-pad-x: clamp(1.75rem, 6vw, 2.75rem);
+    --cs-pad-right: clamp(2.25rem, 8vw, 3.75rem);
   }
 
   .cs-embed--compact .cs-section {
