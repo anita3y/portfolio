@@ -6951,6 +6951,351 @@ a.about-browser__url:hover .about-browser__url-text {
   }
 }
 
+/* DFA native Components section (Discover + Join UI pieces) */
+.dfa-comp {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 1.25rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #2a2c33;
+}
+
+.dfa-comp__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.dfa-comp__group-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  max-width: 42rem;
+}
+
+.dfa-comp__group-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1.25;
+  color: #2a2c33;
+}
+
+.dfa-comp__group-blurb {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.45;
+  color: #6f7280;
+}
+
+.dfa-comp__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.15rem 1rem;
+  align-items: start;
+}
+
+.dfa-comp__piece {
+  margin: 0;
+  min-width: 0;
+}
+
+.dfa-comp__stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 13.5rem;
+  padding: 1rem 0.95rem 1.15rem;
+  border: 1px solid rgba(206, 209, 218, 0.95);
+  border-radius: 0.55rem;
+  background: #f8f8f9;
+}
+
+.dfa-comp__caption {
+  margin-top: 0.45rem;
+  font-size: 0.82rem;
+  letter-spacing: -0.03em;
+  line-height: 1.35;
+  color: #7a7d88;
+  text-align: center;
+}
+
+.dfa-comp__kicker {
+  margin: 0 0 0.7rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1f2128;
+}
+
+.dfa-comp__mission {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 11.5rem;
+  padding: 0.35rem 0.2rem 0.85rem;
+}
+
+.dfa-comp__mission-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: 17.5rem;
+  padding: 0.85rem 0.75rem 1.35rem;
+  border-radius: 0.85rem;
+  background: #db6e34;
+}
+
+.dfa-comp__mission-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  color: #fff;
+  text-align: center;
+}
+
+.dfa-comp__mission-window {
+  width: 100%;
+  padding: 0.7rem 0.75rem;
+  border-radius: 0.55rem;
+  background: #fff;
+}
+
+.dfa-comp__mission-window p {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  color: #3a3d46;
+  text-align: center;
+}
+
+.dfa-comp__sticker {
+  position: absolute;
+  right: 0.55rem;
+  bottom: 0.35rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.85rem;
+  padding: 0.35rem 0.85rem;
+  border: 1.5px solid #1f2128;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 2px 0 rgba(31, 33, 40, 0.08);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1f2128;
+  transform: rotate(-8deg);
+  white-space: nowrap;
+}
+
+.dfa-comp__sticker--see {
+  right: 0.7rem;
+  bottom: 0.55rem;
+}
+
+.dfa-comp__featured {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding-bottom: 0.55rem;
+}
+
+.dfa-comp__project {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  overflow: hidden;
+  border-radius: 0.55rem;
+  background: #fff;
+}
+
+.dfa-comp__project-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+  min-height: 1.85rem;
+  padding: 0.35rem 0.45rem 0.35rem 0.65rem;
+}
+
+.dfa-comp__project--green .dfa-comp__project-bar {
+  background: #98b870;
+}
+
+.dfa-comp__project--yellow .dfa-comp__project-bar {
+  background: #d4cf7a;
+}
+
+.dfa-comp__project-name {
+  min-width: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: #1f2128;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dfa-comp__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+  flex-shrink: 0;
+  max-width: 48%;
+  min-height: 1.2rem;
+  padding: 0.12rem 0.42rem;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.52rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #3a3d46;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dfa-comp__mail {
+  flex-shrink: 0;
+  color: #5a5d68;
+}
+
+.dfa-comp__project-copy {
+  margin: 0;
+  padding: 0 0.55rem 0.45rem;
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  color: #4a4d57;
+}
+
+.dfa-comp__join-us {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-height: 11.5rem;
+  padding: 0.15rem 0.15rem 0.35rem;
+}
+
+.dfa-comp__join-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.35rem;
+}
+
+.dfa-comp__outline-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 16.5rem);
+  min-height: 2.15rem;
+  padding: 0.45rem 0.9rem;
+  border: 1.5px solid #1f2128;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #1f2128;
+  line-height: 1.2;
+}
+
+.dfa-comp__arrows {
+  position: absolute;
+  top: 1.65rem;
+  right: 0.35rem;
+  width: 3.4rem;
+  height: 4.2rem;
+  color: #db6e34;
+  pointer-events: none;
+}
+
+.dfa-comp__piece--join-now .dfa-comp__stage {
+  padding: 0;
+  background: #d7e2e9;
+}
+
+.dfa-comp__join-now {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
+  min-height: 13.5rem;
+  padding: 1.35rem 1rem 1.5rem;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.45), transparent 55%),
+    linear-gradient(160deg, #e4ecf1 0%, #cfdce6 100%);
+}
+
+.dfa-comp__value-label {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1f2128;
+}
+
+.dfa-comp__join-halo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.15rem;
+  border-radius: 999px;
+  background: #db6e34;
+  box-shadow: 0 0 0 0.35rem rgba(219, 110, 52, 0.28);
+}
+
+.dfa-comp__join-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.65rem;
+  padding: 0.55rem 1.55rem;
+  border: 2.5px solid #1f2128;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1f2128;
+}
+
+@media (max-width: 720px) {
+  .dfa-comp__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dfa-comp__arrows {
+    right: 0.15rem;
+    width: 2.8rem;
+  }
+}
+
 .cs-section--gate {
   padding-top: 0.5rem;
 }
