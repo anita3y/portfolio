@@ -1,13 +1,11 @@
 import { assetUrl } from "../../utils/assetUrl.js";
 
 const FIGMA_WIREFRAMES = assetUrl("/case-studies/dfa/figma-wireframes.png");
-const FINAL_WIREFRAMES = assetUrl("/case-studies/dfa/flows/final-wireframes.png");
 const FLOW_MISSION = assetUrl("/case-studies/dfa/flows/mission-learn-more.png");
 const FLOW_FEATURED = assetUrl("/case-studies/dfa/flows/featured-projects.png");
 const FLOW_JOIN_SECTION = assetUrl("/case-studies/dfa/flows/join-us-now.png");
 const FLOW_JOIN_BUTTON = assetUrl("/case-studies/dfa/flows/join-now-button.png");
 const FLOW_CONTACT = assetUrl("/case-studies/dfa/flows/contact-button.png");
-const KEY_FLOWS_MAP = assetUrl("/case-studies/dfa/flows/key-flows-map.png");
 const AUDIT_RISDXBROWN = assetUrl("/case-studies/dfa/competitive-audit-risdxbrown.png");
 const AUDIT_CMU = assetUrl("/case-studies/dfa/competitive-audit-cmu.png");
 
@@ -182,25 +180,14 @@ export const DFA_CASE_STUDY = {
           heading: "Final wireframes",
           paragraphs: [
             "High-fidelity wireframes for the four core pages—Landing, About, Archive, and Team—with CTAs mapped to each key flow. Purple annotations mark animation and motion specs for dev handoff."
-          ],
-          image: {
-            src: FINAL_WIREFRAMES,
-            alt: "Final wireframes for DFA NYU landing, about, archive, and team pages with purple animation and motion handoff comments",
-            caption: "Landing · About · Archive · Team — includes motion & animation handoff notes",
-            wide: true
-          }
+          ]
         },
         {
           heading: "Key flows",
           paragraphs: [
             "Every major page routes visitors toward one of three goals: discover what we do, join the club, or get in touch. I mapped how each CTA connects pages before wireframing the details."
           ],
-          image: {
-            src: KEY_FLOWS_MAP,
-            alt: "Information architecture diagram mapping discover projects, join, and contact flows across DFA NYU site pages",
-            caption: "Key flows — discover · join · contact",
-            wide: true
-          }
+          layout: "userFlowMap"
         },
         {
           heading: "Discover projects & impact",

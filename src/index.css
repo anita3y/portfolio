@@ -5208,15 +5208,15 @@ a.about-browser__url:hover .about-browser__url-text {
   margin: 0 0 0.5rem;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
-  font-size: clamp(0.58rem, 0.85vw, 0.68rem);
-  line-height: 1.2;
-  letter-spacing: -0.07em;
+  font-size: clamp(0.66rem, 0.95vw, 0.76rem);
+  line-height: 1.25;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
-  color: #a8a8a8;
+  color: #7a7d88;
 }
 
 .cs-project-meta__sep {
-  color: #b8b8b8;
+  color: #8e919c;
 }
 
 .cs-top-tabs {
@@ -5255,8 +5255,8 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-details__label,
 .cs-details__value {
   margin: 0;
-  letter-spacing: -0.07em;
-  color: #8a8d98;
+  letter-spacing: -0.03em;
+  color: #6f7280;
 }
 
 .cs-details__label {
@@ -5744,24 +5744,284 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-block__text {
   margin: 0 0 0.9rem;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.92rem;
-  letter-spacing: -0.07em;
+  font-size: 0.98rem;
+  letter-spacing: -0.03em;
   line-height: 1.62;
-  color: #8a8d98;
+  color: #6f7280;
 }
 
 .cs-block__list {
   margin: 0;
   padding-left: 1.15rem;
-  color: #8a8d98;
+  color: #6f7280;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.92rem;
-  letter-spacing: -0.07em;
+  font-size: 0.98rem;
+  letter-spacing: -0.03em;
   line-height: 1.62;
 }
 
 .cs-block__list li + li {
   margin-top: 0.35rem;
+}
+
+/* Inline user-flow chart (case studies) */
+.cs-uf {
+  --uf-neutral-bg: #f4f5f8;
+  --uf-neutral-border: #d7dae3;
+  --uf-mission-bg: #f7e9e7;
+  --uf-mission-border: #e4c4bf;
+  --uf-projects-bg: #e8f2ea;
+  --uf-projects-border: #c5dbc9;
+  --uf-join-bg: #f6f0df;
+  --uf-join-border: #dfd0a8;
+  --uf-contact-bg: #eceaf7;
+  --uf-contact-border: #cbc6e6;
+  margin-top: 1.15rem;
+  padding: 1.15rem 1.1rem 1rem;
+  border: 1px solid rgba(206, 209, 218, 0.85);
+  border-radius: 0.85rem;
+  background: #fbfbfc;
+}
+
+.cs-uf__journey + .cs-uf__journey {
+  margin-top: 1.15rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(214, 217, 226, 0.9);
+}
+
+.cs-uf__eyebrow {
+  margin: 0 0 0.2rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #7a7d88;
+}
+
+.cs-uf__title {
+  margin: 0 0 0.85rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.98rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  color: #1f2128;
+}
+
+.cs-uf__path,
+.cs-uf__branch-wrap,
+.cs-uf__rows {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.35rem;
+}
+
+.cs-uf__branch-wrap {
+  align-items: stretch;
+}
+
+.cs-uf__branch,
+.cs-uf__rows,
+.cs-uf__stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.cs-uf__path--join {
+  align-items: center;
+}
+
+.cs-uf__node {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.12rem;
+  min-width: 7.25rem;
+  max-width: 11.5rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--uf-neutral-border);
+  background: var(--uf-neutral-bg);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.65) inset;
+}
+
+.cs-uf__node--mission {
+  background: var(--uf-mission-bg);
+  border-color: var(--uf-mission-border);
+}
+
+.cs-uf__node--projects {
+  background: var(--uf-projects-bg);
+  border-color: var(--uf-projects-border);
+}
+
+.cs-uf__node--join {
+  background: var(--uf-join-bg);
+  border-color: var(--uf-join-border);
+}
+
+.cs-uf__node--contact {
+  background: var(--uf-contact-bg);
+  border-color: var(--uf-contact-border);
+}
+
+.cs-uf__node-label {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: #2a2d36;
+}
+
+.cs-uf__node-detail {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: #6f7280;
+}
+
+.cs-uf__arrow {
+  flex: 0 0 auto;
+  width: 1.15rem;
+  height: 0.7rem;
+  position: relative;
+}
+
+.cs-uf__arrow::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0.78rem;
+  height: 1.5px;
+  background: #b4b8c4;
+  transform: translateY(-50%);
+}
+
+.cs-uf__arrow::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid #b4b8c4;
+  transform: translateY(-50%);
+}
+
+.cs-uf__note {
+  margin: 0.7rem 0 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  color: #6f7280;
+}
+
+.cs-uf__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.15rem;
+  margin: 1.15rem 0 0;
+  padding: 0.85rem 0 0;
+  border-top: 1px solid rgba(214, 217, 226, 0.9);
+  list-style: none;
+}
+
+.cs-uf__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: -0.02em;
+  color: #6f7280;
+}
+
+.cs-uf__swatch {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 0.18rem;
+  border: 1px solid transparent;
+  flex-shrink: 0;
+}
+
+.cs-uf__swatch--mission {
+  background: var(--uf-mission-bg);
+  border-color: var(--uf-mission-border);
+}
+
+.cs-uf__swatch--projects {
+  background: var(--uf-projects-bg);
+  border-color: var(--uf-projects-border);
+}
+
+.cs-uf__swatch--join {
+  background: var(--uf-join-bg);
+  border-color: var(--uf-join-border);
+}
+
+.cs-uf__swatch--contact {
+  background: var(--uf-contact-bg);
+  border-color: var(--uf-contact-border);
+}
+
+@media (max-width: 720px) {
+  .cs-uf {
+    padding: 0.95rem 0.8rem 0.85rem;
+  }
+
+  .cs-uf__branch-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cs-uf__path,
+  .cs-uf__path--join {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cs-uf__arrow {
+    width: 0.7rem;
+    height: 1.05rem;
+    align-self: center;
+  }
+
+  .cs-uf__arrow::before {
+    left: 50%;
+    top: 0.12rem;
+    width: 1.5px;
+    height: 0.62rem;
+    transform: translateX(-50%);
+  }
+
+  .cs-uf__arrow::after {
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid #b4b8c4;
+    border-bottom: none;
+    transform: translateX(-50%);
+  }
+
+  .cs-uf__node {
+    max-width: none;
+    width: 100%;
+  }
 }
 
 .cs-flows {
@@ -5930,10 +6190,10 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-figure__caption {
   margin-top: 0.55rem;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.82rem;
-  letter-spacing: -0.07em;
+  font-size: 0.9rem;
+  letter-spacing: -0.03em;
   line-height: 1.4;
-  color: #a8a8a8;
+  color: #7a7d88;
   text-align: center;
 }
 
