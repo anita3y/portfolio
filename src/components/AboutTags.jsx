@@ -64,8 +64,8 @@ function ExpandableTag({ baseLabel, expandedSuffix, variant, collapseLabel }) {
     const nx = (event.clientX - (box.left + box.width / 2)) / (box.width / 2);
     const ny = (event.clientY - (box.top + box.height / 2)) / (box.height / 2);
     setTug({
-      x: Math.max(-1, Math.min(1, nx)) * 7,
-      y: Math.max(-1, Math.min(1, ny)) * 5,
+      x: Math.max(-1, Math.min(1, nx)) * 2,
+      y: Math.max(-1, Math.min(1, ny)) * 1.5,
       hovering: true
     });
   };

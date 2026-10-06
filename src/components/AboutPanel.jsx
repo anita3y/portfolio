@@ -1,433 +1,211 @@
-import { useRef, useState } from "react";
-import {
-  ABOUT_INTRO,
-  ABOUT_OUTSIDE,
-  ABOUT_PHOTOS,
-  ABOUT_QUOTE_CARDS
-} from "../data/about.js";
-import AboutAnitaConnect from "./AboutAnitaConnect.jsx";
-import AboutDottedHover from "./AboutDottedHover.jsx";
-import AboutInlineVinyls from "./AboutInlineVinyls.jsx";
-import AboutMediaShelves from "./AboutMediaShelves.jsx";
-import AboutPhotoDeck from "./AboutPhotoDeck.jsx";
+import { ABOUT_LETTER, ABOUT_POLAROIDS, ABOUT_QUOTE } from "../data/about.js";
 import AboutTags from "./AboutTags.jsx";
-import CurrentlyBar from "./CurrentlyBar.jsx";
+import Scribble from "./Scribble.jsx";
 import { assetUrl } from "../utils/assetUrl.js";
 
-const URL_TAB = assetUrl("/about/url-tab.png");
-const BOOKSHELF_URL = "anita3y.github.io/my-bookshelf";
-const BOOKSHELF_HREF = "https://anita3y.github.io/my-bookshelf/";
-const DRAG_IGNORE =
-  ".about-browser__dot, .about-quote-card, .about-inline-vinyls__stack, .about-inline-dotted__img-wrap, .about-photo-deck, .about-tags__tag--school, .about-tags__tag--major, .about-hello__name-connect, .about-hello__name-connect-link, .about-inline-link, .about-bookshelf-embed, .about-shelf-scroll, .play-launch";
+const TEXT_BUBBLE = assetUrl("/about/text-bubble-hello.png");
+const LETTER_POLAROID = assetUrl("/about/polaroids/friends.png");
+const LETTER_PAPER = assetUrl("/about/letter/letter.png");
+const LETTER_BACK = assetUrl("/about/letter/back.png");
+const LETTER_SCRIBBLE = assetUrl("/about/letter/scribble.png");
+const LETTER_SCRIBBLE_LEFT = assetUrl("/about/letter/scribble-left.png");
+export const LETTER_SCRIBBLE_RIGHT = assetUrl("/about/letter/scribble-right.png");
+const LETTER_POST_IT = assetUrl("/about/letter/post-it.png");
 
-const WINDOWS = [
-  { id: "bio", label: "Hi, my name is", url: "nita.os" },
-  { id: "philosophy", label: "Philosophy", url: "anitasphilosophy.com" },
-  { id: "bookshelf", label: "My bookshelf", url: BOOKSHELF_URL, href: BOOKSHELF_HREF }
+const SCRIBBLE_BURST_STROKES = [
+  "M43 1L43 20L40 26L34 32L26 36L12 40L4 41",
+  "M77 5L74 20L73 36L75 47L82 52L90 56L100 59L112 60",
+  "M2 64L22 65L34 69L42 74L47 81L51 88L55 97L58 110",
+  "M127 85L118 80L92 80L84 84L79 89L76 96L75 108"
 ];
 
-function AboutQuoteCard({ card, isFront, onFront }) {
-  const ref = useRef(null);
-  const [tug, setTug] = useState({ x: 0, y: 0, hovering: false });
+const SCRIBBLE_SPIRAL_STROKES = [
+  "M52 52L52 60L50 64L34 64L29 56L29 44L32 38L36 32L42 28L52 28L60 32L66 36L72 44L77 52" +
+    "L79 60L76 70L72 80L67 88L60 94L44 96L26 96L18 92L10 87L5 80L2 70L1 56L2 40L4 28" +
+    "L8 20L14 15L20 10L30 5L46 1L60 4L74 8L84 14L92 24L98 34L104 46L107 56L107 68L104 76" +
+    "L98 86L92 94L86 104L78 112L70 117L58 121L36 125L28 126"
+];
 
-  const onPointerMove = (event) => {
-    const el = ref.current;
-    if (!el) return;
-    const box = el.getBoundingClientRect();
-    const nx = (event.clientX - (box.left + box.width / 2)) / (box.width / 2);
-    const ny = (event.clientY - (box.top + box.height / 2)) / (box.height / 2);
-    setTug({
-      x: Math.max(-1, Math.min(1, nx)) * 8,
-      y: Math.max(-1, Math.min(1, ny)) * 6,
-      hovering: true
-    });
-  };
+const SCRIBBLE_SWIRL_STROKES = [
+  "M0 36C8 42 18 48 28 54C38 60 50 65 60 67C64 67.5 66 67 68 66C74 67 82 66.5 88 64C93 62 96 58 97.5 52" +
+    "C99 45 98 38 94 34C90 31 80 30 74 33C70 35 68 39 67 45C66 52 66.5 60 68 66C69.5 71 73 76 78 81" +
+    "C83 85 90 88 98 88C106 88 111 85 116 80C121 74 125 67 129 60C133 52 136 44 139 37C141 31 143 25 146 20" +
+    "C149 16 153 13.5 160 12C168 11 180 12 197 13",
+  "M184 1L197 13L181 29"
+];
 
-  return (
-    <blockquote
-      ref={ref}
-      className={[
-        "about-quote-card",
-        `about-quote-card--${card.id}`,
-        isFront && "is-front",
-        tug.hovering && "is-tugging"
-      ]
-        .filter(Boolean)
-        .join(" ")}
-      style={{
-        "--tug-x": `${tug.x.toFixed(2)}px`,
-        "--tug-y": `${tug.y.toFixed(2)}px`
-      }}
-      data-cursor-hover=""
-      onPointerMove={onPointerMove}
-      onPointerLeave={() => setTug({ x: 0, y: 0, hovering: false })}
-      onClick={() => onFront(card.id)}
-    >
-      <p className="about-quote-card__title">{card.title}</p>
-      <p className="about-quote-card__text">“{card.text}”</p>
-      <footer className="about-quote-card__attr">
-        - {card.attribution}
-        {card.source ? (
-          <>
-            {" ("}
-            <a
-              className="about-quote-card__source"
-              href={card.source.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(event) => event.stopPropagation()}
-              onPointerDown={(event) => event.stopPropagation()}
-            >
-              {card.source.label}
-            </a>
-            {")"}
-          </>
-        ) : null}
-      </footer>
-    </blockquote>
-  );
-}
-
-function renderOutsidePart(part, i) {
-  if (part.type === "link") {
-    return (
-      <a
-        key={`${part.href}-${i}`}
-        className="about-inline-link about-inline-link--heading"
-        href={part.href}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {part.label}
-      </a>
-    );
-  }
-
-  if (part.type === "dotted") {
-    return (
-      <AboutDottedHover
-        key={i}
-        label={part.value}
-        hoverTag={part.hoverTag}
-        imageSrc={part.imageSrc}
-        imageAlt={part.imageAlt}
-      />
-    );
-  }
-
-  if (part.type === "vinyls") {
-    return (
-      <AboutInlineVinyls
-        key={i}
-        label={part.label}
-        coverSrc={part.coverSrc}
-        recordSrc={part.recordSrc}
-        alt={part.alt}
-      />
-    );
-  }
-
-  return <span key={i}>{part.value}</span>;
-}
-
-function UrlTab({ url, href, onPointerDown, onClick }) {
-  const inner = (
-    <>
-      <img className="about-browser__url-bg" src={URL_TAB} alt="" draggable={false} aria-hidden="true" />
-      <span className="about-browser__url-text">{url}</span>
-    </>
-  );
-
-  if (href) {
-    return (
-      <a
-        className="about-browser__url"
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        onPointerDown={onPointerDown}
-        onClick={onClick}
-      >
-        {inner}
-      </a>
-    );
-  }
-
-  return (
-    <span className="about-browser__url" onPointerDown={onPointerDown}>
-      {inner}
-    </span>
-  );
-}
-
-function WindowChrome({ url, href, onClose, onShrink, onGreen, skipNavClickRef, isSmall }) {
-  const stop = (event) => event.stopPropagation();
-
-  return (
-    <header className="about-browser">
-      <span className="about-browser__dots">
-        <button
-          type="button"
-          className="about-browser__dot about-browser__dot--red"
-          aria-label="Close window"
-          onPointerDown={stop}
-          onClick={onClose}
-        />
-        <button
-          type="button"
-          className="about-browser__dot about-browser__dot--yellow"
-          aria-label={isSmall ? "Expand window" : "Make window smaller"}
-          onPointerDown={stop}
-          onClick={onShrink}
-        />
-        <button
-          type="button"
-          className="about-browser__dot about-browser__dot--green"
-          aria-label="Restore window"
-          onPointerDown={stop}
-          onClick={onGreen}
-        />
-      </span>
-      <UrlTab
-        url={url}
-        href={href}
-        onClick={(event) => {
-          if (skipNavClickRef?.current) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-        }}
-      />
-    </header>
-  );
-}
+export const SCRIBBLE_SPARKLE_STROKES = [
+  "M22 158L26 148L30 136L34 128L37 121L42 112L46 105L52 101L70 100L86 97L70 95L62 92L58 88" +
+    "L55 82L53 76L53 70L55 62L58 55L61 48L64 42L67 36L70 30L72 22L73 14L73 8L70 2L66 5L64 10" +
+    "L62 16L60 24L58 30L55 36L52 42L49 48L45 53L40 57L30 60L18 62L2 65L10 68L16 72L21 77" +
+    "L24 82L27 89L29 95L31 102L33 112L34 118",
+  "M74 130L70 134L68 140L70 146L76 150L84 152L90 146L90 140L86 134L80 131L74 130"
+];
+const LETTER_STAMP = assetUrl("/about/letter/stamp.png");
+const LETTER_LINKS = [
+  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/anitayandesign/" },
+  { id: "x", label: "X/Twitter", href: "https://x.com/nitayxxn" },
+  { id: "email", label: "Email", href: "mailto:anita3yan@gmail.com" }
+];
 
 export default function AboutPanel() {
-  const [frontId, setFrontId] = useState("bio");
-  const [closed, setClosed] = useState({
-    bio: false,
-    philosophy: false,
-    bookshelf: false
-  });
-  const [small, setSmall] = useState({
-    bio: false,
-    philosophy: false,
-    bookshelf: false
-  });
-  const [frontCardId, setFrontCardId] = useState("craft");
-  const [draggingId, setDraggingId] = useState(null);
-  const windowRefs = useRef({});
-  const closedRef = useRef(closed);
-  const dragRef = useRef(null);
-  const offsetsRef = useRef({ bio: { x: 0, y: 0 }, philosophy: { x: 0, y: 0 }, bookshelf: { x: 0, y: 0 } });
-  const skipNavClickRef = useRef(false);
-  closedRef.current = closed;
-
-  const closeWindow = (id) => {
-    const remaining = WINDOWS.filter((item) => item.id !== id && !closedRef.current[item.id]);
-    if (remaining.length === 0) return;
-
-    const nextClosed = { ...closedRef.current, [id]: true };
-    closedRef.current = nextClosed;
-    setClosed(nextClosed);
-    setFrontId((currentFront) => (currentFront === id ? remaining[0].id : currentFront));
-  };
-
-  const openWindow = (id) => {
-    setFrontId(id);
-    if (!closedRef.current[id]) return;
-    const next = { ...closedRef.current, [id]: false };
-    closedRef.current = next;
-    setClosed(next);
-  };
-
-  const shrinkWindow = (id) => {
-    setFrontId(id);
-    setSmall((current) => ({ ...current, [id]: !current[id] }));
-  };
-
-  const restoreWindow = (id) => {
-    const reset = { bio: false, philosophy: false, bookshelf: false };
-    closedRef.current = reset;
-    setClosed(reset);
-    setFrontId(id);
-    setSmall((current) => ({ ...current, [id]: false }));
-  };
-
-  const beginDrag = (id, event) => {
-    openWindow(id);
-    if (event.button !== 0) return;
-    if (event.target.closest(DRAG_IGNORE)) return;
-
-    const node = windowRefs.current[id];
-    if (!node) return;
-
-    skipNavClickRef.current = false;
-    node.setPointerCapture(event.pointerId);
-    dragRef.current = {
-      id,
-      pointerId: event.pointerId,
-      startX: event.clientX,
-      startY: event.clientY,
-      origX: offsetsRef.current[id].x,
-      origY: offsetsRef.current[id].y,
-      moved: false
-    };
-    setDraggingId(id);
-  };
-
-  const endDrag = (event) => {
-    const drag = dragRef.current;
-    if (!drag || (event && drag.pointerId !== event.pointerId)) return;
-    dragRef.current = null;
-    setDraggingId(null);
-    window.setTimeout(() => {
-      skipNavClickRef.current = false;
-    }, 0);
-  };
-
-  const onWindowPointerMove = (event) => {
-    const drag = dragRef.current;
-    if (!drag || drag.pointerId !== event.pointerId) return;
-
-    const dx = event.clientX - drag.startX;
-    const dy = event.clientY - drag.startY;
-    if (!drag.moved && dx * dx + dy * dy < 16) return;
-    drag.moved = true;
-    skipNavClickRef.current = true;
-
-    const next = { x: drag.origX + dx, y: drag.origY + dy };
-    offsetsRef.current[drag.id] = next;
-    const node = windowRefs.current[drag.id];
-    if (!node) return;
-    node.style.setProperty("--drag-x", `${next.x}px`);
-    node.style.setProperty("--drag-y", `${next.y}px`);
-  };
-
-  const endPointer = (event) => {
-    endDrag(event);
-  };
-
-  const windowClass = (id) =>
-    [
-      "about-window",
-      `about-window--${id}`,
-      frontId === id && !closed[id] ? "is-front" : "",
-      small[id] ? "is-small" : "",
-      closed[id] ? "is-closed" : "",
-      draggingId === id ? "is-dragging" : ""
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-  const windowDragProps = (id) => ({
-    onPointerDown: (event) => beginDrag(id, event),
-    onPointerMove: onWindowPointerMove,
-    onPointerUp: endPointer,
-    onPointerCancel: endPointer
-  });
-
   return (
-    <div className="about-page about-page--desktop">
-      <div className="about-desktop">
-        <article
-          ref={(node) => {
-            windowRefs.current.philosophy = node;
-          }}
-          className={windowClass("philosophy")}
-          {...windowDragProps("philosophy")}
-        >
-          <div className="about-window__tilt">
-            <WindowChrome
-              url="anitasphilosophy.com"
-              onClose={() => closeWindow("philosophy")}
-              onShrink={() => shrinkWindow("philosophy")}
-              onGreen={() => restoreWindow("philosophy")}
-              skipNavClickRef={skipNavClickRef}
-              isSmall={small.philosophy}
-            />
-            <p className="about-intro">{ABOUT_INTRO}</p>
-            <div className="about-quote-stack">
-              <div className="about-quote-deck">
-                {ABOUT_QUOTE_CARDS.map((card) => (
-                  <AboutQuoteCard
-                    key={card.id}
-                    card={card}
-                    isFront={frontCardId === card.id}
-                    onFront={setFrontCardId}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </article>
+    <div className="about-page">
+      <div className="about-polaroids-wrap">
+        <img
+          className="about-polaroids__bubble"
+          src={TEXT_BUBBLE}
+          alt="hi! my name is anita!"
+          width={489}
+          height={139}
+          draggable={false}
+        />
+        <ul className="about-polaroids" aria-label="Photos">
+          {ABOUT_POLAROIDS.map((photo) => (
+            <li key={photo.id} className={`about-polaroid about-polaroid--${photo.id}`}>
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                width={photo.width}
+                height={photo.height}
+                draggable={false}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
 
-        <article
-          ref={(node) => {
-            windowRefs.current.bio = node;
-          }}
-          className={windowClass("bio")}
-          {...windowDragProps("bio")}
-        >
-          <div className="about-window__tilt">
-            <WindowChrome
-              url="nita.os"
-              onClose={() => closeWindow("bio")}
-              onShrink={() => shrinkWindow("bio")}
-              onGreen={() => restoreWindow("bio")}
-              skipNavClickRef={skipNavClickRef}
-              isSmall={small.bio}
-            />
-            <CurrentlyBar />
-            <div className="about-window__bio-row">
-              <AboutPhotoDeck photos={ABOUT_PHOTOS} size="hero" />
-              <div className="about-window__bio-copy">
-                <p className="about-window__hello">
-                  Hi, my name is <AboutAnitaConnect />!{" "}
-                  {ABOUT_OUTSIDE.map(renderOutsidePart)}
-                </p>
-              </div>
-            </div>
-            <div className="about-window__bio-tags">
-              <AboutTags />
-            </div>
-          </div>
-        </article>
+      <div className="about-page__tags">
+        <AboutTags />
+      </div>
 
-        <article
-          ref={(node) => {
-            windowRefs.current.bookshelf = node;
-          }}
-          className={windowClass("bookshelf")}
-          {...windowDragProps("bookshelf")}
-        >
-          <div className="about-window__tilt">
-            <WindowChrome
-              url={BOOKSHELF_URL}
-              href={BOOKSHELF_HREF}
-              onClose={() => closeWindow("bookshelf")}
-              onShrink={() => shrinkWindow("bookshelf")}
-              onGreen={() => restoreWindow("bookshelf")}
-              skipNavClickRef={skipNavClickRef}
-              isSmall={small.bookshelf}
-            />
-            <div className="about-bookshelf-body">
-              <div className="about-bookshelf-embed">
-                <AboutMediaShelves />
-                <span className="about-bookshelf-fade" aria-hidden="true" />
-              </div>
-              <a
-                className="play-launch"
-                href={BOOKSHELF_HREF}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cursor-hover=""
-              >
-                <span className="play-launch__pill">open bookshelf</span>
-              </a>
-            </div>
-          </div>
-        </article>
+      <section className="about-letter" aria-label="About me">
+        <div className="about-letter__stage">
+          <img
+            className="about-letter__back"
+            src={LETTER_BACK}
+            alt=""
+            width={816}
+            height={965}
+            draggable={false}
+            aria-hidden="true"
+          />
+          <img
+            className="about-letter__polaroid"
+            src={LETTER_POLAROID}
+            alt="Anita and Cindy"
+            width={543}
+            height={673}
+            draggable={false}
+          />
+          <img
+            className="about-letter__paper about-letter__paper--letter"
+            src={LETTER_PAPER}
+            alt={`${ABOUT_LETTER.body} ${ABOUT_LETTER.signoff} Anita`}
+            width={601}
+            height={751}
+            draggable={false}
+          />
+          <img
+            className="about-letter__stamp"
+            src={LETTER_STAMP}
+            alt="Stamp photo: 18, Shenzhen, Toronto, New York"
+            width={781}
+            height={710}
+            draggable={false}
+          />
+          <img
+            className="about-letter__note"
+            src={LETTER_POST_IT}
+            alt={ABOUT_LETTER.note}
+            width={739}
+            height={868}
+            draggable={false}
+          />
+          <svg
+            className="scribble about-letter__scribble about-letter__scribble--swirl"
+            viewBox="-2 -2 204 94"
+            fill="none"
+            stroke="#e8201a"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ "--scribble-n": SCRIBBLE_SWIRL_STROKES.length }}
+            aria-hidden="true"
+          >
+            {SCRIBBLE_SWIRL_STROKES.map((d, index) => (
+              <path
+                key={d}
+                className="scribble__trace"
+                d={d}
+                pathLength="1"
+                style={{ "--scribble-i": index }}
+              />
+            ))}
+          </svg>
+          <ul className="about-tags about-letter__links" aria-label="Contact">
+            {LETTER_LINKS.map((link) => (
+              <li key={link.id} className="about-tags__item">
+                <a
+                  className="about-tags__tag about-tags__tag--link"
+                  href={link.href}
+                  {...(link.href.startsWith("mailto:")
+                    ? {}
+                    : { target: "_blank", rel: "noopener noreferrer" })}
+                  data-cursor-hover=""
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <Scribble
+            className="about-letter__scribble about-letter__scribble--burst"
+            src={LETTER_SCRIBBLE}
+            width={129}
+            height={113}
+            maskStroke={12}
+            strokes={SCRIBBLE_BURST_STROKES}
+          />
+          <Scribble
+            className="about-letter__scribble about-letter__scribble--spiral"
+            src={LETTER_SCRIBBLE_LEFT}
+            width={110}
+            height={128}
+            strokes={SCRIBBLE_SPIRAL_STROKES}
+          />
+          <Scribble
+            className="about-letter__scribble about-letter__scribble--sparkle"
+            src={LETTER_SCRIBBLE_RIGHT}
+            width={91}
+            height={160}
+            maskStroke={9}
+            strokes={SCRIBBLE_SPARKLE_STROKES}
+          />
+        </div>
+      </section>
+
+      <div className="about-page__bio">
+        <blockquote className="about-page__quote">
+          <p className="about-page__quote-text">“{ABOUT_QUOTE.text}”</p>
+          <footer className="about-page__quote-attr">
+            — {ABOUT_QUOTE.attribution}
+            {ABOUT_QUOTE.source ? (
+              <>
+                {" ("}
+                <a
+                  className="about-page__quote-source"
+                  href={ABOUT_QUOTE.source.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {ABOUT_QUOTE.source.label}
+                </a>
+                {")"}
+              </>
+            ) : null}
+          </footer>
+        </blockquote>
       </div>
     </div>
   );
