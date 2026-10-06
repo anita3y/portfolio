@@ -10,6 +10,7 @@ const AUDIT_RISDXBROWN = assetUrl("/case-studies/dfa/competitive-audit-risdxbrow
 const AUDIT_CMU = assetUrl("/case-studies/dfa/competitive-audit-cmu.png");
 const VISUAL_BRAINSTORM_1 = assetUrl("/case-studies/dfa/visual-brainstorm-1.png");
 const VISUAL_BRAINSTORM_2 = assetUrl("/case-studies/dfa/visual-brainstorm-2.png");
+const RIKO_STRATEGY_IA = assetUrl("/case-studies/dfa/riko-strategy-ia.png");
 
 const SOLUTION_TEAM = assetUrl("/case-studies/dfa/solution/team.jpg");
 const SOLUTION_ARCHIVE = assetUrl("/case-studies/dfa/solution/archive.jpg");
@@ -157,12 +158,21 @@ export const DFA_CASE_STUDY = {
       subsections: [
         {
           id: "visual-brainstorm",
-          title: "visual brainstorm",
+          title: "Visual Brainstorm",
           blocks: [
             {
               paragraphs: [
-                "Early boards for strategy, references, and a visual direction that could feel playful without looking juvenile."
+                "I started by consolidating the strategy needs Riko (the product manager) had already mapped with visual design. Her notes covered who the site was for and what each group needed; the boards below were me figuring out how that brief could look and feel."
               ],
+              image: {
+                src: RIKO_STRATEGY_IA,
+                alt: "Riko's document mapping Main User Types to Info-Architecture with colored connection lines",
+                caption:
+                  "Riko's map connecting the needs she listed to information architecture: prospective NYU students, external viewers, and DFA National / other chapters → Home, Projects, Team, Newsletter, Get Involved.",
+                wide: true
+              }
+            },
+            {
               image: {
                 src: VISUAL_BRAINSTORM_1,
                 alt: "BRAINSTORM board with strategy notes, color palettes, puzzle motif, and folder references",
