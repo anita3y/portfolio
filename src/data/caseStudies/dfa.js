@@ -76,30 +76,12 @@ export const DFA_CASE_STUDY = {
       id: "discovery-research",
       title: "discovery & research",
       summary:
-        "Before designing, I aligned with our PM on audience, chapter priorities, and the specific stories the site needed to tell. I also audited how peer chapters present themselves online.",
+        "Before designing, I aligned with our PM on the recruitment goal and audited how peer chapters present themselves online.",
       blocks: [
         {
           heading: "Strategy (Riko)",
           paragraphs: [
             "Our PM Riko framed the revamp around one goal: get more students to reach out. The site had to make joining feel obvious, not buried behind project galleries."
-          ]
-        },
-        {
-          heading: "Audience & priorities",
-          bullets: [
-            "Primary audience: freshmen through juniors across NYU schools, not just Tandon.",
-            "They care about inclusiveness, whether projects feel fun, what the club actually does, and why they should join.",
-            "Strategic focus: make “why join” unmistakable; lead with cross-disciplinary collaboration as a core value.",
-            "Surface who we are, the e-board, past projects, and clear ways to reach out, form or email."
-          ]
-        },
-        {
-          heading: "What the site needed",
-          bullets: [
-            "Landing page with a prominent Join button",
-            "Mission, About, team, alumni, archive, events, and projects",
-            "Advisor and past e-board context",
-            "Contact paths, and a fun element (characters, animation) so the chapter feels approachable"
           ]
         }
       ],
