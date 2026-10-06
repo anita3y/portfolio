@@ -45,7 +45,7 @@ export const DFA_CASE_STUDY = {
       blocks: [
         {
           paragraphs: [
-            "DFA @ NYU’s site needed more than a visual refresh—it had to clarify the chapter’s value, surface real impact, and stay easy to hand off."
+            "DFA @ NYU’s site needed more than a visual refresh. It had to clarify the chapter’s value, surface real impact, and stay easy to hand off."
           ],
           callout: {
             emoji: "🧩",
@@ -304,22 +304,22 @@ export const DFA_CASE_STUDY = {
     {
       id: "results-impact",
       title: "results & impact",
-      summary: "What changed, what shipped, and what made the work sustainable beyond a single leadership cycle.",
+      summary: "What changed, what shipped, and what should still work after this leadership cycle.",
       blocks: [
         {
           heading: "Results",
           bullets: [
-            "Unified project showcase and clearer chapter narrative.",
-            "Reduced friction for content handoffs between leadership cycles.",
-            "Foundation other chapters can reference when building their own presence."
+            "One place to see projects and a clearer story of what the chapter does.",
+            "New leads can update content without rebuilding the site from scratch.",
+            "Other chapters have a real example they can borrow from."
           ]
         },
         {
           heading: "Scaling for the future",
           bullets: [
-            "Modular Framer components map to repeatable content patterns.",
-            "Documented structure for onboarding new chapter leads.",
-            "System designed for iteration—not a frozen one-off launch."
+            "Framer components match the content types we actually publish, so new pages reuse the same pieces.",
+            "Wrote down how the site is structured so new leads can pick it up.",
+            "Built to change over time, not freeze after launch."
           ]
         }
       ]
@@ -327,14 +327,14 @@ export const DFA_CASE_STUDY = {
     {
       id: "reflection",
       title: "reflection",
-      summary: "What I’d carry forward into the next nonprofit or community product.",
+      summary: "What I’d carry into the next nonprofit or community product.",
       blocks: [
         {
           heading: "Lessons learned",
           bullets: [
-            "Stakeholder alignment early prevents rework on IA and tone.",
-            "Designing for maintainability is as important as designing for launch day.",
-            "Nonprofit work rewards clarity over complexity—every section should earn its place."
+            "Getting on the same page early saved us from reworking the sitemap and voice later.",
+            "Making the site easy to update mattered as much as how it looked on launch day.",
+            "For nonprofit sites, clarity beats complexity. If a section doesn’t earn its place, cut it."
           ]
         }
       ]

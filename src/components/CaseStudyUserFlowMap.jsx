@@ -15,7 +15,11 @@ function FlowNode({ label, detail, tone = "neutral" }) {
 }
 
 function FlowArrow() {
-  return <span className="cs-uf__arrow" aria-hidden="true" />;
+  return (
+    <span className="cs-uf__arrow" aria-hidden="true">
+      →
+    </span>
+  );
 }
 
 function FlowPath({ children, className = "" }) {
