@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
 import CaseStudySeeMore from "./CaseStudySeeMore.jsx";
 import CaseStudyUserFlowMap from "./CaseStudyUserFlowMap.jsx";
+import DfaWireframes from "./DfaWireframes.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
 
@@ -458,6 +459,7 @@ function TextBlock({ block }) {
         </div>
       )}
       {block.layout === "userFlowMap" && <CaseStudyUserFlowMap />}
+      {block.layout === "dfaWireframes" && <DfaWireframes />}
       {block.layout === "wireframes" && block.images?.length > 0 && (
         <div
           className={[

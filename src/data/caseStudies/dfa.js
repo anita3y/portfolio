@@ -1,7 +1,6 @@
 import { assetUrl } from "../../utils/assetUrl.js";
 
 const FIGMA_WIREFRAMES = assetUrl("/case-studies/dfa/figma-wireframes.png");
-const FINAL_WIREFRAMES = assetUrl("/case-studies/dfa/flows/final-wireframes.png");
 const FLOW_MISSION = assetUrl("/case-studies/dfa/flows/mission-learn-more.png");
 const FLOW_FEATURED = assetUrl("/case-studies/dfa/flows/featured-projects.png");
 const FLOW_JOIN_SECTION = assetUrl("/case-studies/dfa/flows/join-us-now.png");
@@ -221,14 +220,9 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Final wireframes",
           paragraphs: [
-            "High-fidelity wireframes for the four core pages (Landing, About, Archive, and Team), with CTAs mapped to each key flow. Purple annotations mark animation and motion specs for handoff."
+            "Page frames for Home, Projects, About, Team, Get Involved, and an optional Newsletter. Folder tabs and layered cards stay consistent so one developer can implement a shared pattern and reuse it across pages."
           ],
-          image: {
-            src: FINAL_WIREFRAMES,
-            alt: "Final wireframes for DFA NYU landing, about, archive, and team pages with purple motion and handoff comments",
-            caption: "Landing · About · Archive · Team, with motion and handoff notes",
-            wide: true
-          }
+          layout: "dfaWireframes"
         },
         {
           heading: "Key flows",
