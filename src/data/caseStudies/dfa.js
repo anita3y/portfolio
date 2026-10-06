@@ -351,7 +351,7 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Scaling for the future",
           bullets: [
-            "Documented the content patterns and page structure so whoever builds in Framer later can reuse the same pieces.",
+            "Documented the content patterns, page structure, and visual design system so whoever builds in Framer later can reuse the same pieces.",
             "Wrote down how the site is structured so new leads can pick it up without starting from scratch.",
             "Designed for change over time, not a freeze after launch, so the handoff stays usable."
           ]
