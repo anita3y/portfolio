@@ -8,6 +8,8 @@ const FLOW_JOIN_BUTTON = assetUrl("/case-studies/dfa/flows/join-now-button.png")
 const FLOW_CONTACT = assetUrl("/case-studies/dfa/flows/contact-button.png");
 const AUDIT_RISDXBROWN = assetUrl("/case-studies/dfa/competitive-audit-risdxbrown.png");
 const AUDIT_CMU = assetUrl("/case-studies/dfa/competitive-audit-cmu.png");
+const VISUAL_BRAINSTORM_1 = assetUrl("/case-studies/dfa/visual-brainstorm-1.png");
+const VISUAL_BRAINSTORM_2 = assetUrl("/case-studies/dfa/visual-brainstorm-2.png");
 
 const SOLUTION_TEAM = assetUrl("/case-studies/dfa/solution/team.jpg");
 const SOLUTION_ARCHIVE = assetUrl("/case-studies/dfa/solution/archive.jpg");
@@ -73,64 +75,24 @@ export const DFA_CASE_STUDY = {
       ]
     },
     {
-      id: "competitive-audit-research",
-      title: "competitive audit research",
-      summary:
-        "I audited how other DFA chapters present themselves online—what works for recruitment, what gets in the way, and where NYU could do better.",
-      blocks: [
-        {
-          heading: "Competitive audit",
-          paragraphs: [
-            "I reviewed peer chapter sites to understand how they balance showcasing work with welcoming new members."
-          ]
-        },
-        {
-          heading: "DFA @ RISD×Brown",
-          bullets: [
-            "Pros: playful interactivity, simple navigation, intuitive hierarchy, strong project showcase.",
-            "Cons: feels built for clients more than prospective members—weak “why join,” little on member benefits or commitment, and key paths like joining or events aren’t prioritized."
-          ],
-          image: {
-            src: AUDIT_RISDXBROWN,
-            alt: "Competitive audit board for DFA at RISDxBrown with pros and cons sticky notes",
-            caption: "RISDxBrown — competitive audit",
-            wide: true
-          }
-        },
-        {
-          heading: "DFA @ CMU",
-          bullets: [
-            "Pros: warm, inviting branding; balances recruitment and client-facing work; clear mission focus.",
-            "Cons: dense About page that’s hard to skim; long paragraphs with weak visual hierarchy before visitors reach a call to action."
-          ],
-          image: {
-            src: AUDIT_CMU,
-            alt: "Competitive audit board for DFA at CMU with pros and cons sticky notes",
-            caption: "CMU — competitive audit",
-            wide: true
-          }
-        }
-      ]
-    },
-    {
       id: "discovery-research",
       title: "discovery & research",
       summary:
-        "Before designing, I aligned with our PM on audience, chapter priorities, and the specific stories the site needed to tell.",
+        "Before designing, I aligned with our PM on audience, chapter priorities, and the specific stories the site needed to tell. I also audited how peer chapters present themselves online.",
       blocks: [
         {
           heading: "Strategy (Riko)",
           paragraphs: [
-            "Our PM Riko framed the revamp around one goal: get more students to reach out. The site had to make joining feel obvious—not buried behind project galleries."
+            "Our PM Riko framed the revamp around one goal: get more students to reach out. The site had to make joining feel obvious, not buried behind project galleries."
           ]
         },
         {
           heading: "Audience & priorities",
           bullets: [
-            "Primary audience: freshmen through juniors across NYU schools—not just Tandon.",
+            "Primary audience: freshmen through juniors across NYU schools, not just Tandon.",
             "They care about inclusiveness, whether projects feel fun, what the club actually does, and why they should join.",
             "Strategic focus: make “why join” unmistakable; lead with cross-disciplinary collaboration as a core value.",
-            "Surface who we are, the e-board, past projects, and clear ways to reach out—form or email."
+            "Surface who we are, the e-board, past projects, and clear ways to reach out, form or email."
           ]
         },
         {
@@ -139,21 +101,104 @@ export const DFA_CASE_STUDY = {
             "Landing page with a prominent Join button",
             "Mission, About, team, alumni, archive, events, and projects",
             "Advisor and past e-board context",
-            "Contact paths—and a fun element (characters, animation) so the chapter feels approachable"
+            "Contact paths, and a fun element (characters, animation) so the chapter feels approachable"
+          ]
+        }
+      ],
+      subsections: [
+        {
+          id: "competitive-audit-research",
+          title: "competitive audit research",
+          summary:
+            "I audited how other DFA chapters present themselves online: what works for recruitment, what gets in the way, and where NYU could do better.",
+          blocks: [
+            {
+              heading: "Competitive audit",
+              paragraphs: [
+                "I reviewed peer chapter sites to understand how they balance showcasing work with welcoming new members."
+              ]
+            },
+            {
+              heading: "DFA @ RISD×Brown",
+              bullets: [
+                "Pros: playful interactivity, simple navigation, intuitive hierarchy, strong project showcase.",
+                "Cons: feels built for clients more than prospective members: weak “why join,” little on member benefits or commitment, and key paths like joining or events aren’t prioritized."
+              ],
+              image: {
+                src: AUDIT_RISDXBROWN,
+                alt: "Competitive audit board for DFA at RISDxBrown with pros and cons sticky notes",
+                caption: "RISDxBrown — competitive audit",
+                wide: true
+              }
+            },
+            {
+              heading: "DFA @ CMU",
+              bullets: [
+                "Pros: warm, inviting branding; balances recruitment and client-facing work; clear mission focus.",
+                "Cons: dense About page that’s hard to skim; long paragraphs with weak visual hierarchy before visitors reach a call to action."
+              ],
+              image: {
+                src: AUDIT_CMU,
+                alt: "Competitive audit board for DFA at CMU with pros and cons sticky notes",
+                caption: "CMU — competitive audit",
+                wide: true
+              }
+            }
           ]
         }
       ]
     },
     {
-      id: "design-process",
-      title: "design process",
+      id: "process",
+      title: "process",
+      subsectionsFirst: true,
       summary:
-        "Once the strategy was clear, I translated it into information architecture, wireframes, page flows, and a visual direction that could scale.",
+        "Once the strategy was clear, I explored visual direction, information architecture, wireframes, and page flows that could scale.",
+      subsections: [
+        {
+          id: "visual-brainstorm",
+          title: "visual brainstorm",
+          blocks: [
+            {
+              paragraphs: [
+                "Early boards for strategy, references, and a visual direction that could feel playful without looking juvenile."
+              ],
+              image: {
+                src: VISUAL_BRAINSTORM_1,
+                alt: "BRAINSTORM board with strategy notes, color palettes, puzzle motif, and folder references",
+                caption: "BRAINSTORM board",
+                wide: true
+              }
+            },
+            {
+              image: {
+                src: VISUAL_BRAINSTORM_2,
+                alt: "DFA at NYU Design Guide Brainstorm exploring play and education with a folders concept",
+                caption: "Design guide brainstorm",
+                wide: true
+              }
+            },
+            {
+              heading: "Theme: Folders",
+              paragraphs: [
+                "Tabbed folder headers like file dividers. Layered cards that feel like stacked documents. A system inspired by folders, files, and layered organization."
+              ],
+              bullets: [
+                "Building over time",
+                "Archiving impact",
+                "Structured collaboration",
+                "Studio-based work",
+                "Systems thinking"
+              ]
+            }
+          ]
+        }
+      ],
       blocks: [
         {
           heading: "Wireframes & visual direction",
           paragraphs: [
-            "From there I mapped information architecture, explored a “folders” visual theme, and wireframed key pages before moving into high-fidelity design."
+            "From there I mapped information architecture, carried the folders theme forward, and wireframed key pages before moving into high-fidelity design."
           ],
           image: {
             src: FIGMA_WIREFRAMES,
@@ -178,7 +223,7 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Discover projects & impact",
           paragraphs: [
-            "The mission window and featured projects section both pull visitors deeper—Learn more routes to About, See more opens the full project archive."
+            "The mission window and featured projects section both pull visitors deeper. Learn more routes to About, See more opens the full project archive."
           ],
           layout: "wireframes",
           images: [
@@ -197,7 +242,7 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Join / get involved",
           paragraphs: [
-            "Join CTAs repeat across the site—from a persistent header button to a bottom-of-page section with the interest form and WhatsApp group."
+            "Join CTAs repeat across the site, from a persistent header button to a bottom-of-page section with the interest form and WhatsApp group."
           ],
           layout: "wireframes",
           images: [
@@ -216,7 +261,7 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Contact & partner outreach",
           paragraphs: [
-            "A Contact button in the landing page header gives visitors a direct path to reach the chapter—alongside join CTAs at the bottom of every page."
+            "A Contact button in the landing page header gives visitors a direct path to reach the chapter, alongside join CTAs at the bottom of every page."
           ],
           image: {
             src: FLOW_CONTACT,

@@ -49,16 +49,32 @@ export default function CaseStudySectionNav({
         </button>
       )}
       <nav className="cs-section-nav" aria-label="Case study sections">
-        {sections.map((section) => (
-          <button
-            key={section.id}
-            type="button"
-            className={`cs-section-nav__btn cs-section-nav__btn--${section.id}${activeId === section.id ? " active" : ""}`}
-            onClick={() => scrollToSection(section.id)}
-          >
-            {section.title}
-          </button>
-        ))}
+        {sections.map((section) => {
+          const childActive = section.subsections?.some((sub) => sub.id === activeId);
+          const parentActive = activeId === section.id || childActive;
+
+          return (
+            <div key={section.id} className="cs-section-nav__group">
+              <button
+                type="button"
+                className={`cs-section-nav__btn cs-section-nav__btn--${section.id}${parentActive ? " active" : ""}`}
+                onClick={() => scrollToSection(section.id)}
+              >
+                {section.title}
+              </button>
+              {section.subsections?.map((sub) => (
+                <button
+                  key={sub.id}
+                  type="button"
+                  className={`cs-section-nav__btn cs-section-nav__btn--nested cs-section-nav__btn--${sub.id}${activeId === sub.id ? " active" : ""}`}
+                  onClick={() => scrollToSection(sub.id)}
+                >
+                  {sub.title}
+                </button>
+              ))}
+            </div>
+          );
+        })}
       </nav>
     </div>
   );

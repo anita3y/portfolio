@@ -330,6 +330,18 @@ function CaseStudySection({ section, children }) {
   );
 }
 
+function CaseStudySubsection({ subsection }) {
+  return (
+    <div id={subsection.id} className="cs-subsection">
+      <h3 className="cs-subsection__title">{subsection.title}</h3>
+      {subsection.summary && <p className="cs-subsection__summary">{subsection.summary}</p>}
+      {subsection.blocks?.map((block, index) => (
+        <TextBlock key={block.heading ?? `${block.layout ?? "block"}-${index}`} block={block} />
+      ))}
+    </div>
+  );
+}
+
 function CaseStudyActions({ actions }) {
   if (!actions?.liveUrl) return null;
 
@@ -597,11 +609,18 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
   );
 }
 
+function flattenSectionIds(sections) {
+  return sections.flatMap((section) => [
+    section.id,
+    ...(section.subsections?.map((sub) => sub.id) ?? [])
+  ]);
+}
+
 function useCaseStudyActiveSection(sections, scrollRoot) {
   const [activeId, setActiveId] = useState(sections[0]?.id ?? "");
 
   useEffect(() => {
-    const ids = sections.map((s) => s.id);
+    const ids = flattenSectionIds(sections);
     const elements = ids.map((id) => document.getElementById(id)).filter(Boolean);
     if (elements.length === 0) return undefined;
 
@@ -711,14 +730,33 @@ export function CaseStudyBody({
       {scrollRoot && <WorkExpandNavStuckSync scrollRoot={scrollRoot} />}
       {!hideNav && <CaseStudySectionNavBar study={study} scrollRoot={scrollRoot} onBack={onBack} />}
       <div className="cs-content">
-        {sections.map((section) => (
-          <CaseStudySection key={section.id} section={section}>
-            {section.blocks?.map((block, index) => (
-              <TextBlock key={block.heading ?? `${block.layout ?? "block"}-${index}`} block={block} />
-            ))}
-            {section.media && <CaseStudyMedia media={section.media} />}
-          </CaseStudySection>
-        ))}
+        {sections.map((section) => {
+          const showBlocksBefore = !section.subsectionsFirst;
+          const showBlocksAfter = Boolean(section.subsectionsFirst);
+
+          return (
+            <CaseStudySection key={section.id} section={section}>
+              {showBlocksBefore &&
+                section.blocks?.map((block, index) => (
+                  <TextBlock
+                    key={block.heading ?? `${block.layout ?? "block"}-${index}`}
+                    block={block}
+                  />
+                ))}
+              {section.subsections?.map((subsection) => (
+                <CaseStudySubsection key={subsection.id} subsection={subsection} />
+              ))}
+              {showBlocksAfter &&
+                section.blocks?.map((block, index) => (
+                  <TextBlock
+                    key={block.heading ?? `${block.layout ?? "block"}-${index}`}
+                    block={block}
+                  />
+                ))}
+              {section.media && <CaseStudyMedia media={section.media} />}
+            </CaseStudySection>
+          );
+        })}
         {actions && (
           <section
             className={[
