@@ -5619,7 +5619,7 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .cs-details__label {
-  font-family: "Doto", "Dotum", monospace;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 18px;
   line-height: 1.08;
@@ -5643,6 +5643,21 @@ a.about-browser__url:hover .about-browser__url-text {
   margin-bottom: 1.5rem;
 }
 
+.cs-header--preview .cs-title:has(+ .cs-subtitle) {
+  margin-bottom: 0.55rem;
+}
+
+.cs-subtitle {
+  margin: 0 0 1.5rem;
+  max-width: 38rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  letter-spacing: -0.05em;
+  line-height: 1.35;
+  color: #8a8d98;
+}
+
 .cs-header--preview .cs-placeholder--hero {
   margin-bottom: 1.5rem;
 }
@@ -5658,6 +5673,15 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-embed--compact .cs-header--compact .cs-title {
   font-size: clamp(1.45rem, 4vw, 1.85rem);
   margin-bottom: 1.35rem;
+}
+
+.cs-embed--compact .cs-header--compact .cs-title:has(+ .cs-subtitle) {
+  margin-bottom: 0.45rem;
+}
+
+.cs-embed--compact .cs-subtitle {
+  font-size: clamp(0.92rem, 2.2vw, 1.05rem);
+  margin-bottom: 1.25rem;
 }
 
 .cs-embed--compact .cs-project-meta {
@@ -5692,13 +5716,14 @@ a.about-browser__url:hover .about-browser__url-text {
   }
 }
 
-.cs-embed--compact .cs-header--compact .cs-placeholder--hero:not(.cs-hero-slides):not(.cs-hero-video) {
+.cs-embed--compact .cs-header--compact .cs-placeholder--hero:not(.cs-hero-slides):not(.cs-hero-video):not(.cs-hero-bento) {
   min-height: 9.5rem;
   margin-bottom: 1.35rem;
 }
 
 .cs-embed--compact .cs-header--compact .cs-hero-slides,
-.cs-embed--compact .cs-header--compact .cs-hero-video {
+.cs-embed--compact .cs-header--compact .cs-hero-video,
+.cs-embed--compact .cs-header--compact .cs-hero-bento {
   margin-bottom: 1.35rem;
 }
 
@@ -5751,6 +5776,106 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-placeholder--hero {
   min-height: 14rem;
   margin-bottom: 3rem;
+}
+
+/* 3-tile bento: tall poster | desktop / iPhone */
+.cs-bento,
+.cs-hero-bento {
+  --cs-bento-gap-x: clamp(0.7rem, 3vw, 1.4rem);
+  --cs-bento-gap-y: clamp(0.35rem, 1.5vw, 0.7rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 0.74fr) minmax(0, 1fr);
+  gap: var(--cs-bento-gap-y) var(--cs-bento-gap-x);
+  align-items: stretch;
+  justify-items: stretch;
+  width: 100%;
+  aspect-ratio: 688 / 508;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  color: inherit;
+  place-items: stretch;
+}
+
+.cs-bento--body {
+  margin: 1.35rem 0 0.35rem;
+}
+
+.cs-bento__tile,
+.cs-hero-bento__tile {
+  position: relative;
+  display: block;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.cs-bento__tile--poster,
+.cs-hero-bento__tile--poster {
+  grid-row: 1 / -1;
+}
+
+.cs-bento__tile img,
+.cs-hero-bento__tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@media (max-width: 720px) {
+  .cs-bento,
+  .cs-hero-bento {
+    --cs-bento-gap-x: 0.55rem;
+    --cs-bento-gap-y: 0.4rem;
+    aspect-ratio: 1.2 / 1;
+  }
+}
+
+.cs-polaroids {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.85rem, 2vw, 1.35rem);
+  align-items: start;
+  margin-top: 0.35rem;
+}
+
+.cs-polaroids__item {
+  margin: 0;
+  min-width: 0;
+}
+
+.cs-polaroids__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: clamp(1.1rem, 2.4vw, 1.75rem);
+}
+
+.cs-polaroids__caption {
+  margin: 0.7rem 0.15rem 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 1.35;
+  color: #8a8d98;
+}
+
+@media (max-width: 720px) {
+  .cs-polaroids {
+    grid-template-columns: 1fr;
+  }
 }
 
 .cs-hero-slides {
@@ -6825,6 +6950,101 @@ a.about-browser__url:hover .about-browser__url-text {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.cs-section--gate {
+  padding-top: 0.5rem;
+}
+
+.cs-gate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-width: 28rem;
+  margin-top: 0.35rem;
+}
+
+.cs-gate__label {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: -0.07em;
+  color: #8a8d98;
+}
+
+.cs-gate__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: stretch;
+}
+
+.cs-gate__input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  height: 2.35rem;
+  padding: 0 0.9rem;
+  border: 1px solid #d8d8de;
+  border-radius: 999px;
+  background: #ffffff;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.92rem;
+  letter-spacing: -0.04em;
+  color: #111111;
+}
+
+.cs-gate__input::placeholder {
+  color: #b0b3bd;
+}
+
+.cs-gate__input:focus {
+  outline: none;
+  border-color: #111111;
+  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.08);
+}
+
+.cs-gate__submit {
+  flex: 0 0 auto;
+  height: 2.35rem;
+  padding: 0 1.15rem;
+  border: none;
+  border-radius: 999px;
+  background: #111111;
+  color: #ffffff;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: -0.04em;
+  cursor: pointer;
+}
+
+.cs-gate__submit:hover {
+  background: #2a2a2a;
+}
+
+.cs-gate__submit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.22);
+}
+
+.cs-gate__error {
+  margin: 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.86rem;
+  letter-spacing: -0.04em;
+  line-height: 1.4;
+  color: #b42318;
+}
+
+.cs-gate__email,
+.cs-gate__email-placeholder {
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.cs-gate__email-placeholder {
+  text-decoration-style: dashed;
+}
+
 
 .cs-flows {
   display: flex;
@@ -8271,6 +8491,14 @@ a.about-browser__url:hover .about-browser__url-text {
   margin-right: calc(-1 * var(--cs-hero-bleed));
   margin-bottom: 2.5rem;
   border-radius: 2px;
+}
+
+.work-expand__scroll .cs-header--preview .cs-placeholder--hero.cs-hero-bento,
+.work-expand__scroll .cs-embed--compact .cs-header--compact .cs-placeholder--hero.cs-hero-bento {
+  min-height: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: visible;
 }
 
 .work-expand__sheet--full .work-expand__scroll {

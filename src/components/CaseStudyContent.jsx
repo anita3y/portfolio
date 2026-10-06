@@ -6,6 +6,12 @@ import CaseStudyUserFlowMap from "./CaseStudyUserFlowMap.jsx";
 import DfaWireframes from "./DfaWireframes.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
+import {
+  getCaseStudyPassword,
+  getCaseStudyRequestEmail,
+  isCaseStudyUnlocked,
+  unlockCaseStudy
+} from "../data/caseStudies/access.js";
 
 const DEFAULT_HERO_SLIDE_MS = 500;
 const ALL_PROJECTS = [...WORK_PROJECTS, ...PLAY_PROJECTS];
@@ -71,10 +77,48 @@ function CaseStudyTopTabs({ activeTab = "work", onSelectTab }) {
   );
 }
 
+function CaseStudyBento({ bento, aspectRatio, className, loading = "lazy" }) {
+  const poster = normalizeMediaItem(bento?.poster);
+  const desktop = normalizeMediaItem(bento?.desktop);
+  const iphone = normalizeMediaItem(bento?.iphone);
+  if (!poster?.src || !desktop?.src || !iphone?.src) return null;
+
+  return (
+    <div
+      className={["cs-bento", className].filter(Boolean).join(" ")}
+      style={aspectRatio ? { aspectRatio } : undefined}
+      role="img"
+      aria-label={[poster.alt, desktop.alt, iphone.alt].filter(Boolean).join(". ")}
+    >
+      <figure className="cs-bento__tile cs-bento__tile--poster">
+        <img src={poster.src} alt={poster.alt ?? ""} loading={loading} decoding="async" />
+      </figure>
+      <figure className="cs-bento__tile cs-bento__tile--desktop">
+        <img src={desktop.src} alt={desktop.alt ?? ""} loading={loading} decoding="async" />
+      </figure>
+      <figure className="cs-bento__tile cs-bento__tile--iphone">
+        <img src={iphone.src} alt={iphone.alt ?? ""} loading={loading} decoding="async" />
+      </figure>
+    </div>
+  );
+}
+
+function CaseStudyHeroBento({ heroBento, heroAspectRatio }) {
+  return (
+    <CaseStudyBento
+      bento={heroBento}
+      aspectRatio={heroAspectRatio}
+      className="cs-placeholder cs-placeholder--hero cs-bento cs-hero-bento"
+      loading="eager"
+    />
+  );
+}
+
 function CaseStudyHeroMedia({
   heroEmbed,
   heroEmbedTitle,
   heroVideo,
+  heroBento,
   heroSlides,
   heroSlideInterval,
   heroPlaceholder,
@@ -95,14 +139,14 @@ function CaseStudyHeroMedia({
       ? heroVideo
       : heroVideo.src
     : null;
-  const showVideo = Boolean(videoSrc) && !videoFailed && !heroEmbed;
+  const showVideo = Boolean(videoSrc) && !videoFailed && !heroEmbed && !heroBento;
 
   useEffect(() => {
     setVideoFailed(false);
   }, [videoSrc]);
 
   useEffect(() => {
-    if (!slides?.length || showVideo) return undefined;
+    if (!slides?.length || showVideo || heroBento) return undefined;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) return undefined;
@@ -112,7 +156,11 @@ function CaseStudyHeroMedia({
     }, intervalMs);
 
     return () => window.clearInterval(timer);
-  }, [slides, intervalMs, showVideo]);
+  }, [slides, intervalMs, showVideo, heroBento]);
+
+  if (heroBento) {
+    return <CaseStudyHeroBento heroBento={heroBento} heroAspectRatio={heroAspectRatio} />;
+  }
 
   if (heroEmbed) {
     return (
@@ -527,18 +575,175 @@ function TextBlock({ block }) {
           ))}
         </div>
       )}
+      {block.layout === "bento" && (
+        <CaseStudyBento
+          bento={block}
+          aspectRatio={block.aspectRatio ?? "688 / 508"}
+          className="cs-bento--body"
+        />
+      )}
+      {block.layout === "polaroids" && block.images?.length > 0 && (
+        <div className="cs-polaroids">
+          {block.images.map((image) => {
+            const item = normalizeMediaItem(image);
+            return (
+              <figure key={item.src} className="cs-polaroids__item">
+                <img src={item.src} alt={item.alt ?? ""} loading="lazy" decoding="async" />
+                {item.caption ? (
+                  <figcaption className="cs-polaroids__caption">{item.caption}</figcaption>
+                ) : null}
+              </figure>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
+}
+
+function CaseStudyAccessGate({ study, onUnlock }) {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const requestEmail = getCaseStudyRequestEmail(study);
+  const mailto = `mailto:${requestEmail}?subject=${encodeURIComponent(`Access request: ${study.title}`)}`;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const expected = getCaseStudyPassword(study);
+    if (password.trim() === expected) {
+      unlockCaseStudy(study.id);
+      setError("");
+      onUnlock();
+      return;
+    }
+    setError("Incorrect password. Try again, or request access below.");
+  };
+
+  return (
+    <section className="cs-section cs-section--gate" aria-label="Full case study access">
+      <div className="cs-section__main">
+        <h2 className="cs-section__title">full case study</h2>
+        <p className="cs-section__summary">
+          Full case study available with password. Request access at{" "}
+          <a className="cs-gate__email" href={mailto}>
+            {requestEmail}
+          </a>
+          .
+        </p>
+        <form className="cs-gate" onSubmit={handleSubmit}>
+          <label className="cs-gate__label" htmlFor={`cs-password-${study.id}`}>
+            Password
+          </label>
+          <div className="cs-gate__row">
+            <input
+              id={`cs-password-${study.id}`}
+              className="cs-gate__input"
+              type="password"
+              name="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+                if (error) setError("");
+              }}
+              placeholder="Enter password"
+            />
+            <button className="cs-gate__submit" type="submit">
+              Unlock
+            </button>
+          </div>
+          {error ? (
+            <p className="cs-gate__error" role="alert">
+              {error}
+            </p>
+          ) : null}
+        </form>
+      </div>
+    </section>
+  );
+}
+
+function useCaseStudyUnlock(study) {
+  const gated = Boolean(study?.gated);
+  const [unlocked, setUnlocked] = useState(() => {
+    if (!gated) return true;
+    return isCaseStudyUnlocked(study.id);
+  });
+
+  useEffect(() => {
+    if (!gated) {
+      setUnlocked(true);
+      return;
+    }
+    setUnlocked(isCaseStudyUnlocked(study.id));
+  }, [gated, study.id]);
+
+  return {
+    gated,
+    unlocked: !gated || unlocked,
+    unlock: () => setUnlocked(true)
+  };
+}
+
+function getCaseStudySectionBuckets(study) {
+  const teaser = Array.isArray(study.teaserSections) ? study.teaserSections : [];
+  const afterGate = Array.isArray(study.afterGateSections) ? study.afterGateSections : [];
+  const full = Array.isArray(study.sections) ? study.sections : [];
+  return { teaser, afterGate, full };
+}
+
+function getCaseStudyVisibleSections(study, unlocked) {
+  const { teaser, afterGate, full } = getCaseStudySectionBuckets(study);
+  if (!study.gated) {
+    if (teaser.length > 0 || afterGate.length > 0) {
+      return [...teaser, ...afterGate, ...full];
+    }
+    return full;
+  }
+  if (!unlocked) return [...teaser, ...afterGate];
+  return [...teaser, ...afterGate, ...full];
+}
+
+function renderCaseStudySections(sections) {
+  return sections.map((section) => {
+    const showBlocksBefore = !section.subsectionsFirst;
+    const showBlocksAfter = Boolean(section.subsectionsFirst);
+
+    return (
+      <CaseStudySection key={section.id} section={section}>
+        {showBlocksBefore &&
+          section.blocks?.map((block, index) => (
+            <TextBlock
+              key={block.heading ?? `${block.layout ?? "block"}-${index}`}
+              block={block}
+            />
+          ))}
+        {section.subsections?.map((subsection) => (
+          <CaseStudySubsection key={subsection.id} subsection={subsection} />
+        ))}
+        {showBlocksAfter &&
+          section.blocks?.map((block, index) => (
+            <TextBlock
+              key={block.heading ?? `${block.layout ?? "block"}-${index}`}
+              block={block}
+            />
+          ))}
+        {section.media && <CaseStudyMedia media={section.media} />}
+      </CaseStudySection>
+    );
+  });
 }
 
 export function CaseStudyPreview({ study, compact = false, hideTabs = false, onSelectTab }) {
   const {
     id,
     title,
+    subtitle,
     details,
     heroPlaceholder,
     heroEmbed,
     heroVideo,
+    heroBento,
     heroSlides,
     heroSlideInterval,
     heroAspectRatio,
@@ -551,7 +756,8 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
   } = study;
   const projectCard = ALL_PROJECTS.find((project) => project.id === id) ?? null;
   const detailItems = Array.isArray(details) ? details.filter((item) => item?.label && item?.value) : [];
-  const displayTitle = projectCard?.headline || title;
+  const hasSubtitle = Boolean(subtitle);
+  const displayTitle = hasSubtitle ? title : projectCard?.headline || title;
   const metaParts = [
     projectCard?.company,
     projectCard?.status,
@@ -579,10 +785,12 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
         </p>
       )}
       <h1 className="cs-title">{displayTitle}</h1>
+      {hasSubtitle ? <p className="cs-subtitle">{subtitle}</p> : null}
       <CaseStudyHeroMedia
         heroEmbed={heroEmbed}
         heroEmbedTitle={title}
         heroVideo={heroVideo}
+        heroBento={heroBento}
         heroSlides={heroSlides}
         heroSlideInterval={heroSlideInterval}
         heroPlaceholder={heroPlaceholder}
@@ -690,16 +898,17 @@ function WorkExpandNavStuckSync({ scrollRoot }) {
 
 export function CaseStudySectionNavBar({
   study,
+  sections,
   scrollRoot,
   fixedHeader = false,
   onBack
 }) {
-  const { sections } = study;
-  const activeId = useCaseStudyActiveSection(sections, scrollRoot);
+  const navSections = sections ?? study.sections ?? [];
+  const activeId = useCaseStudyActiveSection(navSections, scrollRoot);
 
   return (
     <CaseStudySectionNav
-      sections={sections}
+      sections={navSections}
       activeId={activeId}
       scrollRoot={scrollRoot}
       fixedHeader={fixedHeader}
@@ -716,8 +925,12 @@ export function CaseStudyBody({
   onBack,
   onSelectRelated
 }) {
-  const { sections, actions } = study;
+  const { actions } = study;
+  const { gated, unlocked, unlock } = useCaseStudyUnlock(study);
+  const { teaser, afterGate, full } = getCaseStudySectionBuckets(study);
+  const visibleSections = getCaseStudyVisibleSections(study, unlocked);
   const isPlay = PLAY_PROJECTS.some((project) => project.id === study.id);
+  const showGateSplit = gated && (teaser.length > 0 || afterGate.length > 0);
 
   return (
     <div
@@ -730,36 +943,29 @@ export function CaseStudyBody({
         .join(" ")}
     >
       {scrollRoot && <WorkExpandNavStuckSync scrollRoot={scrollRoot} />}
-      {!hideNav && <CaseStudySectionNavBar study={study} scrollRoot={scrollRoot} onBack={onBack} />}
+      {!hideNav && (
+        <CaseStudySectionNavBar
+          study={study}
+          sections={visibleSections}
+          scrollRoot={scrollRoot}
+          onBack={onBack}
+        />
+      )}
       <div className="cs-content">
-        {sections.map((section) => {
-          const showBlocksBefore = !section.subsectionsFirst;
-          const showBlocksAfter = Boolean(section.subsectionsFirst);
-
-          return (
-            <CaseStudySection key={section.id} section={section}>
-              {showBlocksBefore &&
-                section.blocks?.map((block, index) => (
-                  <TextBlock
-                    key={block.heading ?? `${block.layout ?? "block"}-${index}`}
-                    block={block}
-                  />
-                ))}
-              {section.subsections?.map((subsection) => (
-                <CaseStudySubsection key={subsection.id} subsection={subsection} />
-              ))}
-              {showBlocksAfter &&
-                section.blocks?.map((block, index) => (
-                  <TextBlock
-                    key={block.heading ?? `${block.layout ?? "block"}-${index}`}
-                    block={block}
-                  />
-                ))}
-              {section.media && <CaseStudyMedia media={section.media} />}
-            </CaseStudySection>
-          );
-        })}
-        {actions && (
+        {showGateSplit ? (
+          <>
+            {renderCaseStudySections(teaser)}
+            {gated && !unlocked ? <CaseStudyAccessGate study={study} onUnlock={unlock} /> : null}
+            {renderCaseStudySections(afterGate)}
+            {unlocked ? renderCaseStudySections(full) : null}
+          </>
+        ) : (
+          <>
+            {renderCaseStudySections(visibleSections)}
+            {gated && !unlocked ? <CaseStudyAccessGate study={study} onUnlock={unlock} /> : null}
+          </>
+        )}
+        {actions && unlocked && (
           <section
             className={[
               "cs-section",
@@ -776,7 +982,7 @@ export function CaseStudyBody({
             </div>
           </section>
         )}
-        {!isPlay && (
+        {!isPlay && unlocked && (
           <CaseStudySeeMore
             studyId={study.id}
             onSelect={onSelectRelated}
