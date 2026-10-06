@@ -1,13 +1,13 @@
 import { assetUrl } from "../../utils/assetUrl.js";
 
 const FIGMA_WIREFRAMES = assetUrl("/case-studies/dfa/figma-wireframes.png");
-const FINAL_WIREFRAMES = assetUrl("/case-studies/dfa/flows/final-wireframes.png");
-const FLOW_MISSION = assetUrl("/case-studies/dfa/flows/mission-learn-more.png");
-const FLOW_FEATURED = assetUrl("/case-studies/dfa/flows/featured-projects.png");
-const FLOW_JOIN_SECTION = assetUrl("/case-studies/dfa/flows/join-us-now.png");
-const FLOW_JOIN_BUTTON = assetUrl("/case-studies/dfa/flows/join-now-button.png");
 const FLOW_CONTACT = assetUrl("/case-studies/dfa/flows/contact-button.png");
-const KEY_FLOWS_MAP = assetUrl("/case-studies/dfa/flows/key-flows-map.png");
+const COMPONENTS_UI = assetUrl("/case-studies/dfa/components-ui.png");
+const AUDIT_RISDXBROWN = assetUrl("/case-studies/dfa/competitive-audit-risdxbrown.png");
+const AUDIT_CMU = assetUrl("/case-studies/dfa/competitive-audit-cmu.png");
+const VISUAL_BRAINSTORM_1 = assetUrl("/case-studies/dfa/visual-brainstorm-1.png");
+const VISUAL_BRAINSTORM_2 = assetUrl("/case-studies/dfa/visual-brainstorm-2.png");
+const RIKO_STRATEGY_IA = assetUrl("/case-studies/dfa/riko-strategy-ia.png");
 
 const SOLUTION_TEAM = assetUrl("/case-studies/dfa/solution/team.jpg");
 const SOLUTION_ARCHIVE = assetUrl("/case-studies/dfa/solution/archive.jpg");
@@ -22,7 +22,7 @@ export const DFA_CASE_STUDY = {
   details: [
     { label: "role", value: "Product Designer" },
     { label: "timeline", value: "Aug-Sept 2026" },
-    { label: "team", value: "1 Product Designer\n1 Product Manager" },
+    { label: "team", value: "1 Product Designer\n1 Product Manager\n1 Developer" },
     { label: "skills", value: "Product design,\nUser research" }
   ],
   meta: {
@@ -42,30 +42,16 @@ export const DFA_CASE_STUDY = {
     {
       id: "overview",
       title: "overview",
-      summary:
-        "The site needed to do more than look better: it had to clarify the chapter's value, surface real impact, and make handoff easier for future leadership.",
       blocks: [
         {
-          heading: "A disconnected network",
-          bullets: [
-            "Project work lived in scattered folders and outdated pages.",
-            "Alumni and partners had no clear entry point to stay involved.",
-            "New members struggled to understand what DFA @ NYU does."
-          ]
-        },
-        {
-          heading: "Scaling across chapters",
-          bullets: [
-            "Other DFA chapters needed a model they could adapt—not a one-off NYU site.",
-            "Content had to stay maintainable without a dedicated dev team."
-          ]
-        },
-        {
-          heading: "An outdated web presence",
-          bullets: [
-            "The previous site didn’t showcase impact or current projects.",
-            "Visual hierarchy and navigation didn’t match the chapter’s growth."
-          ]
+          paragraphs: [
+            "Design for America @ NYU had 1,000+ members but no centralized website. As the chapter started taking on projects and expanding into design services and student work, not just tutorials and speaker series, they needed a place to hold past projects and clarify what the chapter does."
+          ],
+          callout: {
+            emoji: "🧩",
+            label: "Problem",
+            text: "No central home for the chapter. Past projects lived in scattered folders, and new members couldn’t easily see what DFA @ NYU actually does."
+          }
         },
         {
           heading: "Objectives",
@@ -77,7 +63,7 @@ export const DFA_CASE_STUDY = {
           ]
         },
         {
-          heading: "Success criteria",
+          heading: "Success Criteria",
           bullets: [
             "Clear information architecture for projects, team, and get-involved flows.",
             "Consistent visual system built for growth, not one-off pages.",
@@ -87,75 +73,134 @@ export const DFA_CASE_STUDY = {
       ]
     },
     {
-      id: "competitive-audit-research",
-      title: "competitive audit research",
-      summary:
-        "I audited how other DFA chapters present themselves online—what works for recruitment, what gets in the way, and where NYU could do better.",
-      blocks: [
-        {
-          heading: "Competitive audit",
-          paragraphs: [
-            "I reviewed peer chapter sites to understand how they balance showcasing work with welcoming new members."
-          ]
-        },
-        {
-          heading: "DFA @ RISD×Brown",
-          bullets: [
-            "Pros: playful interactivity, simple navigation, intuitive hierarchy, strong project showcase.",
-            "Cons: feels built for clients more than prospective members—weak “why join,” little on member benefits or commitment, and key paths like joining or events aren’t prioritized."
-          ]
-        },
-        {
-          heading: "DFA @ CMU",
-          bullets: [
-            "Pros: warm, inviting branding; balances recruitment and client-facing work; clear mission focus.",
-            "Cons: dense About page that’s hard to skim; long paragraphs with weak visual hierarchy before visitors reach a call to action."
-          ]
-        }
-      ]
-    },
-    {
       id: "discovery-research",
       title: "discovery & research",
       summary:
-        "Before designing, I aligned with our PM on audience, chapter priorities, and the specific stories the site needed to tell.",
+        "Before designing, I aligned with our PM on who the site was for and what it had to carry, then audited how peer chapters present themselves online.",
       blocks: [
         {
           heading: "Strategy (Riko)",
           paragraphs: [
-            "Our PM Riko framed the revamp around one goal: get more students to reach out. The site had to make joining feel obvious—not buried behind project galleries."
+            "Our PM Riko framed the revamp around one goal: get more students to reach out. The site had to make joining feel obvious, not buried behind project galleries."
           ]
         },
         {
-          heading: "Audience & priorities",
-          bullets: [
-            "Primary audience: freshmen through juniors across NYU schools—not just Tandon.",
-            "They care about inclusiveness, whether projects feel fun, what the club actually does, and why they should join.",
-            "Strategic focus: make “why join” unmistakable; lead with cross-disciplinary collaboration as a core value.",
-            "Surface who we are, the e-board, past projects, and clear ways to reach out—form or email."
+          heading: "Audience & Site Needs",
+          paragraphs: [
+            "Primary audience: NYU freshmen through juniors across schools. Make why join clear, and show the team, past projects, and how to reach out.",
+            "The site needed a landing with Join, mission/about/team/archive/projects, contact paths, and a bit of play so the chapter feels approachable."
           ]
-        },
+        }
+      ],
+      subsections: [
         {
-          heading: "What the site needed",
-          bullets: [
-            "Landing page with a prominent Join button",
-            "Mission, About, team, alumni, archive, events, and projects",
-            "Advisor and past e-board context",
-            "Contact paths—and a fun element (characters, animation) so the chapter feels approachable"
+          id: "competitive-audit-research",
+          title: "Competitive Audit Research",
+          summary:
+            "I audited how other DFA chapters present themselves online: what works for recruitment, what gets in the way, and where NYU could do better.",
+          blocks: [
+            {
+              heading: "Competitive Audit",
+              paragraphs: [
+                "I reviewed peer chapter sites to understand how they balance showcasing work with welcoming new members."
+              ]
+            },
+            {
+              heading: "DFA @ RISD×Brown",
+              bullets: [
+                "Pros: playful interactivity, simple navigation, intuitive hierarchy, strong project showcase.",
+                "Cons: feels built for clients more than prospective members: weak “why join,” little on member benefits or commitment, and key paths like joining or events aren’t prioritized."
+              ],
+              image: {
+                src: AUDIT_RISDXBROWN,
+                alt: "Competitive audit board for DFA at RISDxBrown with pros and cons sticky notes",
+                caption: "RISDxBrown — competitive audit",
+                wide: true
+              }
+            },
+            {
+              heading: "DFA @ CMU",
+              bullets: [
+                "Pros: warm, inviting branding; balances recruitment and client-facing work; clear mission focus.",
+                "Cons: dense About page that’s hard to skim; long paragraphs with weak visual hierarchy before visitors reach a call to action."
+              ],
+              image: {
+                src: AUDIT_CMU,
+                alt: "Competitive audit board for DFA at CMU with pros and cons sticky notes",
+                caption: "CMU — competitive audit",
+                wide: true
+              }
+            }
           ]
         }
       ]
     },
     {
-      id: "design-process",
-      title: "design process",
+      id: "process",
+      title: "process",
+      subsectionsFirst: true,
       summary:
-        "Once the strategy was clear, I translated it into information architecture, wireframes, page flows, and a visual direction that could scale.",
+        "Once the strategy was clear, I explored visual direction, information architecture, wireframes, and page flows that could scale.",
+      subsections: [
+        {
+          id: "visual-brainstorm",
+          title: "Visual Brainstorm",
+          blocks: [
+            {
+              paragraphs: [
+                "I started by consolidating the strategy needs Riko (the product manager) had already mapped with visual design. Her notes covered who the site was for and what each group needed; the boards below were me figuring out how that brief could look and feel."
+              ],
+              image: {
+                src: RIKO_STRATEGY_IA,
+                alt: "Riko's document mapping four Main User Types to Info-Architecture, including Current member and About",
+                caption:
+                  "Riko's map connecting user needs to information architecture: prospective NYU students, external viewers, current members, and DFA National / other chapters → Home, Projects, About, Team, Newsletter, Get Involved.",
+                wide: true
+              }
+            },
+            {
+              heading: "Content and Visual Brainstorm with Riko (Product Manager)",
+              image: {
+                src: VISUAL_BRAINSTORM_1,
+                alt: "Brainstorm board with strategy notes, color palettes, puzzle motif, and folder references",
+                wide: true
+              }
+            },
+            {
+              image: {
+                src: VISUAL_BRAINSTORM_2,
+                alt: "DFA at NYU Design Guide Brainstorm exploring play and education with a folders concept",
+                caption: "Design Guide Brainstorm",
+                wide: true
+              }
+            },
+            {
+              heading: "Theme: Folders",
+              paragraphs: [
+                "Tabbed folder headers like file dividers. Layered cards that feel like stacked documents. A system inspired by folders, files, and layered organization."
+              ],
+              bullets: [
+                "Building over time",
+                "Archiving impact",
+                "Structured collaboration",
+                "Studio-based work",
+                "Systems thinking"
+              ]
+            },
+            {
+              heading: "IA Decision",
+              paragraphs: [
+                "I eliminated a standalone Get Involved page. Get Involved lives on pages that already give context to new students before they hit join, so they're not dropped into a CTA with no story. Principle: every page should earn its place."
+              ]
+            }
+          ]
+        }
+      ],
       blocks: [
         {
-          heading: "Wireframes & visual direction",
+          heading: "Wireframes & Visual Direction",
           paragraphs: [
-            "From there I mapped information architecture, explored a “folders” visual theme, and wireframed key pages before moving into high-fidelity design."
+            "From there I mapped information architecture, carried the folders theme forward, and wireframed key pages before moving into high-fidelity design."
           ],
           image: {
             src: FIGMA_WIREFRAMES,
@@ -165,71 +210,35 @@ export const DFA_CASE_STUDY = {
           }
         },
         {
-          heading: "Final wireframes",
+          heading: "Final Wireframes",
           paragraphs: [
-            "High-fidelity wireframes for the four core pages—Landing, About, Archive, and Team—with CTAs mapped to each key flow. Purple annotations mark animation and motion specs for dev handoff."
+            "Page frames for Home, Projects, About, and Team, plus an optional Newsletter. Get Involved was explored as its own frame, then cut; join CTAs stay in the header and on pages with context. Folder tabs and layered cards stay consistent so one developer can implement a shared pattern and reuse it across pages."
           ],
-          image: {
-            src: FINAL_WIREFRAMES,
-            alt: "Final wireframes for DFA NYU landing, about, archive, and team pages with purple animation and motion handoff comments",
-            caption: "Landing · About · Archive · Team — includes motion & animation handoff notes",
-            wide: true
-          }
+          layout: "dfaWireframes"
         },
         {
-          heading: "Key flows",
+          heading: "Key Flows",
           paragraphs: [
             "Every major page routes visitors toward one of three goals: discover what we do, join the club, or get in touch. I mapped how each CTA connects pages before wireframing the details."
           ],
+          layout: "userFlowMap"
+        },
+        {
+          heading: "Components",
+          paragraphs: [
+            "UI pieces that carry the key flows: mission and featured projects for discovery, plus the join CTAs that repeat across the site."
+          ],
           image: {
-            src: KEY_FLOWS_MAP,
-            alt: "Information architecture diagram mapping discover projects, join, and contact flows across DFA NYU site pages",
-            caption: "Key flows — discover · join · contact",
+            src: COMPONENTS_UI,
+            alt: "UI components for Discover projects and impact and Join get involved, including Our Mission, Featured Projects, Join us now, and Join now",
+            caption: "Discover and Join UI Pieces",
             wide: true
           }
         },
         {
-          heading: "Discover projects & impact",
+          heading: "Contact & Partner Outreach",
           paragraphs: [
-            "The mission window and featured projects section both pull visitors deeper—Learn more routes to About, See more opens the full project archive."
-          ],
-          layout: "wireframes",
-          images: [
-            {
-              src: FLOW_MISSION,
-              alt: "Our Mission card with Learn more button leading to the About page",
-              caption: "Our Mission → Learn more → About"
-            },
-            {
-              src: FLOW_FEATURED,
-              alt: "Featured projects section with See more button leading to the project archive",
-              caption: "Featured projects → See more → Archive"
-            }
-          ]
-        },
-        {
-          heading: "Join / get involved",
-          paragraphs: [
-            "Join CTAs repeat across the site—from a persistent header button to a bottom-of-page section with the interest form and WhatsApp group."
-          ],
-          layout: "wireframes",
-          images: [
-            {
-              src: FLOW_JOIN_SECTION,
-              alt: "Join us now section with group interest form and WhatsApp buttons",
-              caption: "Join us now — interest form & WhatsApp"
-            },
-            {
-              src: FLOW_JOIN_BUTTON,
-              alt: "Join now pill button in the site header",
-              caption: "Join now — header CTA"
-            }
-          ]
-        },
-        {
-          heading: "Contact & partner outreach",
-          paragraphs: [
-            "A Contact button in the landing page header gives visitors a direct path to reach the chapter—alongside join CTAs at the bottom of every page."
+            "A Contact button in the landing page header gives visitors a direct path to reach the chapter, alongside join CTAs at the bottom of every page."
           ],
           image: {
             src: FLOW_CONTACT,
@@ -244,12 +253,19 @@ export const DFA_CASE_STUDY = {
       id: "solution",
       title: "solution",
       summary:
-        "Four core pages—team, archive, about, and homepage—built from a shared component library so future leads can swap content without redesigning from scratch.",
+        "Four core pages (team, archive, about, homepage) built from a shared component library so future leads can swap content without redesigning from scratch.",
       blocks: [
+        {
+          callout: {
+            emoji: "💡",
+            label: "Solution",
+            text: "Four core pages (team, archive, about, homepage) from a shared component library so future leads can swap content without redesigning from scratch. Scannable project stories, a welcoming team, and clear join paths, with shared tabs, folder cards, and CTAs ready for a later Framer build."
+          }
+        },
         {
           paragraphs: [
             "Final design prioritizes scannable project stories, a welcoming team presence, and clear paths for visitors to participate.",
-            "Every page reuses the same tab navigation, folder cards, CTAs, and typography—mapped to real content types for easy handoff in Framer."
+            "Every page reuses the same tab navigation, folder cards, CTAs, and typography, mapped to real content types so a later Framer build can reuse the same pieces."
           ]
         },
         {
@@ -317,22 +333,22 @@ export const DFA_CASE_STUDY = {
     {
       id: "results-impact",
       title: "results & impact",
-      summary: "What changed, what shipped, and what made the work sustainable beyond a single leadership cycle.",
+      summary: "What changed, what shipped, and what should still work after this leadership cycle.",
       blocks: [
         {
           heading: "Results",
           bullets: [
-            "Unified project showcase and clearer chapter narrative.",
-            "Reduced friction for content handoffs between leadership cycles.",
-            "Foundation other chapters can reference when building their own presence."
+            "One place to see projects and a clearer story of what the chapter does.",
+            "New leads can update content without rebuilding the site from scratch.",
+            "Other chapters have a real example they can borrow from."
           ]
         },
         {
           heading: "Scaling for the future",
           bullets: [
-            "Modular Framer components map to repeatable content patterns.",
-            "Documented structure for onboarding new chapter leads.",
-            "System designed for iteration—not a frozen one-off launch."
+            "Documented the content patterns, page structure, and visual design system so whoever builds in Framer later can reuse the same pieces.",
+            "Wrote down how the site is structured so new leads can pick it up without starting from scratch.",
+            "Designed for change over time, not a freeze after launch, so the handoff stays usable."
           ]
         }
       ]
@@ -340,14 +356,14 @@ export const DFA_CASE_STUDY = {
     {
       id: "reflection",
       title: "reflection",
-      summary: "What I’d carry forward into the next nonprofit or community product.",
+      summary: "What I’d carry into the next nonprofit or community product.",
       blocks: [
         {
           heading: "Lessons learned",
           bullets: [
-            "Stakeholder alignment early prevents rework on IA and tone.",
-            "Designing for maintainability is as important as designing for launch day.",
-            "Nonprofit work rewards clarity over complexity—every section should earn its place."
+            "Getting on the same page early saved us from reworking the sitemap and voice later.",
+            "Making the site easy to update mattered as much as how it looked on launch day.",
+            "For nonprofit sites, clarity beats complexity. If a section doesn’t earn its place, cut it."
           ]
         }
       ]

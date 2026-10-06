@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
 import CaseStudySeeMore from "./CaseStudySeeMore.jsx";
+import CaseStudyUserFlowMap from "./CaseStudyUserFlowMap.jsx";
+import DfaWireframes from "./DfaWireframes.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
 
@@ -329,6 +331,18 @@ function CaseStudySection({ section, children }) {
   );
 }
 
+function CaseStudySubsection({ subsection }) {
+  return (
+    <div id={subsection.id} className="cs-subsection">
+      <h3 className="cs-subsection__title">{subsection.title}</h3>
+      {subsection.summary && <p className="cs-subsection__summary">{subsection.summary}</p>}
+      {subsection.blocks?.map((block, index) => (
+        <TextBlock key={block.heading ?? `${block.layout ?? "block"}-${index}`} block={block} />
+      ))}
+    </div>
+  );
+}
+
 function CaseStudyActions({ actions }) {
   if (!actions?.liveUrl) return null;
 
@@ -357,6 +371,21 @@ function TextBlock({ block }) {
           {p}
         </p>
       ))}
+      {block.callout && (
+        <aside className="cs-callout" aria-label={block.callout.label || "Callout"}>
+          {block.callout.emoji ? (
+            <span className="cs-callout__emoji" aria-hidden="true">
+              {block.callout.emoji}
+            </span>
+          ) : null}
+          <div className="cs-callout__body">
+            {block.callout.label ? (
+              <span className="cs-callout__label">{block.callout.label}</span>
+            ) : null}
+            <p className="cs-callout__text">{block.callout.text}</p>
+          </div>
+        </aside>
+      )}
       {block.bullets && (
         <ul className="cs-block__list">
           {block.bullets.map((item) => (
@@ -429,6 +458,8 @@ function TextBlock({ block }) {
           ))}
         </div>
       )}
+      {block.layout === "userFlowMap" && <CaseStudyUserFlowMap />}
+      {block.layout === "dfaWireframes" && <DfaWireframes />}
       {block.layout === "wireframes" && block.images?.length > 0 && (
         <div
           className={[
@@ -580,11 +611,18 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
   );
 }
 
+function flattenSectionIds(sections) {
+  return sections.flatMap((section) => [
+    section.id,
+    ...(section.subsections?.map((sub) => sub.id) ?? [])
+  ]);
+}
+
 function useCaseStudyActiveSection(sections, scrollRoot) {
   const [activeId, setActiveId] = useState(sections[0]?.id ?? "");
 
   useEffect(() => {
-    const ids = sections.map((s) => s.id);
+    const ids = flattenSectionIds(sections);
     const elements = ids.map((id) => document.getElementById(id)).filter(Boolean);
     if (elements.length === 0) return undefined;
 
@@ -694,14 +732,33 @@ export function CaseStudyBody({
       {scrollRoot && <WorkExpandNavStuckSync scrollRoot={scrollRoot} />}
       {!hideNav && <CaseStudySectionNavBar study={study} scrollRoot={scrollRoot} onBack={onBack} />}
       <div className="cs-content">
-        {sections.map((section) => (
-          <CaseStudySection key={section.id} section={section}>
-            {section.blocks?.map((block, index) => (
-              <TextBlock key={block.heading ?? `${block.layout ?? "block"}-${index}`} block={block} />
-            ))}
-            {section.media && <CaseStudyMedia media={section.media} />}
-          </CaseStudySection>
-        ))}
+        {sections.map((section) => {
+          const showBlocksBefore = !section.subsectionsFirst;
+          const showBlocksAfter = Boolean(section.subsectionsFirst);
+
+          return (
+            <CaseStudySection key={section.id} section={section}>
+              {showBlocksBefore &&
+                section.blocks?.map((block, index) => (
+                  <TextBlock
+                    key={block.heading ?? `${block.layout ?? "block"}-${index}`}
+                    block={block}
+                  />
+                ))}
+              {section.subsections?.map((subsection) => (
+                <CaseStudySubsection key={subsection.id} subsection={subsection} />
+              ))}
+              {showBlocksAfter &&
+                section.blocks?.map((block, index) => (
+                  <TextBlock
+                    key={block.heading ?? `${block.layout ?? "block"}-${index}`}
+                    block={block}
+                  />
+                ))}
+              {section.media && <CaseStudyMedia media={section.media} />}
+            </CaseStudySection>
+          );
+        })}
         {actions && (
           <section
             className={[
