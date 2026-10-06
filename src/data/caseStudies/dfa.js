@@ -8,6 +8,7 @@ const AUDIT_CMU = assetUrl("/case-studies/dfa/competitive-audit-cmu.png");
 const VISUAL_BRAINSTORM_1 = assetUrl("/case-studies/dfa/visual-brainstorm-1.png");
 const VISUAL_BRAINSTORM_2 = assetUrl("/case-studies/dfa/visual-brainstorm-2.png");
 const RIKO_STRATEGY_IA = assetUrl("/case-studies/dfa/riko-strategy-ia.png");
+const RIKO_IA_DECISION = assetUrl("/case-studies/dfa/riko-ia-decision.png");
 
 const SOLUTION_TEAM = assetUrl("/case-studies/dfa/solution/team.jpg");
 const SOLUTION_ARCHIVE = assetUrl("/case-studies/dfa/solution/archive.jpg");
@@ -66,8 +67,7 @@ export const DFA_CASE_STUDY = {
           heading: "Success Criteria",
           bullets: [
             "Clear information architecture for projects, team, and get-involved flows.",
-            "Consistent visual system built for growth, not one-off pages.",
-            "Documentation for content updates and chapter onboarding."
+            "Consistency and scalability: a visual system built for growth, plus docs for content updates and chapter onboarding."
           ]
         }
       ]
@@ -186,6 +186,14 @@ export const DFA_CASE_STUDY = {
                 "Studio-based work",
                 "Systems thinking"
               ]
+            },
+            {
+              image: {
+                src: RIKO_IA_DECISION,
+                alt: "Riko's document mapping Main User Types to Info-Architecture (Home, Projects, About, Team) and CTAs (Get Involved, Contact)",
+                caption: "Riko's document: user types → IA → CTAs",
+                wide: true
+              }
             },
             {
               heading: "IA Decision",
@@ -363,7 +371,7 @@ export const DFA_CASE_STUDY = {
           bullets: [
             "Getting on the same page early saved us from reworking the sitemap and voice later.",
             "Making the site easy to update mattered as much as how it looked on launch day.",
-            "For nonprofit sites, clarity beats complexity. If a section doesn’t earn its place, cut it."
+            "For nonprofit sites, clarity beats complexity. If a section doesn’t earn its place, I’d cut it."
           ]
         }
       ]

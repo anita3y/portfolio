@@ -163,7 +163,6 @@ const PAGES = [
         </div>
         <div className="dfa-wf__line dfa-wf__line--mid" />
         <div className="dfa-wf__line dfa-wf__line--short" />
-        <p className="dfa-wf__hint">Explored, then cut — join lives in context on other pages</p>
       </>
     )
   }
@@ -209,7 +208,7 @@ export default function DfaWireframes() {
     <div
       className="dfa-wf"
       role="img"
-      aria-label="Portfolio-style wireframes for Home, Projects, About, Team, optional Newsletter, and a Get Involved frame that was explored then cut, with folder tabs and layered cards"
+      aria-label="Wireframes for Home, Projects, About, Team, optional Newsletter, and Get Involved cut, with folder tabs and layered cards"
     >
       <div className="dfa-wf__grid">
         {PAGES.map((page) => (
