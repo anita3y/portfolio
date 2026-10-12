@@ -6,6 +6,7 @@ import {
 } from "react";
 import { useLocation } from "react-router-dom";
 import AboutPanel from "../components/AboutPanel.jsx";
+import NameIntro from "../components/NameIntro.jsx";
 import { PlayPicker, PlayStudy } from "../components/PlayStage.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
@@ -179,6 +180,8 @@ export default function Home() {
       style={{ "--nav-grow": navGrow }}
     >
       <StatusCorner />
+
+      <NameIntro />
 
       <header className="hero">
         <h1 className="hero__lockup">
