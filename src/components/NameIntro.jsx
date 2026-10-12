@@ -5,12 +5,13 @@ const LETTERS = ["A", "n", "i", "t", "a", "Y", "a", "n"];
 const SURNAME_START = 5;
 const WORD_GAP_REM = 1.55;
 
-/** Shared metrics (viewBox 0–100) so guides meet when panels flatten. */
+/** Shared metrics (viewBox 0–100) so guides meet when panels flatten.
+ *  Letters fill most of the shorter card; keep a little margin for guides. */
 const GUIDE = {
-  cap: 14,
-  xHeight: 34,
-  baseline: 82,
-  midline: 56
+  cap: 8,
+  xHeight: 30,
+  baseline: 90,
+  midline: 54
 };
 
 const INK = "#141414";
