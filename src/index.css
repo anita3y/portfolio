@@ -9627,7 +9627,7 @@ a.about-browser__url:hover .about-browser__url-text {
   position: sticky;
   top: 0;
   height: 100svh;
-  min-height: 28rem;
+  min-height: 24rem;
   display: grid;
   place-items: center;
   overflow: hidden;
@@ -9678,7 +9678,7 @@ a.about-browser__url:hover .about-browser__url-text {
   position: relative;
   z-index: 2;
   width: min(96vw, 68rem);
-  height: min(62vh, 28rem);
+  height: min(48vh, 20rem);
   perspective: 1480px;
   perspective-origin: 44% 48%;
   transform-style: preserve-3d;
@@ -9690,7 +9690,7 @@ a.about-browser__url:hover .about-browser__url-text {
   left: 50%;
   top: 50%;
   width: clamp(4.1rem, 9.5vw, 5.35rem);
-  height: clamp(10.5rem, 34vh, 16.25rem);
+  height: clamp(7.1rem, 22vh, 10.5rem);
   transform-origin: center center;
   transform-style: preserve-3d;
   will-change: transform, opacity;
@@ -9721,9 +9721,9 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .name-intro__drawing {
   position: absolute;
-  inset: 6% 8%;
-  width: 84%;
-  height: 88%;
+  inset: 4% 7%;
+  width: 86%;
+  height: 92%;
   color: var(--ni-line);
   overflow: visible;
   pointer-events: none;
@@ -9768,13 +9768,13 @@ a.about-browser__url:hover .about-browser__url-text {
 
   .name-intro__panel {
     width: clamp(3.15rem, 11.5vw, 4.25rem);
-    height: clamp(8.75rem, 36vh, 13.5rem);
+    height: clamp(6.1rem, 24vh, 8.75rem);
   }
 
   .name-intro__drawing {
-    inset: 5% 6%;
-    width: 88%;
-    height: 90%;
+    inset: 3% 5%;
+    width: 90%;
+    height: 94%;
   }
 
   .name-intro__glass {
@@ -9817,7 +9817,7 @@ a.about-browser__url:hover .about-browser__url-text {
     top: auto;
     display: inline-block;
     width: clamp(2.55rem, 9vw, 3.4rem);
-    height: clamp(5.75rem, 22vh, 8rem);
+    height: clamp(4.5rem, 16vh, 6.25rem);
     transform: none !important;
     opacity: 1 !important;
   }
