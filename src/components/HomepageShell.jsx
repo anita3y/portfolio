@@ -178,20 +178,13 @@ export default function HomepageShell({
         <header className="v4-shell__top">
           <div className="v4-shell__brand">
             <span className="v4-shell__logo-mark" aria-hidden="true" />
-            <span className="v4-shell__logo">Logo</span>
+            <span className="v4-shell__logo">AY</span>
             <span className="v4-shell__colon" aria-hidden="true">
               ::
             </span>
           </div>
           <nav className="v4-shell__links" aria-label="External">
-            <a href="mailto:hello@anitayan.com">Email</a>
-            <a
-              href="https://www.linkedin.com/in/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              LinkedIn
-            </a>
+            <a href="mailto:">Email</a>
             <a href="https://github.com/anita3y" target="_blank" rel="noreferrer">
               GitHub
             </a>

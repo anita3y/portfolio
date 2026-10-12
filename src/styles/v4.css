@@ -269,6 +269,12 @@
   inset: 0;
   z-index: 40;
   overflow: hidden;
+  background: var(--v4-page);
+}
+
+.page--v4.is-shell-locked .name-intro {
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .v4-shell__frame {
@@ -505,10 +511,41 @@
   object-fit: cover;
   display: block;
   min-height: 7rem;
+  background: #e4e2ea;
+}
+
+.v4-shell__tile.is-featured .v4-shell__tile-frame {
+  flex: 1;
+  min-height: 16rem;
 }
 
 .v4-shell__tile.is-featured .v4-shell__thumb-media {
   min-height: 16rem;
+  height: 100%;
+}
+
+.v4-shell__tile[data-theme="wac"] {
+  background: #ebe7f2;
+}
+
+.v4-shell__tile[data-theme="dfa"] {
+  background: #eef1f6;
+}
+
+.v4-shell__tile[data-theme="poster-designs"] {
+  background: #f3efe8;
+}
+
+.v4-shell__tile[data-theme="vanity"] {
+  background: #f4eef2;
+}
+
+.v4-shell__tile[data-theme="branches"] {
+  background: #eceef2;
+}
+
+.v4-shell__tile[data-theme="pivotal"] {
+  background: #efeef3;
 }
 
 .v4-shell__tile-blurb {

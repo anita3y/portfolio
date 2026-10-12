@@ -59,7 +59,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="page page--v4">
+    <div className={`page page--v4${shellLocked ? " is-shell-locked" : ""}`}>
       <NameIntro onProgress={onIntroProgress} />
       <HomepageShell
         locked={shellLocked}
