@@ -41,6 +41,25 @@ function LiveTime() {
 }
 
 function ThumbMedia({ project }) {
+  const still =
+    project.cover ||
+    project.thumbnail ||
+    project.thumbnailSlides?.[0] ||
+    null;
+
+  // Prefer stills in the shell grid; .mov cards are heavy and often empty until decode.
+  if (still) {
+    return (
+      <img
+        className="v4-shell__thumb-media"
+        src={still}
+        alt=""
+        draggable={false}
+        loading="lazy"
+      />
+    );
+  }
+
   if (project.thumbnailVideo) {
     return (
       <video
@@ -55,25 +74,7 @@ function ThumbMedia({ project }) {
     );
   }
 
-  const src =
-    project.cover ||
-    project.thumbnail ||
-    project.thumbnailSlides?.[0] ||
-    null;
-
-  if (!src) {
-    return <div className="v4-shell__thumb-fallback" aria-hidden="true" />;
-  }
-
-  return (
-    <img
-      className="v4-shell__thumb-media"
-      src={src}
-      alt=""
-      draggable={false}
-      loading="lazy"
-    />
-  );
+  return <div className="v4-shell__thumb-fallback" aria-hidden="true" />;
 }
 
 function StageGrid({ projects, onOpen, featuredId }) {
@@ -141,7 +142,7 @@ export default function HomepageShell({
   onOpenPlay
 }) {
   const [section, setSection] = useState("work");
-  const visible = enter > 0.02 || locked;
+  const visible = enter > 0.08 || locked;
 
   useEffect(() => {
     if (!locked) return undefined;
@@ -169,7 +170,9 @@ export default function HomepageShell({
       className={`v4-shell${locked ? " is-locked" : ""}${visible ? " is-visible" : ""}`}
       aria-label="Portfolio home"
       style={{
-        opacity: locked ? 1 : Math.min(1, Math.max(0, enter)),
+        // Keep the shell surface fully opaque so the intro never bleeds through.
+        // Content fades in via --v4-enter on the inner frame only.
+        ["--v4-enter"]: locked ? 1 : Math.min(1, Math.max(0, enter)),
         pointerEvents: visible ? "auto" : "none"
       }}
       aria-hidden={visible ? undefined : true}

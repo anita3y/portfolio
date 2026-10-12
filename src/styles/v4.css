@@ -260,7 +260,7 @@
   background: var(--v4-page);
   color: var(--v4-ink);
   font-family: var(--v4-geist);
-  opacity: 0;
+  visibility: hidden;
 }
 
 .v4-shell.is-visible,
@@ -270,6 +270,7 @@
   z-index: 40;
   overflow: hidden;
   background: var(--v4-page);
+  visibility: visible;
 }
 
 .page--v4.is-shell-locked .name-intro {
@@ -286,6 +287,8 @@
   display: grid;
   grid-template-rows: auto auto 1fr;
   box-sizing: border-box;
+  opacity: var(--v4-enter, 0);
+  transition: opacity 0.05s linear;
 }
 
 .v4-shell__top {
