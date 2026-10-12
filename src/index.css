@@ -9621,7 +9621,7 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .name-intro__track {
   position: relative;
-  height: 320vh;
+  height: 240vh;
 }
 
 .name-intro__sticky {
@@ -9780,7 +9780,7 @@ a.about-browser__url:hover .about-browser__url-text {
 
 @media (max-width: 720px) {
   .name-intro__track {
-    height: 280vh;
+    height: 220vh;
   }
 
   .name-intro__panel {

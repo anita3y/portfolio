@@ -160,13 +160,13 @@ function panelStyle(index, count, progress, reduced) {
   const mid = (count - 1) / 2;
   const fromMid = index - mid;
 
-  // Stacked: diagonal depth like Play covers + the glass stack refs
-  const stackX = fromMid * 2.35 + index * 0.55;
-  const stackY = -index * 1.55 + fromMid * 0.35;
-  const stackZ = (count - 1 - index) * 48;
-  const stackRotateY = reduced ? 0 : fromMid * -7;
-  const stackRotateX = reduced ? 0 : 8 - index * 1.2;
-  const stackRotateZ = reduced ? 0 : fromMid * 1.4;
+  // Stacked: diagonal depth (front-left → back-right), Play-style Z + ref overlap
+  const stackX = fromMid * 1.15 + index * 0.85;
+  const stackY = 1.35 - index * 1.85;
+  const stackZ = (count - 1 - index) * 72;
+  const stackRotateY = reduced ? 0 : fromMid * -5.5;
+  const stackRotateX = reduced ? 0 : 10 - index * 1.4;
+  const stackRotateZ = reduced ? 0 : fromMid * 2.1;
 
   // Flat word plane — tight Inter Thin tracking
   const panelW = 7.1;
@@ -191,7 +191,7 @@ function panelStyle(index, count, progress, reduced) {
   return {
     transform: `translate(-50%, -50%) translate3d(${pulledX}rem, ${y}rem, ${z}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`,
     zIndex: count - index,
-    opacity: 1 - fadeOut
+    opacity: Math.max(0, 1 - fadeOut * 0.35)
   };
 }
 
@@ -245,10 +245,11 @@ export default function NameIntro() {
 
   const flatten = easeInOutCubic(clamp(progress / 0.38, 0, 1));
   const connect = easeInOutCubic(clamp((progress - 0.48) / 0.18, 0, 1));
-  const spread = easeInOutCubic(clamp((progress - 0.66) / 0.18, 0, 1));
-  const exit = easeInOutCubic(clamp((progress - 0.84) / 0.16, 0, 1));
+  const spread = easeInOutCubic(clamp((progress - 0.64) / 0.16, 0, 1));
+  const exit = easeInOutCubic(clamp((progress - 0.78) / 0.18, 0, 1));
 
-  const stageOpacity = 1 - exit * 0.15;
+  // Keep atmosphere until unpin so we don't flash empty white before the hero.
+  const stageOpacity = 1 - exit;
   const spreadOpacity = spread * (1 - exit) * 0.55;
 
   return (
@@ -265,11 +266,7 @@ export default function NameIntro() {
     >
       <div className="name-intro__track" ref={trackRef}>
         <div className="name-intro__sticky">
-          <div
-            className="name-intro__atmosphere"
-            aria-hidden="true"
-            style={{ opacity: 1 - exit }}
-          />
+          <div className="name-intro__atmosphere" aria-hidden="true" />
 
           <div
             className="name-intro__spread"
@@ -291,10 +288,7 @@ export default function NameIntro() {
             <span className="name-intro__spread-v name-intro__spread-v--c" />
           </div>
 
-          <div
-            className="name-intro__stage"
-            style={{ opacity: stageOpacity * (1 - exit * 0.85) }}
-          >
+          <div className="name-intro__stage" style={{ opacity: stageOpacity }}>
             {LETTERS.map((letter, index) => (
               <div
                 key={`${letter}-${index}`}
