@@ -25,6 +25,29 @@ function normalizeMediaItem(item) {
   return item;
 }
 
+const SLOT_PATTERN = /\[(?:ADD|SCREENSHOT|DIAGRAM|VIDEO|PERSONA CARDS)[^\]]*\]/g;
+
+function CaseStudyCopy({ text }) {
+  if (!text) return null;
+  const parts = [];
+  let last = 0;
+  let index = 0;
+  for (const match of text.matchAll(SLOT_PATTERN)) {
+    const start = match.index ?? 0;
+    if (start > last) parts.push(text.slice(last, start));
+    parts.push(
+      <span key={`slot-${index}`} className="cs-slot">
+        {match[0]}
+      </span>
+    );
+    index += 1;
+    last = start + match[0].length;
+  }
+  if (last < text.length) parts.push(text.slice(last));
+  if (parts.length === 0) return text;
+  return parts;
+}
+
 function CaseStudyTopTabs({ activeTab = "work", onSelectTab }) {
   const activeIndex = Math.max(
     0,
@@ -114,9 +137,30 @@ function CaseStudyHeroBento({ heroBento, heroAspectRatio }) {
   );
 }
 
+function CaseStudyPhoneHero({ src, title, marker }) {
+  return (
+    <div className="cs-phone-hero">
+      <div className="cs-phone">
+        <div className="cs-phone__bezel">
+          <div className="cs-phone__screen">
+            <iframe src={src} title={title || "Vanity onboarding prototype"} loading="eager" />
+          </div>
+        </div>
+      </div>
+      {marker ? (
+        <p className="cs-marker cs-marker--center">
+          <span className="cs-slot">{marker}</span>
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 function CaseStudyHeroMedia({
   heroEmbed,
   heroEmbedTitle,
+  heroPhone,
+  heroPhoneMarker,
   heroVideo,
   heroBento,
   heroSlides,
@@ -157,6 +201,12 @@ function CaseStudyHeroMedia({
 
     return () => window.clearInterval(timer);
   }, [slides, intervalMs, showVideo, heroBento]);
+
+  if (heroPhone) {
+    return (
+      <CaseStudyPhoneHero src={heroPhone} title={heroEmbedTitle} marker={heroPhoneMarker} />
+    );
+  }
 
   if (heroBento) {
     return <CaseStudyHeroBento heroBento={heroBento} heroAspectRatio={heroAspectRatio} />;
@@ -372,7 +422,11 @@ function CaseStudySection({ section, children }) {
     <section id={section.id} className="cs-section">
       <div className="cs-section__main">
         <h2 className="cs-section__title">{section.title}</h2>
-        {section.summary && <p className="cs-section__summary">{section.summary}</p>}
+        {section.summary && (
+          <p className="cs-section__summary">
+            <CaseStudyCopy text={section.summary} />
+          </p>
+        )}
         {children}
       </div>
     </section>
@@ -382,8 +436,21 @@ function CaseStudySection({ section, children }) {
 function CaseStudySubsection({ subsection }) {
   return (
     <div id={subsection.id} className="cs-subsection">
-      <h3 className="cs-subsection__title">{subsection.title}</h3>
-      {subsection.summary && <p className="cs-subsection__summary">{subsection.summary}</p>}
+      <h3
+        className={[
+          "cs-subsection__title",
+          subsection.prominent && "cs-subsection__title--lead"
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
+        {subsection.title}
+      </h3>
+      {subsection.summary && (
+        <p className="cs-subsection__summary">
+          <CaseStudyCopy text={subsection.summary} />
+        </p>
+      )}
       {subsection.blocks?.map((block, index) => (
         <TextBlock key={block.heading ?? `${block.layout ?? "block"}-${index}`} block={block} />
       ))}
@@ -410,13 +477,71 @@ function CaseStudyActions({ actions }) {
   );
 }
 
+function CaseStudyShots({ block }) {
+  const columns = block.columns || block.items?.length || 2;
+
+  return (
+    <div className="cs-visual">
+      {block.marker ? (
+        <p className="cs-marker">
+          <CaseStudyCopy text={block.marker} />
+        </p>
+      ) : null}
+      <div
+        className={["cs-shots", block.pair && "cs-shots--pair"].filter(Boolean).join(" ")}
+        style={{ "--cs-shot-cols": columns }}
+      >
+        {block.items?.map((item) => (
+          <figure key={item.marker} className="cs-shot">
+            {item.kicker ? <p className="cs-shot__kicker">{item.kicker}</p> : null}
+            <div className="cs-shot__frame">
+              <span className="cs-slot">{item.marker}</span>
+            </div>
+            {item.caption ? (
+              <figcaption className="cs-shot__caption">
+                <CaseStudyCopy text={item.caption} />
+              </figcaption>
+            ) : null}
+          </figure>
+        ))}
+      </div>
+      {block.caption ? (
+        <p className="cs-visual__caption">
+          <CaseStudyCopy text={block.caption} />
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function CaseStudyMarkerSlot({ block }) {
+  const markers = block.markers?.length ? block.markers : block.marker ? [block.marker] : [];
+
+  return (
+    <div className="cs-visual">
+      <div className="cs-marker-slot">
+        {markers.map((marker) => (
+          <p key={marker} className="cs-marker">
+            <span className="cs-slot">{marker}</span>
+          </p>
+        ))}
+      </div>
+      {block.caption ? (
+        <p className="cs-visual__caption">
+          <CaseStudyCopy text={block.caption} />
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 function TextBlock({ block }) {
   return (
     <div className="cs-block">
       {block.heading && <h3 className="cs-block__heading">{block.heading}</h3>}
       {block.paragraphs?.map((p) => (
         <p key={p} className="cs-block__text">
-          {p}
+          <CaseStudyCopy text={p} />
         </p>
       ))}
       {block.callout && (
@@ -506,7 +631,23 @@ function TextBlock({ block }) {
           ))}
         </div>
       )}
-      {block.layout === "userFlowMap" && <CaseStudyUserFlowMap />}
+      {block.layout === "userFlowMap" && (
+        <div className="cs-visual">
+          {block.marker ? (
+            <p className="cs-marker">
+              <CaseStudyCopy text={block.marker} />
+            </p>
+          ) : null}
+          <CaseStudyUserFlowMap variant={block.variant} />
+          {block.caption ? (
+            <p className="cs-visual__caption">
+              <CaseStudyCopy text={block.caption} />
+            </p>
+          ) : null}
+        </div>
+      )}
+      {block.layout === "shots" && <CaseStudyShots block={block} />}
+      {block.layout === "markerSlot" && <CaseStudyMarkerSlot block={block} />}
       {block.layout === "dfaWireframes" && <DfaWireframes />}
       {block.layout === "wireframes" && block.images?.length > 0 && (
         <div
@@ -742,6 +883,8 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
     details,
     heroPlaceholder,
     heroEmbed,
+    heroPhone,
+    heroPhoneMarker,
     heroVideo,
     heroBento,
     heroSlides,
@@ -789,6 +932,8 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
       <CaseStudyHeroMedia
         heroEmbed={heroEmbed}
         heroEmbedTitle={title}
+        heroPhone={heroPhone}
+        heroPhoneMarker={heroPhoneMarker}
         heroVideo={heroVideo}
         heroBento={heroBento}
         heroSlides={heroSlides}
@@ -810,7 +955,9 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
               className={`cs-details__item cs-details__item--${item.label.toLowerCase().replaceAll(/\s+/g, "-")}`}
             >
               <p className="cs-details__label">{item.label}</p>
-              <p className="cs-details__value">{item.value}</p>
+              <p className="cs-details__value">
+                <CaseStudyCopy text={item.value} />
+              </p>
             </div>
           ))}
         </div>

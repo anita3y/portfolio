@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      if (new URLSearchParams(location.search).has("embed")) {
+        document.documentElement.classList.add("is-embed");
+      }
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vanity — Screen 1 product gather</title>
@@ -305,6 +310,35 @@
       a {
         color: inherit;
       }
+
+      html.is-embed body {
+        background: #fff;
+        overflow: hidden;
+      }
+
+      html.is-embed .page {
+        display: block;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      html.is-embed .panel {
+        display: none;
+      }
+
+      html.is-embed .stage-wrap {
+        width: 100%;
+      }
+
+      html.is-embed .phone {
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        aspect-ratio: auto;
+        border-radius: 0;
+        box-shadow: none;
+      }
     </style>
   </head>
   <body>
@@ -453,7 +487,7 @@
 
       let raf = 0;
       let playing = false;
-      let loop = false;
+      let loop = document.documentElement.classList.contains("is-embed");
       let t0 = 0;
       let startT = 0;
 
