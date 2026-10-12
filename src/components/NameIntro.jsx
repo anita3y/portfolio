@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
-const LETTERS = ["A", "n", "i", "t", "a"];
+/** Anita Yan — one letter per panel; visual gap between given + surname (no empty glass). */
+const LETTERS = ["A", "n", "i", "t", "a", "Y", "a", "n"];
+const SURNAME_START = 5;
+const WORD_GAP_REM = 1.55;
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -8,6 +11,10 @@ function clamp(value, min, max) {
 
 function easeInOutCubic(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+function wordGapBefore(index) {
+  return index >= SURNAME_START ? WORD_GAP_REM : 0;
 }
 
 function usePrefersReducedMotion() {
@@ -140,6 +147,16 @@ function LetterScaffold({ letter, connect = 0 }) {
         </>
       );
       break;
+    case "Y":
+      letterLines = (
+        <>
+          <line x1="28" y1={GUIDE_Y.cap} x2="50" y2={GUIDE_Y.midline} stroke="currentColor" strokeWidth="0.7" opacity={letterOpacity} />
+          <line x1="72" y1={GUIDE_Y.cap} x2="50" y2={GUIDE_Y.midline} stroke="currentColor" strokeWidth="0.7" opacity={letterOpacity} />
+          <line x1="50" y1={GUIDE_Y.midline} x2="50" y2={GUIDE_Y.baseline} stroke="currentColor" strokeWidth="0.75" opacity={letterOpacity} />
+          <line x1="50" y1={GUIDE_Y.cap} x2="50" y2={GUIDE_Y.midline} stroke="currentColor" strokeWidth="0.4" opacity={letterOpacity * 0.55} strokeDasharray="2 2.5" />
+        </>
+      );
+      break;
     default:
       break;
   }
@@ -159,21 +176,25 @@ function panelStyle(index, count, progress, reduced) {
 
   const mid = (count - 1) / 2;
   const fromMid = index - mid;
+  const gap = wordGapBefore(index);
 
-  // Stacked: diagonal depth (front-left → back-right), Play-style Z + ref overlap
-  const stackX = fromMid * 1.15 + index * 0.85;
-  const stackY = 1.35 - index * 1.85;
-  const stackZ = (count - 1 - index) * 72;
-  const stackRotateY = reduced ? 0 : fromMid * -5.5;
-  const stackRotateX = reduced ? 0 : 10 - index * 1.4;
-  const stackRotateZ = reduced ? 0 : fromMid * 2.1;
+  // Stacked: parallel thin sheets (shared orientation → orthogonal faces),
+  // already at a strong three-quarter angle on load; depth via X/Y/Z only.
+  const stackX = fromMid * 0.55 + index * 1.05 + gap * 0.95;
+  const stackY = 0.55 - index * 0.78;
+  const stackZ = (count - 1 - index) * 42;
+  // Shared camera on every panel — mostly yaw so corners stay square; no rotateZ skew.
+  const stackRotateY = reduced ? 0 : -48;
+  const stackRotateX = reduced ? 0 : 5;
+  const stackRotateZ = 0;
 
-  // Flat word plane — tight Inter Thin tracking
-  const panelW = 7.1;
-  const flatGap = 0.08;
-  const flatX = fromMid * (panelW + flatGap);
+  // Flat word plane — Inter Thin, tight tracking + clear space before Yan
+  const panelW = 5.05;
+  const flatGap = 0.05;
+  const flatSpan = panelW + flatGap;
+  const totalWidth = count * panelW + (count - 1) * flatGap + WORD_GAP_REM;
+  const flatX = -totalWidth / 2 + index * flatSpan + gap + panelW / 2;
   const flatY = 0;
-  const flatZ = 0;
 
   const x = stackX + (flatX - stackX) * flatten;
   const y = stackY + (flatY - stackY) * flatten;
@@ -182,11 +203,11 @@ function panelStyle(index, count, progress, reduced) {
   const rotateX = stackRotateX * (1 - flatten);
   const rotateZ = stackRotateZ * (1 - flatten);
 
-  // Pull together slightly after flatten
-  const pull = 1 - join * 0.12;
+  // Pull together slightly after flatten (keep word gap)
+  const pull = 1 - join * 0.08;
   const pulledX = x * pull;
 
-  const scale = 1 - join * 0.02;
+  const scale = 1 - join * 0.015;
 
   return {
     transform: `translate(-50%, -50%) translate3d(${pulledX}rem, ${y}rem, ${z}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`,
@@ -255,7 +276,7 @@ export default function NameIntro() {
   return (
     <section
       className="name-intro"
-      aria-label="Anita name introduction"
+      aria-label="Anita Yan name introduction"
       style={{
         "--ni-progress": progress,
         "--ni-flatten": flatten,
@@ -266,8 +287,6 @@ export default function NameIntro() {
     >
       <div className="name-intro__track" ref={trackRef}>
         <div className="name-intro__sticky">
-          <div className="name-intro__atmosphere" aria-hidden="true" />
-
           <div
             className="name-intro__spread"
             aria-hidden="true"

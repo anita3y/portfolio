@@ -9610,13 +9610,12 @@ a.about-browser__url:hover .about-browser__url-text {
 /* -------------------------------------------------------------------------- */
 
 .name-intro {
-  --ni-bg-0: #f3f2ef;
-  --ni-bg-1: #ebe9e4;
   --ni-ink: #141414;
   --ni-line: #9a9a96;
   position: relative;
   z-index: 2;
   color: var(--ni-ink);
+  background: transparent;
 }
 
 .name-intro__track {
@@ -9633,17 +9632,7 @@ a.about-browser__url:hover .about-browser__url-text {
   place-items: center;
   overflow: hidden;
   isolation: isolate;
-}
-
-.name-intro__atmosphere {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 70% 55% at 28% 62%, rgba(255, 255, 255, 0.9) 0%, transparent 58%),
-    radial-gradient(ellipse 55% 48% at 72% 30%, rgba(220, 218, 210, 0.55) 0%, transparent 60%),
-    linear-gradient(165deg, var(--ni-bg-0) 0%, #f7f6f3 42%, var(--ni-bg-1) 100%);
-  pointer-events: none;
+  background: transparent;
 }
 
 .name-intro__spread {
@@ -9700,10 +9689,10 @@ a.about-browser__url:hover .about-browser__url-text {
 .name-intro__stage {
   position: relative;
   z-index: 2;
-  width: min(92vw, 52rem);
+  width: min(96vw, 68rem);
   height: min(62vh, 28rem);
-  perspective: 1180px;
-  perspective-origin: 50% 48%;
+  perspective: 1480px;
+  perspective-origin: 44% 48%;
   transform-style: preserve-3d;
 }
 
@@ -9711,11 +9700,12 @@ a.about-browser__url:hover .about-browser__url-text {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: clamp(5.6rem, 14vw, 7.35rem);
-  height: clamp(12.5rem, 38vh, 18.5rem);
+  width: clamp(4.1rem, 9.5vw, 5.35rem);
+  height: clamp(10.5rem, 34vh, 16.25rem);
   transform-origin: center center;
   transform-style: preserve-3d;
   will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 .name-intro__glass {
@@ -9724,21 +9714,15 @@ a.about-browser__url:hover .about-browser__url-text {
   height: 100%;
   display: grid;
   place-items: center;
-  border-radius: 1.15rem;
+  border-radius: 0.12rem;
   overflow: hidden;
-  background:
-    linear-gradient(155deg, rgba(255, 255, 255, 0.52) 0%, rgba(255, 255, 255, 0.16) 48%, rgba(245, 244, 240, 0.28) 100%);
-  backdrop-filter: blur(18px) saturate(1.35);
-  -webkit-backdrop-filter: blur(18px) saturate(1.35);
-  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border: 1px solid rgba(180, 180, 184, 0.28);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.78),
-    inset 0 -1px 0 rgba(40, 40, 44, 0.05),
-    inset 1px 0 0 rgba(255, 255, 255, 0.35),
-    inset -1px 0 0 rgba(40, 40, 44, 0.04),
-    0 1px 1px rgba(30, 30, 34, 0.06),
-    0 10px 28px rgba(40, 42, 48, 0.12),
-    0 28px 48px rgba(40, 42, 48, 0.08);
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.45),
+    0 2px 8px rgba(40, 42, 48, 0.05);
 }
 
 .name-intro__scaffold {
@@ -9755,9 +9739,9 @@ a.about-browser__url:hover .about-browser__url-text {
   z-index: 1;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 100;
-  font-size: clamp(4.25rem, 11vw, 6.75rem);
+  font-size: clamp(3.1rem, 8.2vw, 5.1rem);
   line-height: 1;
-  letter-spacing: -0.085em;
+  letter-spacing: -0.09em;
   color: var(--ni-ink);
   user-select: none;
 }
@@ -9783,17 +9767,21 @@ a.about-browser__url:hover .about-browser__url-text {
     height: 220vh;
   }
 
+  .name-intro__stage {
+    width: min(98vw, 40rem);
+  }
+
   .name-intro__panel {
-    width: clamp(4.4rem, 18vw, 5.8rem);
-    height: clamp(10.5rem, 42vh, 15.5rem);
+    width: clamp(3.15rem, 11.5vw, 4.25rem);
+    height: clamp(8.75rem, 36vh, 13.5rem);
   }
 
   .name-intro__letter {
-    font-size: clamp(3.4rem, 16vw, 5rem);
+    font-size: clamp(2.45rem, 11vw, 3.75rem);
   }
 
   .name-intro__glass {
-    border-radius: 0.95rem;
+    border-radius: 0.1rem;
   }
 }
 
@@ -9809,7 +9797,6 @@ a.about-browser__url:hover .about-browser__url-text {
     padding: 2.5rem 0 1rem;
   }
 
-  .name-intro__atmosphere,
   .name-intro__spread,
   .name-intro__hint {
     display: none;
@@ -9819,9 +9806,11 @@ a.about-browser__url:hover .about-browser__url-text {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.15rem;
+    flex-wrap: wrap;
+    gap: 0.12rem 0.1rem;
+    column-gap: 0.1rem;
     height: auto;
-    min-height: 10rem;
+    min-height: 8rem;
     perspective: none;
   }
 
@@ -9830,10 +9819,15 @@ a.about-browser__url:hover .about-browser__url-text {
     left: auto;
     top: auto;
     display: inline-block;
-    width: clamp(3.5rem, 14vw, 4.5rem);
-    height: clamp(7.5rem, 28vh, 10rem);
+    width: clamp(2.55rem, 9vw, 3.4rem);
+    height: clamp(5.75rem, 22vh, 8rem);
     transform: none !important;
     opacity: 1 !important;
+  }
+
+  /* Visual word break between Anita / Yan without an empty glass card */
+  .name-intro__panel:nth-child(5) {
+    margin-right: 0.7rem;
   }
 }
 
