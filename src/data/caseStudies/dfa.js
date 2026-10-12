@@ -2,6 +2,7 @@ import { assetUrl } from "../../utils/assetUrl.js";
 
 const FIGMA_WIREFRAMES = assetUrl("/case-studies/dfa/figma-wireframes.png");
 const FLOW_CONTACT = assetUrl("/case-studies/dfa/flows/contact-button.png");
+const COMPONENTS_UI = assetUrl("/case-studies/dfa/components-ui.png");
 const AUDIT_RISDXBROWN = assetUrl("/case-studies/dfa/competitive-audit-risdxbrown.png");
 const AUDIT_CMU = assetUrl("/case-studies/dfa/competitive-audit-cmu.png");
 const VISUAL_BRAINSTORM_1 = assetUrl("/case-studies/dfa/visual-brainstorm-1.png");
@@ -235,7 +236,12 @@ export const DFA_CASE_STUDY = {
           paragraphs: [
             "UI pieces that carry the key flows: mission and featured projects for discovery, plus the join CTAs that repeat across the site."
           ],
-          layout: "dfaComponents"
+          image: {
+            src: COMPONENTS_UI,
+            alt: "UI components for Discover projects and impact and Join get involved, including Our Mission, Featured Projects, Join us now, and Join now",
+            caption: "Discover and Join UI Pieces",
+            wide: true
+          }
         },
         {
           heading: "Contact & Partner Outreach",
