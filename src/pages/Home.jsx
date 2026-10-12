@@ -31,10 +31,11 @@ export default function Home() {
   const [introProgress, setIntroProgress] = useState(0);
   const shellEnter = Math.min(
     1,
-    Math.max(0, (introProgress - 0.82) / 0.14)
+    Math.max(0, (introProgress - 0.78) / 0.14)
   );
-  // Lock as soon as the shell fully covers the viewport so intro chrome cannot linger.
-  const shellLocked = introProgress >= 0.92;
+  // Cover + lock early so Preview chrome cannot linger over the Work stage.
+  const shellCovered = introProgress >= 0.86;
+  const shellLocked = introProgress >= 0.9;
 
   useEffect(() => {
     document.title = "anita yan | Portfolio";
@@ -60,7 +61,11 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={`page page--v4${shellLocked ? " is-shell-locked" : ""}`}>
+    <div
+      className={`page page--v4${shellCovered ? " is-shell-covered" : ""}${
+        shellLocked ? " is-shell-locked" : ""
+      }`}
+    >
       <NameIntro onProgress={onIntroProgress} />
       <HomepageShell
         locked={shellLocked}

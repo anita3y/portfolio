@@ -277,7 +277,8 @@ export default function NameIntro({ onProgress } = {}) {
   const flatten = easeInOutCubic(clamp(progress / 0.4, 0, 1));
   const connect = easeInOutCubic(clamp((progress - 0.32) / 0.28, 0, 1));
   const draw = easeInOutCubic(clamp((progress - 0.52) / 0.28, 0, 1));
-  const exit = easeInOutCubic(clamp((progress - 0.86) / 0.14, 0, 1));
+  // Exit before the shell covers so Preview chrome never sits on the Work stage.
+  const exit = easeInOutCubic(clamp((progress - 0.72) / 0.14, 0, 1));
 
   return (
     <section

@@ -273,6 +273,7 @@
   visibility: visible;
 }
 
+.page--v4.is-shell-covered .name-intro,
 .page--v4.is-shell-locked .name-intro {
   visibility: hidden;
   pointer-events: none;
