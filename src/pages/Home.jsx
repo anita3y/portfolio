@@ -115,9 +115,11 @@ export default function Home() {
   useEffect(() => {
     if (requestedTab) {
       setActiveTab(requestedTab);
-      setOpenWorkId(null);
+      if (typeof location.state?.openWork !== "string") {
+        setOpenWorkId(null);
+      }
     }
-  }, [requestedTab]);
+  }, [requestedTab, location.state?.openWork]);
 
   useEffect(() => {
     let frame = 0;
