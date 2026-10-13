@@ -43,31 +43,6 @@ export const ABOUT_EDUCATION = {
   minor: "Minor in Psychology"
 };
 
-/** Fan across the top of about. Order is left to right. Tilt is baked into each file — do not rotate in CSS. */
-export const ABOUT_POLAROIDS = [
-  {
-    id: "cafes",
-    src: assetUrl("/about/polaroids/cafes.png"),
-    alt: "A matcha drink, water, and earphones on a cafe table",
-    width: 247,
-    height: 321
-  },
-  {
-    id: "anita",
-    src: assetUrl("/about/polaroids/anita.png"),
-    alt: "Portrait of Anita Yan at an outdoor cafe",
-    width: 222,
-    height: 304
-  },
-  {
-    id: "fashion",
-    src: assetUrl("/about/polaroids/fashion.png"),
-    alt: "Black heels arranged on glass shelves",
-    width: 508,
-    height: 652
-  }
-];
-
 export const ABOUT_PHOTOS = [
   {
     id: "headshot",
@@ -89,9 +64,13 @@ export const ABOUT_INTRO =
   "My approach to problem-solving is rooted in craft and simplicity. I’m constantly cutting through complexity to make experiences feel obvious, from redesigning multi-step flows into single, low-friction screens to building systems that hold up under real-world pressure.";
 
 export const ABOUT_LETTER = {
-  body: "hi there ⸜(｡˃ ᵕ ˂ )⸝♡, my name is Anita Yan and i came into design with a love for making things (painting, crafts, baking) and combined it with my interests of marketing and psychology to better understand who i design for. talk to me about anything creative & design-related (i love architects like Wang Shu + Bjarke Ingels, pottery, Dieter Rams, and japandi furniture) or ask me about my beli and the best co-working spaces around the city! my design philosophy is to approach problem solving with craft and simplicity. Simplicity only comes from understanding complexity and complex problems. Designing with craft means packaging these solutions as enjoyable experiences!",
-  signoff: "sincerely,",
-  note: "let’s make something together!"
+  greeting: "Hi there  ⸜(｡˃ ᵕ ˂ )⸝♡,",
+  paragraphs: [
+    "I came into design with a love for making things (painting, crafts, baking) and combined it with my interests of marketing and psychology to better understand who i design for.",
+    "Talk to me about anything creative & design-related (i love architects like Wang Shu + Bjarke Ingels, pottery, Dieter Rams, and Japandi furniture) or ask me about my beli and the best co-working spaces around the city!",
+    "My design philosophy is to approach problem solving with craft and simplicity. Simplicity only comes from understanding complexity and complex problems. Designing with craft means packaging these solutions as enjoyable experiences!"
+  ],
+  signoff: "sincerely,"
 };
 
 export const ABOUT_QUOTE = {
