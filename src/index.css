@@ -2916,6 +2916,54 @@ button:focus-visible {
   user-select: none;
 }
 
+/* Connect sticky + contact links (kept from prior About; not scrapbook chrome) */
+.about-letter__connect {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+  margin: 2.4rem 0 0;
+}
+
+.about-letter__note {
+  display: block;
+  width: min(13.5rem, 52%);
+  height: auto;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.08));
+  pointer-events: none;
+  user-select: none;
+  transform: rotate(-3deg);
+}
+
+.about-letter__links {
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.about-tags__tag--link {
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.about-tags__tag--link:hover {
+  background: rgba(255, 255, 255, 0.78);
+}
+
+@media (max-width: 640px) {
+  .about-letter__connect {
+    align-items: center;
+  }
+
+  .about-letter__note {
+    width: min(12rem, 58%);
+  }
+
+  .about-letter__links {
+    justify-content: center;
+  }
+}
+
 .about-page__bio-p {
   margin: 0 0 1.05rem;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;

@@ -70,7 +70,8 @@ export const ABOUT_LETTER = {
     "Talk to me about anything creative & design-related (i love architects like Wang Shu + Bjarke Ingels, pottery, Dieter Rams, and Japandi furniture) or ask me about my beli and the best co-working spaces around the city!",
     "My design philosophy is to approach problem solving with craft and simplicity. Simplicity only comes from understanding complexity and complex problems. Designing with craft means packaging these solutions as enjoyable experiences!"
   ],
-  signoff: "sincerely,"
+  signoff: "sincerely,",
+  note: "let’s make something together!"
 };
 
 export const ABOUT_QUOTE = {

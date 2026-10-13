@@ -5,6 +5,13 @@ import { assetUrl } from "../utils/assetUrl.js";
 
 const ID_CARD = assetUrl("/about/id-card.png");
 const SIGNATURE = assetUrl("/about/signature-anita.png");
+const CONNECT_NOTE = assetUrl("/about/letter/post-it.png");
+
+const CONNECT_LINKS = [
+  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/anitayandesign/" },
+  { id: "x", label: "X/Twitter", href: "https://x.com/nitayxxn" },
+  { id: "email", label: "Email", href: "mailto:anita3yan@gmail.com" }
+];
 
 const MAX_TILT = 7;
 
@@ -84,6 +91,33 @@ export default function AboutPanel() {
           height={88}
           draggable={false}
         />
+
+        <div className="about-letter__connect">
+          <img
+            className="about-letter__note"
+            src={CONNECT_NOTE}
+            alt={ABOUT_LETTER.note}
+            width={739}
+            height={868}
+            draggable={false}
+          />
+          <ul className="about-tags about-letter__links" aria-label="Contact">
+            {CONNECT_LINKS.map((link) => (
+              <li key={link.id} className="about-tags__item">
+                <a
+                  className="about-tags__tag about-tags__tag--link"
+                  href={link.href}
+                  {...(link.href.startsWith("mailto:")
+                    ? {}
+                    : { target: "_blank", rel: "noopener noreferrer" })}
+                  data-cursor-hover=""
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <div className="about-page__bio">
