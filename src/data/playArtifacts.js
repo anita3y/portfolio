@@ -1,18 +1,14 @@
 import { assetUrl } from "../utils/assetUrl.js";
-import { CAROUSEL_ALBUMS } from "./play/carousel-albums.js";
 import { POSTER_FRAMES } from "./play/posters.js";
 
 /** Individual Play page entries — easy to append more later. */
 export const PLAY_ARTIFACTS = [
   {
     id: "carousel",
-    title: "Carousel",
+    title: "album carousel",
     kind: "carousel",
-    /** Same Work ProjectCard moving-slides thumb (not a special collage size). */
-    workThumb: true,
-    thumbnailSlides: CAROUSEL_ALBUMS.map((album) => album.cover),
-    thumbnailSlideInterval: 450,
-    theme: "carousel-albums"
+    size: "md",
+    thumbnail: assetUrl("/play/thumbs/album-carousel.gif")
   },
   {
     id: "sticker-sheet",

@@ -10301,12 +10301,16 @@ body.is-finder-dragging {
 }
 
 .play-artifact__label {
-  margin: 0 0.15rem;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0 0.15rem;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.82rem;
   font-weight: 500;
   letter-spacing: -0.04em;
   color: #4a4d58;
+  text-align: center;
 }
 
 /* Hovering demo sheet over Play (not fullscreen Work expand) */
@@ -10571,8 +10575,10 @@ body.is-finder-dragging {
   grid-row: span 1;
 }
 
+/* album carousel GIF + posters share the same md footprint */
 .play-artifact--md .play-artifact__lift {
-  min-height: 12.5rem;
+  min-height: 0;
+  aspect-ratio: 400 / 297;
 }
 
 @media (max-width: 880px) {
