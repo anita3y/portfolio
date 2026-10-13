@@ -2,7 +2,7 @@ import { assetUrl } from "../../utils/assetUrl.js";
 
 const FIGMA_WIREFRAMES = assetUrl("/case-studies/dfa/figma-wireframes.png");
 const FLOW_CONTACT = assetUrl("/case-studies/dfa/flows/contact-button.png");
-const COMPONENTS_UI = assetUrl("/case-studies/dfa/components-ui.png");
+const COMPONENTS_UI = assetUrl("/case-studies/dfa/components-discover-join-screenshot.png");
 const AUDIT_RISDXBROWN = assetUrl("/case-studies/dfa/competitive-audit-risdxbrown.png");
 const AUDIT_CMU = assetUrl("/case-studies/dfa/competitive-audit-cmu.png");
 const VISUAL_BRAINSTORM_1 = assetUrl("/case-studies/dfa/visual-brainstorm-1.png");
@@ -238,9 +238,10 @@ export const DFA_CASE_STUDY = {
           ],
           image: {
             src: COMPONENTS_UI,
-            alt: "UI components for Discover projects and impact and Join get involved, including Our Mission, Featured Projects, Join us now, and Join now",
-            caption: "Discover and Join UI Pieces",
-            wide: true
+            alt: "Discover projects and impact collage with Our Mission and Featured Projects, plus Join get involved CTAs for interest form, WhatsApp, and Join now",
+            caption: "Discover and Join UI pieces",
+            wide: true,
+            borderless: true
           }
         },
         {

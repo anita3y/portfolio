@@ -545,7 +545,8 @@ function TextBlock({ block }) {
             "cs-media-single",
             block.image.wide && "cs-media--wide",
             block.image.narrow && "cs-media--narrow",
-            block.image.page && "cs-media--page"
+            block.image.page && "cs-media--page",
+            block.image.borderless && "cs-media--borderless"
           ]
             .filter(Boolean)
             .join(" ")}

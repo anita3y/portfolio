@@ -7246,6 +7246,12 @@ a.about-browser__url:hover .about-browser__url-text {
   object-fit: contain;
 }
 
+.cs-media--borderless .cs-figure img {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+}
+
 .cs-videos {
   display: grid;
   gap: 1.25rem;
