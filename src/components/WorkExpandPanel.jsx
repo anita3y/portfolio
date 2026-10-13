@@ -29,6 +29,26 @@ export default function WorkExpandPanel({ workId, onClose, onSelectTab, onNaviga
     };
   }, [study, onClose]);
 
+  useEffect(() => {
+    if (!study || !workId) return undefined;
+
+    const hash = window.location.hash?.replace(/^#/, "");
+    if (!hash) return undefined;
+
+    const scrollToHash = () => {
+      const root = scrollRef.current;
+      const el = root?.querySelector(`#${CSS.escape(hash)}`);
+      if (!el) return false;
+      el.scrollIntoView({ block: "start", behavior: "auto" });
+      return true;
+    };
+
+    if (scrollToHash()) return undefined;
+
+    const timer = window.setTimeout(scrollToHash, 120);
+    return () => window.clearTimeout(timer);
+  }, [study, workId]);
+
   if (!study) return null;
 
   return (

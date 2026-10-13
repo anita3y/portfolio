@@ -115,9 +115,12 @@ export default function Home() {
   useEffect(() => {
     if (requestedTab) {
       setActiveTab(requestedTab);
-      setOpenWorkId(null);
+      // Keep deep-linked case studies open (e.g. /work/design-for-america).
+      if (!location.state?.openWork) {
+        setOpenWorkId(null);
+      }
     }
-  }, [requestedTab]);
+  }, [requestedTab, location.state?.openWork]);
 
   useEffect(() => {
     let frame = 0;
