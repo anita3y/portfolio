@@ -9,6 +9,9 @@ const PHOTO_BILL_WEIR = assetUrl("/case-studies/wac/photos/bill-weir.png");
 const PHOTO_POLAROID_PAIR = assetUrl("/case-studies/wac/photos/polaroid-pair.png");
 const REGISTRATION_MAP = assetUrl("/case-studies/wac/registration-map.png");
 const KEY_FLOWS = assetUrl("/case-studies/wac/key-flows.png");
+const COMPETITIVE_SCAN = assetUrl("/case-studies/wac/competitive-scan.png");
+const SHEETS_DB_VS_UI = assetUrl("/case-studies/wac/sheets-db-vs-ui.png");
+const PHYSICAL_OUTPUTS = assetUrl("/case-studies/wac/physical-outputs.png");
 const MOBILE_CHECK_IN = assetUrl("/case-studies/wac/mobile-check-in.png");
 const UNIFIED_RECORD = assetUrl("/case-studies/wac/unified-attendee-record.png");
 const STATUS_TAGS = assetUrl("/case-studies/wac/status-tags.png");
@@ -21,7 +24,7 @@ const DEMO_ADMIN_CHECK_PENDING = assetUrl("/case-studies/wac/demos/admin-check-p
 const PRODUCT_BENTO = {
   poster: {
     src: BENTO_POSTER,
-    alt: "World Affairs Conference 2025 poster — to the future"
+    alt: "World Affairs Conference 2025 poster: to the future"
   },
   desktop: {
     src: BENTO_DESKTOP,
@@ -69,7 +72,7 @@ export const WAC_CASE_STUDY = {
   heroSlides: [
     {
       src: BANNER,
-      alt: "World Affairs Conference 2025 — poster, about-the-theme card, and desktop dashboard"
+      alt: "World Affairs Conference 2025: poster, about-the-theme card, and desktop dashboard"
     }
   ],
   heroAspectRatio: "3960 / 1359",
@@ -136,7 +139,7 @@ export const WAC_CASE_STUDY = {
             },
             {
               src: PHOTO_POLAROID_PAIR,
-              alt: "Overlapping Polaroids from WAC 2025 — keynote stage conversation and smiling attendees"
+              alt: "Overlapping Polaroids from WAC 2025: keynote stage conversation and smiling attendees"
             }
           ]
         }
@@ -149,14 +152,14 @@ export const WAC_CASE_STUDY = {
       id: "research",
       title: "research",
       summary:
-        "I talked to organizers, volunteers, attendees, and faculty advisors—and one quote reframed the entire project.",
+        "I talked to organizers, volunteers, attendees, and faculty advisors, and one quote reframed the entire project.",
       blocks: [
         {
           heading: "Who I talked to",
           bullets: [
             "Organizers described the week before the conference as the most stressful part of planning.",
             "Volunteers said they never felt fully confident at the registration table.",
-            "Attendees mostly cared about speed—long lines killed the opening energy of the day.",
+            "Attendees mostly cared about speed. Long lines killed the opening energy of the day.",
             "Faculty advisors wanted a process that wouldn’t collapse when student leadership turned over."
           ]
         },
@@ -164,13 +167,13 @@ export const WAC_CASE_STUDY = {
           heading: "The quote that reshaped the project",
           paragraphs: [
             "“We don’t need a better spreadsheet. We need to trust that the person at the door has the same truth we have online.”",
-            "That line shifted the brief from “clean up registration forms” to “make online and day-of feel like one system”—and made handoff to next year’s team a first-class requirement."
+            "That line shifted the brief from “clean up registration forms” to “make online and day-of feel like one system,” and made handoff to next year’s team a first-class requirement."
           ]
         },
         {
           heading: "Process audit",
           paragraphs: [
-            "I mapped how registration actually worked—not how it was supposed to work—from sign-up through confirmation, arrival, and session access."
+            "I mapped how registration actually worked, not how it was supposed to work, from sign-up through confirmation, arrival, and session access."
           ],
           image: {
             src: REGISTRATION_MAP,
@@ -182,7 +185,7 @@ export const WAC_CASE_STUDY = {
         {
           heading: "Key insights",
           bullets: [
-            "Trust matters as much as speed—volunteers need to believe the system is right.",
+            "Trust matters as much as speed. Volunteers need to believe the system is right.",
             "Physical and digital have to feel like one experience, not two separate workflows.",
             "The best system is the one the next team will actually maintain."
           ]
@@ -193,21 +196,25 @@ export const WAC_CASE_STUDY = {
       id: "competitive",
       title: "competitive & analog research",
       summary:
-        "I looked at how other conferences, hackathons, and event platforms handle check-in—and what student organizers can actually sustain.",
+        "I looked at how other conferences, hackathons, and event platforms handle check-in, and what student organizers can actually sustain.",
       blocks: [
         {
           heading: "What I looked at",
           paragraphs: [
-            "[Placeholder — copy/visual] Competitive and analog scan across student conferences, hackathons, and tools like Eventbrite, Grip, and custom Notion/Airtable setups. Swap in the final research board and annotated takeaways when visuals are ready."
+            "I scanned student conferences, hackathons, and tools like Eventbrite, Grip, and custom Notion/Airtable setups. I cared less about feature lists and more about what a volunteer can run at a noisy door with ten minutes of training."
           ],
-          layout: "wireframes",
-          placeholder: "[Placeholder — visual] Competitive / analog research board"
+          image: {
+            src: COMPETITIVE_SCAN,
+            alt: "Competitive and analog research scan across event platforms, student events, and DIY stacks with takeaways for WAC",
+            caption: "Platforms, student events, and DIY stacks filtered for what WAC can actually sustain",
+            wide: true
+          }
         },
         {
           heading: "Patterns that transferred",
           bullets: [
             "One attendee record, multiple views (admin vs door staff).",
-            "Status that is obvious at a glance—paid, pending, checked in, walk-in.",
+            "Status that is obvious at a glance: paid, pending, checked in, walk-in.",
             "Mobile-first door tools with large tap targets and forgiving search.",
             "Printed backups generated from the same source of truth, not a parallel list."
           ]
@@ -226,7 +233,7 @@ export const WAC_CASE_STUDY = {
       id: "why-not-sheets",
       title: "why not google sheets?",
       summary:
-        "Sheets already lived in the workflow. The question was whether the pain was the tool—or the lack of a shared mental model around it.",
+        "Sheets already lived in the workflow. The question was whether the pain was the tool, or the lack of a shared mental model around it.",
       blocks: [
         {
           heading: "What Sheets was already doing well",
@@ -248,9 +255,14 @@ export const WAC_CASE_STUDY = {
         {
           heading: "The decision",
           paragraphs: [
-            "I didn’t throw Sheets away as a backend idea—I stopped asking volunteers to use a spreadsheet as a check-in UI. The redesign keeps a structured attendee record (exportable, auditable) and gives organizers and door staff purpose-built views on top of it.",
-            "[Placeholder — diagram] Optional: simple “Sheets as database vs Sheets as interface” comparison visual."
-          ]
+            "I didn’t throw Sheets away as a backend idea. I stopped asking volunteers to use a spreadsheet as a check-in UI. The redesign keeps a structured attendee record (exportable, auditable) and gives organizers and door staff purpose-built views on top of it."
+          ],
+          image: {
+            src: SHEETS_DB_VS_UI,
+            alt: "Comparison diagram of Sheets used as a check-in interface versus Sheets used as structured storage with purpose-built views",
+            caption: "Sheets as database, not as the door UI",
+            wide: true
+          }
         }
       ]
     },
@@ -258,7 +270,7 @@ export const WAC_CASE_STUDY = {
       id: "process",
       title: "design process",
       summary:
-        "I focused on end-to-end flows first—registration, admin review, and on-site check-in—before polishing individual screens.",
+        "I focused on end-to-end flows first (registration, admin review, and on-site check-in) before polishing individual screens.",
       blocks: [
         {
           heading: "Key flows",
@@ -299,16 +311,16 @@ export const WAC_CASE_STUDY = {
       id: "mobile-check-in",
       title: "mobile check-in",
       summary:
-        "A door experience designed for noise, crowds, and zero patience—search, confirm, mark arrived.",
+        "A door experience designed for noise, crowds, and zero patience: search, confirm, mark arrived.",
       blocks: [
         {
           paragraphs: [
-            "Volunteers needed a phone-friendly view: search by name, filter by status, expand a record, and mark arrived—or scan a QR code at the door. Legibility and large tap targets mattered more than density."
+            "Volunteers needed a phone-friendly view: search by name, filter by status, expand a record, and mark arrived, or scan a QR code at the door. Legibility and large tap targets mattered more than density."
           ],
           image: {
             src: MOBILE_CHECK_IN,
             alt: "Four iPhone wireframes showing check-in list with All, search, Checked in, and Not Arrived filter states",
-            caption: "Mobile check-in — search, filter, and one-tap arrival",
+            caption: "Mobile check-in: search, filter, and one-tap arrival",
             wide: true
           }
         },
@@ -320,7 +332,7 @@ export const WAC_CASE_STUDY = {
             {
               src: DEMO_ADMIN_TAGS,
               alt: "Organizer filtering the attendee list by status tags",
-              caption: "Status tags — filter by checked in, pending, and more"
+              caption: "Status tags: filter by checked in, pending, and more"
             }
           ]
         },
@@ -331,14 +343,14 @@ export const WAC_CASE_STUDY = {
             {
               src: DEMO_ADMIN_CHECK_PENDING,
               alt: "Organizer reviewing check-in progress and pending attendees",
-              caption: "Check-in progress — see who’s arrived vs. still pending"
+              caption: "Check-in progress: see who’s arrived vs. still pending"
             }
           ]
         },
         {
           heading: "Volunteer check-in",
           paragraphs: [
-            "At the event, volunteers use a simplified interface: search a name, confirm details, mark arrived. This runs on a laptop or phone at a crowded table—not in a quiet office."
+            "At the event, volunteers use a simplified interface: search a name, confirm details, mark arrived. This runs on a laptop or phone at a crowded table, not in a quiet office."
           ],
           layout: "videos",
           videoVariant: "desktop",
@@ -346,7 +358,7 @@ export const WAC_CASE_STUDY = {
             {
               src: DEMO_CHECKIN_OMAR,
               alt: "Volunteer searching for Omar and marking them as checked in on desktop",
-              caption: "Check someone in — search, confirm, mark arrived"
+              caption: "Check someone in: search, confirm, mark arrived"
             }
           ]
         },
@@ -359,7 +371,7 @@ export const WAC_CASE_STUDY = {
             {
               src: DEMO_PHONE,
               alt: "Full mobile check-in demo showing search, status filters, and QR scan",
-              caption: "Mobile check-in — search, filter, and scan"
+              caption: "Mobile check-in: search, filter, and scan"
             }
           ]
         }
@@ -369,7 +381,7 @@ export const WAC_CASE_STUDY = {
       id: "physical-identity",
       title: "physical identity",
       summary:
-        "Badges, posters, and wayfinding built from the same attendee data—so the hallway matches the dashboard.",
+        "Badges, posters, and wayfinding built from the same attendee data, so the hallway matches the dashboard.",
       blocks: [
         {
           heading: "Same data, physical outputs",
@@ -377,21 +389,31 @@ export const WAC_CASE_STUDY = {
             "Name badges and dietary indicators generated from the unified attendee record.",
             "Door lists and session signs that don’t require a separate manual export ritual.",
             "Wayfinding and check-in signage that reuse the same status language as the digital UI."
-          ]
+          ],
+          image: {
+            src: PHYSICAL_OUTPUTS,
+            alt: "Diagram showing attendee record fields flowing into name badges, posters and signs, and door backup lists",
+            caption: "One record feeds badges, signs, and door backups",
+            wide: true
+          }
         },
         {
           heading: "Badge & print system",
           paragraphs: [
-            "[Placeholder — visual] Badge mockups, poster set, and wayfinding samples tied to registration fields (name, school, role, dietary tags). Replace with final print comps when ready."
+            "The 2025 poster and print pieces pull from the same attendee fields as the dashboard: name, school, role, dietary tags. Badges and door lists should not be a second spreadsheet someone rebuilds the night before."
           ],
-          layout: "wireframes",
-          placeholder: "[Placeholder — visual] Badges, posters, and wayfinding"
+          image: {
+            src: BENTO_POSTER,
+            alt: "World Affairs Conference 2025 poster: to the future",
+            caption: "WAC 2025 poster from the same visual system",
+            wide: true
+          }
         },
         {
           heading: "Physical × digital bridge",
           bullets: [
             "QR or confirmation codes tie online registration to on-site lookup.",
-            "Printed backup lists auto-generate from the same data source—no parallel manual list.",
+            "Printed backup lists auto-generate from the same data source. No parallel manual list.",
             "Status changes at check-in sync back so session leads know who’s in the building."
           ]
         }
@@ -401,7 +423,7 @@ export const WAC_CASE_STUDY = {
       id: "reflection",
       title: "reflection",
       summary:
-        "Good event product design is mostly about reducing anxiety—for organizers, volunteers, and attendees.",
+        "Good event product design is mostly about reducing anxiety for organizers, volunteers, and attendees.",
       blocks: [
         {
           heading: "Results",
@@ -417,14 +439,13 @@ export const WAC_CASE_STUDY = {
           bullets: [
             "Earlier testing with real volunteers using mock check-in scenarios.",
             "Offline fallback for spotty venue Wi-Fi.",
-            "Automated reminder emails tied directly to registration status.",
-            "[Placeholder — metrics] Add post-event quantitative outcomes when available."
+            "Automated reminder emails tied directly to registration status."
           ]
         },
         {
           heading: "Lessons learned",
           bullets: [
-            "Systems design shows up in unglamorous tools—spreadsheets, check-in screens, export buttons.",
+            "Systems design shows up in unglamorous tools: spreadsheets, check-in screens, export buttons.",
             "Designing for volunteers means designing for distraction, noise, and zero patience for ambiguity.",
             "The physical event is the moment of truth; everything before it exists to make that moment smooth."
           ]
