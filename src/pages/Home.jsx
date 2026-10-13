@@ -168,7 +168,7 @@ export default function Home() {
       if (location.pathname !== nextPath) {
         navigate(nextPath, { replace: false });
       }
-      if (id === "about" || id === "seiton") {
+      if (id === "about" || id === "writings") {
         window.requestAnimationFrame(() => {
           document.querySelector(".chrome-sticky")?.scrollIntoView({
             behavior: "smooth",
@@ -277,8 +277,8 @@ export default function Home() {
             ? " chrome-sticky--play"
             : activeTab === "about"
               ? " chrome-sticky--about"
-              : activeTab === "seiton"
-                ? " chrome-sticky--seiton"
+              : activeTab === "writings"
+                ? " chrome-sticky--writings"
                 : ""
         }`}
       >
@@ -313,8 +313,8 @@ export default function Home() {
         className={`tab-panel${
           activeTab === "about"
             ? " tab-panel--about"
-            : activeTab === "seiton"
-              ? " tab-panel--seiton"
+            : activeTab === "writings"
+              ? " tab-panel--writings"
               : ""
         }`}
         id={`panel-${activeTab}`}
@@ -352,7 +352,7 @@ export default function Home() {
           />
         )}
 
-        {activeTab === "seiton" && <WritingsFinder />}
+        {activeTab === "writings" && <WritingsFinder />}
 
         {activeTab === "about" && <AboutPanel />}
       </section>
