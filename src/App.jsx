@@ -11,7 +11,8 @@ export default function App() {
       <Route path="/work" element={<Home />} />
       <Route path="/play" element={<Home />} />
       <Route path="/about" element={<Home />} />
-      <Route path="/seiton" element={<Home />} />
+      <Route path="/writings" element={<Home />} />
+      <Route path="/seiton" element={<Navigate to="/writings" replace />} />
       <Route path="/work/:workId" element={<WorkDeepLink />} />
       <Route path="/play/:playId" element={<PlayDeepLink />} />
       <Route path="/vanity/onboarding" element={<VanityOnboardingDemo />} />

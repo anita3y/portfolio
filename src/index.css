@@ -2828,19 +2828,6 @@ button:focus-visible {
   perspective: 900px;
 }
 
-.about-id-card__arrow {
-  position: absolute;
-  z-index: 8;
-  top: 0.15rem;
-  left: max(0.5rem, calc(50% - min(17rem, 44vw) - 3.2rem));
-  width: min(5.6rem, 18vw);
-  height: auto;
-  transform: rotate(118deg);
-  pointer-events: none;
-  user-select: none;
-}
-
-
 .about-id-card {
   position: relative;
   width: min(34rem, 88vw);
@@ -9470,19 +9457,19 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 
-/* Four-tab nav (work / play / about / seiton) */
+/* Four-tab nav (work / play / about / writings) */
 .tabs--select.tabs--count-4 {
   --tabs-count: 4;
   width: 22.5rem;
 }
 
-.chrome-sticky--seiton {
+.chrome-sticky--writings {
   top: 0.7rem;
   padding-bottom: 0.35rem;
   background: transparent;
 }
 
-.tab-panel--seiton {
+.tab-panel--writings {
   margin-top: 5rem;
   flex: 1 1 auto;
   min-height: min(32rem, 62svh);
@@ -9493,14 +9480,8 @@ a.about-browser__url:hover .about-browser__url-text {
     width: min(22.5rem, 100%);
   }
 
-  .tab-panel--seiton {
+  .tab-panel--writings {
     margin-top: 3.75rem;
-  }
-
-  .about-id-card__arrow {
-    left: 0.35rem;
-    width: min(4.6rem, 22vw);
-    top: 0.05rem;
   }
 }
 
