@@ -51,6 +51,9 @@ function resolveOpenPlay(openPlay) {
   if (openPlay === "sticker-collection") {
     return { artifactId: "sticker-sheet", carouselId: null };
   }
+  if (openPlay === "poster-designs") {
+    return { artifactId: "posters", carouselId: null };
+  }
   if (playIds.has(openPlay)) {
     return { artifactId: "carousel", carouselId: openPlay };
   }

@@ -89,7 +89,8 @@ function PlayVideoEmbed({ project, study }) {
   );
 }
 
-export function PlayPicker({ projects, selectedId, onSelect }) {
+/** Cover-flow picker. Items need `{ id, cover, title, artist? }`. */
+export function PlayPicker({ projects, selectedId, onSelect, ariaLabel = "Play covers" }) {
   const reducedMotion = usePrefersReducedMotion();
   const selectedIndex = Math.max(
     0,
@@ -225,7 +226,7 @@ export function PlayPicker({ projects, selectedId, onSelect }) {
           className="play-flow"
           tabIndex={0}
           role="listbox"
-          aria-label="Play case studies"
+          aria-label={ariaLabel}
           aria-activedescendant={`play-cover-${selected.id}`}
           onPointerDown={onStagePointerDown}
         >
@@ -247,18 +248,28 @@ export function PlayPicker({ projects, selectedId, onSelect }) {
               <span className="play-flow__lift">
                 <img src={project.cover} alt="" draggable={false} />
               </span>
-              <span className="visually-hidden">{project.title}</span>
+              <span className="visually-hidden">
+                {project.title}
+                {project.artist ? ` — ${project.artist}` : ""}
+              </span>
             </button>
           );
         })}
         </div>
       </div>
 
+      {selected && "artist" in selected ? (
+        <div className="play-picker__meta" aria-live="polite">
+          <p className="play-picker__title">{selected.title}</p>
+          <p className="play-picker__artist">{selected.artist}</p>
+        </div>
+      ) : null}
+
       <div
         ref={scrubberRef}
         className="play-scrubber"
         role="tablist"
-        aria-label="Case study position"
+        aria-label="Cover position"
         onPointerDown={onScrubberPointerDown}
       >
         {projects.map((project) => {
@@ -269,7 +280,9 @@ export function PlayPicker({ projects, selectedId, onSelect }) {
               type="button"
               role="tab"
               aria-selected={isSelected}
-              aria-label={project.title}
+              aria-label={
+                project.artist ? `${project.title} by ${project.artist}` : project.title
+              }
               className={`play-scrubber__tick${isSelected ? " is-selected" : ""}`}
               onClick={() => onSelect(project.id)}
               data-cursor-hover=""

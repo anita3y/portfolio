@@ -33,28 +33,6 @@ export const WORK_PROJECTS = [
     theme: "dfa"
   },
   {
-    id: "poster-designs",
-    title: "Poster Designs",
-    headline: "Poster Designs",
-    company: "Personal",
-    status: "Exploration",
-    year: "2026",
-    tags: ["Visual design", "Posters"],
-    href: "#",
-    thumbnailSlides: [
-      assetUrl("/thumbnails/poster-designs/frame-01.png"),
-      assetUrl("/thumbnails/poster-designs/frame-02.png"),
-      assetUrl("/thumbnails/poster-designs/frame-03.png"),
-      assetUrl("/thumbnails/poster-designs/frame-04.png"),
-      assetUrl("/thumbnails/poster-designs/frame-05.png"),
-      assetUrl("/thumbnails/poster-designs/frame-06.png"),
-      assetUrl("/thumbnails/poster-designs/frame-07.png")
-    ],
-    thumbnailSlideInterval: 380,
-    thumbnailSlideOnHover: true,
-    theme: "poster-designs"
-  },
-  {
     id: "vanity-beauty",
     title: "Vanity Beauty App",
     headline: "Low-friction onboarding for iOS app",

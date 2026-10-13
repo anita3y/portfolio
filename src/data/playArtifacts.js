@@ -1,5 +1,6 @@
 import { assetUrl } from "../utils/assetUrl.js";
-import { PLAY_PROJECTS } from "./projects.js";
+import { CAROUSEL_ALBUMS } from "./play/carousel-albums.js";
+import { POSTER_FRAMES } from "./play/posters.js";
 
 /** Individual Play page entries — easy to append more later. */
 export const PLAY_ARTIFACTS = [
@@ -8,11 +9,10 @@ export const PLAY_ARTIFACTS = [
     title: "Carousel",
     kind: "carousel",
     size: "wide",
-    /** Cover stack for the thumbnail collage (placeholder until real thumbs). */
-    covers: PLAY_PROJECTS.filter((p) => p.cover).map((p) => ({
-      id: p.id,
-      src: p.cover,
-      title: p.title
+    covers: CAROUSEL_ALBUMS.map((album) => ({
+      id: album.id,
+      src: album.cover,
+      title: album.title
     }))
   },
   {
@@ -21,6 +21,14 @@ export const PLAY_ARTIFACTS = [
     kind: "stickers",
     size: "tall",
     thumbnail: assetUrl("/thumbnails/play/sticker-collection.png") + "?v=4"
+  },
+  {
+    id: "posters",
+    title: "Posters",
+    kind: "posters",
+    size: "md",
+    thumbnail: POSTER_FRAMES[0]?.src,
+    thumbnailSlides: POSTER_FRAMES.map((frame) => frame.src)
   }
 ];
 

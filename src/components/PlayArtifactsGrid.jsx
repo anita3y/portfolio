@@ -1,6 +1,82 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const MAX_TILT = 5;
+
+function ArtifactThumbMedia({ artifact, hovering }) {
+  const slides = artifact.thumbnailSlides?.length ? artifact.thumbnailSlides : null;
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  useEffect(() => {
+    if (!slides || !hovering) {
+      setSlideIndex(0);
+      return undefined;
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+
+    let intervalId;
+    const startId = window.setTimeout(() => {
+      setSlideIndex(1 % slides.length);
+      intervalId = window.setInterval(() => {
+        setSlideIndex((current) => (current + 1) % slides.length);
+      }, 380);
+    }, 50);
+
+    return () => {
+      window.clearTimeout(startId);
+      window.clearInterval(intervalId);
+    };
+  }, [slides, hovering]);
+
+  if (artifact.kind === "carousel") {
+    return (
+      <span className="play-artifact__collage" aria-hidden="true">
+        {(artifact.covers ?? []).slice(0, 4).map((cover, index) => (
+          <img
+            key={cover.id}
+            className={`play-artifact__collage-img play-artifact__collage-img--${index}`}
+            src={cover.src}
+            alt=""
+            draggable={false}
+          />
+        ))}
+      </span>
+    );
+  }
+
+  if (slides) {
+    return (
+      <span className="play-artifact__slides" aria-hidden="true">
+        {slides.map((src, index) => (
+          <img
+            key={src}
+            className={[
+              "play-artifact__slide",
+              index === slideIndex && "is-active"
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            src={src}
+            alt=""
+            draggable={false}
+          />
+        ))}
+      </span>
+    );
+  }
+
+  if (artifact.thumbnail) {
+    return (
+      <img
+        className="play-artifact__img"
+        src={artifact.thumbnail}
+        alt=""
+        draggable={false}
+      />
+    );
+  }
+
+  return <span className="play-artifact__placeholder" aria-hidden="true" />;
+}
 
 function ArtifactThumb({ artifact, onOpen }) {
   const wrapRef = useRef(null);
@@ -46,28 +122,7 @@ function ArtifactThumb({ artifact, onOpen }) {
           })`
         }}
       >
-        {artifact.kind === "carousel" ? (
-          <span className="play-artifact__collage" aria-hidden="true">
-            {(artifact.covers ?? []).slice(0, 4).map((cover, index) => (
-              <img
-                key={cover.id}
-                className={`play-artifact__collage-img play-artifact__collage-img--${index}`}
-                src={cover.src}
-                alt=""
-                draggable={false}
-              />
-            ))}
-          </span>
-        ) : artifact.thumbnail ? (
-          <img
-            className="play-artifact__img"
-            src={artifact.thumbnail}
-            alt=""
-            draggable={false}
-          />
-        ) : (
-          <span className="play-artifact__placeholder" aria-hidden="true" />
-        )}
+        <ArtifactThumbMedia artifact={artifact} hovering={tilt.hovering} />
       </span>
       <span className="play-artifact__label">{artifact.title}</span>
     </button>

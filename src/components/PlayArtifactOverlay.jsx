@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { PLAY_PROJECTS } from "../data/projects.js";
+import {
+  CAROUSEL_ALBUMS,
+  CAROUSEL_START_ID,
+  getCarouselAlbum
+} from "../data/play/carousel-albums.js";
 import { getPlayArtifact } from "../data/playArtifacts.js";
 import { PlayPicker } from "./PlayStage.jsx";
+import PosterArtifactViewer from "./PosterArtifactViewer.jsx";
 import StickerPlayground from "./StickerPlayground.jsx";
 
 export default function PlayArtifactOverlay({
@@ -10,12 +16,12 @@ export default function PlayArtifactOverlay({
   initialCarouselId
 }) {
   const artifact = getPlayArtifact(artifactId);
-  const [carouselId, setCarouselId] = useState(
-    () =>
-      initialCarouselId ??
-      PLAY_PROJECTS.find((p) => !p.displayOnly)?.id ??
-      PLAY_PROJECTS[0]?.id
-  );
+  const [carouselId, setCarouselId] = useState(() => {
+    if (initialCarouselId && getCarouselAlbum(initialCarouselId)) {
+      return initialCarouselId;
+    }
+    return CAROUSEL_START_ID;
+  });
 
   useEffect(() => {
     if (!artifact) return undefined;
@@ -37,7 +43,9 @@ export default function PlayArtifactOverlay({
   }, [artifact, onClose]);
 
   useEffect(() => {
-    if (initialCarouselId) setCarouselId(initialCarouselId);
+    if (initialCarouselId && getCarouselAlbum(initialCarouselId)) {
+      setCarouselId(initialCarouselId);
+    }
   }, [initialCarouselId]);
 
   if (!artifact) return null;
@@ -80,14 +88,18 @@ export default function PlayArtifactOverlay({
         <div className="play-artifact-overlay__body">
           {artifact.kind === "carousel" ? (
             <PlayPicker
-              projects={PLAY_PROJECTS}
+              projects={CAROUSEL_ALBUMS}
               selectedId={carouselId}
               onSelect={setCarouselId}
+              ariaLabel="Album covers"
             />
           ) : null}
           {artifact.kind === "stickers" ? (
-            <StickerPlayground project={stickerProject} demoOnly />
+            <div className="play-artifact-overlay__stickers-pad">
+              <StickerPlayground project={stickerProject} demoOnly />
+            </div>
           ) : null}
+          {artifact.kind === "posters" ? <PosterArtifactViewer /> : null}
         </div>
       </div>
     </div>

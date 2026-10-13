@@ -5457,10 +5457,11 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .cs-details__label {
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 18px;
   line-height: 1.08;
   text-transform: lowercase;
+  color: #000000;
 }
 
 .cs-details__value {
@@ -10241,7 +10242,7 @@ body.is-finder-dragging {
   border-radius: 0.85rem;
   box-shadow: 0 10px 24px rgba(28, 30, 38, 0.16);
   object-fit: cover;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
   background: #fff;
 }
 
@@ -10309,10 +10310,13 @@ body.is-finder-dragging {
 }
 
 .play-artifact-overlay__sheet {
+  --play-overlay-w: min(94vw, 56rem);
+  --play-overlay-h: min(86vh, 42rem);
   position: relative;
   z-index: 1;
-  width: min(92vw, 52rem);
-  max-height: min(86vh, 44rem);
+  width: var(--play-overlay-w);
+  height: var(--play-overlay-h);
+  max-height: var(--play-overlay-h);
   display: flex;
   flex-direction: column;
   border-radius: 1.25rem;
@@ -10324,16 +10328,6 @@ body.is-finder-dragging {
   overflow: hidden;
   pointer-events: auto;
   animation: play-artifact-overlay-enter 0.55s cubic-bezier(0.33, 1.06, 0.42, 1) both;
-}
-
-.play-artifact-overlay__sheet--carousel {
-  width: min(96vw, 58rem);
-  max-height: min(88vh, 40rem);
-}
-
-.play-artifact-overlay__sheet--stickers {
-  width: min(94vw, 48rem);
-  max-height: min(88vh, 46rem);
 }
 
 @keyframes play-artifact-overlay-enter {
@@ -10348,25 +10342,33 @@ body.is-finder-dragging {
 }
 
 .play-artifact-overlay__chrome {
+  position: relative;
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
-  padding: 0.7rem 0.85rem 0.6rem;
-  border-bottom: 1px solid rgba(200, 204, 214, 0.4);
-  background: rgba(255, 255, 255, 0.78);
+  min-height: 2.85rem;
+  padding: 0.7rem 3rem 0.55rem;
+  border-bottom: none;
+  background: transparent;
 }
 
 .play-artifact-overlay__label {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: lowercase;
   color: #8a8b96;
+  text-align: center;
 }
 
 .play-artifact-overlay__close {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
   width: 2rem;
   height: 2rem;
   border: none;
@@ -10387,28 +10389,168 @@ body.is-finder-dragging {
   min-height: 0;
   overflow: auto;
   overscroll-behavior: contain;
-  padding: 1rem 0.75rem 1.35rem;
-}
-
-.play-artifact-overlay__sheet--carousel .play-artifact-overlay__body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem 0.5rem 1.75rem;
+  padding: 0.85rem 1rem 1.35rem;
+}
+
+.play-artifact-overlay__sheet--carousel .play-artifact-overlay__body {
   overflow: hidden;
+  padding: 0.5rem 0.25rem 1.15rem;
 }
 
 .play-artifact-overlay__sheet--carousel .play-picker {
   width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  transform: none;
+}
+
+.play-artifact-overlay__sheet--carousel .play-flow-clip {
   margin: 0;
+}
+
+.play-artifact-overlay__sheet--carousel .play-flow {
+  margin: 0 auto;
+}
+
+.play-picker__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  margin: 0.85rem 0 0.55rem;
+  text-align: center;
+}
+
+.play-picker__title,
+.play-picker__artist {
+  margin: 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.25;
+}
+
+.play-picker__title {
+  color: #000000;
+}
+
+.play-picker__artist {
+  color: #8a8b96;
+}
+
+/* Sticker board keeps its own size; sheet gains margin around it */
+.play-artifact-overlay__stickers-pad {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.75rem, 2.5vh, 1.5rem) clamp(1rem, 3vw, 2rem);
+  box-sizing: border-box;
 }
 
 .play-artifact-overlay__sheet--stickers .play-embed--stickers-demo {
   margin: 0;
+  width: min(100%, 40rem);
 }
 
 .play-artifact-overlay__sheet--stickers .play-embed--stickers-demo .sticker-board {
   margin: 0 auto;
+  width: 100%;
+  min-height: min(52vh, 28rem);
+  height: min(52vh, 28rem);
+  background-size: var(--sticker-dot) var(--sticker-dot);
+}
+
+.poster-artifact {
+  width: min(100%, 36rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.poster-artifact__stage {
+  width: 100%;
+  aspect-ratio: 1024 / 672;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #000;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.poster-artifact__stage:active {
+  cursor: grabbing;
+}
+
+.poster-artifact__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+}
+
+.poster-artifact__scrubber {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+}
+
+.poster-artifact__tick {
+  width: 0.55rem;
+  height: 0.18rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(120, 124, 136, 0.35);
+  cursor: pointer;
+}
+
+.poster-artifact__tick.is-selected {
+  background: rgba(40, 42, 50, 0.85);
+}
+
+.play-artifact__collage-img {
+  aspect-ratio: 1 / 1;
+}
+
+.play-artifact__slides {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: #000;
+}
+
+.play-artifact__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.play-artifact__slide.is-active {
+  opacity: 1;
+}
+
+.play-artifacts__cell--md {
+  grid-column: span 5;
+  grid-row: span 1;
+}
+
+.play-artifact--md .play-artifact__lift {
+  min-height: 12.5rem;
 }
 
 @media (max-width: 880px) {
@@ -10426,7 +10568,8 @@ body.is-finder-dragging {
   }
 
   .play-artifact--wide .play-artifact__lift,
-  .play-artifact--tall .play-artifact__lift {
+  .play-artifact--tall .play-artifact__lift,
+  .play-artifact--md .play-artifact__lift {
     min-height: 14rem;
   }
 
@@ -10435,10 +10578,9 @@ body.is-finder-dragging {
     padding: 0;
   }
 
-  .play-artifact-overlay__sheet,
-  .play-artifact-overlay__sheet--carousel,
-  .play-artifact-overlay__sheet--stickers {
+  .play-artifact-overlay__sheet {
     width: 100%;
+    height: min(90vh, 42rem);
     max-height: 90vh;
     border-radius: 1.35rem 1.35rem 0 0;
   }
