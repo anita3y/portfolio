@@ -2918,23 +2918,13 @@ button:focus-visible {
   user-select: none;
 }
 
-/* Connect sticky + contact links (kept from prior About; not scrapbook chrome) */
+/* Contact links under letter (post-it sticky removed) */
 .about-letter__connect {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.85rem;
   margin: 2.4rem 0 0;
-}
-
-.about-letter__note {
-  display: block;
-  width: min(13.5rem, 52%);
-  height: auto;
-  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.08));
-  pointer-events: none;
-  user-select: none;
-  transform: rotate(-3deg);
 }
 
 .about-letter__links {
@@ -2955,10 +2945,6 @@ button:focus-visible {
 @media (max-width: 640px) {
   .about-letter__connect {
     align-items: center;
-  }
-
-  .about-letter__note {
-    width: min(12rem, 58%);
   }
 
   .about-letter__links {
@@ -10132,3 +10118,340 @@ body.is-finder-dragging {
 }
 
 
+
+/* ——— Play artifacts grid (mixed sizes) ——— */
+.play-artifacts {
+  --play-artifact-gap: clamp(1.1rem, 2.4vw, 1.75rem);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: minmax(11rem, auto);
+  gap: var(--play-artifact-gap);
+  width: min(100%, 68rem);
+  margin: 0.35rem auto 3.5rem;
+  padding: 0.5rem clamp(0.85rem, 3vw, 1.5rem) 1.5rem;
+}
+
+.play-artifacts__cell--wide {
+  grid-column: span 7;
+  grid-row: span 2;
+}
+
+.play-artifacts__cell--tall {
+  grid-column: span 5;
+  grid-row: span 2;
+}
+
+.play-artifacts__cell--md {
+  grid-column: span 5;
+  grid-row: span 1;
+}
+
+.play-artifacts__cell--sm {
+  grid-column: span 4;
+  grid-row: span 1;
+}
+
+.play-artifact {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.65rem;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.play-artifact:focus-visible {
+  outline: none;
+}
+
+.play-artifact:focus-visible .play-artifact__lift {
+  outline: 2px solid rgba(74, 132, 184, 0.4);
+  outline-offset: 4px;
+}
+
+.play-artifact__lift {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 12rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: clamp(1.35rem, 3vw, 2rem);
+  background: #f3f4f7;
+  box-shadow:
+    0 1px 2px rgba(38, 42, 54, 0.04),
+    0 8px 22px rgba(38, 42, 54, 0.07);
+  transform-origin: center center;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+  will-change: transform;
+}
+
+.play-artifact.is-tilting .play-artifact__lift {
+  transition: transform 0.08s ease-out, box-shadow 0.2s ease;
+  box-shadow:
+    0 2px 4px rgba(38, 42, 54, 0.05),
+    0 14px 32px rgba(38, 42, 54, 0.1);
+}
+
+.play-artifact--wide .play-artifact__lift {
+  min-height: 18rem;
+}
+
+.play-artifact--tall .play-artifact__lift {
+  min-height: 18rem;
+}
+
+.play-artifact__img,
+.play-artifact__placeholder {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.play-artifact__placeholder {
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.9), transparent 45%),
+    linear-gradient(145deg, #e8eaef 0%, #d5d8e0 55%, #c7cad4 100%);
+}
+
+.play-artifact__collage {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: linear-gradient(160deg, #eceef3 0%, #dddfe6 100%);
+}
+
+.play-artifact__collage-img {
+  position: absolute;
+  width: 48%;
+  height: auto;
+  border-radius: 0.85rem;
+  box-shadow: 0 10px 24px rgba(28, 30, 38, 0.16);
+  object-fit: cover;
+  aspect-ratio: 3 / 4;
+  background: #fff;
+}
+
+.play-artifact__collage-img--0 {
+  left: 8%;
+  top: 14%;
+  transform: rotate(-8deg);
+  z-index: 2;
+}
+
+.play-artifact__collage-img--1 {
+  right: 10%;
+  top: 10%;
+  width: 42%;
+  transform: rotate(7deg);
+  z-index: 3;
+}
+
+.play-artifact__collage-img--2 {
+  left: 22%;
+  bottom: 8%;
+  width: 40%;
+  transform: rotate(3deg);
+  z-index: 4;
+}
+
+.play-artifact__collage-img--3 {
+  right: 16%;
+  bottom: 12%;
+  width: 36%;
+  transform: rotate(-4deg);
+  z-index: 1;
+  opacity: 0.92;
+}
+
+.play-artifact__label {
+  margin: 0 0.15rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  color: #4a4d58;
+}
+
+/* Hovering demo sheet over Play (not fullscreen Work expand) */
+.play-artifact-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  display: grid;
+  place-items: center;
+  padding: clamp(1.25rem, 4vh, 2.5rem) clamp(1rem, 4vw, 2rem);
+  pointer-events: none;
+}
+
+.play-artifact-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  background: rgba(228, 230, 236, 0.48);
+  backdrop-filter: blur(5px) saturate(1.02);
+  -webkit-backdrop-filter: blur(5px) saturate(1.02);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.play-artifact-overlay__sheet {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 52rem);
+  max-height: min(86vh, 44rem);
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.25rem;
+  background: rgba(252, 252, 254, 0.98);
+  border: 1px solid rgba(200, 204, 214, 0.5);
+  box-shadow:
+    0 28px 64px rgba(38, 42, 54, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  overflow: hidden;
+  pointer-events: auto;
+  animation: play-artifact-overlay-enter 0.55s cubic-bezier(0.33, 1.06, 0.42, 1) both;
+}
+
+.play-artifact-overlay__sheet--carousel {
+  width: min(96vw, 58rem);
+  max-height: min(88vh, 40rem);
+}
+
+.play-artifact-overlay__sheet--stickers {
+  width: min(94vw, 48rem);
+  max-height: min(88vh, 46rem);
+}
+
+@keyframes play-artifact-overlay-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.play-artifact-overlay__chrome {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0.85rem 0.6rem;
+  border-bottom: 1px solid rgba(200, 204, 214, 0.4);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.play-artifact-overlay__label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: #8a8b96;
+}
+
+.play-artifact-overlay__close {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: var(--pill-radius-sm, 999px);
+  background: rgba(236, 238, 244, 0.85);
+  color: #4e515c;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.play-artifact-overlay__close:hover {
+  background: rgba(228, 230, 236, 1);
+}
+
+.play-artifact-overlay__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 1rem 0.75rem 1.35rem;
+}
+
+.play-artifact-overlay__sheet--carousel .play-artifact-overlay__body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 0.5rem 1.75rem;
+  overflow: hidden;
+}
+
+.play-artifact-overlay__sheet--carousel .play-picker {
+  width: 100%;
+  margin: 0;
+}
+
+.play-artifact-overlay__sheet--stickers .play-embed--stickers-demo {
+  margin: 0;
+}
+
+.play-artifact-overlay__sheet--stickers .play-embed--stickers-demo .sticker-board {
+  margin: 0 auto;
+}
+
+@media (max-width: 880px) {
+  .play-artifacts {
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+  }
+
+  .play-artifacts__cell--wide,
+  .play-artifacts__cell--tall,
+  .play-artifacts__cell--md,
+  .play-artifacts__cell--sm {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .play-artifact--wide .play-artifact__lift,
+  .play-artifact--tall .play-artifact__lift {
+    min-height: 14rem;
+  }
+
+  .play-artifact-overlay {
+    place-items: end center;
+    padding: 0;
+  }
+
+  .play-artifact-overlay__sheet,
+  .play-artifact-overlay__sheet--carousel,
+  .play-artifact-overlay__sheet--stickers {
+    width: 100%;
+    max-height: 90vh;
+    border-radius: 1.35rem 1.35rem 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play-artifact__lift,
+  .play-artifact.is-tilting .play-artifact__lift {
+    transition: none;
+    transform: none !important;
+  }
+
+  .play-artifact-overlay__sheet {
+    animation: none;
+  }
+}
