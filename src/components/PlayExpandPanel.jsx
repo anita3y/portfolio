@@ -8,7 +8,7 @@ function PlayVideoOnlyPanel({ study, onClose }) {
     typeof study.heroVideo === "string" ? study.heroVideo : study.heroVideo?.src;
 
   useEffect(() => {
-    document.title = `${study.title} | anita yan`;
+    document.title = `${study.title} | Anita Yan`;
 
     const onKey = (event) => {
       if (event.key === "Escape") onClose();
@@ -23,7 +23,7 @@ function PlayVideoOnlyPanel({ study, onClose }) {
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
-      document.title = "anita yan | Portfolio";
+      document.title = "Anita Yan";
     };
   }, [study.title, onClose]);
 
@@ -88,7 +88,7 @@ export default function PlayExpandPanel({ playId, onClose, onSelectTab }) {
   useEffect(() => {
     if (!study || study.videoOnly) return undefined;
 
-    document.title = `${study.title} | anita yan`;
+    document.title = `${study.title} | Anita Yan`;
 
     const onKey = (event) => {
       if (event.key === "Escape") onClose();
@@ -100,7 +100,7 @@ export default function PlayExpandPanel({ playId, onClose, onSelectTab }) {
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
-      document.title = "anita yan | Portfolio";
+      document.title = "Anita Yan";
     };
   }, [study, onClose]);
 

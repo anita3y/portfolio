@@ -4,6 +4,7 @@ import AboutTags from "./AboutTags.jsx";
 import { assetUrl } from "../utils/assetUrl.js";
 
 const ID_CARD = assetUrl("/about/id-card.png");
+const ID_CARD_ARROW = assetUrl("/about/doodle-arrow-red.png");
 const SIGNATURE = assetUrl("/about/signature-anita.png");
 const CONNECT_NOTE = assetUrl("/about/letter/post-it.png");
 
@@ -42,6 +43,15 @@ function AboutIdCard() {
 
   return (
     <div className="about-id-card-wrap">
+      <img
+        className="about-id-card__arrow"
+        src={ID_CARD_ARROW}
+        alt=""
+        width={212}
+        height={144}
+        draggable={false}
+        aria-hidden="true"
+      />
       <div
         ref={wrapRef}
         className={`about-id-card${active ? " is-tilting" : ""}`}
@@ -76,7 +86,6 @@ export default function AboutPanel() {
       </div>
 
       <section className="about-letter" aria-label="About me">
-        <p className="about-letter__greeting">{ABOUT_LETTER.greeting}</p>
         {ABOUT_LETTER.paragraphs.map((paragraph) => (
           <p key={paragraph.slice(0, 32)} className="about-letter__p">
             {paragraph}

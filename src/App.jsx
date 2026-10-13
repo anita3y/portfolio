@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import PlayDeepLink from "./pages/PlayDeepLink.jsx";
 import VanityOnboardingDemo from "./pages/VanityOnboardingDemo.jsx";
@@ -8,9 +8,14 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/work" element={<Home />} />
+      <Route path="/play" element={<Home />} />
+      <Route path="/about" element={<Home />} />
+      <Route path="/seiton" element={<Home />} />
       <Route path="/work/:workId" element={<WorkDeepLink />} />
       <Route path="/play/:playId" element={<PlayDeepLink />} />
       <Route path="/vanity/onboarding" element={<VanityOnboardingDemo />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

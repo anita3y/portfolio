@@ -6,9 +6,9 @@ export default function CaseStudyLayout({ study }) {
   const { title, backTab = "work" } = study;
 
   useEffect(() => {
-    document.title = `${title} | anita yan`;
+    document.title = `${title} | Anita Yan`;
     return () => {
-      document.title = "anita yan | Portfolio";
+      document.title = "Anita Yan";
     };
   }, [title]);
 

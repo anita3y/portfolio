@@ -4,22 +4,25 @@ import {
   useRef,
   useState
 } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import AboutPanel from "../components/AboutPanel.jsx";
 import { PlayPicker, PlayStudy } from "../components/PlayStage.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import StatusCorner from "../components/StatusCorner.jsx";
 import WorkExpandPanel from "../components/WorkExpandPanel.jsx";
+import WritingsFinder from "../components/WritingsFinder.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
+import {
+  SITE_TABS,
+  SITE_TAB_IDS,
+  pathForTab,
+  tabIdFromPathname
+} from "../data/tabs.js";
 import { assetUrl } from "../utils/assetUrl.js";
 
-const TABS = [
-  { id: "work", label: "work" },
-  { id: "play", label: "play" },
-  { id: "about", label: "about" }
-];
-const TAB_IDS = TABS.map((tab) => tab.id);
+const TABS = SITE_TABS;
+const TAB_IDS = SITE_TAB_IDS;
 
 const FOLDER_CLOSED = assetUrl("/hero/stickers/folder-closed.png");
 const FOLDER_OPEN = assetUrl("/hero/stickers/folder-open.png");
@@ -73,7 +76,10 @@ function HeroTugSticker({ src, className = "", children }) {
 
 export default function Home() {
   const location = useLocation();
-  const requestedTab = TAB_IDS.includes(location.state?.tab) ? location.state.tab : null;
+  const navigate = useNavigate();
+  const pathTab = tabIdFromPathname(location.pathname);
+  const stateTab = TAB_IDS.includes(location.state?.tab) ? location.state.tab : null;
+  const requestedTab = pathTab ?? stateTab;
   const initialOpenPlay =
     typeof location.state?.openPlay === "string" && playIds.has(location.state.openPlay)
       ? location.state.openPlay
@@ -93,7 +99,7 @@ export default function Home() {
   const navGrowRef = useRef(0);
 
   useEffect(() => {
-    document.title = "anita yan | Portfolio";
+    document.title = "Anita Yan";
   }, []);
 
   useEffect(() => {
@@ -113,10 +119,9 @@ export default function Home() {
   }, [location.state?.openWork]);
 
   useEffect(() => {
-    if (requestedTab) {
-      setActiveTab(requestedTab);
-      setOpenWorkId(null);
-    }
+    if (!requestedTab) return;
+    setActiveTab(requestedTab);
+    if (requestedTab !== "work") setOpenWorkId(null);
   }, [requestedTab]);
 
   useEffect(() => {
@@ -126,9 +131,9 @@ export default function Home() {
       const nav = navRef.current;
       if (!nav) return;
 
-      const top = nav.getBoundingClientRect().top;
+      const top = nav.getBoundingClientRect();
       const range = Math.max(window.innerHeight * 0.38, 180);
-      const nextGrow = Math.max(0, Math.min(1, 1 - (top - 10) / range));
+      const nextGrow = Math.max(0, Math.min(1, 1 - (top.top - 10) / range));
       const roundedGrow = Math.round(nextGrow * 32) / 32;
       if (roundedGrow !== navGrowRef.current) {
         navGrowRef.current = roundedGrow;
@@ -154,19 +159,26 @@ export default function Home() {
     };
   }, []);
 
-  const selectTab = useCallback((id) => {
-    setActiveTab(id);
-    if (id !== "work") setOpenWorkId(null);
-    if (id === "play") setSelectedPlayId("sticker-collection");
-    if (id === "about") {
-      window.requestAnimationFrame(() => {
-        document.querySelector(".chrome-sticky")?.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
+  const selectTab = useCallback(
+    (id) => {
+      setActiveTab(id);
+      if (id !== "work") setOpenWorkId(null);
+      if (id === "play") setSelectedPlayId("sticker-collection");
+      const nextPath = pathForTab(id);
+      if (location.pathname !== nextPath) {
+        navigate(nextPath, { replace: false });
+      }
+      if (id === "about" || id === "seiton") {
+        window.requestAnimationFrame(() => {
+          document.querySelector(".chrome-sticky")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
         });
-      });
-    }
-  }, []);
+      }
+    },
+    [location.pathname, navigate]
+  );
 
   const activeTabIndex = Math.max(
     0,
@@ -261,13 +273,19 @@ export default function Home() {
 
       <div
         className={`chrome-sticky${
-          activeTab === "play" ? " chrome-sticky--play" : activeTab === "about" ? " chrome-sticky--about" : ""
+          activeTab === "play"
+            ? " chrome-sticky--play"
+            : activeTab === "about"
+              ? " chrome-sticky--about"
+              : activeTab === "seiton"
+                ? " chrome-sticky--seiton"
+                : ""
         }`}
       >
         <div className="main-nav">
           <nav
             ref={navRef}
-            className="tabs tabs--select"
+            className="tabs tabs--select tabs--count-4"
             style={{ "--tab-i": activeTabIndex }}
             data-active={activeTab}
             aria-label="Site sections"
@@ -292,7 +310,13 @@ export default function Home() {
       </div>
 
       <section
-        className={`tab-panel${activeTab === "about" ? " tab-panel--about" : ""}`}
+        className={`tab-panel${
+          activeTab === "about"
+            ? " tab-panel--about"
+            : activeTab === "seiton"
+              ? " tab-panel--seiton"
+              : ""
+        }`}
         id={`panel-${activeTab}`}
         aria-label={activeTab}
       >
@@ -327,6 +351,8 @@ export default function Home() {
             onSelect={setSelectedPlayId}
           />
         )}
+
+        {activeTab === "seiton" && <WritingsFinder />}
 
         {activeTab === "about" && <AboutPanel />}
       </section>

@@ -6,8 +6,8 @@ export default function PlayDeepLink() {
   const entry = getPlayEntry(playId);
 
   if (!entry) {
-    return <Navigate to="/" state={{ tab: "play" }} replace />;
+    return <Navigate to="/play" replace />;
   }
 
-  return <Navigate to="/" state={{ tab: "play", openPlay: playId }} replace />;
+  return <Navigate to="/play" state={{ openPlay: playId }} replace />;
 }

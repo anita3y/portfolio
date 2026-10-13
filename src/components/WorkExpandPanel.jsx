@@ -13,7 +13,7 @@ export default function WorkExpandPanel({ workId, onClose, onSelectTab, onNaviga
   useEffect(() => {
     if (!study) return undefined;
 
-    document.title = `${study.title} | anita yan`;
+    document.title = `${study.title} | Anita Yan`;
 
     const onKey = (event) => {
       if (event.key === "Escape") onClose();
@@ -25,7 +25,7 @@ export default function WorkExpandPanel({ workId, onClose, onSelectTab, onNaviga
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
-      document.title = "anita yan | Portfolio";
+      document.title = "Anita Yan";
     };
   }, [study, onClose]);
 

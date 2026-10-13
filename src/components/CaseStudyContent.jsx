@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { SITE_TABS, pathForTab } from "../data/tabs.js";
 import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
 import CaseStudySeeMore from "./CaseStudySeeMore.jsx";
 import CaseStudyUserFlowMap from "./CaseStudyUserFlowMap.jsx";
@@ -15,11 +16,7 @@ import {
 
 const DEFAULT_HERO_SLIDE_MS = 500;
 const ALL_PROJECTS = [...WORK_PROJECTS, ...PLAY_PROJECTS];
-const CASE_STUDY_TABS = [
-  { id: "work", label: "work" },
-  { id: "play", label: "play" },
-  { id: "about", label: "about" }
-];
+const CASE_STUDY_TABS = SITE_TABS;
 function normalizeMediaItem(item) {
   if (typeof item === "string") return { src: item, alt: "" };
   return item;
@@ -34,7 +31,7 @@ function CaseStudyTopTabs({ activeTab = "work", onSelectTab }) {
   return (
     <div className="cs-top-tabs">
       <nav
-        className="tabs tabs--select"
+        className="tabs tabs--select tabs--count-4"
         style={{ "--tab-i": activeIndex }}
         data-active={activeTab}
         aria-label="Site sections"
@@ -65,8 +62,7 @@ function CaseStudyTopTabs({ activeTab = "work", onSelectTab }) {
               className={className}
               role="tab"
               aria-selected={activeTab === tab.id}
-              to="/"
-              state={{ tab: tab.id }}
+              to={pathForTab(tab.id)}
             >
               {tab.label}
             </Link>

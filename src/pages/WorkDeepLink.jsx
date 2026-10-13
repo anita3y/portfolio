@@ -9,8 +9,8 @@ export default function WorkDeepLink() {
   const isDisplayOnly = Boolean(project?.displayOnly);
 
   if (!study || isDisplayOnly) {
-    return <Navigate to="/" state={{ tab: "work" }} replace />;
+    return <Navigate to="/work" replace />;
   }
 
-  return <Navigate to="/" state={{ tab: "work", openWork: workId }} replace />;
+  return <Navigate to="/work" state={{ openWork: workId }} replace />;
 }

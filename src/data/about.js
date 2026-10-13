@@ -64,9 +64,8 @@ export const ABOUT_INTRO =
   "My approach to problem-solving is rooted in craft and simplicity. I’m constantly cutting through complexity to make experiences feel obvious, from redesigning multi-step flows into single, low-friction screens to building systems that hold up under real-world pressure.";
 
 export const ABOUT_LETTER = {
-  greeting: "Hi there  ⸜(｡˃ ᵕ ˂ )⸝♡,",
   paragraphs: [
-    "I came into design with a love for making things (painting, crafts, baking) and combined it with my interests of marketing and psychology to better understand who i design for.",
+    "My name is Anita. I came into design with a love for making things (painting, crafts, baking) and combined it with my interests of marketing and psychology to better understand who i design for.",
     "Talk to me about anything creative & design-related (i love architects like Wang Shu + Bjarke Ingels, pottery, Dieter Rams, and Japandi furniture) or ask me about my beli and the best co-working spaces around the city!",
     "My design philosophy is to approach problem solving with craft and simplicity. Simplicity only comes from understanding complexity and complex problems. Designing with craft means packaging these solutions as enjoyable experiences!"
   ],
