@@ -10126,15 +10126,23 @@ body.is-finder-dragging {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   grid-auto-rows: minmax(11rem, auto);
-  gap: var(--play-artifact-gap);
-  width: min(100%, 68rem);
-  margin: 0.35rem auto 3.5rem;
-  padding: 0.5rem clamp(0.85rem, 3vw, 1.5rem) 1.5rem;
+  column-gap: clamp(0.65rem, 1.4vw, 1.1rem);
+  row-gap: clamp(1.65rem, 3vw, 2.5rem);
+  width: 100%;
+  margin: 0.35rem 0 3.5rem;
+  padding: 0.5rem 0 1.5rem;
 }
 
 .play-artifacts__cell--wide {
   grid-column: span 7;
   grid-row: span 2;
+}
+
+/* Match Work’s 2-col card width inside the Play grid */
+.play-artifacts__cell--work {
+  grid-column: span 6;
+  grid-row: span 1;
+  min-width: 0;
 }
 
 .play-artifacts__cell--tall {
@@ -10150,6 +10158,20 @@ body.is-finder-dragging {
 .play-artifacts__cell--sm {
   grid-column: span 4;
   grid-row: span 1;
+}
+
+.project-card__media--carousel-albums {
+  background: #000;
+}
+
+.project-card__media--carousel-albums .project-card__slides {
+  transform: scale(0.97);
+  transform-origin: center center;
+}
+
+.project-card__media--carousel-albums .project-card__slide {
+  object-fit: contain;
+  object-position: center center;
 }
 
 .play-artifact {
@@ -10560,6 +10582,7 @@ body.is-finder-dragging {
   }
 
   .play-artifacts__cell--wide,
+  .play-artifacts__cell--work,
   .play-artifacts__cell--tall,
   .play-artifacts__cell--md,
   .play-artifacts__cell--sm {

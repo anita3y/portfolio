@@ -8,12 +8,11 @@ export const PLAY_ARTIFACTS = [
     id: "carousel",
     title: "Carousel",
     kind: "carousel",
-    size: "wide",
-    covers: CAROUSEL_ALBUMS.map((album) => ({
-      id: album.id,
-      src: album.cover,
-      title: album.title
-    }))
+    /** Same Work ProjectCard moving-slides thumb (not a special collage size). */
+    workThumb: true,
+    thumbnailSlides: CAROUSEL_ALBUMS.map((album) => album.cover),
+    thumbnailSlideInterval: 450,
+    theme: "carousel-albums"
   },
   {
     id: "sticker-sheet",

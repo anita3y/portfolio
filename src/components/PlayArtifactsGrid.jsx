@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import ProjectCard from "./ProjectCard.jsx";
 
 const MAX_TILT = 5;
 
@@ -26,22 +27,6 @@ function ArtifactThumbMedia({ artifact, hovering }) {
       window.clearInterval(intervalId);
     };
   }, [slides, hovering]);
-
-  if (artifact.kind === "carousel") {
-    return (
-      <span className="play-artifact__collage" aria-hidden="true">
-        {(artifact.covers ?? []).slice(0, 4).map((cover, index) => (
-          <img
-            key={cover.id}
-            className={`play-artifact__collage-img play-artifact__collage-img--${index}`}
-            src={cover.src}
-            alt=""
-            draggable={false}
-          />
-        ))}
-      </span>
-    );
-  }
 
   if (slides) {
     return (
@@ -129,18 +114,48 @@ function ArtifactThumb({ artifact, onOpen }) {
   );
 }
 
+function WorkLikeArtifactThumb({ artifact, onOpen }) {
+  return (
+    <ProjectCard
+      project={{
+        id: artifact.id,
+        title: artifact.title,
+        company: artifact.title,
+        href: "#",
+        thumbnailSlides: artifact.thumbnailSlides,
+        thumbnailSlideInterval: artifact.thumbnailSlideInterval ?? 450,
+        theme: artifact.theme ?? artifact.kind
+      }}
+      onExpand={() => onOpen(artifact.id)}
+    />
+  );
+}
+
 export default function PlayArtifactsGrid({ artifacts, onOpen }) {
   return (
     <div className="play-artifacts" role="list" aria-label="Play artifacts">
-      {artifacts.map((artifact) => (
-        <div
-          key={artifact.id}
-          className={`play-artifacts__cell play-artifacts__cell--${artifact.size}`}
-          role="listitem"
-        >
-          <ArtifactThumb artifact={artifact} onOpen={onOpen} />
-        </div>
-      ))}
+      {artifacts.map((artifact) => {
+        const workLike = Boolean(artifact.workThumb);
+
+        return (
+          <div
+            key={artifact.id}
+            className={[
+              "play-artifacts__cell",
+              workLike
+                ? "play-artifacts__cell--work"
+                : `play-artifacts__cell--${artifact.size}`
+            ].join(" ")}
+            role="listitem"
+          >
+            {workLike ? (
+              <WorkLikeArtifactThumb artifact={artifact} onOpen={onOpen} />
+            ) : (
+              <ArtifactThumb artifact={artifact} onOpen={onOpen} />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
