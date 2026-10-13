@@ -232,6 +232,7 @@ export const DFA_CASE_STUDY = {
           layout: "userFlowMap"
         },
         {
+          id: "components",
           heading: "Components",
           paragraphs: [
             "UI pieces that carry the key flows: mission and featured projects for discovery, plus the join CTAs that repeat across the site."

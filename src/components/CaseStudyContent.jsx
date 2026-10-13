@@ -412,7 +412,7 @@ function CaseStudyActions({ actions }) {
 
 function TextBlock({ block }) {
   return (
-    <div className="cs-block">
+    <div className="cs-block" id={block.id || undefined}>
       {block.heading && <h3 className="cs-block__heading">{block.heading}</h3>}
       {block.paragraphs?.map((p) => (
         <p key={p} className="cs-block__text">
