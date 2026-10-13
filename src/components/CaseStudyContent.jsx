@@ -408,7 +408,7 @@ function CaseStudyActions({ actions }) {
 
 function TextBlock({ block }) {
   return (
-    <div className="cs-block">
+    <div className="cs-block" id={block.id || undefined}>
       {block.heading && <h3 className="cs-block__heading">{block.heading}</h3>}
       {block.paragraphs?.map((p) => (
         <p key={p} className="cs-block__text">
@@ -541,7 +541,8 @@ function TextBlock({ block }) {
             "cs-media-single",
             block.image.wide && "cs-media--wide",
             block.image.narrow && "cs-media--narrow",
-            block.image.page && "cs-media--page"
+            block.image.page && "cs-media--page",
+            block.image.borderless && "cs-media--borderless"
           ]
             .filter(Boolean)
             .join(" ")}

@@ -2,12 +2,13 @@ import { assetUrl } from "../../utils/assetUrl.js";
 
 const FIGMA_WIREFRAMES = assetUrl("/case-studies/dfa/figma-wireframes.png");
 const FLOW_CONTACT = assetUrl("/case-studies/dfa/flows/contact-button.png");
-const COMPONENTS_UI = assetUrl("/case-studies/dfa/components-ui.png");
+const COMPONENTS_UI = assetUrl("/case-studies/dfa/components-discover-join-screenshot.png");
 const AUDIT_RISDXBROWN = assetUrl("/case-studies/dfa/competitive-audit-risdxbrown.png");
 const AUDIT_CMU = assetUrl("/case-studies/dfa/competitive-audit-cmu.png");
 const VISUAL_BRAINSTORM_1 = assetUrl("/case-studies/dfa/visual-brainstorm-1.png");
 const VISUAL_BRAINSTORM_2 = assetUrl("/case-studies/dfa/visual-brainstorm-2.png");
 const RIKO_STRATEGY_IA = assetUrl("/case-studies/dfa/riko-strategy-ia.png");
+const RIKO_IA_DECISION = assetUrl("/case-studies/dfa/riko-ia-decision.png");
 
 const SOLUTION_TEAM = assetUrl("/case-studies/dfa/solution/team.jpg");
 const SOLUTION_ARCHIVE = assetUrl("/case-studies/dfa/solution/archive.jpg");
@@ -66,8 +67,7 @@ export const DFA_CASE_STUDY = {
           heading: "Success Criteria",
           bullets: [
             "Clear information architecture for projects, team, and get-involved flows.",
-            "Consistent visual system built for growth, not one-off pages.",
-            "Documentation for content updates and chapter onboarding."
+            "Consistency and scalability: a visual system built for growth, plus docs for content updates and chapter onboarding."
           ]
         }
       ]
@@ -188,6 +188,14 @@ export const DFA_CASE_STUDY = {
               ]
             },
             {
+              image: {
+                src: RIKO_IA_DECISION,
+                alt: "Riko's document mapping Main User Types to Info-Architecture (Home, Projects, About, Team) and CTAs (Get Involved, Contact)",
+                caption: "Riko's document: user types → IA → CTAs",
+                wide: true
+              }
+            },
+            {
               heading: "IA Decision",
               paragraphs: [
                 "I eliminated a standalone Get Involved page. Get Involved lives on pages that already give context to new students before they hit join, so they're not dropped into a CTA with no story. Principle: every page should earn its place."
@@ -212,7 +220,7 @@ export const DFA_CASE_STUDY = {
         {
           heading: "Final Wireframes",
           paragraphs: [
-            "Page frames for Home, Projects, About, and Team, plus an optional Newsletter. Get Involved was explored as its own frame, then cut; join CTAs stay in the header and on pages with context. Folder tabs and layered cards stay consistent so one developer can implement a shared pattern and reuse it across pages."
+            "Page frames for Home, Projects, About, and Team. Get Involved was explored as its own frame, then cut; join CTAs stay in the header and on pages with context. Folder tabs and layered cards stay consistent so one developer can implement a shared pattern and reuse it across pages."
           ],
           layout: "dfaWireframes"
         },
@@ -224,15 +232,17 @@ export const DFA_CASE_STUDY = {
           layout: "userFlowMap"
         },
         {
+          id: "components",
           heading: "Components",
           paragraphs: [
             "UI pieces that carry the key flows: mission and featured projects for discovery, plus the join CTAs that repeat across the site."
           ],
           image: {
             src: COMPONENTS_UI,
-            alt: "UI components for Discover projects and impact and Join get involved, including Our Mission, Featured Projects, Join us now, and Join now",
-            caption: "Discover and Join UI Pieces",
-            wide: true
+            alt: "Discover projects and impact collage with Our Mission and Featured Projects, plus Join get involved CTAs for interest form, WhatsApp, and Join now",
+            caption: "Discover and Join UI pieces",
+            wide: true,
+            borderless: true
           }
         },
         {
@@ -363,7 +373,7 @@ export const DFA_CASE_STUDY = {
           bullets: [
             "Getting on the same page early saved us from reworking the sitemap and voice later.",
             "Making the site easy to update mattered as much as how it looked on launch day.",
-            "For nonprofit sites, clarity beats complexity. If a section doesn’t earn its place, cut it."
+            "For nonprofit sites, clarity beats complexity. If a section doesn’t earn its place, I’d cut it."
           ]
         }
       ]
