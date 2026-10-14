@@ -45,32 +45,6 @@ export const WORK_PROJECTS = [
     thumbnailVideo: assetUrl("/thumbnails/vanity/card.mov"),
     theme: "vanity",
     displayOnly: true
-  },
-  {
-    id: "chatgpt-branches",
-    title: "ChatGPT Branches",
-    headline: "Familiar navigation for long AI chats",
-    company: "ChatGPT Branches",
-    status: "Concept",
-    year: "2026",
-    tags: ["Concept", "AI product", "Research"],
-    href: "#",
-    thumbnail: assetUrl("/case-studies/chatgpt-branches/banner.png"),
-    thumbnailVideo: assetUrl("/thumbnails/chatgpt-branches-card.mov"),
-    theme: "branches"
-  },
-  {
-    id: "pivotal-moments",
-    title: "New York Design Club",
-    headline: "Making 10k+ impressions through Instagram posts and reels",
-    company: "New York Design Club",
-    status: "Marketing",
-    year: "2026",
-    tags: ["Instagram", "Growth", "Editorial"],
-    href: "#",
-    thumbnail: assetUrl("/thumbnails/new-york-design-club-cover.png"),
-    thumbnailVideo: assetUrl("/thumbnails/nydc/card.mov"),
-    theme: "pivotal"
   }
 ];
 

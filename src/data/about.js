@@ -145,14 +145,6 @@ export const ABOUT_COMMUNITY = [
     alt: "UX@NYU members at a speaker event in front of a brick wall"
   },
   {
-    id: "nydc-pivotal",
-    title: "New York Design Club · Pivotal Moments",
-    description:
-      "I helped market Pivotal Moments, NYDC's special zine edition book launch celebrating pivotal moments in design.",
-    image: assetUrl("/about/community-nydc-pivotal.png"),
-    alt: "Pivotal Moments books and zines at the New York Design Club launch table"
-  },
-  {
     id: "a-studio",
     title: "Adobe@NYU (A-Studio)",
     description:
