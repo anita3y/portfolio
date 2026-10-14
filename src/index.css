@@ -9456,6 +9456,229 @@ a.about-browser__url:hover .about-browser__url-text {
   }
 }
 
+/* -------------------------------------------------------------------------- */
+/* Name intro — sticky glass letter stack (reuses Play perspective + sticky)  */
+/* -------------------------------------------------------------------------- */
+
+.name-intro {
+  --ni-ink: #141414;
+  --ni-line: #b0b0ac;
+  position: relative;
+  z-index: 2;
+  color: var(--ni-ink);
+  background: transparent;
+}
+
+.name-intro__track {
+  position: relative;
+  height: 240vh;
+}
+
+.name-intro__sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 24rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+  background: transparent;
+}
+
+.name-intro__spread {
+  position: absolute;
+  inset: 12% 2%;
+  z-index: 1;
+  pointer-events: none;
+  transform-origin: center center;
+  color: var(--ni-line);
+}
+
+.name-intro__spread-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(176, 176, 172, 0.55) 8%,
+    rgba(176, 176, 172, 0.75) 50%,
+    rgba(176, 176, 172, 0.55) 92%,
+    transparent 100%
+  );
+}
+
+.name-intro__spread-v {
+  position: absolute;
+  top: 6%;
+  bottom: 8%;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(176, 176, 172, 0.32) 18%,
+    rgba(176, 176, 172, 0.42) 50%,
+    rgba(176, 176, 172, 0.32) 82%,
+    transparent 100%
+  );
+}
+
+.name-intro__stage {
+  position: relative;
+  z-index: 2;
+  width: min(96vw, 68rem);
+  height: min(40vh, 16rem);
+  perspective: 1480px;
+  perspective-origin: 44% 48%;
+  transform-style: preserve-3d;
+  overflow: visible;
+}
+
+.name-intro__panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(4.1rem, 9.5vw, 5.35rem);
+  height: clamp(6.25rem, 18vh, 9rem);
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  overflow: visible;
+}
+
+.name-intro__glass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: 0.12rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border: 1px solid rgba(180, 180, 184, 0.28);
+  box-shadow:
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.45),
+    0 2px 8px rgba(40, 42, 48, 0.05);
+}
+
+.name-intro__glass.is-connecting {
+  overflow: visible;
+}
+
+.name-intro__drawing {
+  position: absolute;
+  inset: 2% 5%;
+  width: 90%;
+  height: 96%;
+  color: var(--ni-line);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.name-intro__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.name-intro__hint {
+  position: absolute;
+  bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  z-index: 3;
+  margin: 0;
+  transform: translateX(-50%);
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(40, 40, 44, 0.42);
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .name-intro__track {
+    height: 220vh;
+  }
+
+  .name-intro__stage {
+    width: min(98vw, 40rem);
+  }
+
+  .name-intro__panel {
+    width: clamp(3.15rem, 11.5vw, 4.25rem);
+    height: clamp(5.5rem, 20vh, 7.75rem);
+  }
+
+  .name-intro__drawing {
+    inset: 2% 4%;
+    width: 92%;
+    height: 96%;
+  }
+
+  .name-intro__glass {
+    border-radius: 0.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .name-intro__track {
+    height: auto;
+  }
+
+  .name-intro__sticky {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    padding: 2.5rem 0 1rem;
+  }
+
+  .name-intro__spread,
+  .name-intro__hint {
+    display: none;
+  }
+
+  .name-intro__stage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.12rem 0.1rem;
+    column-gap: 0.1rem;
+    height: auto;
+    min-height: 8rem;
+    perspective: none;
+  }
+
+  .name-intro__panel {
+    position: relative;
+    left: auto;
+    top: auto;
+    display: inline-block;
+    width: clamp(2.55rem, 9vw, 3.4rem);
+    height: clamp(4.5rem, 16vh, 6.25rem);
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Visual word break between Anita / Yan without an empty glass card */
+  .name-intro__panel:nth-child(5) {
+    margin-right: 0.7rem;
+  }
+}
+
 
 /* Four-tab nav (work / play / about / writings) */
 .tabs--select.tabs--count-4 {
