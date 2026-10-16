@@ -9368,6 +9368,7 @@ a.about-browser__url:hover .about-browser__url-text {
 .play-artifacts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   column-gap: clamp(0.55rem, 1.2vw, 0.95rem);
   row-gap: clamp(0.55rem, 1.2vw, 0.95rem);
   width: 100%;
