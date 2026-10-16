@@ -6,12 +6,17 @@ import {
 } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AboutPanel from "../components/AboutPanel.jsx";
-import { PlayPicker, PlayStudy } from "../components/PlayStage.jsx";
+import PlayArtifactOverlay from "../components/PlayArtifactOverlay.jsx";
+import PlayArtifactsGrid from "../components/PlayArtifactsGrid.jsx";
 import ProjectCard from "../components/ProjectCard.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import StatusCorner from "../components/StatusCorner.jsx";
 import WorkExpandPanel from "../components/WorkExpandPanel.jsx";
-import WritingsFinder from "../components/WritingsFinder.jsx";
+import {
+  PLAY_ARTIFACTS,
+  PLAY_ARTIFACT_IDS,
+  getPlayArtifact
+} from "../data/playArtifacts.js";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
 import {
   SITE_TABS,
@@ -36,6 +41,23 @@ const SCRIBBLE_SIMPLICITY = assetUrl("/hero/stickers/scribbles/simplicity.png");
 
 const playIds = new Set(PLAY_PROJECTS.filter((p) => !p.displayOnly).map((p) => p.id));
 const workIds = new Set(WORK_PROJECTS.filter((p) => !p.displayOnly).map((p) => p.id));
+
+function resolveOpenPlay(openPlay) {
+  if (typeof openPlay !== "string") return { artifactId: null, carouselId: null };
+  if (PLAY_ARTIFACT_IDS.has(openPlay)) {
+    return { artifactId: openPlay, carouselId: null };
+  }
+  if (openPlay === "sticker-collection") {
+    return { artifactId: "sticker-sheet", carouselId: null };
+  }
+  if (openPlay === "poster-designs") {
+    return { artifactId: "posters", carouselId: null };
+  }
+  if (playIds.has(openPlay)) {
+    return { artifactId: "carousel", carouselId: openPlay };
+  }
+  return { artifactId: null, carouselId: null };
+}
 
 function HeroTugSticker({ src, className = "", children }) {
   const ref = useRef(null);
@@ -80,18 +102,16 @@ export default function Home() {
   const pathTab = tabIdFromPathname(location.pathname);
   const stateTab = TAB_IDS.includes(location.state?.tab) ? location.state.tab : null;
   const requestedTab = pathTab ?? stateTab;
-  const initialOpenPlay =
-    typeof location.state?.openPlay === "string" && playIds.has(location.state.openPlay)
-      ? location.state.openPlay
-      : null;
+  const initialOpenPlay = resolveOpenPlay(location.state?.openPlay);
   const initialOpenWork =
     typeof location.state?.openWork === "string" && workIds.has(location.state.openWork)
       ? location.state.openWork
       : null;
 
-  const [selectedPlayId, setSelectedPlayId] = useState(
-    initialOpenPlay ?? "sticker-collection"
+  const [openPlayArtifactId, setOpenPlayArtifactId] = useState(
+    initialOpenPlay.artifactId
   );
+  const [carouselSeedId, setCarouselSeedId] = useState(initialOpenPlay.carouselId);
   const [openWorkId, setOpenWorkId] = useState(initialOpenWork);
   const [activeTab, setActiveTab] = useState(requestedTab ?? "work");
   const [navGrow, setNavGrow] = useState(0);
@@ -103,9 +123,10 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const playId = location.state?.openPlay;
-    if (typeof playId === "string" && playIds.has(playId)) {
-      setSelectedPlayId(playId);
+    const resolved = resolveOpenPlay(location.state?.openPlay);
+    if (resolved.artifactId) {
+      setOpenPlayArtifactId(resolved.artifactId);
+      setCarouselSeedId(resolved.carouselId);
       setActiveTab("play");
     }
   }, [location.state?.openPlay]);
@@ -163,12 +184,12 @@ export default function Home() {
     (id) => {
       setActiveTab(id);
       if (id !== "work") setOpenWorkId(null);
-      if (id === "play") setSelectedPlayId("sticker-collection");
+      if (id !== "play") setOpenPlayArtifactId(null);
       const nextPath = pathForTab(id);
       if (location.pathname !== nextPath) {
         navigate(nextPath, { replace: false });
       }
-      if (id === "about" || id === "writings") {
+      if (id === "about") {
         window.requestAnimationFrame(() => {
           document.querySelector(".chrome-sticky")?.scrollIntoView({
             behavior: "smooth",
@@ -179,6 +200,11 @@ export default function Home() {
     },
     [location.pathname, navigate]
   );
+
+  const openPlayArtifact = useCallback((artifactId) => {
+    if (!getPlayArtifact(artifactId)) return;
+    setOpenPlayArtifactId(artifactId);
+  }, []);
 
   const activeTabIndex = Math.max(
     0,
@@ -277,15 +303,13 @@ export default function Home() {
             ? " chrome-sticky--play"
             : activeTab === "about"
               ? " chrome-sticky--about"
-              : activeTab === "writings"
-                ? " chrome-sticky--writings"
-                : ""
+              : ""
         }`}
       >
         <div className="main-nav">
           <nav
             ref={navRef}
-            className="tabs tabs--select tabs--count-4"
+            className="tabs tabs--select"
             style={{ "--tab-i": activeTabIndex }}
             data-active={activeTab}
             aria-label="Site sections"
@@ -310,21 +334,14 @@ export default function Home() {
       </div>
 
       <section
-        className={`tab-panel${
-          activeTab === "about"
-            ? " tab-panel--about"
-            : activeTab === "writings"
-              ? " tab-panel--writings"
-              : ""
-        }`}
+        className={`tab-panel${activeTab === "about" ? " tab-panel--about" : ""}`}
         id={`panel-${activeTab}`}
         aria-label={activeTab}
       >
         {activeTab === "play" && (
-          <PlayPicker
-            projects={PLAY_PROJECTS}
-            selectedId={selectedPlayId}
-            onSelect={setSelectedPlayId}
+          <PlayArtifactsGrid
+            artifacts={PLAY_ARTIFACTS}
+            onOpen={openPlayArtifact}
           />
         )}
         {activeTab === "work" && (
@@ -344,16 +361,6 @@ export default function Home() {
           </div>
         )}
 
-        {activeTab === "play" && (
-          <PlayStudy
-            projects={PLAY_PROJECTS}
-            selectedId={selectedPlayId}
-            onSelect={setSelectedPlayId}
-          />
-        )}
-
-        {activeTab === "writings" && <WritingsFinder />}
-
         {activeTab === "about" && <AboutPanel />}
       </section>
 
@@ -367,6 +374,17 @@ export default function Home() {
           onSelectTab={(tabId) => {
             setOpenWorkId(null);
             selectTab(tabId);
+          }}
+        />
+      )}
+
+      {openPlayArtifactId && (
+        <PlayArtifactOverlay
+          artifactId={openPlayArtifactId}
+          initialCarouselId={carouselSeedId}
+          onClose={() => {
+            setOpenPlayArtifactId(null);
+            setCarouselSeedId(null);
           }}
         />
       )}

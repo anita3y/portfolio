@@ -226,7 +226,7 @@ function PlaygroundCaption({ caption, x, y, z, onMove, onFront }) {
   );
 }
 
-export default function StickerPlayground({ project }) {
+export default function StickerPlayground({ project, demoOnly = false }) {
   const [positions, setPositions] = useState(() =>
     Object.fromEntries([
       ...PLAYGROUND_STICKERS.map((sticker) => [sticker.id, { x: sticker.x, y: sticker.y }]),
@@ -244,10 +244,18 @@ export default function StickerPlayground({ project }) {
   };
 
   return (
-    <div className="play-embed play-embed--stickers">
-      <PlayMetaHeader project={project} />
+    <div
+      className={[
+        "play-embed",
+        "play-embed--stickers",
+        demoOnly && "play-embed--stickers-demo"
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      {!demoOnly && <PlayMetaHeader project={project} />}
       <div className="sticker-board" aria-label="Sticker playground">
-        <p className="sticker-board__hint">Drag the stickers around.</p>
+        {!demoOnly && <p className="sticker-board__hint">Drag the stickers around.</p>}
         {PLAYGROUND_STICKERS.map((sticker) => {
           const pos = positions[sticker.id];
           return (
