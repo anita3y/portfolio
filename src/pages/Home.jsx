@@ -12,7 +12,6 @@ import ProjectCard from "../components/ProjectCard.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import StatusCorner from "../components/StatusCorner.jsx";
 import WorkExpandPanel from "../components/WorkExpandPanel.jsx";
-import WritingsFinder from "../components/WritingsFinder.jsx";
 import {
   PLAY_ARTIFACTS,
   PLAY_ARTIFACT_IDS,
@@ -190,7 +189,7 @@ export default function Home() {
       if (location.pathname !== nextPath) {
         navigate(nextPath, { replace: false });
       }
-      if (id === "about" || id === "writings") {
+      if (id === "about") {
         window.requestAnimationFrame(() => {
           document.querySelector(".chrome-sticky")?.scrollIntoView({
             behavior: "smooth",
@@ -304,15 +303,13 @@ export default function Home() {
             ? " chrome-sticky--play"
             : activeTab === "about"
               ? " chrome-sticky--about"
-              : activeTab === "writings"
-                ? " chrome-sticky--writings"
-                : ""
+              : ""
         }`}
       >
         <div className="main-nav">
           <nav
             ref={navRef}
-            className="tabs tabs--select tabs--count-4"
+            className="tabs tabs--select"
             style={{ "--tab-i": activeTabIndex }}
             data-active={activeTab}
             aria-label="Site sections"
@@ -337,13 +334,7 @@ export default function Home() {
       </div>
 
       <section
-        className={`tab-panel${
-          activeTab === "about"
-            ? " tab-panel--about"
-            : activeTab === "writings"
-              ? " tab-panel--writings"
-              : ""
-        }`}
+        className={`tab-panel${activeTab === "about" ? " tab-panel--about" : ""}`}
         id={`panel-${activeTab}`}
         aria-label={activeTab}
       >
@@ -369,8 +360,6 @@ export default function Home() {
             ))}
           </div>
         )}
-
-        {activeTab === "writings" && <WritingsFinder />}
 
         {activeTab === "about" && <AboutPanel />}
       </section>

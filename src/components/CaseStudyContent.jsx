@@ -31,7 +31,7 @@ function CaseStudyTopTabs({ activeTab = "work", onSelectTab }) {
   return (
     <div className="cs-top-tabs">
       <nav
-        className="tabs tabs--select tabs--count-4"
+        className="tabs tabs--select"
         style={{ "--tab-i": activeIndex }}
         data-active={activeTab}
         aria-label="Site sections"

@@ -7,7 +7,7 @@ export const PLAY_ARTIFACTS = [
     id: "carousel",
     title: "album carousel",
     kind: "carousel",
-    size: "md",
+    size: "sm",
     thumbnail: assetUrl("/play/thumbs/album-carousel.gif")
   },
   {

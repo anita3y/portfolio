@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from "react";
 
 const MAX_TILT = 5;
 
-function ArtifactThumbMedia({ artifact, hovering }) {
+function ArtifactThumbMedia({ artifact }) {
   const slides = artifact.thumbnailSlides?.length ? artifact.thumbnailSlides : null;
   const [slideIndex, setSlideIndex] = useState(0);
 
   useEffect(() => {
-    if (!slides || !hovering) {
+    if (!slides) {
       setSlideIndex(0);
       return undefined;
     }
@@ -25,7 +25,7 @@ function ArtifactThumbMedia({ artifact, hovering }) {
       window.clearTimeout(startId);
       window.clearInterval(intervalId);
     };
-  }, [slides, hovering]);
+  }, [slides]);
 
   if (slides) {
     return (
@@ -106,7 +106,7 @@ function ArtifactThumb({ artifact, onOpen }) {
           })`
         }}
       >
-        <ArtifactThumbMedia artifact={artifact} hovering={tilt.hovering} />
+        <ArtifactThumbMedia artifact={artifact} />
       </span>
       <span className="play-artifact__label">{artifact.title}</span>
     </button>
