@@ -108,7 +108,6 @@ function ArtifactThumb({ artifact, onOpen }) {
       >
         <ArtifactThumbMedia artifact={artifact} />
       </span>
-      <span className="play-artifact__label">{artifact.title}</span>
     </button>
   );
 }

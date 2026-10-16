@@ -7,14 +7,14 @@ export const PLAY_ARTIFACTS = [
     id: "carousel",
     title: "album carousel",
     kind: "carousel",
-    size: "sm",
+    size: "md",
     thumbnail: assetUrl("/play/thumbs/album-carousel.gif")
   },
   {
     id: "sticker-sheet",
     title: "Sticker sheet",
     kind: "stickers",
-    size: "tall",
+    size: "md",
     thumbnail: assetUrl("/thumbnails/play/sticker-collection.png") + "?v=4"
   },
   {
