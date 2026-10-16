@@ -9454,6 +9454,8 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .play-artifact__img,
 .play-artifact__placeholder {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
