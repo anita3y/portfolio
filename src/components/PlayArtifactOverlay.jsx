@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PLAY_PROJECTS } from "../data/projects.js";
 import {
   CAROUSEL_ALBUMS,
@@ -16,6 +16,7 @@ export default function PlayArtifactOverlay({
   initialCarouselId
 }) {
   const artifact = getPlayArtifact(artifactId);
+  const videoRef = useRef(null);
   const [carouselId, setCarouselId] = useState(() => {
     if (initialCarouselId && getCarouselAlbum(initialCarouselId)) {
       return initialCarouselId;
@@ -48,6 +49,26 @@ export default function PlayArtifactOverlay({
     }
   }, [initialCarouselId]);
 
+  useEffect(() => {
+    if (artifact?.kind !== "video" || !artifact.video) return undefined;
+    const video = videoRef.current;
+    if (!video) return undefined;
+
+    // Autoplay policies require muted; controls let her unmute.
+    video.muted = true;
+    video.defaultMuted = true;
+    const tryPlay = () => {
+      video.play().catch(() => {});
+    };
+    tryPlay();
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+    };
+  }, [artifact?.kind, artifact?.video]);
+
   if (!artifact) return null;
 
   const stickerProject =
@@ -56,6 +77,8 @@ export default function PlayArtifactOverlay({
       title: "Sticker sheet",
       headline: "Sticker sheet"
     };
+
+  const showChromeLabel = !artifact.hideChromeLabel && Boolean(artifact.title);
 
   return (
     <div
@@ -73,17 +96,30 @@ export default function PlayArtifactOverlay({
       <div
         className={`play-artifact-overlay__sheet play-artifact-overlay__sheet--${artifact.kind}`}
       >
-        <div className="play-artifact-overlay__chrome">
-          <span className="play-artifact-overlay__label">{artifact.title}</span>
-          <button
-            type="button"
-            className="play-artifact-overlay__close"
-            onClick={onClose}
-            aria-label="Close"
-            data-cursor-hover=""
-          >
-            <span aria-hidden="true">×</span>
-          </button>
+        <div
+          className={[
+            "play-artifact-overlay__chrome",
+            !showChromeLabel && "play-artifact-overlay__chrome--label-hidden"
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          {showChromeLabel ? (
+            <span className="play-artifact-overlay__label">{artifact.title}</span>
+          ) : (
+            <span className="play-artifact-overlay__label-spacer" aria-hidden="true" />
+          )}
+          <span className="play-artifact-overlay__close-host">
+            <button
+              type="button"
+              className="play-artifact-overlay__close"
+              onClick={onClose}
+              aria-label="Close"
+              data-cursor-morph=""
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </span>
         </div>
         <div className="play-artifact-overlay__body">
           {artifact.kind === "carousel" ? (
@@ -100,6 +136,23 @@ export default function PlayArtifactOverlay({
             </div>
           ) : null}
           {artifact.kind === "posters" ? <PosterArtifactViewer /> : null}
+          {artifact.kind === "video" && artifact.video ? (
+            <div className="play-artifact-overlay__video-pad">
+              <video
+                key={artifact.video}
+                ref={videoRef}
+                className="play-artifact-overlay__video"
+                src={artifact.video}
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                aria-label={artifact.title}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

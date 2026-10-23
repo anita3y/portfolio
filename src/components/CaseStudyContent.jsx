@@ -50,6 +50,7 @@ function CaseStudyTopTabs({ activeTab = "work", onSelectTab }) {
                 aria-selected={activeTab === tab.id}
                 onClick={() => onSelectTab(tab.id)}
                 data-cuelume-toggle="toggle"
+                data-cursor-morph=""
               >
                 {tab.label}
               </button>
@@ -63,6 +64,7 @@ function CaseStudyTopTabs({ activeTab = "work", onSelectTab }) {
               role="tab"
               aria-selected={activeTab === tab.id}
               to={pathForTab(tab.id)}
+              data-cursor-morph=""
             >
               {tab.label}
             </Link>

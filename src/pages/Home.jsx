@@ -325,6 +325,7 @@ export default function Home() {
                 aria-selected={activeTab === tab.id}
                 onClick={() => selectTab(tab.id)}
                 data-cuelume-toggle="toggle"
+                data-cursor-morph=""
               >
                 {tab.label}
               </button>

@@ -15,15 +15,15 @@ export const CAROUSEL_ALBUMS = [
     cover: assetUrl("/play/carousel-albums/call-me-if-you-get-lost.png")
   },
   {
-    id: "koibito-e",
-    title: "Koibito e",
-    artist: "Lamp",
+    id: "for-lovers",
+    title: "For Lovers",
+    artist: "Lamo",
     cover: assetUrl("/play/carousel-albums/koibito-e.png")
   },
   {
-    id: "doodle-cover",
-    title: "O Monstro Precisa de Amigos",
-    artist: "Ornatos Violeta",
+    id: "frr",
+    title: "FRR",
+    artist: "george",
     cover: assetUrl("/play/carousel-albums/doodle-cover.png")
   },
   {

@@ -83,9 +83,9 @@ body.is-finder-resizing .custom-cursor-subtitle-tag {
     inset 0 -1px 1px rgba(40, 40, 44, 0.08),
     0 3px 10px rgba(30, 30, 34, 0.1);
   transition:
-    opacity 0.2s ease,
-    background 0.22s ease,
-    box-shadow 0.22s ease;
+    opacity 0.28s ease-in-out,
+    background 0.28s ease-in-out,
+    box-shadow 0.28s ease-in-out;
   will-change: transform, width, height, border-radius;
 }
 
@@ -225,7 +225,10 @@ body.is-finder-resizing .custom-cursor-subtitle-tag {
     inset 0 1px 0 rgba(255, 255, 255, 0.22),
     inset 0 0 0 0.5px rgba(255, 255, 255, 0.12),
     0 1px 4px rgba(42, 46, 58, 0.03);
-  transition: opacity 0.18s ease, background 0.22s ease, box-shadow 0.22s ease;
+  transition:
+    opacity 0.28s ease-in-out,
+    background 0.28s ease-in-out,
+    box-shadow 0.28s ease-in-out;
   will-change: left, top, width, height, border-radius;
 }
 
@@ -2073,6 +2076,35 @@ button:focus-visible {
 .tabs--select .tab:focus-visible {
   outline: none;
   color: #111111;
+}
+
+.tabs .custom-cursor-tab-morph {
+  z-index: 0;
+  background: rgba(142, 145, 156, 0.14);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.24),
+    0 2px 10px rgba(42, 46, 58, 0.06);
+  transition:
+    opacity 0.28s ease-in-out,
+    background 0.28s ease-in-out,
+    box-shadow 0.28s ease-in-out;
+}
+
+.tabs .custom-cursor-tab-morph--visible {
+  opacity: 0.9;
+}
+
+.tabs .custom-cursor-tab-morph--pressing {
+  opacity: 1;
+  background: rgba(130, 134, 146, 0.2);
+}
+
+.tabs .tab {
+  position: relative;
+  z-index: 1;
 }
 
 .tab-panel {
@@ -8812,35 +8844,47 @@ a.about-browser__url:hover .about-browser__url-text {
   overflow: hidden;
 }
 
-.play-flow-clip::before,
-.play-flow-clip::after {
-  content: "";
+/* Diffused blur dissolve at sides (not a flat white wash). */
+.play-flow-edge {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: clamp(4.25rem, 14vw, 8.75rem);
+  width: clamp(5.25rem, 17vw, 10.5rem);
   z-index: 50;
   pointer-events: none;
+  /* Soft white wash so color bleeds through while still meeting the sheet. */
+  background: linear-gradient(
+    var(--play-edge-dir, to right),
+    rgba(252, 252, 254, 0.55) 0%,
+    rgba(252, 252, 254, 0.22) 38%,
+    rgba(252, 252, 254, 0) 100%
+  );
+  backdrop-filter: blur(22px) saturate(1.06);
+  -webkit-backdrop-filter: blur(22px) saturate(1.06);
+  -webkit-mask-image: linear-gradient(
+    var(--play-edge-dir, to right),
+    #000 0%,
+    #000 18%,
+    rgba(0, 0, 0, 0.55) 48%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    var(--play-edge-dir, to right),
+    #000 0%,
+    #000 18%,
+    rgba(0, 0, 0, 0.55) 48%,
+    transparent 100%
+  );
 }
 
-.play-flow-clip::before {
+.play-flow-edge--left {
   left: 0;
-  background: linear-gradient(
-    to right,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0.88) 32%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  --play-edge-dir: to right;
 }
 
-.play-flow-clip::after {
+.play-flow-edge--right {
   right: 0;
-  background: linear-gradient(
-    to left,
-    #ffffff 0%,
-    rgba(255, 255, 255, 0.88) 32%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  --play-edge-dir: to left;
 }
 
 .play-flow {
@@ -9428,8 +9472,8 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .play-artifact__lift {
   position: relative;
-  flex: 0 0 auto;
-  min-height: 0;
+  display: grid;
+  grid-template: 1fr / 1fr;
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
@@ -9453,14 +9497,26 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .play-artifact__img,
-.play-artifact__placeholder {
-  position: absolute;
-  inset: 0;
+.play-artifact__placeholder,
+.play-artifact__slides,
+.play-artifact__video {
+  grid-area: 1 / 1;
   display: block;
   width: 100%;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.play-artifact__img,
+.play-artifact__placeholder,
+.play-artifact__video {
   object-fit: cover;
   object-position: center;
+}
+
+.play-artifact__video {
+  pointer-events: none;
 }
 
 .play-artifact__placeholder {
@@ -9586,7 +9642,8 @@ a.about-browser__url:hover .about-browser__url-text {
   background: transparent;
 }
 
-.play-artifact-overlay__label {
+.play-artifact-overlay__label,
+.play-artifact-overlay__label-spacer {
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 0.78rem;
   font-weight: 500;
@@ -9596,24 +9653,103 @@ a.about-browser__url:hover .about-browser__url-text {
   text-align: center;
 }
 
-.play-artifact-overlay__close {
+.play-artifact-overlay__label-spacer {
+  display: block;
+  width: 1px;
+  height: 1em;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.play-artifact-overlay__chrome--label-hidden {
+  justify-content: flex-end;
+}
+
+.play-artifact-overlay__close-host {
   position: absolute;
   top: 50%;
   right: 0.75rem;
   transform: translateY(-50%);
+  isolation: isolate;
+}
+
+.play-artifact-overlay__close {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 2rem;
   height: 2rem;
+  margin: 0;
+  padding: 0;
   border: none;
-  border-radius: var(--pill-radius-sm, 999px);
+  border-radius: var(--pill-radius-sm, 0.5rem);
   background: rgba(236, 238, 244, 0.85);
   color: #4e515c;
   font-size: 1.35rem;
   line-height: 1;
   cursor: pointer;
+  transition: none;
 }
 
+/* Hover feedback comes from custom cursor morph, not a button fill. */
 .play-artifact-overlay__close:hover {
-  background: rgba(228, 230, 236, 1);
+  background: rgba(236, 238, 244, 0.85);
+}
+
+.play-artifact-overlay__close-host .custom-cursor-tab-morph {
+  z-index: 0;
+  background: rgba(142, 145, 156, 0.16);
+  backdrop-filter: blur(10px) saturate(1.2);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.24),
+    0 2px 10px rgba(42, 46, 58, 0.07);
+  transition:
+    opacity 0.28s ease-in-out,
+    background 0.28s ease-in-out,
+    box-shadow 0.28s ease-in-out;
+}
+
+.play-artifact-overlay__close-host .custom-cursor-tab-morph--visible {
+  opacity: 0.92;
+}
+
+.play-artifact-overlay__close-host .custom-cursor-tab-morph--pressing {
+  opacity: 1;
+  background: rgba(130, 134, 146, 0.2);
+}
+
+.play-artifact-overlay__video-pad {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0.15rem 0.35rem 0.55rem;
+}
+
+.play-artifact-overlay__video {
+  display: block;
+  width: 100%;
+  max-width: min(100%, 52rem);
+  max-height: 100%;
+  border-radius: 0.85rem;
+  background: #0e0f12;
+  object-fit: contain;
+}
+
+.play-artifact-overlay__sheet--video {
+  --play-overlay-w: min(94vw, 58rem);
+  --play-overlay-h: min(88vh, 40rem);
+}
+
+.play-artifact-overlay__sheet--video .play-artifact-overlay__body {
+  overflow: hidden;
+  padding: 0.35rem 0.85rem 1rem;
 }
 
 .play-artifact-overlay__body {
@@ -9755,9 +9891,7 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .play-artifact__slides {
-  position: absolute;
-  inset: 0;
-  display: block;
+  position: relative;
   background: #000;
 }
 

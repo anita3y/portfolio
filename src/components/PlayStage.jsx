@@ -256,6 +256,8 @@ export function PlayPicker({ projects, selectedId, onSelect, ariaLabel = "Play c
           );
         })}
         </div>
+        <span className="play-flow-edge play-flow-edge--left" aria-hidden="true" />
+        <span className="play-flow-edge play-flow-edge--right" aria-hidden="true" />
       </div>
 
       {selected && "artist" in selected ? (

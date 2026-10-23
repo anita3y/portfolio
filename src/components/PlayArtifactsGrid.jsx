@@ -4,7 +4,27 @@ const MAX_TILT = 5;
 
 function ArtifactThumbMedia({ artifact }) {
   const slides = artifact.thumbnailSlides?.length ? artifact.thumbnailSlides : null;
+  const videoRef = useRef(null);
   const [slideIndex, setSlideIndex] = useState(0);
+  const [videoFailed, setVideoFailed] = useState(false);
+
+  useEffect(() => {
+    setVideoFailed(false);
+  }, [artifact.thumbnailVideo]);
+
+  useEffect(() => {
+    if (!artifact.thumbnailVideo || videoFailed) return undefined;
+    const video = videoRef.current;
+    if (!video) return undefined;
+    video.muted = true;
+    video.defaultMuted = true;
+    const play = () => {
+      video.play().catch(() => {});
+    };
+    play();
+    video.addEventListener("canplay", play);
+    return () => video.removeEventListener("canplay", play);
+  }, [artifact.thumbnailVideo, videoFailed]);
 
   useEffect(() => {
     if (!slides) {
@@ -26,6 +46,23 @@ function ArtifactThumbMedia({ artifact }) {
       window.clearInterval(intervalId);
     };
   }, [slides]);
+
+  if (artifact.thumbnailVideo && !videoFailed) {
+    return (
+      <video
+        ref={videoRef}
+        className="play-artifact__video"
+        src={artifact.thumbnailVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        onError={() => setVideoFailed(true)}
+      />
+    );
+  }
 
   if (slides) {
     return (
