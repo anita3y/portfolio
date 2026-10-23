@@ -8838,53 +8838,93 @@ a.about-browser__url:hover .about-browser__url-text {
   will-change: transform;
 }
 
+/*
+ * Side dissolve: feather covers into white — no hard card outline.
+ * Clip mask softens pixel edges; edge layers add progressive blur + white.
+ */
 .play-flow-clip {
   position: relative;
   margin: 0 calc(-1 * var(--page-pad-x, 1.15rem));
   overflow: hidden;
+  /* Wider, softer feather so side covers dissolve — not a clipped card edge. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.2) 8%,
+    rgba(0, 0, 0, 0.75) 18%,
+    #000 28%,
+    #000 72%,
+    rgba(0, 0, 0, 0.75) 82%,
+    rgba(0, 0, 0, 0.2) 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.2) 8%,
+    rgba(0, 0, 0, 0.75) 18%,
+    #000 28%,
+    #000 72%,
+    rgba(0, 0, 0, 0.75) 82%,
+    rgba(0, 0, 0, 0.2) 92%,
+    transparent 100%
+  );
 }
 
-/* Diffused blur dissolve at sides (not a flat white wash). */
 .play-flow-edge {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: clamp(5.25rem, 17vw, 10.5rem);
+  top: -12%;
+  bottom: -12%;
+  width: clamp(9rem, 28vw, 16rem);
   z-index: 50;
   pointer-events: none;
-  /* Soft white wash so color bleeds through while still meeting the sheet. */
   background: linear-gradient(
     var(--play-edge-dir, to right),
-    rgba(252, 252, 254, 0.55) 0%,
-    rgba(252, 252, 254, 0.22) 38%,
-    rgba(252, 252, 254, 0) 100%
+    #fff 0%,
+    rgba(255, 255, 255, 0.92) 16%,
+    rgba(255, 255, 255, 0.55) 40%,
+    rgba(255, 255, 255, 0.18) 64%,
+    rgba(255, 255, 255, 0) 100%
   );
-  backdrop-filter: blur(22px) saturate(1.06);
-  -webkit-backdrop-filter: blur(22px) saturate(1.06);
+  backdrop-filter: blur(42px) saturate(1.01);
+  -webkit-backdrop-filter: blur(42px) saturate(1.01);
   -webkit-mask-image: linear-gradient(
     var(--play-edge-dir, to right),
     #000 0%,
-    #000 18%,
-    rgba(0, 0, 0, 0.55) 48%,
+    #000 34%,
+    rgba(0, 0, 0, 0.45) 62%,
     transparent 100%
   );
   mask-image: linear-gradient(
     var(--play-edge-dir, to right),
     #000 0%,
-    #000 18%,
-    rgba(0, 0, 0, 0.55) 48%,
+    #000 34%,
+    rgba(0, 0, 0, 0.45) 62%,
     transparent 100%
   );
 }
 
 .play-flow-edge--left {
-  left: 0;
+  left: -0.75rem;
   --play-edge-dir: to right;
 }
 
 .play-flow-edge--right {
-  right: 0;
+  right: -0.75rem;
   --play-edge-dir: to left;
+}
+
+/* Soften non-selected covers so outer edges don’t read as card borders. */
+.play-flow__card:not(.is-selected) .play-flow__lift {
+  border-color: transparent;
+  box-shadow: 0 3px 12px rgba(20, 20, 24, 0.06);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .play-flow__card:not(.is-selected):hover .play-flow__lift {
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(20, 20, 24, 0.08);
+  }
 }
 
 .play-flow {
@@ -8937,7 +8977,7 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .play-flow__lift {
   display: block;
-  border-radius: 0.95rem;
+  border-radius: 0;
   overflow: hidden;
   background: #f4f4f2;
   border: 1px solid rgba(36, 36, 40, 0.16);
@@ -8953,6 +8993,10 @@ a.about-browser__url:hover .about-browser__url-text {
     transform 0.32s cubic-bezier(0.22, 1, 0.32, 1),
     box-shadow 0.32s ease,
     border-color 0.32s ease;
+}
+
+.play-flow__card.is-selected .play-flow__lift {
+  border-radius: 0;
 }
 
 .play-flow__card img {
@@ -9750,6 +9794,35 @@ a.about-browser__url:hover .about-browser__url-text {
 .play-artifact-overlay__sheet--video .play-artifact-overlay__body {
   overflow: hidden;
   padding: 0.35rem 0.85rem 1rem;
+}
+
+.play-artifact-overlay__sheet--placeholder {
+  --play-overlay-w: min(92vw, 36rem);
+  --play-overlay-h: min(78vh, 34rem);
+}
+
+.play-artifact-overlay__placeholder {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 16rem;
+  padding: 1.25rem;
+}
+
+.play-artifact-overlay__placeholder-page {
+  width: min(100%, 18rem);
+  aspect-ratio: 3 / 4;
+  background:
+    linear-gradient(90deg, #e8e5de 0 1.35rem, transparent 1.35rem),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 1.55rem,
+      rgba(201, 198, 190, 0.55) 1.55rem 1.65rem
+    ),
+    #fafaf8;
+  border: 1px solid rgba(200, 196, 186, 0.85);
+  box-shadow: 0 10px 28px rgba(38, 42, 54, 0.08);
 }
 
 .play-artifact-overlay__body {

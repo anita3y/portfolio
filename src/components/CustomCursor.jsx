@@ -52,7 +52,11 @@ const MORPH_EXIT_MS = 280;
 const MORPH_EASE = 0.12;
 const LAYER_MORPH_EASE = 0.13;
 
-function getMorphRadius(w, h) {
+function getMorphRadius(element, w, h) {
+  // Work / Play / About tabs are pills — morph should match that roundness.
+  if (element?.matches?.(".tab")) {
+    return Math.min(w, h) / 2;
+  }
   return Math.min(8, Math.min(w, h) * 0.28);
 }
 
@@ -67,7 +71,7 @@ function getFixedMorphTarget(element) {
     y: rect.top + rect.height / 2,
     w,
     h,
-    r: getMorphRadius(w, h)
+    r: getMorphRadius(element, w, h)
   };
 }
 
@@ -83,7 +87,7 @@ function getLayeredMorphTarget(element, container) {
     top: elRect.top - containerRect.top - pad,
     w,
     h,
-    r: getMorphRadius(w, h)
+    r: getMorphRadius(element, w, h)
   };
 }
 

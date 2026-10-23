@@ -153,6 +153,11 @@ export default function PlayArtifactOverlay({
               />
             </div>
           ) : null}
+          {artifact.kind === "placeholder" ? (
+            <div className="play-artifact-overlay__placeholder" aria-hidden="true">
+              <div className="play-artifact-overlay__placeholder-page" />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
