@@ -7,7 +7,7 @@ export const PLAY_ARTIFACTS = [
     id: "carousel",
     title: "Album carousel",
     kind: "carousel",
-    size: "wide",
+    size: "md",
     hideChromeLabel: true,
     thumbnail: assetUrl("/play/thumbs/album-carousel.gif")
   },
@@ -15,7 +15,7 @@ export const PLAY_ARTIFACTS = [
     id: "sticker-sheet",
     title: "Sticker sheet",
     kind: "stickers",
-    size: "tall",
+    size: "md",
     thumbnail: assetUrl("/thumbnails/play/sticker-collection.png") + "?v=4"
   },
   {
@@ -30,7 +30,7 @@ export const PLAY_ARTIFACTS = [
     id: "figma-animation",
     title: "Figma animation",
     kind: "video",
-    size: "landscape",
+    size: "md",
     hideChromeLabel: true,
     thumbnailVideo: assetUrl("/play/figma/anita-yan-figma-thumb.mp4") + "?v=3",
     video: assetUrl("/play/figma/anita-yan-figma.mp4") + "?v=3"
@@ -39,7 +39,7 @@ export const PLAY_ARTIFACTS = [
     id: "digital-journal",
     title: "Digital journal",
     kind: "placeholder",
-    size: "sm",
+    size: "md",
     hideChromeLabel: true,
     thumbnail: assetUrl("/play/thumbs/digital-journal-placeholder.svg")
   }

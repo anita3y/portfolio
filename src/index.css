@@ -9444,53 +9444,30 @@ a.about-browser__url:hover .about-browser__url-text {
 
 
 
-/* ——— Play artifacts: dense organic masonry (~3-up, varied sizes) ——— */
+/* ——— Play artifacts grid (~3 per row, equal thumb sizes) ——— */
 .play-artifacts {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
-  column-gap: clamp(0.4rem, 1vw, 0.75rem);
-  row-gap: clamp(0.4rem, 1vw, 0.75rem);
+  column-gap: clamp(0.55rem, 1.2vw, 0.95rem);
+  row-gap: clamp(0.55rem, 1.2vw, 0.95rem);
   width: 100%;
   margin: 0.35rem 0 3.5rem;
   padding: 0.5rem 0 1.5rem;
 }
 
-.play-artifacts__cell {
-  grid-column: span 2;
-  min-width: 0;
-}
-
-/* First row: wide carousel + tall sticker */
-.play-artifacts__cell--wide {
-  grid-column: span 4;
-}
-
-.play-artifacts__cell--tall {
-  grid-column: span 2;
-  margin-top: clamp(0.65rem, 1.8vw, 1.35rem);
-}
-
-/* Second row: posters / figma / journal — denser 3-up, varied height */
-.play-artifacts__cell--md {
-  grid-column: span 2;
-  margin-top: clamp(0.15rem, 0.6vw, 0.45rem);
-}
-
-.play-artifacts__cell--landscape {
-  grid-column: span 2;
-  margin-top: clamp(0.45rem, 1.2vw, 0.95rem);
-}
-
+.play-artifacts__cell,
+.play-artifacts__cell--wide,
+.play-artifacts__cell--work,
+.play-artifacts__cell--tall,
+.play-artifacts__cell--landscape,
+.play-artifacts__cell--md,
 .play-artifacts__cell--sm {
-  grid-column: span 2;
-  width: 88%;
-  justify-self: end;
-  margin-top: clamp(0.85rem, 2vw, 1.45rem);
-}
-
-.play-artifacts__cell--work {
-  grid-column: span 2;
+  grid-column: span 1;
+  grid-row: span 1;
+  min-width: 0;
+  width: 100%;
+  margin-top: 0;
 }
 
 .project-card__media--carousel-albums {
@@ -9577,26 +9554,6 @@ a.about-browser__url:hover .about-browser__url-text {
   .work-expand__sheet.is-haptic-tick {
     animation: none;
   }
-}
-
-.play-artifact--wide .play-artifact__lift {
-  aspect-ratio: 5 / 3;
-}
-
-.play-artifact--landscape .play-artifact__lift {
-  aspect-ratio: 16 / 10;
-}
-
-.play-artifact--tall .play-artifact__lift {
-  aspect-ratio: 3 / 4;
-}
-
-.play-artifact--md .play-artifact__lift {
-  aspect-ratio: 4 / 3;
-}
-
-.play-artifact--sm .play-artifact__lift {
-  aspect-ratio: 3 / 4;
 }
 
 .play-artifact.is-tilting .play-artifact__lift {
@@ -10049,11 +10006,7 @@ a.about-browser__url:hover .about-browser__url-text {
   opacity: 1;
 }
 
-/* Album carousel GIF uses native ratio + contain so it stays sharp in the denser grid */
-.play-artifact--carousel .play-artifact__lift {
-  aspect-ratio: 400 / 297;
-}
-
+/* Album carousel GIF: contain so it stays sharp inside the equal 4:3 cell */
 .play-artifact--carousel .play-artifact__img {
   object-fit: contain;
   object-position: center;
@@ -10061,26 +10014,7 @@ a.about-browser__url:hover .about-browser__url-text {
 
 @media (max-width: 980px) {
   .play-artifacts {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .play-artifacts__cell,
-  .play-artifacts__cell--md,
-  .play-artifacts__cell--tall,
-  .play-artifacts__cell--sm,
-  .play-artifacts__cell--work {
-    grid-column: span 2;
-  }
-
-  .play-artifacts__cell--wide,
-  .play-artifacts__cell--landscape {
-    grid-column: span 2;
-  }
-
-  .play-artifacts__cell--tall,
-  .play-artifacts__cell--sm {
-    margin-top: 0.35rem;
-    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -10101,18 +10035,6 @@ a.about-browser__url:hover .about-browser__url-text {
 @media (max-width: 560px) {
   .play-artifacts {
     grid-template-columns: 1fr;
-  }
-
-  .play-artifacts__cell,
-  .play-artifacts__cell--wide,
-  .play-artifacts__cell--landscape,
-  .play-artifacts__cell--tall,
-  .play-artifacts__cell--md,
-  .play-artifacts__cell--sm,
-  .play-artifacts__cell--work {
-    grid-column: span 1;
-    width: 100%;
-    margin-top: 0;
   }
 }
 
