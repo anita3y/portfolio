@@ -28,11 +28,13 @@ function cardTransform(offset, reduced) {
   const x = offset * (reduced ? 9.6 : 8.55);
   const z = offset === 0 ? 56 : 22 - abs * 16;
   const scale = offset === 0 ? 1.04 : Math.max(0.82, 1 - abs * 0.06);
+  // Soft dissolve for far peeks (no rectangular mist panel).
+  const opacity = abs === 0 ? 1 : abs === 1 ? 0.88 : abs === 2 ? 0.55 : abs === 3 ? 0.28 : 0;
 
   return {
     transform: `translate(-50%, -50%) translateX(${x}rem) translateZ(${z}px) rotateY(${rotateY}deg) scale(${scale})`,
     zIndex: 40 - abs,
-    opacity: abs > 3 ? 0 : 1
+    opacity
   };
 }
 

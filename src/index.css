@@ -8843,79 +8843,77 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 /*
- * Soft diffused edge language (rghv.ca): covers dissolve into atmosphere.
- * Blur must overflow into the white page above/below — never clip into a
- * hard horizontal band (overflow:hidden + fixed-height strip).
+ * Soft neighbor bloom into full-bleed white — no rectangular mist panels,
+ * no overflow:hidden + filter on the same box (that slices blur into a band).
  */
 .play-flow-clip {
   position: relative;
   margin: 0 calc(-1 * var(--page-pad-x, 1.15rem));
-  /* Room for edge blur to bloom vertically into white; no Y clip. */
-  padding: 2.75rem 0;
-  margin-top: -2.75rem;
-  margin-bottom: -2.75rem;
+  /* Extra Y room so card filter blur can bloom above/below the stage. */
+  padding: 3.25rem 0;
+  margin-top: -3.25rem;
+  margin-bottom: -3.25rem;
   overflow: visible;
-  /* Horizontal fade only — a full mask box would reintroduce hard Y cuts. */
   -webkit-mask-image: none;
   mask-image: none;
+  clip-path: none;
 }
 
+/*
+ * Side fade only: translucent white veil — NO backdrop-filter.
+ * Backdrop-filter + opaque white made a hard-edged grey strip.
+ */
 .play-flow-edge {
   position: absolute;
-  /* Bloom past the cover band into white (parent overflow is visible). */
-  top: -22%;
-  bottom: -22%;
-  width: clamp(11rem, 34vw, 20rem);
+  top: 0;
+  bottom: 0;
+  width: clamp(5rem, 16vw, 9rem);
   z-index: 50;
   pointer-events: none;
   background: linear-gradient(
     var(--play-edge-dir, to right),
     #fff 0%,
-    rgba(255, 255, 255, 0.96) 12%,
-    rgba(255, 255, 255, 0.72) 32%,
-    rgba(255, 255, 255, 0.32) 52%,
-    rgba(255, 255, 255, 0.08) 74%,
+    rgba(255, 255, 255, 0.7) 45%,
     rgba(255, 255, 255, 0) 100%
   );
-  backdrop-filter: blur(64px) saturate(1.02);
-  -webkit-backdrop-filter: blur(64px) saturate(1.02);
-  /* Fade the blur rect on all sides so it never reads as a hard clipped band. */
-  -webkit-mask-image: radial-gradient(
-    120% 85% at 50% 50%,
-    #000 0%,
-    #000 42%,
-    rgba(0, 0, 0, 0.55) 68%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    120% 85% at 50% 50%,
-    #000 0%,
-    #000 42%,
-    rgba(0, 0, 0, 0.55) 68%,
-    transparent 100%
-  );
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 .play-flow-edge--left {
-  left: -0.75rem;
+  left: 0;
   --play-edge-dir: to right;
 }
 
 .play-flow-edge--right {
-  right: -0.75rem;
+  right: 0;
   --play-edge-dir: to left;
 }
 
-/* Soften non-selected covers; blur must be free to bloom (parent overflow visible). */
+/*
+ * Blur on the card (overflow visible), never on .play-flow__lift with
+ * overflow:hidden — that clips the blur to a hard rectangle.
+ */
+.play-flow__card:not(.is-selected) {
+  filter: blur(2.4px);
+}
+
 .play-flow__card:not(.is-selected) .play-flow__lift {
-  box-shadow: 0 3px 14px rgba(20, 20, 24, 0.05);
-  filter: blur(1.1px);
+  overflow: visible;
+  box-shadow: none;
+  filter: none;
+  background: transparent;
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .play-flow__card:not(.is-selected):hover {
+    filter: blur(0.6px);
+  }
+
   .play-flow__card:not(.is-selected):hover .play-flow__lift {
     box-shadow: 0 6px 18px rgba(20, 20, 24, 0.07);
-    filter: none;
   }
 }
 
@@ -8971,20 +8969,24 @@ a.about-browser__url:hover .about-browser__url-text {
 .play-flow__lift {
   display: block;
   border-radius: 0;
-  overflow: hidden;
-  background: #f4f4f2;
+  overflow: visible;
+  background: transparent;
   border: none;
-  box-shadow:
-    0 1px 2px rgba(20, 20, 24, 0.06),
-    0 8px 22px rgba(20, 20, 24, 0.08);
+  box-shadow: none;
   transform: translateZ(0);
   transition:
     transform 0.4s ease-in-out,
-    box-shadow 0.4s ease-in-out;
+    box-shadow 0.4s ease-in-out,
+    filter 0.4s ease-in-out;
 }
 
 .play-flow__card.is-selected .play-flow__lift {
   border-radius: 0;
+  overflow: hidden;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgba(20, 20, 24, 0.06),
+    0 8px 22px rgba(20, 20, 24, 0.08);
 }
 
 .play-flow__card img {
