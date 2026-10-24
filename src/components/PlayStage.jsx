@@ -25,7 +25,8 @@ function usePrefersReducedMotion() {
 function cardTransform(offset, reduced) {
   const abs = Math.abs(offset);
   const rotateY = reduced || offset === 0 ? 0 : offset < 0 ? 58 : -58;
-  const x = offset * (reduced ? 9.6 : 8.55);
+  // Tighter coverflow gaps — neighbors sit closer to the active cover.
+  const x = offset * (reduced ? 6.85 : 6.05);
   const z = offset === 0 ? 56 : 22 - abs * 16;
   const scale = offset === 0 ? 1.04 : Math.max(0.82, 1 - abs * 0.06);
   // Soft dissolve for far peeks (no rectangular mist panel).
