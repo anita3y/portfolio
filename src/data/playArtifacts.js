@@ -13,10 +13,11 @@ export const PLAY_ARTIFACTS = [
   },
   {
     id: "sticker-sheet",
-    title: "Sticker sheet",
-    kind: "stickers",
+    title: "Stickers",
+    kind: "placeholder",
     size: "md",
-    thumbnail: assetUrl("/thumbnails/play/sticker-collection.png") + "?v=4"
+    hideChromeLabel: true,
+    thumbnail: assetUrl("/play/thumbs/stickers-placeholder.svg")
   },
   {
     id: "posters",

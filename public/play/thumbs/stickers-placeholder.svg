@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#F2F1EE"/>
+  <rect x="170" y="110" width="460" height="380" rx="0" fill="#FAFAF8" stroke="#D8D6D0" stroke-width="1.5"/>
+  <!-- sticker shapes on a sheet -->
+  <rect x="220" y="168" width="118" height="118" rx="18" fill="#EDEBE5" stroke="#C9C6BE" stroke-width="1.5"/>
+  <circle cx="400" cy="227" r="59" fill="#E8E5DE" stroke="#C9C6BE" stroke-width="1.5"/>
+  <rect x="462" y="168" width="118" height="118" rx="28" fill="#EDEBE5" stroke="#C9C6BE" stroke-width="1.5"/>
+  <circle cx="279" cy="378" r="52" fill="#E8E5DE" stroke="#C9C6BE" stroke-width="1.5"/>
+  <rect x="352" y="326" width="96" height="104" rx="14" fill="#EDEBE5" stroke="#C9C6BE" stroke-width="1.5"/>
+  <rect x="472" y="338" width="108" height="88" rx="22" fill="#E8E5DE" stroke="#C9C6BE" stroke-width="1.5"/>
+</svg>
