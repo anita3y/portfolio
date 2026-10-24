@@ -8959,11 +8959,18 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .play-flow__card.is-selected {
   cursor: default;
+  outline: none;
+  /* Clip any subpixel/AA fringe from scale + neighbor blur underneath. */
+  overflow: hidden;
 }
 
 .play-flow__card:focus-visible {
   outline: 2px solid rgba(58, 58, 64, 0.35);
   outline-offset: 3px;
+}
+
+.play-flow__card.is-selected:focus-visible {
+  outline: none;
 }
 
 .play-flow__lift {
@@ -8972,6 +8979,7 @@ a.about-browser__url:hover .about-browser__url-text {
   overflow: visible;
   background: transparent;
   border: none;
+  outline: none;
   box-shadow: none;
   transform: translateZ(0);
   transition:
@@ -8983,10 +8991,13 @@ a.about-browser__url:hover .about-browser__url-text {
 .play-flow__card.is-selected .play-flow__lift {
   border-radius: 0;
   overflow: hidden;
-  background: #fff;
-  box-shadow:
-    0 1px 2px rgba(20, 20, 24, 0.06),
-    0 8px 22px rgba(20, 20, 24, 0.08);
+  /* Transparent — a fill lighter than the sheet read as a hairline on dark. */
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  /* Avoid translateZ AA fringe against charcoal. */
+  transform: none;
 }
 
 .play-flow__card img {
@@ -8999,14 +9010,28 @@ a.about-browser__url:hover .about-browser__url-text {
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
+  /* Kill residual 1px image fringe from filtering/scale. */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.play-flow__card.is-selected img {
+  /* Slight overscan so AA fringe stays inside the clipped lift. */
+  transform: scale(1.012);
+  transform-origin: center center;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .play-flow__card:hover .play-flow__lift {
+  .play-flow__card:not(.is-selected):hover .play-flow__lift {
     transform: translateY(-9px) translateZ(10px);
     box-shadow:
       0 2px 4px rgba(20, 20, 24, 0.07),
       0 14px 28px rgba(20, 20, 24, 0.1);
+  }
+
+  .play-flow__card.is-selected:hover .play-flow__lift {
+    transform: none;
+    box-shadow: none;
   }
 }
 
@@ -9982,10 +10007,14 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .play-artifact-overlay__sheet--carousel.is-dark .play-flow__card.is-selected .play-flow__lift {
-  background: #1a1b1f;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.35),
-    0 10px 28px rgba(0, 0, 0, 0.4);
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-flow__card.is-selected:hover .play-flow__lift {
+  box-shadow: none;
 }
 
 .play-artifact-overlay__sheet--carousel.is-dark .play-picker__title {
