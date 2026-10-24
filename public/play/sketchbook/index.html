@@ -20,30 +20,35 @@
   .page {
     position: relative; box-sizing: border-box; width: 100%; height: 100vh; min-height: 100vh;
     display: flex; align-items: center; justify-content: center;
-    padding: clamp(1.25rem, 4vh, 2.75rem) clamp(1rem, 3vw, 2.5rem) clamp(1rem, 3vh, 2rem);
+    /* Extra pad so the smaller book sits in more white space. */
+    padding: clamp(2.25rem, 8vh, 4.5rem) clamp(1.75rem, 7vw, 5rem) clamp(1.75rem, 6vh, 3.5rem);
     overflow: hidden;
   }
   .content {
     width: 100%; max-height: 100%;
-    display: flex; flex-direction: column; align-items: center; gap: clamp(0.85rem, 2.5vh, 1.5rem);
+    display: flex; flex-direction: column; align-items: center; gap: clamp(0.75rem, 2vh, 1.15rem);
     transform-origin: center; min-height: 0;
   }
 
   .stage {
-    width: 100%; flex: 1 1 auto; min-height: 0;
+    width: 100%; flex: 0 1 auto; min-height: 0;
     display: flex; justify-content: center; align-items: center;
     touch-action: pan-y;
   }
   .book {
     position: relative;
-    width: min(100%, 820px);
-    max-height: 100%;
+    /* Smaller sketchbook for breathing room around it. */
+    width: min(100%, 34rem);
+    max-height: min(52vh, 22rem);
     aspect-ratio: 1429 / 1000;
     perspective: 2600px;
   }
-  /* Keep aspect ratio while respecting max-height inside short overlays */
   @supports (height: 100%) {
-    .book { height: auto; width: min(100%, 820px, calc(100% * 1429 / 1000)); max-width: 100%; }
+    .book {
+      height: auto;
+      width: min(100%, 34rem, calc(min(52vh, 22rem) * 1429 / 1000));
+      max-width: 100%;
+    }
   }
 
   .sheet, .leaf { position: absolute; top: 0; width: 50%; height: 100%; }
@@ -171,9 +176,6 @@ const SPREADS = [
   { left:  { src: "images/hands.jpg",        alt: "Pencil studies of hands, a curled fist and an open palm" },
     right: { src: "images/feet.jpg",         alt: "Pencil studies of two feet seen from below, toes curled" },
     title: "Finger sketches & Feet", sub: "graphite" },
-  { left:  { src: "images/looking-up-L.jpg", alt: "Left half of an in-progress graphite drawing: a detailed face glancing sideways" },
-    right: { src: "images/looking-up-R.jpg", alt: "Right half of the same drawing: loose construction lines" },
-    title: "Looking up", sub: "graphite, in progress" },
   { left:  { src: "images/birds-L.jpg",      alt: "Left half of a colored pencil study: an eagle's head with color swatches" },
     right: { src: "images/birds-R.jpg",      alt: "Right half of the study: a grey heron's head with a yellow beak" },
     title: "Eagle & Heron", sub: "colored pencil" },
