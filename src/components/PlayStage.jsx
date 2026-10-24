@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getPlayStudy } from "../data/play/index.js";
+import { hapticTick, pulseHapticClass } from "../utils/haptics.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
 import StickerPlayground from "./StickerPlayground.jsx";
 
@@ -112,7 +113,10 @@ export function PlayPicker({ projects, selectedId, onSelect, ariaLabel = "Play c
     (index) => {
       const next = clamp(index, 0, projects.length - 1);
       const project = projects[next];
-      if (project && project.id !== selectedId) onSelect(project.id);
+      if (!project || project.id === selectedId) return;
+      const vibrated = hapticTick(8);
+      if (!vibrated) pulseHapticClass(stageRef.current, "is-haptic-tick", 150);
+      onSelect(project.id);
     },
     [onSelect, projects, selectedId]
   );

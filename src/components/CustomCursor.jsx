@@ -46,11 +46,12 @@ const HOVER_SIZE = 15;
 const PRESS_SIZE = 12;
 const MORPH_PAD = 5;
 /** Fade-out hold so opacity ease-in-out can finish before unmount. */
-const MORPH_EXIT_MS = 280;
+const MORPH_EXIT_MS = 340;
 
-/** Softer ease-in-out feel (lower = smoother, less snappy). */
-const MORPH_EASE = 0.12;
-const LAYER_MORPH_EASE = 0.13;
+/** Softer ease-in-out feel (lower = smoother, less snappy) — rghv-like phase. */
+const MORPH_EASE = 0.09;
+const LAYER_MORPH_EASE = 0.1;
+const POS_EASE = 0.16;
 
 function getMorphRadius(element, w, h) {
   // Work / Play / About tabs are pills — morph should match that roundness.
@@ -299,8 +300,12 @@ export default function CustomCursor() {
     const animate = () => {
       const el = cursorRef.current;
       const tagEl = subtitleTagRef.current;
-      const posEase = reducedMotion ? 1 : 0.2;
-      const sizeEase = reducedMotion ? 1 : morphTarget.current || layerMorphTarget.current ? MORPH_EASE : 0.2;
+      const posEase = reducedMotion ? 1 : POS_EASE;
+      const sizeEase = reducedMotion
+        ? 1
+        : morphTarget.current || layerMorphTarget.current
+          ? MORPH_EASE
+          : 0.16;
       const layerEase = reducedMotion ? 1 : LAYER_MORPH_EASE;
 
       if (tagActive.current && tagEl) {

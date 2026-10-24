@@ -25,6 +25,7 @@ import {
   tabIdFromPathname
 } from "../data/tabs.js";
 import { assetUrl } from "../utils/assetUrl.js";
+import { hapticTick, pulseHapticClass } from "../utils/haptics.js";
 
 const TABS = SITE_TABS;
 const TAB_IDS = SITE_TAB_IDS;
@@ -182,6 +183,9 @@ export default function Home() {
 
   const selectTab = useCallback(
     (id) => {
+      if (id === activeTab) return;
+      const vibrated = hapticTick(8);
+      if (!vibrated) pulseHapticClass(navRef.current, "is-haptic-tick", 180);
       setActiveTab(id);
       if (id !== "work") setOpenWorkId(null);
       if (id !== "play") setOpenPlayArtifactId(null);
@@ -198,7 +202,7 @@ export default function Home() {
         });
       }
     },
-    [location.pathname, navigate]
+    [activeTab, location.pathname, navigate]
   );
 
   const openPlayArtifact = useCallback((artifactId) => {

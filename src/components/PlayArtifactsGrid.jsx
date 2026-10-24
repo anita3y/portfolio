@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { hapticTick, pulseHapticClass } from "../utils/haptics.js";
 
 const MAX_TILT = 5;
 
@@ -100,6 +101,7 @@ function ArtifactThumbMedia({ artifact }) {
 }
 
 function ArtifactThumb({ artifact, onOpen }) {
+  const buttonRef = useRef(null);
   const wrapRef = useRef(null);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0, hovering: false });
 
@@ -120,13 +122,20 @@ function ArtifactThumb({ artifact, onOpen }) {
     });
   };
 
+  const open = () => {
+    const vibrated = hapticTick(10);
+    if (!vibrated) pulseHapticClass(buttonRef.current);
+    onOpen(artifact.id);
+  };
+
   return (
     <button
+      ref={buttonRef}
       type="button"
       className={`play-artifact play-artifact--${artifact.size} play-artifact--${artifact.kind}${
         tilt.hovering ? " is-tilting" : ""
       }`}
-      onClick={() => onOpen(artifact.id)}
+      onClick={open}
       onPointerMove={onPointerMove}
       onPointerLeave={resetTilt}
       onPointerCancel={resetTilt}
