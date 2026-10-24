@@ -8842,9 +8842,8 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 /*
- * Coverflow edges: opaque white mist only — no backdrop-filter.
- * Soft blur here sampled neighbor covers into a grey rectangular band
- * behind the active album; keep peeks clean on white instead.
+ * Coverflow: neighbor peeks stay visible. Edge fade is white mist only —
+ * never backdrop-filter (that smeared covers into a grey rectangular band).
  */
 .play-flow-clip {
   position: relative;
@@ -8853,15 +8852,15 @@ a.about-browser__url:hover .about-browser__url-text {
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0%,
-    #000 10%,
-    #000 90%,
+    #000 8%,
+    #000 92%,
     transparent 100%
   );
   mask-image: linear-gradient(
     to right,
     transparent 0%,
-    #000 10%,
-    #000 90%,
+    #000 8%,
+    #000 92%,
     transparent 100%
   );
 }
@@ -8870,15 +8869,14 @@ a.about-browser__url:hover .about-browser__url-text {
   position: absolute;
   top: 0;
   bottom: 0;
-  /* Stay clear of the centered active cover so mist never reads as a frame. */
-  width: clamp(4.5rem, 14vw, 8.5rem);
+  /* Outer fade only — stay clear of the active cover and near peeks. */
+  width: clamp(3.5rem, 11vw, 6.5rem);
   z-index: 50;
   pointer-events: none;
   background: linear-gradient(
     var(--play-edge-dir, to right),
     #fff 0%,
-    rgba(255, 255, 255, 0.92) 35%,
-    rgba(255, 255, 255, 0.45) 68%,
+    rgba(255, 255, 255, 0.85) 40%,
     rgba(255, 255, 255, 0) 100%
   );
 }
@@ -8893,7 +8891,7 @@ a.about-browser__url:hover .about-browser__url-text {
   --play-edge-dir: to left;
 }
 
-/* Neighbor peeks: no soft-blur haze (that read as a grey outline). */
+/* Neighbors: sharp peeks, no soft-blur haze (that read as a grey outline). */
 .play-flow__card:not(.is-selected) .play-flow__lift {
   box-shadow: none;
   filter: none;
@@ -8912,7 +8910,8 @@ a.about-browser__url:hover .about-browser__url-text {
   perspective: 1180px;
   perspective-origin: 50% 48%;
   transform-style: preserve-3d;
-  touch-action: pan-y;
+  /* Custom horizontal drag owns gestures here (swipe between albums). */
+  touch-action: none;
   user-select: none;
   -webkit-user-select: none;
   outline: none;
