@@ -8998,6 +8998,8 @@ a.about-browser__url:hover .about-browser__url-text {
   box-shadow: none;
   /* Avoid translateZ AA fringe against charcoal. */
   transform: none;
+  /* Crop 1px AA / light art-edge fringe; neighbors still bloom outside. */
+  clip-path: inset(1px);
 }
 
 .play-flow__card img {
@@ -9016,8 +9018,8 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .play-flow__card.is-selected img {
-  /* Slight overscan so AA fringe stays inside the clipped lift. */
-  transform: scale(1.012);
+  /* Overscan so clip-path crops fringe, not meaningful art. */
+  transform: scale(1.025);
   transform-origin: center center;
 }
 

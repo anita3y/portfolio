@@ -28,7 +28,8 @@ function cardTransform(offset, reduced) {
   // Tighter coverflow gaps — neighbors sit closer to the active cover.
   const x = offset * (reduced ? 6.85 : 6.05);
   const z = offset === 0 ? 56 : 22 - abs * 16;
-  const scale = offset === 0 ? 1.04 : Math.max(0.82, 1 - abs * 0.06);
+  // Keep selected at 1 — scale>1 caused a light AA hairline on dark charcoal.
+  const scale = offset === 0 ? 1 : Math.max(0.82, 1 - abs * 0.06);
   // Soft dissolve for far peeks (no rectangular mist panel).
   const opacity = abs === 0 ? 1 : abs === 1 ? 0.88 : abs === 2 ? 0.55 : abs === 3 ? 0.28 : 0;
 
