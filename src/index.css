@@ -9819,6 +9819,33 @@ a.about-browser__url:hover .about-browser__url-text {
   padding: 0.35rem 0.85rem 1rem;
 }
 
+.play-artifact-overlay__sheet--iframe {
+  --play-overlay-w: min(96vw, 64rem);
+  --play-overlay-h: min(90vh, 48rem);
+}
+
+.play-artifact-overlay__sheet--iframe .play-artifact-overlay__body {
+  overflow: hidden;
+  padding: 0;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
+.play-artifact-overlay__iframe-pad {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.play-artifact-overlay__iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #f9f9fb;
+}
+
 .play-artifact-overlay__sheet--placeholder {
   --play-overlay-w: min(92vw, 36rem);
   --play-overlay-h: min(78vh, 34rem);

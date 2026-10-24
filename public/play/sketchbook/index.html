@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketchbook</title>
+<style>
+  :root {
+    --bg: #f9f9fb;
+    --ink: #111;
+    --muted: #8a8a8f;
+    --tick: #c7c7cc;
+    --ease: cubic-bezier(.645, .045, .355, 1);
+  }
+  html, body { margin: 0; min-height: 100%; background: var(--bg); transition: background .4s; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+    color: var(--ink);
+    -webkit-user-select: none; user-select: none;
+  }
+
+  /* Record mode: black page, light ink, hidden cursor */
+  body.rec { --bg: #000; --ink: #f9f9fb; --tick: rgba(255,255,255,.28); }
+  body.rec, body.rec * { cursor: none !important; }
+
+  .page {
+    position: relative; box-sizing: border-box; width: 100%; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 72px 40px; overflow: hidden;
+  }
+  .content {
+    width: 100%; display: flex; flex-direction: column; align-items: center; gap: 40px;
+    transform-origin: center; transition: transform .5s var(--ease);
+  }
+  body.rec .content { transform: scale(.78); }
+
+  .stage { width: 100%; display: flex; justify-content: center; touch-action: pan-y; }
+  .book { position: relative; width: min(100%, 820px); aspect-ratio: 1429 / 1000; perspective: 2600px; }
+
+  .sheet, .leaf { position: absolute; top: 0; width: 50%; height: 100%; }
+  .sheet { overflow: hidden; background: #fff; box-shadow: 0 12px 32px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.05); }
+  .sheet.left  { left: 0;   border-radius: 14px 0 0 14px; }
+  .sheet.right { left: 50%; border-radius: 0 14px 14px 0; }
+
+  .leaf {
+    left: 50%; margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
+    transform-origin: left center; transform-style: preserve-3d;
+    transition: transform .9s var(--ease);
+  }
+  .leaf.flipped { transform: rotateY(-180deg); }
+  .face {
+    position: absolute; inset: 0; overflow: hidden; background: #fff;
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    box-shadow: 0 0 0 1px rgba(0,0,0,.05);
+  }
+  .face.front { border-radius: 0 14px 14px 0; }
+  .face.back  { border-radius: 14px 0 0 14px; transform: rotateY(180deg); }
+
+  img { display: block; width: 100%; height: 100%; object-fit: cover; -webkit-user-drag: none; }
+
+  /* soft shading at the spine */
+  .gutter { position: absolute; top: 0; bottom: 0; width: 10%; pointer-events: none; }
+  .gutter.l { left: 0;  background: linear-gradient(to right, rgba(0,0,0,.10), transparent); }
+  .gutter.r { right: 0; background: linear-gradient(to left,  rgba(0,0,0,.10), transparent); }
+
+  .caption { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+  .caption .title { font-size: 22px; color: var(--ink); transition: color .4s; }
+  .caption .sub { font-size: 20px; color: var(--muted); }
+
+  .ticks { display: flex; align-items: center; }
+  .tick {
+    width: 28px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tick span {
+    display: block; width: 2px; height: 18px; border-radius: 1px; background: var(--tick);
+    transition: height .3s, background .3s;
+  }
+  .tick[aria-pressed="true"] span { height: 34px; background: var(--ink); }
+
+  .rec-toggle {
+    position: absolute; top: 16px; right: 16px; z-index: 30; min-height: 44px; padding: 0 16px;
+    border-radius: 22px; border: 1px solid rgba(0,0,0,.12); background: transparent;
+    color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; transition: opacity .25s;
+  }
+  body.rec .rec-toggle { opacity: 0; color: #f9f9fb; border-color: rgba(255,255,255,.3); }
+  body.rec .rec-toggle:hover, body.rec .rec-toggle:focus-visible { opacity: .7; }
+</style>
+</head>
+<body>
+<main class="page">
+  <button type="button" class="rec-toggle" id="recToggle" aria-pressed="false">Record mode</button>
+  <div class="content">
+    <div class="stage" id="stage"><div class="book" id="book"></div></div>
+    <div class="caption" aria-live="polite">
+      <span class="title" id="capTitle"></span>
+      <span class="sub" id="capSub"></span>
+    </div>
+    <div class="ticks" id="ticks"></div>
+  </div>
+</main>
+
+<script>
+// ---- Edit your spreads here: left page, right page, caption ----
+const SPREADS = [
+  { left:  { src: "images/girl.jpg",         alt: "Colored pencil drawing of a girl with a brown bob and wide eyes, wired earbuds and star bursts floating around her" },
+    right: { src: "images/person.jpg",       alt: "Graphite sketch of the person sitting in front, head bowed and eyes lowered" },
+    title: "Earbuds & Person in front", sub: "colored pencil, graphite" },
+  { left:  { src: "images/hands.jpg",        alt: "Pencil studies of hands, a curled fist and an open palm" },
+    right: { src: "images/feet.jpg",         alt: "Pencil studies of two feet seen from below, toes curled" },
+    title: "Finger sketches & Feet", sub: "graphite" },
+  { left:  { src: "images/looking-up-L.jpg", alt: "Left half of an in-progress graphite drawing: a detailed face glancing sideways" },
+    right: { src: "images/looking-up-R.jpg", alt: "Right half of the same drawing: loose construction lines" },
+    title: "Looking up", sub: "graphite, in progress" },
+  { left:  { src: "images/birds-L.jpg",      alt: "Left half of a colored pencil study: an eagle's head with color swatches" },
+    right: { src: "images/birds-R.jpg",      alt: "Right half of the study: a grey heron's head with a yellow beak" },
+    title: "Eagle & Heron", sub: "colored pencil" },
+  { left:  { src: "images/eyes-L.jpg",       alt: "Left half of an in-progress graphite drawing: sketched birds in flight" },
+    right: { src: "images/eyes-R.jpg",       alt: "Right half of the drawing: a pair of detailed eyes" },
+    title: "Eyes", sub: "graphite, in progress" },
+];
+const AUTO_DELAY = 2600;   // ms between auto page turns in record mode
+const LAST = SPREADS.length - 1;
+
+const book = document.getElementById("book");
+const ticksEl = document.getElementById("ticks");
+const capTitle = document.getElementById("capTitle");
+const capSub = document.getElementById("capSub");
+const recToggle = document.getElementById("recToggle");
+
+function pageImg(p, side) {
+  return `<img src="${p.src}" alt="${p.alt}" draggable="false"><span class="gutter ${side}" aria-hidden="true"></span>`;
+}
+
+// Static first-left and last-right pages; leaves in between.
+// Leaf i: front = right page of spread i, back = left page of spread i+1.
+book.innerHTML =
+  `<div class="sheet left">${pageImg(SPREADS[0].left, "r")}</div>` +
+  `<div class="sheet right">${pageImg(SPREADS[LAST].right, "l")}</div>`;
+const leaves = [];
+for (let i = 0; i < LAST; i++) {
+  const leaf = document.createElement("button");
+  leaf.type = "button";
+  leaf.className = "leaf";
+  leaf.innerHTML =
+    `<span class="face front">${pageImg(SPREADS[i].right, "l")}</span>` +
+    `<span class="face back">${pageImg(SPREADS[i + 1].left, "r")}</span>`;
+  leaf.addEventListener("click", () => {
+    if (swiped) { swiped = false; return; }
+    go(i < k ? i : i + 1);
+  });
+  book.appendChild(leaf);
+  leaves.push(leaf);
+}
+
+const ticks = SPREADS.map((_, i) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "tick";
+  b.setAttribute("aria-label", `Spread ${i + 1}`);
+  b.innerHTML = "<span></span>";
+  b.addEventListener("click", () => go(i));
+  ticksEl.appendChild(b);
+  return b;
+});
+
+let k = 0, turning = -1, turnTimer, autoTimer, swiped = false, rec = false;
+
+function render() {
+  leaves.forEach((leaf, i) => {
+    const flipped = i < k;
+    leaf.classList.toggle("flipped", flipped);
+    leaf.style.zIndex = i === turning ? 20 : (flipped ? i + 1 : 10 - i);
+    leaf.setAttribute("aria-label", flipped ? "Turn back a page" : "Turn the page");
+  });
+  ticks.forEach((t, i) => t.setAttribute("aria-pressed", String(i === k)));
+  capTitle.textContent = SPREADS[k].title;
+  capSub.textContent = SPREADS[k].sub;
+}
+
+function go(target) {
+  const next = Math.max(0, Math.min(LAST, target));
+  if (next === k) return;
+  turning = Math.abs(next - k) === 1 ? Math.min(next, k) : -1;
+  k = next;
+  render();
+  clearTimeout(turnTimer);
+  turnTimer = setTimeout(() => { turning = -1; render(); }, 950);
+}
+
+// Scroll / trackpad
+let lastWheel = 0;
+document.getElementById("stage").addEventListener("wheel", (e) => {
+  const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+  if (Math.abs(d) < 14) return;
+  const now = Date.now();
+  if (now - lastWheel < 850) return;
+  lastWheel = now;
+  go(k + (d > 0 ? 1 : -1));
+}, { passive: true });
+
+// Swipe / drag
+let downX = null;
+const stage = document.getElementById("stage");
+stage.addEventListener("pointerdown", (e) => { downX = e.clientX; });
+stage.addEventListener("pointerup", (e) => {
+  if (downX === null) return;
+  const dx = e.clientX - downX;
+  downX = null;
+  if (Math.abs(dx) > 50) {
+    swiped = true;
+    go(k + (dx < 0 ? 1 : -1));
+    setTimeout(() => { swiped = false; }, 400);
+  }
+});
+
+// Record mode: black background, hidden cursor, auto page turns that loop
+function startAuto() {
+  clearTimeout(autoTimer);
+  const step = () => {
+    if (!rec) return;
+    const atEnd = k >= LAST;
+    go(atEnd ? 0 : k + 1);
+    autoTimer = setTimeout(step, k >= LAST ? AUTO_DELAY + 600 : AUTO_DELAY);
+  };
+  autoTimer = setTimeout(step, 1600);
+}
+recToggle.addEventListener("click", () => {
+  rec = !rec;
+  document.body.classList.toggle("rec", rec);
+  recToggle.setAttribute("aria-pressed", String(rec));
+  recToggle.textContent = rec ? "Exit record mode" : "Record mode";
+  if (rec) { go(0); startAuto(); } else clearTimeout(autoTimer);
+});
+
+render();
+</script>
+</body>
+</html>

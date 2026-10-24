@@ -38,11 +38,12 @@ export const PLAY_ARTIFACTS = [
   },
   {
     id: "digital-journal",
-    title: "Digital journal",
-    kind: "placeholder",
+    title: "Sketchbook",
+    kind: "iframe",
     size: "md",
     hideChromeLabel: true,
-    thumbnail: assetUrl("/play/thumbs/digital-journal-placeholder.svg")
+    thumbnail: assetUrl("/play/thumbs/digital-journal.jpg"),
+    iframeSrc: assetUrl("/play/sketchbook/index.html")
   }
 ];
 

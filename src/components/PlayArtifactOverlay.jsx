@@ -153,6 +153,17 @@ export default function PlayArtifactOverlay({
               />
             </div>
           ) : null}
+          {artifact.kind === "iframe" && artifact.iframeSrc ? (
+            <div className="play-artifact-overlay__iframe-pad">
+              <iframe
+                className="play-artifact-overlay__iframe"
+                src={artifact.iframeSrc}
+                title={artifact.title}
+                loading="eager"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          ) : null}
           {artifact.kind === "placeholder" ? (
             <div className="play-artifact-overlay__placeholder" aria-hidden="true">
               <div className="play-artifact-overlay__placeholder-page" />
