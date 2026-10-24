@@ -17,7 +17,7 @@ export const CAROUSEL_ALBUMS = [
   {
     id: "for-lovers",
     title: "For Lovers",
-    artist: "Lamo",
+    artist: "Lamp",
     cover: assetUrl("/play/carousel-albums/koibito-e.png")
   },
   {
