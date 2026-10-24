@@ -25,14 +25,20 @@ function usePrefersReducedMotion() {
 function cardTransform(offset, reduced) {
   const abs = Math.abs(offset);
   const rotateY = reduced || offset === 0 ? 0 : offset < 0 ? 58 : -58;
-  const x = offset * (reduced ? 9.6 : 8.55);
+  // Space neighbors clear of the active cover so peeks never tuck underneath.
+  const x = offset * (reduced ? 12.8 : 11.6);
   const z = offset === 0 ? 56 : 22 - abs * 16;
   const scale = offset === 0 ? 1.04 : Math.max(0.82, 1 - abs * 0.06);
+  // Overlay sits on white: hide non-active slides entirely (no side ghosting /
+  // grey frame). Motion still eases via opacity/transform when the index changes.
+  const isActive = abs === 0;
 
   return {
     transform: `translate(-50%, -50%) translateX(${x}rem) translateZ(${z}px) rotateY(${rotateY}deg) scale(${scale})`,
     zIndex: 40 - abs,
-    opacity: abs > 3 ? 0 : 1
+    opacity: isActive ? 1 : 0,
+    visibility: isActive ? "visible" : "hidden",
+    pointerEvents: isActive ? undefined : "none"
   };
 }
 
