@@ -1637,6 +1637,9 @@ button:focus-visible {
 }
 
 .tabs {
+  /* Soft spring: ease-in start, slight overshoot past target, settle (rghv-like). */
+  --tabs-thumb-dur: 0.56s;
+  --tabs-thumb-ease: cubic-bezier(0.34, 1.22, 0.32, 1);
   --tabs-pad: 0.12rem;
   --tabs-radius: var(--pill-radius);
   --tabs-track-h: calc(var(--tag-chip-h, 2.65rem) * 0.9);
@@ -1674,10 +1677,10 @@ button:focus-visible {
   box-shadow: var(--pill-glass-shadow);
 
   transition:
-    transform 0.52s ease-in-out,
-    width 0.52s ease-in-out,
-    height 0.52s ease-in-out,
-    top 0.52s ease-in-out;
+    transform var(--tabs-thumb-dur) var(--tabs-thumb-ease),
+    width var(--tabs-thumb-dur) var(--tabs-thumb-ease),
+    height var(--tabs-thumb-dur) var(--tabs-thumb-ease),
+    top var(--tabs-thumb-dur) var(--tabs-thumb-ease);
   will-change: transform, width, height, top;
 }
 
