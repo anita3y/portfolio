@@ -8906,10 +8906,10 @@ a.about-browser__url:hover .about-browser__url-text {
   --play-edge-dir: to left;
 }
 
-/* Soften non-selected covers so outer edges don’t read as card borders. */
+/* Soften non-selected covers; blur must be free to bloom (parent overflow visible). */
 .play-flow__card:not(.is-selected) .play-flow__lift {
   box-shadow: 0 3px 14px rgba(20, 20, 24, 0.05);
-  filter: blur(0.35px);
+  filter: blur(1.1px);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -9881,10 +9881,14 @@ a.about-browser__url:hover .about-browser__url-text {
   padding: 0.85rem 1rem 1.35rem;
 }
 
-.play-artifact-overlay__sheet--carousel .play-artifact-overlay__body {
-  /* Visible so neighbor blur isn’t sliced into a hard band; sheet still clips corners. */
+.play-artifact-overlay__sheet--carousel {
+  /* Allow soft coverflow blur to bloom within the white sheet (no band clip). */
   overflow: visible;
-  padding: 1.75rem 0.25rem 1.35rem;
+}
+
+.play-artifact-overlay__sheet--carousel .play-artifact-overlay__body {
+  overflow: visible;
+  padding: 2.1rem 0.25rem 1.5rem;
 }
 
 .play-artifact-overlay__sheet--carousel .play-picker {
