@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { getPlayStudy } from "../data/play/index.js";
 import { hapticTick, pulseHapticClass } from "../utils/haptics.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
-import StickerPlayground from "./StickerPlayground.jsx";
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -339,9 +338,7 @@ export function PlayStudy({ projects, selectedId, onSelect }) {
   return (
     <div className="play-stage__study" ref={studyRef}>
       <div key={selected.id}>
-        {study?.playground ? (
-          <StickerPlayground project={selected} />
-        ) : study?.videoOnly ? (
+        {study?.videoOnly ? (
           <PlayVideoEmbed project={selected} study={study} />
         ) : study?.sections ? (
           <CaseStudyFullContent

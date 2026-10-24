@@ -12,14 +12,6 @@ export const PLAY_ARTIFACTS = [
     thumbnail: assetUrl("/play/thumbs/album-carousel.gif")
   },
   {
-    id: "sticker-sheet",
-    title: "Stickers",
-    kind: "placeholder",
-    size: "md",
-    hideChromeLabel: true,
-    thumbnail: assetUrl("/play/thumbs/stickers-placeholder.svg")
-  },
-  {
     id: "posters",
     title: "Posters",
     kind: "posters",

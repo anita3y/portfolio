@@ -8,7 +8,29 @@
   :root {
     --bg: #f9f9fb;
     --ink: #111;
+    --title: #000000;
+    --sub: #8a8b96;
+    --tick: #d0d0d4;
+    --tick-hover: #6a6a72;
+    --tick-on: #3a3a40;
+    --tick-on-hover: #111114;
+    --sheet: #fff;
+    --sheet-ring: rgba(0,0,0,.05);
+    --sheet-shadow: 0 12px 32px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.05);
     --ease: cubic-bezier(.645, .045, .355, 1);
+  }
+  html.theme-dark {
+    --bg: #121316;
+    --ink: #f5f5f7;
+    --title: #f5f5f7;
+    --sub: #8e8e98;
+    --tick: #3f4048;
+    --tick-hover: #7a7a84;
+    --tick-on: #f0f0f3;
+    --tick-on-hover: #ffffff;
+    --sheet: #1a1b20;
+    --sheet-ring: rgba(255,255,255,.08);
+    --sheet-shadow: 0 12px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.06);
   }
   html, body { margin: 0; min-height: 100%; background: var(--bg); }
   body {
@@ -52,7 +74,7 @@
   }
 
   .sheet, .leaf { position: absolute; top: 0; width: 50%; height: 100%; }
-  .sheet { overflow: hidden; background: #fff; box-shadow: 0 12px 32px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.05); }
+  .sheet { overflow: hidden; background: var(--sheet); box-shadow: var(--sheet-shadow); }
   .sheet.left  { left: 0;   border-radius: 14px 0 0 14px; }
   .sheet.right { left: 50%; border-radius: 0 14px 14px 0; }
 
@@ -63,9 +85,9 @@
   }
   .leaf.flipped { transform: rotateY(-180deg); }
   .face {
-    position: absolute; inset: 0; overflow: hidden; background: #fff;
+    position: absolute; inset: 0; overflow: hidden; background: var(--sheet);
     backface-visibility: hidden; -webkit-backface-visibility: hidden;
-    box-shadow: 0 0 0 1px rgba(0,0,0,.05);
+    box-shadow: 0 0 0 1px var(--sheet-ring);
   }
   .face.front { border-radius: 0 14px 14px 0; }
   .face.back  { border-radius: 14px 0 0 14px; transform: rotateY(180deg); }
@@ -96,8 +118,8 @@
     letter-spacing: -0.035em;
     line-height: 1.25;
   }
-  .caption .title { color: #000000; }
-  .caption .sub { color: #8a8b96; }
+  .caption .title { color: var(--title); }
+  .caption .sub { color: var(--sub); }
 
   .ticks {
     display: flex;
@@ -120,7 +142,7 @@
     padding: 0;
     border: none;
     border-radius: 1px;
-    background: #d0d0d4;
+    background: var(--tick);
     cursor: pointer;
     transition:
       height 0.28s cubic-bezier(0.22, 1, 0.32, 1),
@@ -135,25 +157,33 @@
   .tick[aria-pressed="true"] {
     width: 2px;
     height: 18px;
-    background: #3a3a40;
+    background: var(--tick-on);
     cursor: default;
   }
   @media (hover: hover) and (pointer: fine) {
     .tick:hover:not([aria-pressed="true"]) {
       height: 16px;
       width: 2px;
-      background: #6a6a72;
+      background: var(--tick-hover);
     }
     .tick:hover[aria-pressed="true"] {
-      background: #111114;
+      background: var(--tick-on-hover);
     }
   }
   .tick:focus-visible {
     outline: none;
     height: 16px;
-    background: #3a3a40;
+    background: var(--tick-on);
   }
 </style>
+<script>
+  (function applyThemeFromQuery() {
+    try {
+      var theme = new URLSearchParams(window.location.search).get("theme");
+      document.documentElement.classList.toggle("theme-dark", theme === "dark");
+    } catch (e) { /* ignore */ }
+  })();
+</script>
 </head>
 <body>
 <main class="page">

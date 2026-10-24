@@ -2311,37 +2311,6 @@ button:focus-visible {
   object-position: center center;
 }
 
-.project-card__media--wac {
-  background: #000;
-  overflow: hidden;
-}
-
-.project-card__media--wac .project-card__visual {
-  transform-origin: 50% 100%;
-}
-
-.project-card__media--wac .project-card__img {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: auto;
-  width: 96%;
-  height: 132%;
-  margin-inline: auto;
-  object-fit: contain;
-  object-position: center bottom;
-  transform: translateY(10%);
-  transform-origin: 50% 100%;
-  transition: transform 0.48s cubic-bezier(0.33, 1.06, 0.42, 1);
-}
-
-.project-card:hover .project-card__media--wac .project-card__img,
-.project-card:focus-visible .project-card__media--wac .project-card__img {
-  object-fit: contain;
-  transform: translateY(10%);
-}
-
 .project-card__stack {
   position: absolute;
   inset: 0;
@@ -5820,13 +5789,6 @@ a.about-browser__url:hover .about-browser__url-text {
 .play-stage__study .cs-title,
 .play-embed--simple .cs-title,
 .play-embed--video .cs-title,
-.play-embed--stickers .cs-title {
-  margin-top: 0;
-  margin-bottom: 0.85rem;
-  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
-  transform: translateY(-2.5rem);
-}
-
 .cs-hero-slide {
   position: absolute;
   inset: 0;
@@ -9132,269 +9094,8 @@ a.about-browser__url:hover .about-browser__url-text {
 .play-stage__study .cs-project-meta,
 .play-stage__study .cs-header--preview .cs-title,
 .play-embed--simple .cs-title,
-.play-embed--video .cs-title,
-.play-embed--stickers .cs-title,
-.play-embed--simple .cs-project-meta,
-.play-embed--video .cs-project-meta,
-.play-embed--stickers .cs-project-meta {
-  text-align: center;
-}
-
-.play-embed--stickers {
-  padding-bottom: 1.5rem;
-}
-
-.sticker-board__hint {
-  position: absolute;
-  top: clamp(0.75rem, 2.5%, 1.1rem);
-  left: 50%;
-  z-index: 2;
-  margin: 0;
-  padding: 0 1rem;
-  transform: translateX(-50%);
-  pointer-events: none;
+.play-embed--video .cs-title {
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.82rem;
-  font-weight: 400;
-  letter-spacing: -0.04em;
-  color: #8a8a92;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.sticker-board__caption {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
-  appearance: none;
-  -webkit-appearance: none;
-  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: -0.045em;
-  color: #111111;
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
-  text-align: left;
-}
-
-.sticker-board__caption:focus {
-  outline: none;
-}
-
-.sticker-board__caption:focus-visible {
-  outline: 2px solid rgba(58, 58, 64, 0.3);
-  outline-offset: 4px;
-}
-
-.sticker-board__caption.is-dragging {
-  cursor: grabbing;
-}
-
-.sticker-board__caption--matcha {
-  max-width: min(15rem, 46%);
-  line-height: 1.15;
-  text-align: center;
-  transform: rotate(-3.5deg);
-  transform-origin: 50% 62%;
-}
-
-.sticker-board__caption--painting {
-  max-width: min(13rem, 34%);
-  line-height: 1.38;
-  text-align: left;
-  transform: rotate(2.75deg);
-  transform-origin: 18% 50%;
-}
-
-.sticker-board {
-  --sticker-dot: 1.35rem;
-  position: relative;
-  width: 100%;
-  min-height: min(72vh, 42rem);
-  height: min(72vh, 42rem);
-  font-size: clamp(6.4rem, 15vw, 9.6rem);
-  border: none;
-  border-radius: 0;
-  overflow: hidden;
-  background-color: #ffffff;
-  background-image: radial-gradient(rgba(92, 92, 98, 0.22) 1.15px, transparent 1.2px);
-  background-size: var(--sticker-dot) var(--sticker-dot);
-  background-position: 0 0;
-  touch-action: none;
-}
-
-.sticker-board .sticker-piece {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: transparent;
-  appearance: none;
-  -webkit-appearance: none;
-  top: 0;
-  left: 0;
-  touch-action: none;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.sticker-board .sticker-piece:focus {
-  outline: none;
-}
-
-.sticker-board .sticker-piece:focus-visible {
-  outline: 2px solid rgba(58, 58, 64, 0.3);
-  outline-offset: 5px;
-}
-
-.sticker-board .hero-stamp--folder {
-  top: auto;
-  margin: 0;
-  --stamp-rot: 0deg;
-  --stamp-tug-rot: -4deg;
-  transform-origin: 48% 92%;
-}
-
-.sticker-board .hero-stamp--folder .sticker-piece__ripple,
-.sticker-board .hero-stamp--envelope .sticker-piece__ripple {
-  mask-position: center bottom;
-  -webkit-mask-position: center bottom;
-}
-
-.sticker-board .hero-stamp--envelope {
-  width: auto;
-  --stamp-rot: 16deg;
-  --stamp-tug-rot: 20deg;
-  transform-origin: 24% 88%;
-}
-
-.sticker-board .hero-stamp--about {
-  width: 9.4rem;
-}
-
-.sticker-board .hero-stamp--about.sticker-piece--stamp {
-  --stamp-rot: 9deg;
-  --stamp-tug-rot: 13deg;
-  transform-origin: 72% 88%;
-}
-
-.sticker-piece--art {
-  --stamp-rot: 0deg;
-  --stamp-tug-rot: -5deg;
-  width: auto;
-  transform-origin: 50% 55%;
-}
-
-.sticker-piece--lineage {
-  width: min(42vw, 12.25rem);
-}
-
-.sticker-piece--bones {
-  width: min(36vw, 10.75rem);
-}
-
-.sticker-piece--matcha {
-  --stamp-rot: -6deg;
-  --stamp-tug-rot: -10deg;
-  width: min(24vw, 7.15rem);
-  transform-origin: 40% 88%;
-}
-
-.sticker-piece--prom {
-  --stamp-rot: 21deg;
-  --stamp-tug-rot: 25deg;
-  width: min(38vw, 11.5rem);
-  transform-origin: 28% 32%;
-}
-
-.sticker-piece.is-dragging {
-  cursor: grabbing;
-}
-
-.sticker-piece__body {
-  position: relative;
-  display: block;
-  isolation: isolate;
-}
-
-.sticker-piece__ripple {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  overflow: hidden;
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-mode: alpha;
-  -webkit-mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-}
-
-.sticker-piece__ripple-wave {
-  position: absolute;
-  left: var(--ripple-x);
-  top: var(--ripple-y);
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  pointer-events: none;
-  background: transparent;
-  border: 1.15px solid rgba(255, 255, 255, 0.42);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.08),
-    0 0 8px rgba(255, 255, 255, 0.12);
-  mix-blend-mode: screen;
-  transform: translate(-50%, -50%);
-  animation: sticker-ripple-wave 1.95s cubic-bezier(0.18, 0.62, 0.28, 1) both;
-}
-
-.sticker-piece__ripple-wave--2 {
-  animation-delay: 0.22s;
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.sticker-piece__ripple-wave--3 {
-  animation-delay: 0.44s;
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-@keyframes sticker-ripple-wave {
-  0% {
-    width: 0.32rem;
-    height: 0.32rem;
-    opacity: 0.55;
-  }
-
-  100% {
-    width: 12.5rem;
-    height: 12.5rem;
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sticker-piece__ripple-wave {
-    animation: none;
-  }
-}
-
-@media (max-width: 880px) {
-  .sticker-board {
-    min-height: 28rem;
-    height: min(64vh, 34rem);
-    font-size: clamp(4.4rem, 18vw, 6.4rem);
-  }
-
-  .sticker-board .hero-stamp--about {
-    width: 7.4rem;
-  }
 }
 
 .play-embed__video-frame {
@@ -9915,6 +9616,32 @@ a.about-browser__url:hover .about-browser__url-text {
   background: #f9f9fb;
 }
 
+/* Sketchbook dark mode — overlay sheet + iframe chrome match album dark. */
+.play-artifact-overlay__sheet--iframe.is-dark {
+  background: #121316;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 28px 64px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.play-artifact-overlay__sheet--iframe.is-dark .play-artifact-overlay__theme {
+  color: #9a9aa3;
+}
+
+.play-artifact-overlay__sheet--iframe.is-dark .play-artifact-overlay__theme:hover,
+.play-artifact-overlay__sheet--iframe.is-dark .play-artifact-overlay__theme:focus-visible {
+  color: #f4f4f6;
+}
+
+.play-artifact-overlay__sheet--iframe.is-dark .play-artifact-overlay__close {
+  color: #d6d6dc;
+}
+
+.play-artifact-overlay__sheet--iframe.is-dark .play-artifact-overlay__iframe {
+  background: #121316;
+}
+
 .play-artifact-overlay__sheet--placeholder {
   --play-overlay-w: min(92vw, 36rem);
   --play-overlay-h: min(78vh, 34rem);
@@ -10088,30 +9815,6 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .play-picker__artist {
   color: #8a8b96;
-}
-
-/* Sticker board keeps its own size; sheet gains margin around it */
-.play-artifact-overlay__stickers-pad {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(0.75rem, 2.5vh, 1.5rem) clamp(1rem, 3vw, 2rem);
-  box-sizing: border-box;
-}
-
-.play-artifact-overlay__sheet--stickers .play-embed--stickers-demo {
-  margin: 0;
-  width: min(100%, 40rem);
-}
-
-.play-artifact-overlay__sheet--stickers .play-embed--stickers-demo .sticker-board {
-  margin: 0 auto;
-  width: 100%;
-  min-height: min(52vh, 28rem);
-  height: min(52vh, 28rem);
-  background-size: var(--sticker-dot) var(--sticker-dot);
 }
 
 .poster-artifact {

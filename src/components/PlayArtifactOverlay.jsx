@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { PLAY_PROJECTS } from "../data/projects.js";
 import {
   CAROUSEL_ALBUMS,
   CAROUSEL_START_ID,
@@ -8,21 +7,38 @@ import {
 import { getPlayArtifact } from "../data/playArtifacts.js";
 import { PlayPicker } from "./PlayStage.jsx";
 import PosterArtifactViewer from "./PosterArtifactViewer.jsx";
-import StickerPlayground from "./StickerPlayground.jsx";
 
 const ALBUM_THEME_KEY = "play-album-theme";
+const SKETCH_THEME_KEY = "play-sketchbook-theme";
 
-function readAlbumTheme() {
+function readTheme(storageKey, queryKey) {
   try {
     const params = new URLSearchParams(window.location.search);
-    const fromQuery = params.get("albumTheme");
+    const fromQuery = params.get(queryKey);
     if (fromQuery === "dark" || fromQuery === "light") return fromQuery;
-    const stored = sessionStorage.getItem(ALBUM_THEME_KEY);
+    const stored = sessionStorage.getItem(storageKey);
     if (stored === "dark" || stored === "light") return stored;
   } catch {
     /* ignore */
   }
   return "light";
+}
+
+function withThemeParam(src, theme) {
+  if (!src) return src;
+  try {
+    const url = new URL(src, window.location.href);
+    url.searchParams.set("theme", theme);
+    if (/^https?:\/\//i.test(src)) return url.toString();
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    const hashIdx = src.indexOf("#");
+    const hash = hashIdx >= 0 ? src.slice(hashIdx) : "";
+    const base = hashIdx >= 0 ? src.slice(0, hashIdx) : src;
+    const cleaned = base.replace(/([?&])theme=[^&]*&?/, "$1").replace(/[?&]$/, "");
+    const sep = cleaned.includes("?") ? "&" : "?";
+    return `${cleaned}${sep}theme=${encodeURIComponent(theme)}${hash}`;
+  }
 }
 
 export default function PlayArtifactOverlay({
@@ -38,7 +54,12 @@ export default function PlayArtifactOverlay({
     }
     return CAROUSEL_START_ID;
   });
-  const [albumTheme, setAlbumTheme] = useState(readAlbumTheme);
+  const [albumTheme, setAlbumTheme] = useState(() =>
+    readTheme(ALBUM_THEME_KEY, "albumTheme")
+  );
+  const [sketchTheme, setSketchTheme] = useState(() =>
+    readTheme(SKETCH_THEME_KEY, "sketchTheme")
+  );
 
   useEffect(() => {
     if (!artifact) return undefined;
@@ -75,6 +96,15 @@ export default function PlayArtifactOverlay({
   }, [albumTheme, artifact?.kind]);
 
   useEffect(() => {
+    if (artifact?.kind !== "iframe") return;
+    try {
+      sessionStorage.setItem(SKETCH_THEME_KEY, sketchTheme);
+    } catch {
+      /* ignore */
+    }
+  }, [sketchTheme, artifact?.kind]);
+
+  useEffect(() => {
     if (artifact?.kind !== "video" || !artifact.video) return undefined;
     const video = videoRef.current;
     if (!video) return undefined;
@@ -96,16 +126,28 @@ export default function PlayArtifactOverlay({
 
   if (!artifact) return null;
 
-  const stickerProject =
-    PLAY_PROJECTS.find((p) => p.id === "sticker-collection") ?? {
-      id: "sticker-collection",
-      title: "Sticker sheet",
-      headline: "Sticker sheet"
-    };
-
   const showChromeLabel = !artifact.hideChromeLabel && Boolean(artifact.title);
   const isCarousel = artifact.kind === "carousel";
+  const isSketchbook = artifact.kind === "iframe";
   const isAlbumDark = isCarousel && albumTheme === "dark";
+  const isSketchDark = isSketchbook && sketchTheme === "dark";
+  const isDark = isAlbumDark || isSketchDark;
+  const themeLabel = isCarousel ? "album carousel" : "sketchbook";
+  const activeTheme = isCarousel ? albumTheme : sketchTheme;
+  const toggleTheme = () => {
+    if (isCarousel) {
+      setAlbumTheme((prev) => (prev === "dark" ? "light" : "dark"));
+      return;
+    }
+    if (isSketchbook) {
+      setSketchTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    }
+  };
+
+  const iframeSrc =
+    artifact.kind === "iframe" && artifact.iframeSrc
+      ? withThemeParam(artifact.iframeSrc, sketchTheme)
+      : null;
 
   return (
     <div
@@ -124,11 +166,12 @@ export default function PlayArtifactOverlay({
         className={[
           "play-artifact-overlay__sheet",
           `play-artifact-overlay__sheet--${artifact.kind}`,
-          isAlbumDark && "is-dark"
+          isDark && "is-dark"
         ]
           .filter(Boolean)
           .join(" ")}
         data-album-theme={isCarousel ? albumTheme : undefined}
+        data-sketch-theme={isSketchbook ? sketchTheme : undefined}
       >
         <div
           className={[
@@ -138,21 +181,21 @@ export default function PlayArtifactOverlay({
             .filter(Boolean)
             .join(" ")}
         >
-          {isCarousel ? (
+          {isCarousel || isSketchbook ? (
             <span className="play-artifact-overlay__theme-host">
               <button
                 type="button"
                 className="play-artifact-overlay__theme"
-                onClick={() =>
-                  setAlbumTheme((prev) => (prev === "dark" ? "light" : "dark"))
-                }
-                aria-pressed={isAlbumDark}
+                onClick={toggleTheme}
+                aria-pressed={isDark}
                 aria-label={
-                  isAlbumDark ? "Switch album carousel to light mode" : "Switch album carousel to dark mode"
+                  isDark
+                    ? `Switch ${themeLabel} to light mode`
+                    : `Switch ${themeLabel} to dark mode`
                 }
                 data-cursor-morph=""
               >
-                {isAlbumDark ? "Light" : "Dark"}
+                {activeTheme === "dark" ? "Light" : "Dark"}
               </button>
             </span>
           ) : null}
@@ -182,11 +225,6 @@ export default function PlayArtifactOverlay({
               ariaLabel="Album covers"
             />
           ) : null}
-          {artifact.kind === "stickers" ? (
-            <div className="play-artifact-overlay__stickers-pad">
-              <StickerPlayground project={stickerProject} demoOnly />
-            </div>
-          ) : null}
           {artifact.kind === "posters" ? <PosterArtifactViewer /> : null}
           {artifact.kind === "video" && artifact.video ? (
             <div className="play-artifact-overlay__video-pad">
@@ -205,11 +243,12 @@ export default function PlayArtifactOverlay({
               />
             </div>
           ) : null}
-          {artifact.kind === "iframe" && artifact.iframeSrc ? (
+          {artifact.kind === "iframe" && iframeSrc ? (
             <div className="play-artifact-overlay__iframe-pad">
               <iframe
+                key={iframeSrc}
                 className="play-artifact-overlay__iframe"
-                src={artifact.iframeSrc}
+                src={iframeSrc}
                 title={artifact.title}
                 loading="eager"
                 referrerPolicy="no-referrer"

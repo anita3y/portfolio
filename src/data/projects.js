@@ -2,19 +2,6 @@ import { assetUrl } from "../utils/assetUrl.js";
 
 export const WORK_PROJECTS = [
   {
-    id: "world-affairs-conference",
-    title: "World Affairs Conference",
-    headline: "Redesigning registration and check-in for a 1,000-person student conference",
-    company: "World Affairs Conference",
-    status: "Shipped",
-    year: "2025",
-    tags: ["Systems", "Registration", "Physical × digital"],
-    href: "#",
-    thumbnail: assetUrl("/thumbnails/wac-thumbnail.png"),
-    theme: "wac",
-    gated: true
-  },
-  {
     id: "design-for-america",
     title: "Design for America",
     headline: "Modular Framer website, with handoff-first IA",
@@ -75,18 +62,6 @@ export const PLAY_PROJECTS = [
     thumbnailVideo: assetUrl("/thumbnails/anatomy-of-a-memory-card.mov"),
     cover: assetUrl("/thumbnails/play/anatomy-of-a-memory.png"),
     theme: "memory"
-  },
-  {
-    id: "sticker-collection",
-    title: "Sticker Collection",
-    headline: "Sticker collection",
-    company: "Personal",
-    status: "Exploration",
-    year: "2026",
-    tags: ["Visual design"],
-    href: "#",
-    cover: assetUrl("/thumbnails/play/sticker-collection.png") + "?v=4",
-    theme: "stickers"
   },
   {
     id: "my-bookshelf",
