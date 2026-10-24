@@ -9725,6 +9725,44 @@ a.about-browser__url:hover .about-browser__url-text {
   justify-content: flex-end;
 }
 
+.play-artifact-overlay__theme-host {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;
+  transform: translateY(-50%);
+  isolation: isolate;
+}
+
+.play-artifact-overlay__theme {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0.35rem 0.55rem;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  border-radius: var(--pill-radius-sm, 0.5rem);
+  background: transparent;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: #8a8b96;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.play-artifact-overlay__theme:hover,
+.play-artifact-overlay__theme:focus-visible {
+  color: #3a3a40;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+}
+
 .play-artifact-overlay__close-host {
   position: absolute;
   top: 50%;
@@ -9910,6 +9948,80 @@ a.about-browser__url:hover .about-browser__url-text {
 .play-artifact-overlay__sheet--carousel .play-flow {
   margin: 0 auto;
   overflow: visible;
+}
+
+/* Album carousel dark mode — overlay sheet only; light remains default. */
+.play-artifact-overlay__sheet--carousel.is-dark {
+  background: #121316;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 28px 64px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-artifact-overlay__theme {
+  color: #9a9aa3;
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-artifact-overlay__theme:hover,
+.play-artifact-overlay__sheet--carousel.is-dark .play-artifact-overlay__theme:focus-visible {
+  color: #f4f4f6;
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-artifact-overlay__close {
+  color: #d6d6dc;
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-flow-edge {
+  background: linear-gradient(
+    var(--play-edge-dir, to right),
+    #121316 0%,
+    rgba(18, 19, 22, 0.72) 45%,
+    rgba(18, 19, 22, 0) 100%
+  );
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-flow__card.is-selected .play-flow__lift {
+  background: #1a1b1f;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 10px 28px rgba(0, 0, 0, 0.4);
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-picker__title {
+  color: #f5f5f7;
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-picker__artist {
+  color: #8e8e98;
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-scrubber__tick {
+  background: #3f4048;
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-scrubber__tick.is-selected {
+  background: #f0f0f3;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .play-artifact-overlay__sheet--carousel.is-dark .play-scrubber__tick:hover:not(.is-selected) {
+    background: #7a7a84;
+  }
+
+  .play-artifact-overlay__sheet--carousel.is-dark .play-scrubber__tick:hover.is-selected {
+    background: #ffffff;
+  }
+
+  .play-artifact-overlay__sheet--carousel.is-dark .play-flow__card:hover .play-flow__lift {
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.35),
+      0 14px 28px rgba(0, 0, 0, 0.45);
+  }
+}
+
+.play-artifact-overlay__sheet--carousel.is-dark .play-flow__card:focus-visible {
+  outline-color: rgba(240, 240, 243, 0.35);
 }
 
 .play-picker__meta {

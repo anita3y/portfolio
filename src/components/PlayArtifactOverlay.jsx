@@ -10,6 +10,21 @@ import { PlayPicker } from "./PlayStage.jsx";
 import PosterArtifactViewer from "./PosterArtifactViewer.jsx";
 import StickerPlayground from "./StickerPlayground.jsx";
 
+const ALBUM_THEME_KEY = "play-album-theme";
+
+function readAlbumTheme() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const fromQuery = params.get("albumTheme");
+    if (fromQuery === "dark" || fromQuery === "light") return fromQuery;
+    const stored = sessionStorage.getItem(ALBUM_THEME_KEY);
+    if (stored === "dark" || stored === "light") return stored;
+  } catch {
+    /* ignore */
+  }
+  return "light";
+}
+
 export default function PlayArtifactOverlay({
   artifactId,
   onClose,
@@ -23,6 +38,7 @@ export default function PlayArtifactOverlay({
     }
     return CAROUSEL_START_ID;
   });
+  const [albumTheme, setAlbumTheme] = useState(readAlbumTheme);
 
   useEffect(() => {
     if (!artifact) return undefined;
@@ -48,6 +64,15 @@ export default function PlayArtifactOverlay({
       setCarouselId(initialCarouselId);
     }
   }, [initialCarouselId]);
+
+  useEffect(() => {
+    if (artifact?.kind !== "carousel") return;
+    try {
+      sessionStorage.setItem(ALBUM_THEME_KEY, albumTheme);
+    } catch {
+      /* ignore */
+    }
+  }, [albumTheme, artifact?.kind]);
 
   useEffect(() => {
     if (artifact?.kind !== "video" || !artifact.video) return undefined;
@@ -79,6 +104,8 @@ export default function PlayArtifactOverlay({
     };
 
   const showChromeLabel = !artifact.hideChromeLabel && Boolean(artifact.title);
+  const isCarousel = artifact.kind === "carousel";
+  const isAlbumDark = isCarousel && albumTheme === "dark";
 
   return (
     <div
@@ -94,7 +121,14 @@ export default function PlayArtifactOverlay({
         aria-label="Close"
       />
       <div
-        className={`play-artifact-overlay__sheet play-artifact-overlay__sheet--${artifact.kind}`}
+        className={[
+          "play-artifact-overlay__sheet",
+          `play-artifact-overlay__sheet--${artifact.kind}`,
+          isAlbumDark && "is-dark"
+        ]
+          .filter(Boolean)
+          .join(" ")}
+        data-album-theme={isCarousel ? albumTheme : undefined}
       >
         <div
           className={[
@@ -104,6 +138,24 @@ export default function PlayArtifactOverlay({
             .filter(Boolean)
             .join(" ")}
         >
+          {isCarousel ? (
+            <span className="play-artifact-overlay__theme-host">
+              <button
+                type="button"
+                className="play-artifact-overlay__theme"
+                onClick={() =>
+                  setAlbumTheme((prev) => (prev === "dark" ? "light" : "dark"))
+                }
+                aria-pressed={isAlbumDark}
+                aria-label={
+                  isAlbumDark ? "Switch album carousel to light mode" : "Switch album carousel to dark mode"
+                }
+                data-cursor-morph=""
+              >
+                {isAlbumDark ? "Light" : "Dark"}
+              </button>
+            </span>
+          ) : null}
           {showChromeLabel ? (
             <span className="play-artifact-overlay__label">{artifact.title}</span>
           ) : (
