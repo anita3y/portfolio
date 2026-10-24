@@ -8947,6 +8947,8 @@ a.about-browser__url:hover .about-browser__url-text {
   border-radius: 0;
   overflow: visible;
   background: transparent;
+  /* Covers themselves are never translucent — depth via blur/scale only. */
+  opacity: 1;
   transform-origin: center center;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -8954,7 +8956,12 @@ a.about-browser__url:hover .about-browser__url-text {
   cursor: pointer;
   transition:
     transform 0.62s cubic-bezier(0.22, 1, 0.32, 1),
-    opacity 0.4s ease;
+    visibility 0.4s ease;
+}
+
+.play-flow__card .play-flow__lift,
+.play-flow__card img {
+  opacity: 1;
 }
 
 .play-flow__card.is-selected {
