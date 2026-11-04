@@ -185,15 +185,15 @@ export const AI_WORKFLOW_CASE_STUDY = {
               items: [
                 {
                   lead: "Rejection is redirection.",
-                  text: "When a question kept turning up nothing, it usually meant I was looking in the wrong place. My first framing around Figma on mobile went quiet in interviews, and that silence pointed me to AI workflows instead."
+                  text: "Interviews on mobile-desktop kept running short. Bring up AI and people suddenly had a lot to say. I realized I couldn't research how designers work now without looking at AI, so that became the detour."
                 },
                 {
                   lead: "The insights came from synthesis, not the interviews.",
-                  text: "88 quotes said very little on their own. Clustering them, regrouping them and testing each theme against my hypotheses is where patterns like the missing shared trail finally showed up."
+                  text: "88 quotes alone were hard to turn into insight. Clustering them, regrouping them, and testing each theme against my hypotheses is where patterns like the missing shared trail showed up."
                 },
                 {
                   lead: "AI is changing workflows faster than we can study them.",
-                  text: "Tools shifted within weeks of the interviews. Mid-prototype, Figma Specs and agents viewing landed and I had to adjust. This research is a snapshot. It will need revisiting as the tools change."
+                  text: "Tools shifted within weeks of the interviews. Mid-prototype, Figma Specs and agents viewing landed and I had to adjust."
                 }
               ]
             }
