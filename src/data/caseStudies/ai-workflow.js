@@ -119,7 +119,7 @@ export const AI_WORKFLOW_CASE_STUDY = {
               video: assetUrl("/case-studies/ai-workflow/clusters-walkthrough.mp4"),
               label: "Walkthrough of the clusters board",
               aspectRatio: "16 / 9",
-              note: "Video tutorial of the clusters chart."
+              note: "Affinity mapping."
             }
           ]
         },
