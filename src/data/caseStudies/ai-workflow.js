@@ -207,7 +207,7 @@ export const AI_WORKFLOW_CASE_STUDY = {
       blocks: [
         {
           heading: "Thanks to everyone who made time for an interview.",
-          text: "This complicated AI workflow is a testament to the designers, researchers, and developers who see AI as raising the ceiling. Not just easier progress, but doing more. Daunting and exciting for the industry."
+          text: "This complicated AI workflow is a testament to the designers, researchers, and developers who see AI as raising the ceiling. Not just easier progress, but doing more. It's truly both daunting and exciting for the industry to be entering this era."
         }
       ]
     }
