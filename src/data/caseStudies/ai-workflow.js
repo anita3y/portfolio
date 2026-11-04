@@ -114,7 +114,7 @@ export const AI_WORKFLOW_CASE_STUDY = {
           blocks: [
             {
               heading: "Six interviews, 88 quotes, 21 clusters.",
-              text: "TODO one line on how you ran and clustered the interviews.",
+              text: "I graphed each designer's tools and the path they took through them, then clustered quotes by shared thoughts, attitudes, and concerns.",
               layout: "mediaSlot",
               video: assetUrl("/case-studies/ai-workflow/clusters-walkthrough.mp4"),
               label: "Walkthrough of the clusters board",
