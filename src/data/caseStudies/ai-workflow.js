@@ -105,13 +105,7 @@ export const AI_WORKFLOW_CASE_STUDY = {
                 { tag: "H2", title: "AI-native work creates a new catch-up gap." },
                 { tag: "H3", title: "People compensate with personal, informal systems." }
               ]
-            }
-          ]
-        },
-        {
-          id: "clusters",
-          title: "Clustering the quotes",
-          blocks: [
+            },
             {
               heading: "Six interviews, 88 quotes, 21 clusters.",
               text: "I graphed each designer's tools and the path they took through them, then clustered quotes by shared thoughts, attitudes, and concerns.",
