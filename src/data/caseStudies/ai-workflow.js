@@ -200,6 +200,16 @@ export const AI_WORKFLOW_CASE_STUDY = {
           ]
         }
       ]
+    },
+    {
+      id: "after",
+      title: "after",
+      blocks: [
+        {
+          heading: "Thanks to everyone who made time for an interview.",
+          text: "This complicated AI workflow is a testament to the designers, researchers, and developers who see AI as raising the ceiling. Not just easier progress, but doing more. Daunting and exciting for the industry."
+        }
+      ]
     }
   ]
 };
