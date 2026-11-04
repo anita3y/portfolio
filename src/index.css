@@ -9936,3 +9936,2058 @@ a.about-browser__url:hover .about-browser__url-text {
     animation: none;
   }
 }
+
+/* ==========================================================================
+   Case study template v2 (AI Workflow first; apply to others on request)
+   Visual-first, scannable: short copy, big media, progressive blur.
+   ========================================================================== */
+
+/* --- Progressive blur (after rghv.ca) --- */
+.progressive-blur {
+  pointer-events: none;
+}
+
+.progressive-blur__layer,
+.progressive-blur__tint {
+  position: absolute;
+  inset: 0;
+}
+
+.progressive-blur__tint {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0));
+}
+
+.progressive-blur--bottom .progressive-blur__tint {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0));
+}
+
+/* Home: band slides in as the work/play bar sticks. Transform (not opacity)
+   so the backdrop-filter layers keep sampling the page underneath. */
+.page-top-blur {
+  --stuck: clamp(0, (var(--nav-grow, 0) - 0.9) * 10, 1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5.25rem;
+  z-index: 59;
+  transform: translateY(calc(-100% * (1 - var(--stuck))));
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Case study sheet: blur under the top edge once you scroll. */
+.work-expand__top-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: var(--work-expand-scrollbar-size, 8px);
+  height: 4.25rem;
+  z-index: 8;
+  transform: translateY(-100%);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.work-expand__sheet[data-scrolled] .work-expand__top-blur {
+  transform: none;
+}
+
+/* --- Hero: coverflow banner --- */
+.cs-hero-carousel {
+  position: relative;
+  margin: 1.25rem 0 1.5rem;
+  /* Clip sideways only, so neighbor blur still blooms up/down. */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.cs-hero-carousel .play-flow-edge {
+  top: 3.25rem;
+  bottom: 3.25rem;
+  width: clamp(3.5rem, 12vw, 7rem);
+}
+
+.cs-hero-carousel .play-picker {
+  transform: none;
+  padding-top: 0.5rem;
+}
+
+.cs-hero-carousel .play-flow-clip {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.cs-hero-carousel .play-flow {
+  height: clamp(15rem, 34vw, 23rem);
+  perspective: 1500px;
+}
+
+.cs-hero-carousel .play-flow__card img {
+  max-width: min(64vw, 30rem);
+  max-height: clamp(11rem, 28vw, 19rem);
+  border-radius: 6px;
+}
+
+.cs-hero-carousel .play-flow__card.is-selected .play-flow__lift {
+  border-radius: 6px;
+  clip-path: inset(1px round 6px);
+  box-shadow: 0 18px 40px rgba(20, 20, 24, 0.12);
+}
+
+.cs-hero-carousel .play-flow__card:not(.is-selected) {
+  filter: blur(3.2px);
+}
+
+.cs-hero-carousel .play-scrubber {
+  margin-bottom: 0.5rem;
+}
+
+/* --- Compact project details --- */
+.cs-details.cs-details--compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2.25rem;
+  margin: 0 0 2.5rem;
+}
+
+.cs-details--compact .cs-details__label {
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #9a9ca6;
+}
+
+.cs-details--compact .cs-details__value,
+.cs-details--compact .cs-details__item--role .cs-details__value {
+  margin-top: 0.2rem;
+  font-size: 13.5px;
+  line-height: 1.3;
+  color: #2b2c33;
+}
+
+/* --- v2 rhythm: titles quieter, media louder --- */
+.cs-embed--v2 .cs-section__summary {
+  max-width: 34rem;
+  font-size: clamp(1.35rem, 2.4vw, 1.65rem);
+}
+
+.cs-embed--v2 .cs-block {
+  margin-bottom: 3rem;
+}
+
+.cs-embed--v2 .cs-subsection {
+  margin-top: 3.25rem;
+}
+
+.cs-embed--v2 .cs-subsection__title {
+  margin-bottom: 1rem;
+}
+
+.cs-block__caption {
+  margin: -0.25rem 0 1rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.86rem;
+  letter-spacing: -0.03em;
+  color: #9a9ca6;
+}
+
+/* --- Findings / hypothesis cards --- */
+.cs-findings {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.cs-finding {
+  position: relative;
+  min-width: 0;
+  padding: 1.1rem 1.1rem 1.25rem;
+  border-radius: 14px;
+  background: #f6f6f8;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cs-finding:hover {
+    transform: translateY(-3px);
+    background: #f1f1f4;
+  }
+}
+
+.cs-finding__tag {
+  display: block;
+  margin-bottom: 1.6rem;
+  font-family: "Doto", "Dotum", monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #b2b4bd;
+}
+
+.cs-finding__title,
+.cs-finding__text {
+  margin: 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: -0.04em;
+}
+
+.cs-finding__title {
+  font-size: 1.05rem;
+  line-height: 1.3;
+  color: #111;
+}
+
+.cs-finding__text {
+  margin-top: 0.45rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #7a7d88;
+}
+
+.cs-findings--plain .cs-finding {
+  padding: 0.9rem 0 0;
+  border-radius: 0;
+  background: transparent;
+  border-top: 1px solid #e4e4e8;
+}
+
+.cs-findings--plain .cs-finding:hover {
+  transform: none;
+  background: transparent;
+}
+
+.cs-findings--plain .cs-finding__tag {
+  margin-bottom: 0.6rem;
+}
+
+/* --- Media slots (placeholders until real media lands) --- */
+.cs-showcase {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.cs-slot {
+  margin: 0;
+  min-width: 0;
+}
+
+.cs-slot--wide {
+  grid-column: 1 / -1;
+}
+
+.cs-slot__frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 14px;
+  aspect-ratio: 16 / 10;
+  background:
+    radial-gradient(60% 80% at 20% 20%, rgba(214, 220, 236, 0.9), transparent 70%),
+    radial-gradient(50% 70% at 85% 80%, rgba(236, 222, 226, 0.85), transparent 70%),
+    #f4f4f6;
+}
+
+.cs-slot__frame img,
+.cs-slot__frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cs-slot__label {
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: -0.03em;
+  color: #7a7d88;
+}
+
+.cs-slot__caption {
+  margin-top: 0.55rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: -0.03em;
+  color: #9a9ca6;
+}
+
+/* --- Hypothesis -> Finding -> HMW --- */
+.cs-hmw {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.cs-hmw__row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  padding: 0.95rem 0;
+  border-top: 1px solid #ececef;
+}
+
+.cs-hmw__row--head {
+  padding: 0 0 0.5rem;
+  border-top: none;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #9a9ca6;
+}
+
+.cs-hmw__cell {
+  position: relative;
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.42;
+  letter-spacing: -0.035em;
+  color: #6f7280;
+}
+
+.cs-hmw__cell:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  top: 0;
+  right: -1.15rem;
+  color: #c4c6cd;
+}
+
+.cs-hmw__cell--h {
+  color: #2b2c33;
+}
+
+.cs-hmw__cell--hmw {
+  color: #111;
+}
+
+/* --- Standout quotes --- */
+.cs-quotes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 2.5rem;
+}
+
+.cs-quote {
+  margin: 0;
+}
+
+.cs-quote__text {
+  margin: 0 0 0.6rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+  font-weight: 300;
+  line-height: 1.3;
+  letter-spacing: -0.05em;
+  color: #111;
+}
+
+.cs-quote__who {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: -0.03em;
+  color: #2b2c33;
+}
+
+.cs-quote__role {
+  color: #9a9ca6;
+}
+
+/* --- Research paths graph --- */
+.rpg__stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #fafafb;
+}
+
+.rpg__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.rpg-edge {
+  fill: none;
+  stroke: #dcdde2;
+  stroke-width: 1;
+  transition: opacity 0.5s ease, stroke 0.5s ease, stroke-width 0.5s ease;
+}
+
+.rpg-node {
+  fill: #fafafb;
+  stroke: #c9cad1;
+  stroke-width: 1.2;
+  transition: opacity 0.5s ease, stroke 0.5s ease;
+}
+
+.rpg-label {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12.5px;
+  letter-spacing: -0.3px;
+  fill: #7a7d88;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.5s ease, transform 0.35s ease;
+}
+
+.rpg-label.is-strong {
+  font-weight: 600;
+  fill: #111;
+}
+
+.rpg-hit {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.rpg-dots {
+  pointer-events: none;
+}
+
+.rpg-scrim {
+  fill: #fafafb;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.rpg__svg.is-dim .rpg-scrim {
+  opacity: 0.55;
+}
+
+.rpg__svg.is-dim .rpg-edge,
+.rpg__svg.is-dim .rpg-node,
+.rpg__svg.is-dim .rpg-label,
+.rpg__svg.is-dim .rpg-dots {
+  opacity: 0.3;
+}
+
+.rpg__svg.is-dim .rpg-edge.is-hl {
+  opacity: 1;
+  stroke: #111;
+  stroke-width: 1.6;
+}
+
+.rpg__svg.is-dim .rpg-node.is-hl {
+  opacity: 1;
+  stroke: #111;
+  stroke-width: 2;
+}
+
+.rpg__svg.is-dim .rpg-label.is-hl {
+  opacity: 1;
+  fill: #111;
+  font-weight: 600;
+  transform: scale(1.14);
+}
+
+.rpg__panel {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  max-width: 17rem;
+  padding: 0.65rem 0.8rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: -0.03em;
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.rpg__panel.is-shown {
+  opacity: 1;
+  transform: none;
+}
+
+.rpg__panel-name {
+  margin: 0 0 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111;
+}
+
+.rpg__panel-tools {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #6f7280;
+}
+
+.rpg__roster {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.rpg__person {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.2rem 0.45rem;
+  border: none;
+  border-radius: 6px;
+  background: none;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: -0.03em;
+  color: #7a7d88;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.rpg__person:hover,
+.rpg__person.is-pinned {
+  background: rgba(20, 20, 24, 0.05);
+  color: #111;
+}
+
+.rpg__swatch {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.rpg__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+.rpg__play {
+  min-width: 4.25rem;
+  padding: 0.38rem 0.9rem;
+  border: none;
+  border-radius: 999px;
+  background: #f1f1f4;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: -0.03em;
+  color: #111;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.16s ease;
+}
+
+.rpg__play:hover {
+  background: #e8e8ec;
+}
+
+.rpg__play:active {
+  transform: scale(0.96);
+}
+
+.rpg__scrub {
+  flex: 1;
+  accent-color: #3a3a40;
+}
+
+@media (max-width: 720px) {
+  .cs-findings,
+  .cs-quotes,
+  .cs-showcase {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cs-hmw__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
+  }
+
+  .cs-hmw__row--head {
+    display: none;
+  }
+
+  .cs-hmw__cell:not(:last-child)::after {
+    content: none;
+  }
+
+  .rpg__roster {
+    display: none;
+  }
+
+  .cs-hero-carousel .play-flow__card img {
+    max-width: 72vw;
+  }
+}
+
+/* ==========================================================================
+   Diagram language (after Caleb Wu): monoline ink, dashed = possible,
+   solid = taken, hollow circles = steps, squares = AI tools, one accent.
+   Use .cs-diagram on any future case-study diagram.
+   ========================================================================== */
+.cs-diagram {
+  --dg-ink: #1a1817;
+  --dg-label: #928c88;
+  --dg-panel: #f8f8f8;
+  --dg-accent: #16a34a;
+  --dg-mono: "Inconsolata", "SF Mono", ui-monospace, Menlo, monospace;
+}
+
+.cs-diagram .rpg__stage {
+  border-radius: 22px;
+  background: var(--dg-panel);
+}
+
+.cs-diagram .rpg-edge {
+  stroke: var(--dg-ink);
+  stroke-width: 0.85;
+  stroke-dasharray: 5 5;
+  opacity: 0.32;
+}
+
+.cs-diagram .rpg-node {
+  fill: var(--dg-panel);
+  stroke: var(--dg-ink);
+  stroke-width: 0.85;
+}
+
+.cs-diagram .rpg-node.is-end {
+  fill: var(--dg-accent);
+  stroke: var(--dg-accent);
+}
+
+.cs-diagram .rpg-label {
+  font-family: var(--dg-mono);
+  font-size: 11px;
+  letter-spacing: 0;
+  fill: var(--dg-label);
+}
+
+.cs-diagram .rpg-label.is-strong {
+  font-weight: 400;
+  fill: var(--dg-accent);
+}
+
+.cs-diagram .rpg-scrim {
+  fill: var(--dg-panel);
+}
+
+.cs-diagram .rpg__svg.is-dim .rpg-edge.is-hl {
+  stroke: var(--dg-ink);
+  stroke-dasharray: none;
+  stroke-width: 1;
+  opacity: 1;
+}
+
+.cs-diagram .rpg__svg.is-dim .rpg-node.is-hl {
+  stroke: var(--dg-ink);
+  stroke-width: 1.2;
+}
+
+.cs-diagram .rpg__svg.is-dim .rpg-label.is-hl {
+  fill: var(--dg-ink);
+  font-weight: 400;
+}
+
+/* Pinned person: their route draws itself in solid ink. */
+.rpg-route {
+  fill: none;
+  stroke-width: 1.3;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.3s ease;
+}
+
+.rpg-route.is-on {
+  stroke-dashoffset: 0;
+  opacity: 0.9;
+}
+
+.cs-diagram .rpg__svg.has-route .rpg-edge {
+  opacity: 0.16;
+}
+
+.cs-diagram .rpg__panel {
+  border-radius: 12px;
+  background: rgba(248, 248, 248, 0.7);
+}
+
+.cs-diagram .rpg__panel-name {
+  font-family: var(--dg-mono);
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
+.cs-diagram .rpg__person {
+  font-family: var(--dg-mono);
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: lowercase;
+  color: var(--dg-label);
+}
+
+.cs-diagram .rpg__play {
+  font-family: var(--dg-mono);
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: lowercase;
+  background: var(--dg-panel);
+}
+
+.cs-diagram .rpg__scrub {
+  accent-color: var(--dg-ink);
+  height: 2px;
+}
+
+/* ==========================================================================
+   Blur reveal: template v2 content focuses in as it scrolls into view.
+   ========================================================================== */
+.cs-embed--v2 .cs-reveal {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(14px);
+  transition:
+    opacity 0.7s ease,
+    filter 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cs-embed--v2 .cs-reveal.is-in {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-embed--v2 .cs-reveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+.cs-diagram .rpg__scrub {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 1px;
+  background: rgba(26, 24, 23, 0.25);
+}
+
+.cs-diagram .rpg__scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--dg-ink);
+  cursor: pointer;
+}
+
+.cs-diagram .rpg__scrub::-moz-range-thumb {
+  width: 9px;
+  height: 9px;
+  border: none;
+  border-radius: 50%;
+  background: var(--dg-ink);
+}
+
+@media (max-width: 720px) {
+  /* SVG text scales with the viewBox; bump so labels stay legible on phones. */
+  .cs-diagram .rpg-label {
+    font-size: 22px;
+  }
+}
+
+/* v2 banner: no caption or ticks under the coverflow (no repeated info). */
+.cs-hero-carousel .play-picker__meta,
+.cs-hero-carousel .play-scrubber {
+  display: none;
+}
+
+.cs-hero-carousel .play-picker {
+  padding-bottom: 0;
+}
+
+.cs-header--v2 .cs-title.cs-title--under,
+.work-expand__scroll .cs-header--v2 .cs-title.cs-title--under {
+  margin: 0.25rem 0 1.25rem;
+}
+
+.cs-header--v2 .cs-hero-carousel {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ==========================================================================
+   Work: dealt pile -> laid-out grid
+   ========================================================================== */
+.wdeal {
+  position: relative;
+}
+
+/* Extra scroll room while dealing (in the content box, so sticky can use it);
+   removed once the deal finishes. */
+.wdeal::after {
+  content: "";
+  display: block;
+  height: var(--wdeal-travel, 0);
+}
+
+.wdeal__grid {
+  position: sticky;
+  top: var(--wdeal-top, 5.4rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(0.65rem, 1.4vw, 1.1rem);
+  row-gap: clamp(1.4rem, 2.6vw, 2.1rem);
+}
+
+.wdeal.is-done .wdeal__grid {
+  position: relative;
+  top: auto;
+}
+
+.wdeal__slot {
+  position: relative;
+  min-width: 0;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.wdeal.is-done .wdeal__slot {
+  will-change: auto;
+}
+
+.wdeal-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  cursor: pointer;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+  box-shadow:
+    0 1px 2px rgba(38, 42, 54, 0.06),
+    0 10px 28px rgba(38, 42, 54, 0.12);
+}
+
+.wdeal-card.is-tilting {
+  transition: transform 0.08s ease-out, box-shadow 0.4s ease;
+}
+
+.wdeal-card:hover {
+  box-shadow:
+    0 2px 4px rgba(38, 42, 54, 0.07),
+    0 16px 36px rgba(38, 42, 54, 0.16);
+}
+
+.wdeal-card:focus-visible {
+  outline: 2px solid rgba(58, 58, 64, 0.45);
+  outline-offset: 3px;
+}
+
+.wdeal-card.is-soon {
+  cursor: default;
+}
+
+/* Thumbnails stay exactly as they were on the old grid. */
+.wdeal-card .project-card__media {
+  display: block;
+  /* Card shape: less stretched than the old 1024:474 banner. */
+  aspect-ratio: 3 / 2;
+  border-radius: inherit;
+  box-shadow: none;
+}
+
+.wdeal-card .project-card__visual,
+.wdeal-card:hover .project-card__visual {
+  transform: none;
+}
+
+.wdeal__caption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0.7rem 0.15rem 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: -0.035em;
+  line-height: 1.3;
+  opacity: var(--dealt, 1);
+}
+
+.wdeal__caption-title {
+  color: #7a7d88;
+}
+
+.wdeal__caption-year {
+  flex-shrink: 0;
+  color: #a4a6ae;
+}
+
+@media (max-width: 720px) {
+  .wdeal__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wdeal-card,
+  .wdeal-card.is-tilting {
+    transform: none !important;
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   v2 banner: flat full-bleed slider (after rghv.ca/work)
+   ========================================================================== */
+.cs-slider {
+  position: relative;
+  margin: 0.25rem 0 1.25rem;
+}
+
+/* Bleed past the sheet padding so the field spans the whole screen. */
+.work-expand__scroll .cs-slider {
+  margin-left: calc(-1 * var(--cs-pad-x, 1.5rem));
+  margin-right: calc(-1 * var(--cs-pad-right, 1.5rem));
+}
+
+.cs-slider__field {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(1.5rem, 5vw, 3.5rem) 0;
+  background: #f4f4f4;
+  outline: none;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.cs-slider__track {
+  display: flex;
+  align-items: center;
+  transition: transform 0.85s cubic-bezier(0.5, 0, 0.1, 1);
+  will-change: transform;
+}
+
+.cs-slider__slide {
+  flex: 0 0 auto;
+  padding: 0;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  filter: blur(12px);
+  opacity: 0.85;
+  transition:
+    filter 0.85s cubic-bezier(0.5, 0, 0.1, 1),
+    opacity 0.85s ease;
+}
+
+.cs-slider__slide.is-active {
+  filter: none;
+  opacity: 1;
+  cursor: default;
+}
+
+.cs-slider__frame {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  padding: 7%;
+}
+
+.cs-slider__frame img,
+.cs-slider__frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.cs-slider__ticks {
+  margin: 0.9rem auto 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-slider__track,
+  .cs-slider__slide {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   Template v2 — RevisionDojo format: one centred column of beats.
+   ========================================================================== */
+.cs-embed--v2 {
+  --v2-col: 40rem;
+  --v2-ink: #171717;
+  --v2-muted: #5f5f66;
+  --v2-label: #928c88;
+  --v2-panel: #f7f7f7;
+}
+
+/* Chapters (side nav + section titles) stay; the reading column is narrow. */
+.cs-embed--v2 .cs-section__main {
+  max-width: var(--v2-col);
+}
+
+.cs-embed--v2 .cs-section__title {
+  margin-bottom: 1.75rem;
+}
+
+.cs-embed--v2 .cs-section {
+  padding-bottom: 2.5rem;
+}
+
+/* Intro */
+.cs-intro {
+  margin-top: 1.5rem;
+}
+
+.cs-intro__year {
+  margin: 0 0 0.35rem;
+  font-size: 0.875rem;
+  color: var(--v2-label);
+}
+
+.cs-embed--v2 .cs-title.cs-title--under {
+  margin: 0 0 1rem;
+  font-size: clamp(1.6rem, 3.2vw, 2rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.cs-intro__text {
+  margin: 0 0 1rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  letter-spacing: -0.02em;
+  color: var(--v2-ink);
+}
+
+.cs-embed--v2 .cs-details.cs-details--compact {
+  margin-top: 1.5rem;
+  margin-bottom: 4.5rem;
+}
+
+/* Beats */
+.cs-embed--v2 .cs-block {
+  margin-bottom: 4.5rem;
+}
+
+.cs-block__eyebrow {
+  margin: 0 0 0.35rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+  color: var(--v2-label, #928c88);
+}
+
+.cs-embed--v2 .cs-block__heading {
+  margin: 0 0 0.6rem;
+  font-size: 1.06rem;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.4;
+  color: var(--v2-ink);
+}
+
+.cs-embed--v2 .cs-block__text,
+.cs-embed--v2 .cs-block__list {
+  max-width: none;
+  font-size: 1rem;
+  line-height: 1.8;
+  letter-spacing: -0.02em;
+  color: var(--v2-muted);
+}
+
+/* Insight beats with no visual sit tighter together. */
+.cs-embed--v2 .cs-block--beat:not(:has(.cs-slot, .cs-showcase, .rpg, .cs-findings, .cs-hmw, .cs-quotes)) {
+  margin-bottom: 2.75rem;
+}
+
+/* Visual panels: soft grey, generously rounded, media centred inside. */
+.cs-embed--v2 .cs-slot,
+.cs-embed--v2 .cs-showcase,
+.cs-embed--v2 .rpg,
+.cs-embed--v2 .cs-hmw,
+.cs-embed--v2 .cs-quotes,
+.cs-embed--v2 .cs-findings {
+  margin-top: 1.75rem;
+}
+
+.cs-embed--v2 .cs-slot__frame {
+  border-radius: 18px;
+  background: var(--v2-panel);
+}
+
+.cs-embed--v2 .cs-slot__label {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.cs-embed--v2 .rpg__stage {
+  border-radius: 18px;
+}
+
+.cs-embed--v2 .cs-hmw,
+.cs-embed--v2 .cs-quotes {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: 18px;
+  background: var(--v2-panel);
+}
+
+.cs-embed--v2 .cs-quotes {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.6rem;
+}
+
+.cs-embed--v2 .cs-quote__text {
+  font-size: 1.15rem;
+}
+
+.cs-embed--v2 .cs-hmw__row:first-of-type + .cs-hmw__row {
+  border-top: none;
+}
+
+.cs-block__note {
+  margin: 0.85rem 0 0;
+  text-align: center;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: -0.02em;
+  color: var(--v2-label, #928c88);
+}
+
+/* The side nav carries the back arrow, so the intro doesn't need one. */
+.cs-intro__back {
+  display: none;
+}
+
+
+/* Case studies: work/play/about tabs stay stuck to the top while reading. */
+.cs-sticky-tabs {
+  position: sticky;
+  top: 0.7rem;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.cs-sticky-tabs .cs-top-tabs {
+  margin: 0;
+}
+
+.work-expand__scroll .cs-embed > .cs-sticky-tabs:first-child {
+  margin-top: calc(var(--work-expand-scroll-top) - 0.7rem);
+  margin-bottom: 1.35rem;
+}
+
+/* Header used to carry the top padding; the tabs above it do now. */
+.work-expand__scroll .cs-embed > .cs-sticky-tabs + .cs-header--preview {
+  padding-top: 0;
+}
+
+/* Banner sits on the page background — no separate grey field or frames. */
+.cs-slider__field {
+  background: transparent;
+  padding: clamp(0.5rem, 2vw, 1.25rem) 0;
+}
+
+.cs-slider__slide {
+  background: transparent;
+}
+
+.cs-slider__frame {
+  padding: 0;
+}
+
+.cs-slider__frame img,
+.cs-slider__frame video {
+  border-radius: 8px;
+}
+
+/* v2 details: more air between and within the four items. */
+.cs-embed--v2 .cs-details.cs-details--compact {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.6rem 2.5rem;
+  margin-top: 2.25rem;
+}
+
+.cs-embed--v2 .cs-details--compact .cs-details__value {
+  margin-top: 0.4rem;
+}
+
+@media (min-width: 900px) {
+  .cs-embed--v2 .cs-details.cs-details--compact {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* One accent across every diagram (Caleb's warm orange). */
+.cs-diagram {
+  --dg-accent: #e4572e;
+}
+
+/* ==========================================================================
+   Insight panels (grey squares, after calebwu.ca/RevisionDojo)
+   ========================================================================== */
+.ip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+.ip-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 0;
+  aspect-ratio: 1 / 1;
+  padding: 1.5rem 1.25rem;
+  border-radius: 22px;
+  background: var(--dg-panel, #f7f7f7);
+}
+
+/* Odd one out spans the row as a wide panel. */
+.ip-grid--3 .ip-panel:last-child {
+  grid-column: 1 / -1;
+  aspect-ratio: 2 / 1;
+}
+
+.ip-panel__art {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
+.ip-svg {
+  width: 100%;
+  max-width: 17rem;
+  height: auto;
+  overflow: visible;
+}
+
+.ip-panel__caption {
+  margin: 0;
+  text-align: center;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  line-height: 1.45;
+  letter-spacing: -0.03em;
+  color: #8a8a8f;
+  text-wrap: balance;
+}
+
+.ip-panel__caption strong {
+  font-weight: 600;
+  color: #3d3d42;
+}
+
+.ip-line,
+.ip-box,
+.ip-head {
+  fill: none;
+  stroke: var(--dg-ink);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ip-line.is-accent,
+.ip-head.is-accent {
+  stroke: var(--dg-accent);
+}
+
+.ip-line.is-dashed {
+  stroke-dasharray: 4 4;
+  opacity: 0.55;
+}
+
+.ip-box {
+  fill: #fff;
+}
+
+.ip-box.is-accent,
+.ip-dot.is-accent {
+  fill: var(--dg-accent);
+  stroke: var(--dg-accent);
+}
+
+.ip-box.is-ghost {
+  fill: none;
+  stroke-dasharray: 3 3;
+}
+
+.ip-dot {
+  fill: #fff;
+  stroke: var(--dg-ink);
+  stroke-width: 1.1;
+}
+
+.ip-label {
+  font-family: var(--dg-mono);
+  font-size: 10.5px;
+  fill: var(--dg-label);
+}
+
+/* Motion: the loop back to Figma keeps moving; the missing links flicker. */
+.ip-line.is-march {
+  animation: ip-march 1.2s linear infinite;
+}
+
+.ip-line.is-broken {
+  animation: ip-flicker 2.4s ease-in-out infinite;
+}
+
+@keyframes ip-march {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+@keyframes ip-flicker {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 720px) {
+  .ip-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ip-panel,
+  .ip-grid--3 .ip-panel:last-child {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ip-line.is-march,
+  .ip-line.is-broken {
+    animation: none;
+  }
+}
+
+/* Each insight panel borrows one participant colour from the research graph,
+   instead of a single orange accent. */
+.ip-panel:nth-child(1) { --dg-accent: #3b82f6; }
+.ip-panel:nth-child(2) { --dg-accent: #14b8a6; }
+.ip-panel:nth-child(3) { --dg-accent: #7c3aed; }
+.ip-panel:nth-child(4) { --dg-accent: #eab308; }
+.ip-panel:nth-child(5) { --dg-accent: #f43f5e; }
+
+/* Graph outcome node: solid ink, so colour stays reserved for people. */
+.cs-diagram .rpg-node.is-end {
+  fill: var(--dg-ink);
+  stroke: var(--dg-ink);
+}
+
+.cs-diagram .rpg-label.is-strong {
+  fill: var(--dg-ink);
+}
+
+/* Lighter, thinner outlines on diagram shapes. */
+.cs-diagram {
+  --dg-outline: #b3afab;
+}
+
+.ip-box,
+.ip-dot {
+  stroke: var(--dg-outline);
+  stroke-width: 0.75;
+}
+
+.ip-line,
+.ip-head {
+  stroke: var(--dg-outline);
+  stroke-width: 0.85;
+}
+
+.cs-diagram .rpg-node {
+  stroke: var(--dg-outline);
+  stroke-width: 0.7;
+}
+
+.cs-intro__text {
+  color: #a4a6ae;
+}
+
+/* Research chart: break out of the reading column so it can be big. */
+.cs-embed--v2 .rpg {
+  width: max(100%, min(74rem, calc(100vw - var(--cs-pad-x, 1.5rem) - var(--cs-pad-right, 1.5rem) - 18.5rem)));
+}
+
+.cs-embed--v2 .cs-block:has(.rpg) .cs-block__note {
+  text-align: left;
+}
+
+/* Names sit in a row above the graph, clear of the nodes. */
+.cs-diagram .rpg__roster {
+  position: static;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  padding: 1rem 1rem 0;
+}
+
+.cs-diagram .rpg-label {
+  font-size: 15px;
+}
+
+.cs-diagram .rpg__play {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.cs-diagram .rpg__play svg {
+  fill: var(--dg-ink);
+}
+
+@media (max-width: 720px) {
+  .cs-diagram .rpg__roster {
+    display: flex;
+  }
+
+  .cs-diagram .rpg-label {
+    font-size: 22px;
+  }
+}
+
+.cs-diagram .rpg__panel {
+  top: 3.4rem;
+}
+
+/* Play/pause: bare icon, no grey circle. */
+.cs-diagram .rpg__play,
+.cs-diagram .rpg__play:hover {
+  background: transparent;
+}
+
+.cs-diagram .rpg__play:hover svg {
+  opacity: 0.6;
+}
+
+/* Work: one case study per row, stacked. Capped so a 3:2 card stays a
+   comfortable size on wide screens. */
+.wdeal__grid {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 56rem;
+  margin-inline: auto;
+  row-gap: clamp(2rem, 4vw, 3.25rem);
+}
+
+/* Play: square tiles with rounded corners, three per row at every width. */
+.play-artifact__lift {
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+}
+
+.play-artifacts,
+.play-artifacts:is(*) {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 980px) {
+  .play-artifacts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .play-artifacts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 0.45rem;
+    row-gap: 0.45rem;
+  }
+
+  .play-artifact__lift {
+    border-radius: 10px;
+  }
+}
+
+/* v2 header lines up with the body text: same two-column grid as .cs-body,
+   everything in the reading column, same max width. */
+.cs-embed--v2 .cs-header--preview {
+  display: grid;
+  grid-template-columns: minmax(12rem, 15rem) minmax(0, 1fr);
+  column-gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+.cs-embed--v2 .cs-header--preview > * {
+  grid-column: 2;
+  width: 100%;
+  max-width: var(--v2-col, 40rem);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.cs-embed--v2 .cs-header--preview .cs-intro,
+.cs-embed--v2 .cs-header--preview .cs-details {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Banner no longer bleeds to the screen edges; it sits in the column. */
+.work-expand__scroll .cs-embed--v2 .cs-slider {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.cs-embed--v2 .cs-slider__field {
+  border-radius: 8px;
+}
+
+@media (max-width: 880px) {
+  .cs-embed--v2 .cs-header--preview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cs-embed--v2 .cs-header--preview > * {
+    grid-column: 1;
+  }
+}
+
+.cs-intro__showcase {
+  margin: 2rem 0 0;
+}
+
+.cs-intro__showcase .cs-slot__frame {
+  border-radius: 12px;
+}
+
+/* Case studies: no dotted display font. Section titles and tags use Inter. */
+.cs-section__title {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+}
+
+.cs-finding__tag {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Full-bleed research chart: no grey panel, spans the whole screen. */
+.cs-embed--v2 .rpg.rpg--bleed,
+.rpg.rpg--bleed {
+  width: var(--bleed-w, 100%);
+  max-width: none;
+  margin-left: var(--bleed-left, 0);
+}
+
+.rpg--bleed .rpg__stage,
+.cs-embed--v2 .rpg--bleed .rpg__stage {
+  border-radius: 0;
+  background: transparent;
+}
+
+.rpg--bleed .rpg-node {
+  fill: #fff;
+}
+
+.rpg--bleed .rpg-scrim {
+  fill: #fff;
+}
+
+/* Names, controls and note keep the page's side margins. */
+.rpg--bleed .rpg__roster,
+.rpg--bleed .rpg__controls {
+  padding-left: var(--cs-pad-x, 1.5rem);
+  padding-right: var(--cs-pad-x, 1.5rem);
+}
+
+.rpg--bleed .rpg__roster {
+  justify-content: center;
+}
+
+.rpg--bleed .rpg__panel {
+  left: var(--cs-pad-x, 1.5rem);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.cs-block:has(.rpg--bleed) .cs-block__note {
+  text-align: center;
+  margin-left: var(--bleed-left, 0);
+  width: var(--bleed-w, 100%);
+}
+
+/* v2: the side nav already names the sections, so the inline
+   "overview" / "process" titles are hidden (kept for screen readers). */
+.cs-embed--v2 .cs-section__title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Smoother tab transitions.
+   Work/play/about pill: drop the bouncy overshoot for a long, soft ease. */
+.tabs {
+  --tabs-thumb-dur: 0.62s;
+  --tabs-thumb-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tabs--select .tab {
+  transition: color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Case-study side nav: active item eases in instead of snapping. */
+.cs-section-nav__btn,
+.cs-section-nav__btn--nested {
+  transition:
+    color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cs-section-nav__btn.active {
+  transform: translateX(2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs--select .tab,
+  .cs-section-nav__btn {
+    transition: none;
+  }
+
+  .cs-section-nav__btn.active {
+    transform: none;
+  }
+}
+
+/* Chapters shade with proximity: --near (0..1) is set from scroll position. */
+.cs-section-nav__btn,
+.cs-section-nav__btn--nested {
+  --near: 0;
+  color: color-mix(in srgb, #1f1f26 calc(var(--near) * 100%), #b9bbc3);
+  transition: color 0.25s linear;
+}
+
+.cs-section-nav__btn.active,
+.cs-section-nav__btn--nested.active {
+  color: color-mix(in srgb, #1f1f26 calc(var(--near) * 100%), #b9bbc3);
+  transform: none;
+}
+
+.cs-section-nav__btn:hover,
+.cs-section-nav__btn--nested:hover {
+  color: #1f1f26;
+}
+
+.cs-section-nav__group {
+  margin-bottom: 0.35rem;
+}
+
+.cs-back-arrow {
+  display: block;
+  width: 1.9rem;
+  height: auto;
+  overflow: visible;
+}
+
+.cs-back-arrow path {
+  fill: none;
+  stroke: #2f2f39;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Graph controls: a compact cluster, not a full-width bar. */
+.cs-diagram .rpg__controls {
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.cs-diagram .rpg__scrub {
+  flex: 0 1 14rem;
+  width: 14rem;
+  max-width: 50vw;
+}
+
+/* ==========================================================================
+   Key learnings (after calebwu.ca/Axis): hairline-ruled, dash list.
+   ========================================================================== */
+#key-learnings {
+  margin-top: 3rem;
+  padding: 2rem 0 0.5rem;
+  border-top: 1px solid #ececef;
+  border-bottom: 1px solid #ececef;
+}
+
+.cs-learnings {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cs-learnings__item {
+  position: relative;
+  padding-left: 1.1rem;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  letter-spacing: -0.02em;
+  color: var(--v2-muted, #5f5f66);
+}
+
+.cs-learnings__item::before {
+  content: "-";
+  position: absolute;
+  left: 0;
+  color: var(--v2-label, #928c88);
+}
+
+.cs-learnings__lead {
+  color: var(--v2-ink, #171717);
+}
+
+.cs-embed--v2 #key-learnings .cs-block {
+  margin-bottom: 1.5rem;
+}
+
+/* ==========================================================================
+   Snapshot card: "this is just a snapshot" + copy email.
+   ========================================================================== */
+.cs-snapshot {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: var(--v2-col, 40rem);
+  margin: 3.5rem 0 4rem;
+  padding: 1.6rem 1.75rem;
+  border-radius: 14px;
+  background: #f7f7f7;
+}
+
+.cs-snapshot__icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.cs-snapshot__env {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cs-snapshot__env--open {
+  opacity: 0;
+}
+
+.cs-snapshot:hover .cs-snapshot__env--closed {
+  opacity: 0;
+}
+
+.cs-snapshot:hover .cs-snapshot__env--open {
+  opacity: 1;
+  transform: rotate(-4deg) scale(1.05);
+}
+
+.cs-snapshot__copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cs-snapshot__lead,
+.cs-snapshot__sub {
+  margin: 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.55;
+  letter-spacing: -0.02em;
+}
+
+.cs-snapshot__lead {
+  color: #171717;
+}
+
+.cs-snapshot__sub {
+  color: #6f6c68;
+}
+
+.cs-snapshot__email {
+  overflow-wrap: anywhere;
+}
+
+.cs-snapshot__btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 1.15rem;
+  border: none;
+  border-radius: 999px;
+  background: #1a1a1a;
+  color: #fff;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.25s ease;
+}
+
+.cs-snapshot__btn:hover {
+  background: #000;
+}
+
+.cs-snapshot__btn:active {
+  transform: scale(0.97);
+}
+
+.cs-snapshot__btn:focus-visible {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 3px;
+}
+
+.cs-snapshot__btn svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 620px) {
+  .cs-snapshot {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .cs-snapshot__btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* See more: centred however many studies there are, live thumbnails. */
+.cs-see-more__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: none;
+}
+
+.cs-see-more__card {
+  flex: 0 1 15rem;
+  min-width: 0;
+}
+
+.cs-see-more__thumb {
+  aspect-ratio: 3 / 2;
+}
+
+.cs-see-more__thumb .project-card__media {
+  position: absolute;
+  inset: 0;
+  display: block;
+  aspect-ratio: auto;
+  height: 100%;
+  box-shadow: none;
+  border-radius: inherit;
+}
+
+.cs-see-more__card:hover .project-card__visual {
+  transform: none;
+}
+
+.cs-embed--v2 .cs-see-more {
+  max-width: var(--v2-col, 40rem);
+}
+
+/* ==========================================================================
+   Standout quotes as FigJam stickies: one colour per participant, laid out
+   loosely with small tilts and a soft paper shadow.
+   ========================================================================== */
+.cs-stickies {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.4rem 1.2rem;
+  margin-top: 1rem;
+  padding: 0.75rem 0.5rem 1.25rem;
+}
+
+.cs-sticky {
+  --sticky: #c2f0ec;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin: 0;
+  aspect-ratio: 1 / 1;
+  padding: clamp(1rem, 2.4vw, 1.5rem);
+  background: var(--sticky);
+  transform: translateY(var(--nudge, 0)) rotate(var(--tilt, 0deg));
+  box-shadow:
+    0 1px 1px rgba(30, 30, 40, 0.06),
+    0 4px 8px rgba(30, 30, 40, 0.06),
+    0 14px 26px rgba(30, 30, 40, 0.08);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+.cs-sticky:hover {
+  transform: translateY(calc(var(--nudge, 0) - 4px)) rotate(0deg);
+  box-shadow:
+    0 2px 2px rgba(30, 30, 40, 0.06),
+    0 8px 14px rgba(30, 30, 40, 0.08),
+    0 22px 38px rgba(30, 30, 40, 0.1);
+}
+
+/* FigJam sticky colours, one per participant. */
+.cs-sticky--quinn { --sticky: #ffd9b8; }
+.cs-sticky--jordan { --sticky: #c2f0ec; }
+.cs-sticky--mira { --sticky: #cfe3ff; }
+.cs-sticky--jamie { --sticky: #ffeea8; }
+.cs-sticky--sage { --sticky: #e4d4ff; }
+.cs-sticky--kira { --sticky: #ffd1dc; }
+
+.cs-sticky__text {
+  margin: 0;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: clamp(0.92rem, 1.5vw, 1.08rem);
+  line-height: 1.38;
+  letter-spacing: -0.02em;
+  color: #1e2422;
+  overflow-wrap: anywhere;
+}
+
+.cs-sticky__who {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: -0.01em;
+  color: rgba(30, 36, 34, 0.6);
+}
+
+/* Long quotes get a little more room. */
+.cs-sticky:has(.cs-sticky__text:only-child) {
+  aspect-ratio: auto;
+}
+
+@media (max-width: 560px) {
+  /* Still two across, like a board; smaller type so long quotes fit. */
+  .cs-stickies {
+    gap: 1rem 0.8rem;
+    padding-inline: 0.25rem;
+  }
+
+  .cs-sticky {
+    padding: 0.85rem;
+    gap: 0.75rem;
+  }
+
+  .cs-sticky__text {
+    font-size: 0.82rem;
+  }
+
+  .cs-sticky__who {
+    font-size: 0.7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-sticky,
+  .cs-sticky:hover {
+    transition: none;
+  }
+}
+
+/* Smaller stickies: three across. */
+.cs-stickies {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem 0.9rem;
+}
+
+.cs-sticky {
+  padding: 0.9rem;
+  gap: 0.7rem;
+}
+
+.cs-sticky__text {
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.cs-sticky__who {
+  font-size: 0.7rem;
+}
+
+@media (max-width: 560px) {
+  .cs-stickies {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.cs-sticky--aiden { --sticky: #ffd1dc; }
+
+/* Centre a short last row: 6-track grid, each sticky spans 2. */
+.cs-stickies {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.cs-sticky {
+  grid-column: span 2;
+}
+
+/* Last row of two: shift the first one in by one track. */
+.cs-sticky:nth-child(3n + 1):nth-last-child(2) {
+  grid-column: 2 / span 2;
+}
+
+/* Last row of one: centre it. */
+.cs-sticky:nth-child(3n + 1):last-child {
+  grid-column: 3 / span 2;
+}
+
+@media (max-width: 560px) {
+  .cs-stickies {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .cs-sticky,
+  .cs-sticky:nth-child(3n + 1):nth-last-child(2),
+  .cs-sticky:nth-child(3n + 1):last-child {
+    grid-column: span 2;
+  }
+
+  /* Two across: a lone last sticky sits in the middle. */
+  .cs-sticky:nth-child(2n + 1):last-child {
+    grid-column: 2 / span 2;
+  }
+}

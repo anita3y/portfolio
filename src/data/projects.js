@@ -2,6 +2,23 @@ import { assetUrl } from "../utils/assetUrl.js";
 
 export const WORK_PROJECTS = [
   {
+    id: "ai-workflow",
+    title: "AI Workflow",
+    headline: "AI Workflow (Use-Research)",
+    company: "NYU Design Research",
+    status: "In progress",
+    year: "2026",
+    tags: ["User research", "Figma desktop", "AI"],
+    href: "#",
+    thumbnailSlides: [
+      assetUrl("/case-studies/ai-workflow/frame-01.svg"),
+      assetUrl("/case-studies/ai-workflow/frame-02.svg"),
+      assetUrl("/case-studies/ai-workflow/frame-03.svg")
+    ],
+    thumbnailSlideInterval: 900,
+    theme: "ai-workflow"
+  },
+  {
     id: "design-for-america",
     title: "Design for America",
     headline: "Modular Framer website, with handoff-first IA",

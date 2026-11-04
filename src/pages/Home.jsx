@@ -8,7 +8,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AboutPanel from "../components/AboutPanel.jsx";
 import PlayArtifactOverlay from "../components/PlayArtifactOverlay.jsx";
 import PlayArtifactsGrid from "../components/PlayArtifactsGrid.jsx";
-import ProjectCard from "../components/ProjectCard.jsx";
+import WorkCardDeal from "../components/WorkCardDeal.jsx";
+import ProgressiveBlur from "../components/ProgressiveBlur.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import StatusCorner from "../components/StatusCorner.jsx";
 import WorkExpandPanel from "../components/WorkExpandPanel.jsx";
@@ -218,6 +219,8 @@ export default function Home() {
       style={{ "--nav-grow": navGrow }}
     >
       <StatusCorner />
+      {/* Fades in as the work/play bar sticks to the top. */}
+      <ProgressiveBlur edge="top" className="page-top-blur" />
 
       <header className="hero">
         <h1 className="hero__lockup">
@@ -347,20 +350,7 @@ export default function Home() {
           />
         )}
         {activeTab === "work" && (
-          <div className="project-grid" role="list">
-            {WORK_PROJECTS.map((project) => (
-              <div key={project.id} className="project-grid__item" role="listitem">
-                <ProjectCard
-                  project={project}
-                  onExpand={
-                    project.displayOnly
-                      ? undefined
-                      : () => setOpenWorkId(project.id)
-                  }
-                />
-              </div>
-            ))}
-          </div>
+          <WorkCardDeal projects={WORK_PROJECTS} onOpen={setOpenWorkId} />
         )}
 
         {activeTab === "about" && <AboutPanel />}

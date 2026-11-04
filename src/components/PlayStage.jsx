@@ -21,11 +21,11 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-function cardTransform(offset, reduced) {
+function cardTransform(offset, reduced, spread = 1) {
   const abs = Math.abs(offset);
   const rotateY = reduced || offset === 0 ? 0 : offset < 0 ? 58 : -58;
   // Tighter coverflow gaps — neighbors sit closer to the active cover.
-  const x = offset * (reduced ? 6.85 : 6.05);
+  const x = offset * (reduced ? 6.85 : 6.05) * spread;
   const z = offset === 0 ? 56 : 22 - abs * 16;
   // Keep selected at 1 — scale>1 caused a light AA hairline on dark charcoal.
   const scale = offset === 0 ? 1 : Math.max(0.82, 1 - abs * 0.06);
@@ -96,7 +96,7 @@ function PlayVideoEmbed({ project, study }) {
 }
 
 /** Cover-flow picker. Items need `{ id, cover, title, artist? }`. */
-export function PlayPicker({ projects, selectedId, onSelect, ariaLabel = "Play covers" }) {
+export function PlayPicker({ projects, selectedId, onSelect, ariaLabel = "Play covers", spread = 1 }) {
   const reducedMotion = usePrefersReducedMotion();
   const selectedIndex = Math.max(
     0,
@@ -251,7 +251,7 @@ export function PlayPicker({ projects, selectedId, onSelect, ariaLabel = "Play c
               role="option"
               aria-selected={isSelected}
               className={`play-flow__card${isSelected ? " is-selected" : ""}`}
-              style={cardTransform(offset, reducedMotion)}
+              style={cardTransform(offset, reducedMotion, spread)}
               onClick={(event) => onCardClick(event, project.id)}
             >
               <span className="play-flow__lift">

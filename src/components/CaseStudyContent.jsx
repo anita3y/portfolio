@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { SITE_TABS, pathForTab } from "../data/tabs.js";
+import { assetUrl } from "../utils/assetUrl.js";
 import CaseStudySectionNav from "./CaseStudySectionNav.jsx";
 import CaseStudySeeMore from "./CaseStudySeeMore.jsx";
 import CaseStudyUserFlowMap from "./CaseStudyUserFlowMap.jsx";
 import DfaWireframes from "./DfaWireframes.jsx";
+import { PlayPicker } from "./PlayStage.jsx";
+import ResearchPathsGraph from "./ResearchPathsGraph.jsx";
+import CaseStudyHeroSlider from "./CaseStudyHeroSlider.jsx";
+import InsightPanels from "./InsightPanels.jsx";
+import CaseStudySnapshot from "./CaseStudySnapshot.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
 import {
@@ -287,6 +293,41 @@ function CaseStudyHeroMedia({
   );
 }
 
+/* Template v2 hero: the Play album coverflow, reused as a product banner. */
+function CaseStudyHeroCarousel({ items, title }) {
+  const start = items[Math.floor(items.length / 2)]?.id ?? items[0]?.id;
+  const [selectedId, setSelectedId] = useState(start);
+
+  return (
+    <div className="cs-hero-carousel">
+      <PlayPicker
+        projects={items}
+        selectedId={selectedId}
+        onSelect={setSelectedId}
+        ariaLabel={`${title} screens`}
+        spread={1.85}
+      />
+    </div>
+  );
+}
+
+function CaseStudyMediaSlot({ item, className }) {
+  return (
+    <figure className={["cs-slot", item.wide && "cs-slot--wide", className].filter(Boolean).join(" ")}>
+      <div className="cs-slot__frame" style={item.aspectRatio ? { aspectRatio: item.aspectRatio } : undefined}>
+        {item.src ? (
+          <img src={item.src} alt={item.alt ?? ""} loading="lazy" decoding="async" />
+        ) : item.video ? (
+          <video src={item.video} autoPlay loop muted playsInline preload="metadata" />
+        ) : (
+          <span className="cs-slot__label">{item.label}</span>
+        )}
+      </div>
+      {item.caption ? <figcaption className="cs-slot__caption">{item.caption}</figcaption> : null}
+    </figure>
+  );
+}
+
 function CaseStudyFigure({ image, className }) {
   return (
     <figure className={["cs-figure", className].filter(Boolean).join(" ")}>
@@ -410,8 +451,88 @@ function CaseStudyActions({ actions }) {
 
 function TextBlock({ block }) {
   return (
-    <div className="cs-block">
+    <div className={["cs-block", block.eyebrow && "cs-block--beat"].filter(Boolean).join(" ")}>
+      {block.eyebrow && <p className="cs-block__eyebrow">{block.eyebrow}</p>}
       {block.heading && <h3 className="cs-block__heading">{block.heading}</h3>}
+      {block.text && <p className="cs-block__text">{block.text}</p>}
+      {block.caption && <p className="cs-block__caption">{block.caption}</p>}
+      {block.layout === "findings" && block.items?.length > 0 && (
+        <div className={["cs-findings", block.variant === "plain" && "cs-findings--plain"].filter(Boolean).join(" ")}>
+          {block.items.map((item) => (
+            <div key={item.tag ?? item.title} className="cs-finding">
+              {item.tag ? <span className="cs-finding__tag">{item.tag}</span> : null}
+              <p className="cs-finding__title">{item.title}</p>
+              {item.text ? <p className="cs-finding__text">{item.text}</p> : null}
+            </div>
+          ))}
+        </div>
+      )}
+      {block.layout === "learnings" && block.items?.length > 0 && (
+        <ul className="cs-learnings">
+          {block.items.map((item) => (
+            <li key={item.lead} className="cs-learnings__item">
+              <span className="cs-learnings__lead">{item.lead}</span>
+              {item.text ? <> {item.text}</> : null}
+            </li>
+          ))}
+        </ul>
+      )}
+      {block.layout === "researchGraph" && <ResearchPathsGraph bleed={Boolean(block.bleed)} />}
+      {block.layout === "insightPanels" && block.items?.length > 0 && <InsightPanels items={block.items} />}
+      {block.layout === "mediaSlot" && <CaseStudyMediaSlot item={{ ...block, caption: undefined }} />}
+      {block.layout === "showcase" && block.items?.length > 0 && (
+        <div className="cs-showcase">
+          {block.items.map((item, index) => (
+            <CaseStudyMediaSlot key={`${item.label}-${index}`} item={item} />
+          ))}
+        </div>
+      )}
+      {block.layout === "hmwFlow" && block.rows?.length > 0 && (
+        <div className="cs-hmw" role="table" aria-label="Hypotheses to findings to how might we">
+          <div className="cs-hmw__row cs-hmw__row--head" role="row">
+            <span role="columnheader">hypothesis</span>
+            <span role="columnheader">finding</span>
+            <span role="columnheader">how might we</span>
+          </div>
+          {block.rows.map((row) => (
+            <div key={row.hypothesis} className="cs-hmw__row" role="row">
+              <p className="cs-hmw__cell cs-hmw__cell--h" role="cell">{row.hypothesis}</p>
+              <p className="cs-hmw__cell" role="cell">{row.finding}</p>
+              <p className="cs-hmw__cell cs-hmw__cell--hmw" role="cell">{row.hmw}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      {block.layout === "quotes" && block.variant === "stickies" && block.items?.length > 0 && (
+        <div className="cs-stickies">
+          {block.items.map((item, i) => (
+            <figure
+              key={item.quote}
+              className={`cs-sticky cs-sticky--${(item.who || "").toLowerCase()}`}
+              style={{ "--tilt": `${[-1.6, 1.2, -0.6, 1.8, -1.1, 0.7][i % 6]}deg`, "--nudge": `${[6, -4, 10, -2, 4, -8][i % 6]}px` }}
+            >
+              <blockquote className="cs-sticky__text">“{item.quote}”</blockquote>
+              <figcaption className="cs-sticky__who">
+                {item.who}
+                {item.role ? `, ${item.role}` : ""}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
+      {block.layout === "quotes" && block.variant !== "stickies" && block.items?.length > 0 && (
+        <div className="cs-quotes">
+          {block.items.map((item) => (
+            <blockquote key={item.quote} className="cs-quote">
+              <p className="cs-quote__text">“{item.quote}”</p>
+              <footer className="cs-quote__who">
+                {item.who}
+                {item.role ? <span className="cs-quote__role"> · {item.role}</span> : null}
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      )}
       {block.paragraphs?.map((p) => (
         <p key={p} className="cs-block__text">
           {p}
@@ -595,6 +716,7 @@ function TextBlock({ block }) {
           })}
         </div>
       )}
+      {block.note && <p className="cs-block__note">{block.note}</p>}
     </div>
   );
 }
@@ -732,7 +854,9 @@ function renderCaseStudySections(sections) {
   });
 }
 
-export function CaseStudyPreview({ study, compact = false, hideTabs = false, onSelectTab }) {
+const BACK_ARROW = assetUrl("/case-studies/back-arrow.png");
+
+export function CaseStudyPreview({ study, compact = false, hideTabs = false, onSelectTab, onBack }) {
   const {
     id,
     title,
@@ -750,7 +874,10 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
     heroBackground,
     heroCompact,
     heroFit,
-    heroObjectPosition
+    heroObjectPosition,
+    heroCarousel,
+    detailsVariant,
+    template
   } = study;
   const projectCard = ALL_PROJECTS.find((project) => project.id === id) ?? null;
   const detailItems = Array.isArray(details) ? details.filter((item) => item?.label && item?.value) : [];
@@ -765,9 +892,19 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
   const isPlay = activeTopTab === "play";
 
   return (
-    <header className={`cs-header cs-header--preview${compact ? " cs-header--compact" : ""}${isPlay ? " cs-header--play" : ""}`}>
+    <header
+      className={[
+        "cs-header",
+        "cs-header--preview",
+        compact && "cs-header--compact",
+        isPlay && "cs-header--play",
+        template && `cs-header--${template}`
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       {!hideTabs && <CaseStudyTopTabs activeTab={activeTopTab} onSelectTab={onSelectTab} />}
-      {!isPlay && metaParts.length > 0 && (
+      {!isPlay && !template && metaParts.length > 0 && (
         <p className="cs-project-meta">
           {metaParts.map((part, index) => (
             <span key={`${part}-${index}`}>
@@ -782,8 +919,11 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
           ))}
         </p>
       )}
-      <h1 className="cs-title">{displayTitle}</h1>
-      {hasSubtitle ? <p className="cs-subtitle">{subtitle}</p> : null}
+      {!template && <h1 className="cs-title">{displayTitle}</h1>}
+      {!template && hasSubtitle ? <p className="cs-subtitle">{subtitle}</p> : null}
+      {heroCarousel?.length ? (
+        <CaseStudyHeroSlider items={heroCarousel} title={title} />
+      ) : template ? null : (
       <CaseStudyHeroMedia
         heroEmbed={heroEmbed}
         heroEmbedTitle={title}
@@ -800,8 +940,36 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
         heroFit={heroFit}
         heroObjectPosition={heroObjectPosition}
       />
+      )}
+      {/* Template v2: the preview leads, title sits under it. */}
+      {template && (
+        <div className="cs-intro">
+          {onBack ? (
+            <button type="button" className="cs-section-nav__back cs-intro__back" onClick={onBack} aria-label="Back to work" data-cursor-morph="">
+              <img src={BACK_ARROW} alt="" />
+            </button>
+          ) : null}
+          <h1 className="cs-title cs-title--under">{displayTitle}</h1>
+          {hasSubtitle ? <p className="cs-subtitle">{subtitle}</p> : null}
+          {study.intro?.map((line) => (
+            <p key={line} className="cs-intro__text">
+              {/* *word* -> italic */}
+              {line.split(/(\*[^*]+\*)/g).map((part, i) =>
+                part.startsWith("*") ? <em key={i}>{part.slice(1, -1)}</em> : part
+              )}
+            </p>
+          ))}
+          {/* Single motion showcase right after the intro (replaces the banner carousel). */}
+          {study.heroShowcase ? (
+            <CaseStudyMediaSlot item={study.heroShowcase} className="cs-intro__showcase" />
+          ) : null}
+        </div>
+      )}
       {detailItems.length > 0 && (
-        <div className="cs-details" aria-label="Project details">
+        <div
+          className={["cs-details", detailsVariant === "compact" && "cs-details--compact"].filter(Boolean).join(" ")}
+          aria-label="Project details"
+        >
           {detailItems.map((item) => (
             <div
               key={item.label}
@@ -963,6 +1131,9 @@ export function CaseStudyBody({
             {gated && !unlocked ? <CaseStudyAccessGate study={study} onUnlock={unlock} /> : null}
           </>
         )}
+        {study.snapshot && unlocked ? (
+          <CaseStudySnapshot email={getCaseStudyRequestEmail(study)} />
+        ) : null}
         {actions && unlocked && (
           <section
             className={[
@@ -991,6 +1162,35 @@ export function CaseStudyBody({
   );
 }
 
+/* Template v2: content focuses in (blur -> sharp) as it enters the view. */
+function useBlurReveal(rootRef, scrollRoot, enabled, key) {
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!enabled || !root) return undefined;
+    const targets = root.querySelectorAll(
+      ".cs-section__title, .cs-section__summary, .cs-subsection__title, .cs-block, .cs-hero-carousel, .cs-details"
+    );
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+    targets.forEach((el) => el.classList.add("cs-reveal"));
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-in");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { root: scrollRoot?.current ?? null, rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+    );
+    targets.forEach((el) => io.observe(el));
+    return () => {
+      io.disconnect();
+      targets.forEach((el) => el.classList.remove("cs-reveal", "is-in"));
+    };
+  }, [rootRef, scrollRoot, enabled, key]);
+}
+
 export function CaseStudyFullContent({
   study,
   scrollRoot,
@@ -1002,13 +1202,29 @@ export function CaseStudyFullContent({
   onSelectTab,
   onSelectRelated
 }) {
+  const embedRef = useRef(null);
+  useBlurReveal(embedRef, scrollRoot, study.template === "v2", study.id);
+  const topTab = PLAY_PROJECTS.some((project) => project.id === study.id) ? "play" : "work";
+
   return (
-    <div className={`cs-embed${compact ? " cs-embed--compact" : ""}`}>
+    <div
+      ref={embedRef}
+      className={["cs-embed", compact && "cs-embed--compact", study.template && `cs-embed--${study.template}`]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      {/* Tabs live at the embed level so they can stay stuck while the study scrolls. */}
+      {!hideTabs && (
+        <div className="cs-sticky-tabs">
+          <CaseStudyTopTabs activeTab={topTab} onSelectTab={onSelectTab} />
+        </div>
+      )}
       <CaseStudyPreview
         study={study}
         compact={compact}
-        hideTabs={hideTabs}
+        hideTabs
         onSelectTab={onSelectTab}
+        onBack={onBack}
       />
       <CaseStudyBody
         study={study}

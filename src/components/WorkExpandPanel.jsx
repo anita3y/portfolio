@@ -3,6 +3,7 @@ import { getCaseStudy } from "../data/caseStudies/index.js";
 import { WORK_PROJECTS } from "../data/projects.js";
 import { hapticSnap, pulseHapticClass } from "../utils/haptics.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
+import ProgressiveBlur from "./ProgressiveBlur.jsx";
 
 /** Expandable Work studies only — skip display-only cards like Vanity. */
 const EXPANDABLE_WORK_IDS = WORK_PROJECTS.filter(
@@ -89,6 +90,17 @@ export default function WorkExpandPanel({ workId, onClose, onSelectTab, onNaviga
     return () => root.removeEventListener("wheel", onWheel);
   }, [workId, onNavigate]);
 
+  // Reveal the top progressive blur once content scrolls under the sheet's top edge.
+  useEffect(() => {
+    const root = scrollRef.current;
+    const sheet = sheetRef.current;
+    if (!root || !sheet) return undefined;
+    const sync = () => sheet.toggleAttribute("data-scrolled", root.scrollTop > 12);
+    sync();
+    root.addEventListener("scroll", sync, { passive: true });
+    return () => root.removeEventListener("scroll", sync);
+  }, [workId]);
+
   if (!study) return null;
 
   return (
@@ -108,6 +120,7 @@ export default function WorkExpandPanel({ workId, onClose, onSelectTab, onNaviga
         ref={sheetRef}
         className="work-expand__sheet work-expand__sheet--full"
       >
+        <ProgressiveBlur edge="top" className="work-expand__top-blur" />
         <div ref={scrollRef} className="work-expand__scroll">
           <CaseStudyFullContent
             study={study}
