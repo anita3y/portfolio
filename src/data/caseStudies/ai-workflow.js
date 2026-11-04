@@ -193,7 +193,7 @@ export const AI_WORKFLOW_CASE_STUDY = {
                 },
                 {
                   lead: "AI is changing workflows faster than we can study them.",
-                  text: "The tools people named shifted even within a few weeks of interviews. This research is a snapshot, and it will need revisiting as quickly as the tools change."
+                  text: "Tools shifted within weeks of the interviews. Mid-prototype, Figma Specs and agents viewing landed and I had to adjust. This research is a snapshot. It will need revisiting as the tools change."
                 }
               ]
             }
