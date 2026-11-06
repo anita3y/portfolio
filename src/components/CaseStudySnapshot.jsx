@@ -42,17 +42,19 @@ export default function CaseStudySnapshot({ email }) {
         </p>
       </div>
       <button type="button" className={`cs-snapshot__btn${copied ? " is-copied" : ""}`} onClick={copy} data-cursor-morph="">
-        <span aria-live="polite">{copied ? "Copied!" : "Copy email"}</span>
-        <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
-          {copied ? (
-            <path d="M3 8.5 L6.5 12 L13 4.5" />
-          ) : (
-            <>
-              <rect x="5" y="5" width="8.5" height="8.5" rx="2" />
-              <path d="M10.5 3.2 V3 a1.5 1.5 0 0 0 -1.5 -1.5 H4 A2 2 0 0 0 2 3.5 V9 a1.5 1.5 0 0 0 1.5 1.5" />
-            </>
-          )}
-        </svg>
+        <span className="cs-snapshot__btn-pill">
+          <span aria-live="polite">{copied ? "Copied!" : "Copy email"}</span>
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+            {copied ? (
+              <path d="M3 8.5 L6.5 12 L13 4.5" />
+            ) : (
+              <>
+                <rect x="5" y="5" width="8.5" height="8.5" rx="2" />
+                <path d="M10.5 3.2 V3 a1.5 1.5 0 0 0 -1.5 -1.5 H4 A2 2 0 0 0 2 3.5 V9 a1.5 1.5 0 0 0 1.5 1.5" />
+              </>
+            )}
+          </svg>
+        </span>
       </button>
     </aside>
   );

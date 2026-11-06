@@ -11747,25 +11747,58 @@ a.about-browser__url:hover .about-browser__url-text {
   overflow-wrap: anywhere;
 }
 
+/* Match Work / Play / About `.tabs--select` track + active pill. */
 .cs-snapshot__btn {
+  --snapshot-btn-h: 2.02rem;
+  --snapshot-btn-pad: 0.14rem;
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.7rem 1.15rem;
+  justify-content: center;
+  height: var(--snapshot-btn-h);
+  padding: var(--snapshot-btn-pad);
   border: none;
   border-radius: 999px;
-  background: #1a1a1a;
-  color: #fff;
+  background: #ececee;
+  color: #111111;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 0.95rem;
-  letter-spacing: -0.02em;
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-transform: lowercase;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.25s ease;
+  box-shadow:
+    0 10px 24px rgba(28, 30, 38, 0.12),
+    0 2px 6px rgba(28, 30, 38, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.cs-snapshot__btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: calc(var(--snapshot-btn-h) - 2 * var(--snapshot-btn-pad));
+  padding: 0 1.05rem;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow:
+    0 1px 2px rgba(28, 30, 38, 0.06),
+    0 2px 5px rgba(28, 30, 38, 0.05);
+  transition: box-shadow 0.25s ease;
 }
 
 .cs-snapshot__btn:hover {
-  background: #000;
+  box-shadow:
+    0 12px 26px rgba(28, 30, 38, 0.14),
+    0 3px 8px rgba(28, 30, 38, 0.08);
+}
+
+.cs-snapshot__btn:hover .cs-snapshot__btn-pill {
+  box-shadow:
+    0 1px 3px rgba(28, 30, 38, 0.08),
+    0 3px 8px rgba(28, 30, 38, 0.08);
 }
 
 .cs-snapshot__btn:active {
@@ -11773,8 +11806,11 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .cs-snapshot__btn:focus-visible {
-  outline: 2px solid #1a1a1a;
-  outline-offset: 3px;
+  outline: none;
+  box-shadow:
+    0 10px 24px rgba(28, 30, 38, 0.12),
+    0 2px 6px rgba(28, 30, 38, 0.06),
+    0 0 0 2px rgba(17, 17, 17, 0.18);
 }
 
 .cs-snapshot__btn svg {
@@ -11794,6 +11830,10 @@ a.about-browser__url:hover .about-browser__url-text {
   .cs-snapshot__btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .cs-snapshot__btn-pill {
+    width: 100%;
   }
 }
 
