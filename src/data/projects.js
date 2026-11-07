@@ -37,6 +37,23 @@ export const WORK_PROJECTS = [
     theme: "dfa"
   },
   {
+    id: "tangents",
+    title: "Tangents",
+    headline: "Tangents",
+    company: "Tangents",
+    status: "In progress",
+    year: "2026",
+    tags: [],
+    href: "#",
+    thumbnailSlides: [
+      assetUrl("/case-studies/tangents/frame-01.svg"),
+      assetUrl("/case-studies/tangents/frame-02.svg"),
+      assetUrl("/case-studies/tangents/frame-03.svg")
+    ],
+    thumbnailSlideInterval: 900,
+    theme: "tangents"
+  },
+  {
     id: "vanity-beauty",
     title: "Vanity Beauty App",
     headline: "Low-friction onboarding for iOS app",
