@@ -4,7 +4,6 @@ import AboutTags from "./AboutTags.jsx";
 import { assetUrl } from "../utils/assetUrl.js";
 
 const ID_CARD = assetUrl("/about/id-card.png");
-const SIGNATURE = assetUrl("/about/signature-anita.png");
 
 const CONNECT_LINKS = [
   { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/anitayandesign/" },
@@ -81,14 +80,6 @@ export default function AboutPanel() {
           </p>
         ))}
         <p className="about-letter__signoff">{ABOUT_LETTER.signoff}</p>
-        <img
-          className="about-letter__signature"
-          src={SIGNATURE}
-          alt="Anita"
-          width={164}
-          height={88}
-          draggable={false}
-        />
 
         <div className="about-letter__connect">
           <ul className="about-tags about-letter__links" aria-label="Contact">
