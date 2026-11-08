@@ -2803,7 +2803,7 @@ button:focus-visible {
 /* Clean letter — craft line + connect links */
 .about-letter {
   width: min(38rem, 92%);
-  margin: 0.35rem auto 1.25rem;
+  margin: 0.35rem auto 2rem;
 }
 
 .about-letter__greeting,

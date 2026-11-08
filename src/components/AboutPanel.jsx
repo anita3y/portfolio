@@ -5,12 +5,6 @@ import { assetUrl } from "../utils/assetUrl.js";
 
 const ID_CARD = assetUrl("/about/id-card.png");
 
-const CONNECT_LINKS = [
-  { id: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/anitayandesign/" },
-  { id: "x", label: "X/Twitter", href: "https://x.com/nitayxxn" },
-  { id: "email", label: "Email", href: "mailto:anita3yan@gmail.com" }
-];
-
 const MAX_TILT = 7;
 
 function AboutIdCard() {
@@ -101,25 +95,6 @@ export default function AboutPanel() {
           </p>
         ))}
         <p className="about-letter__signoff">{ABOUT_LETTER.signoff}</p>
-
-        <div className="about-letter__connect">
-          <ul className="about-tags about-letter__links" aria-label="Contact">
-            {CONNECT_LINKS.map((link) => (
-              <li key={link.id} className="about-tags__item">
-                <a
-                  className="about-tags__tag about-tags__tag--link"
-                  href={link.href}
-                  {...(link.href.startsWith("mailto:")
-                    ? {}
-                    : { target: "_blank", rel: "noopener noreferrer" })}
-                  data-cursor-hover=""
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
       </section>
 
       <AboutCollage />
