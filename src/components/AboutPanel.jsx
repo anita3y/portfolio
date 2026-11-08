@@ -3,7 +3,7 @@ import { ABOUT_COLLAGE, ABOUT_LETTER, ABOUT_QUOTE } from "../data/about.js";
 import AboutTags from "./AboutTags.jsx";
 import { assetUrl } from "../utils/assetUrl.js";
 
-const ID_CARD = assetUrl("/about/id-card.png");
+const ID_CARD = assetUrl("/about/id-card.png") + "?v=4";
 
 const MAX_TILT = 7;
 
@@ -49,8 +49,8 @@ function AboutIdCard() {
           className="about-id-card__img"
           src={ID_CARD}
           alt="Anita Yan ID card — New York University, Interactive Media Arts, Psychology"
-          width={1976}
-          height={1327}
+          width={2602}
+          height={1737}
           draggable={false}
         />
       </div>
