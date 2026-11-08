@@ -7,7 +7,7 @@ const ID_CARD = assetUrl("/about/id-card.png") + "?v=4";
 
 const MAX_TILT = 7;
 
-function AboutIdCard() {
+function CollageIdCard() {
   const wrapRef = useRef(null);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
   const [active, setActive] = useState(false);
@@ -33,27 +33,25 @@ function AboutIdCard() {
   };
 
   return (
-    <div className="about-id-card-wrap">
-      <div
-        ref={wrapRef}
-        className={`about-id-card${active ? " is-tilting" : ""}`}
-        onPointerMove={onPointerMove}
-        onPointerLeave={resetTilt}
-        onPointerCancel={resetTilt}
-        style={{
-          transform: `perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`
-        }}
-        data-cursor-hover=""
-      >
-        <img
-          className="about-id-card__img"
-          src={ID_CARD}
-          alt="Anita Yan ID card — New York University, Interactive Media Arts, Psychology"
-          width={2602}
-          height={1737}
-          draggable={false}
-        />
-      </div>
+    <div
+      ref={wrapRef}
+      className={`about-collage__id${active ? " is-tilting" : ""}`}
+      onPointerMove={onPointerMove}
+      onPointerLeave={resetTilt}
+      onPointerCancel={resetTilt}
+      style={{
+        transform: `rotate(var(--tilt)) perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`
+      }}
+      data-cursor-hover=""
+    >
+      <img
+        className="about-collage__id-img"
+        src={ID_CARD}
+        alt="Anita Yan ID card — New York University, Interactive Media Arts, Psychology"
+        width={2602}
+        height={1737}
+        draggable={false}
+      />
     </div>
   );
 }
@@ -74,6 +72,7 @@ function AboutCollage() {
           <p className="about-collage__sticky-text">{ABOUT_QUOTE.text}</p>
           <p className="about-collage__sticky-who">— {ABOUT_QUOTE.attribution}</p>
         </aside>
+        <CollageIdCard />
       </div>
     </section>
   );
@@ -82,8 +81,6 @@ function AboutCollage() {
 export default function AboutPanel() {
   return (
     <div className="about-page">
-      <AboutIdCard />
-
       <div className="about-page__tags">
         <AboutTags />
       </div>
