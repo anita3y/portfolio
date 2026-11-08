@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sketchbook</title>
+<style>
+  :root {
+    --bg: #f9f9fb;
+    --ink: #111;
+    --title: #000000;
+    --sub: #8a8b96;
+    --tick: #d0d0d4;
+    --tick-hover: #6a6a72;
+    --tick-on: #3a3a40;
+    --tick-on-hover: #111114;
+    --sheet: #fff;
+    --sheet-ring: rgba(0,0,0,.05);
+    --sheet-shadow: 0 12px 32px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.05);
+    --ease: cubic-bezier(.645, .045, .355, 1);
+  }
+  html.theme-dark {
+    --bg: #121316;
+    --ink: #f5f5f7;
+    --title: #f5f5f7;
+    --sub: #8e8e98;
+    --tick: #3f4048;
+    --tick-hover: #7a7a84;
+    --tick-on: #f0f0f3;
+    --tick-on-hover: #ffffff;
+    --sheet: #1a1b20;
+    --sheet-ring: rgba(255,255,255,.08);
+    --sheet-shadow: 0 12px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.06);
+  }
+  html, body { margin: 0; min-height: 100%; background: var(--bg); }
+  body {
+    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    -webkit-user-select: none; user-select: none;
+  }
+
+  .page {
+    position: relative; box-sizing: border-box; width: 100%; height: 100vh; min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    /* Extra pad so the smaller book sits in more white space. */
+    padding: clamp(2.25rem, 8vh, 4.5rem) clamp(1.75rem, 7vw, 5rem) clamp(1.75rem, 6vh, 3.5rem);
+    overflow: hidden;
+  }
+  .content {
+    width: 100%; max-height: 100%;
+    display: flex; flex-direction: column; align-items: center; gap: clamp(0.75rem, 2vh, 1.15rem);
+    transform-origin: center; min-height: 0;
+  }
+
+  .stage {
+    width: 100%; flex: 0 1 auto; min-height: 0;
+    display: flex; justify-content: center; align-items: center;
+    touch-action: pan-y;
+  }
+  .book {
+    position: relative;
+    /* Smaller sketchbook for breathing room around it. */
+    width: min(100%, 34rem);
+    max-height: min(52vh, 22rem);
+    aspect-ratio: 1429 / 1000;
+    perspective: 2600px;
+  }
+  @supports (height: 100%) {
+    .book {
+      height: auto;
+      width: min(100%, 34rem, calc(min(52vh, 22rem) * 1429 / 1000));
+      max-width: 100%;
+    }
+  }
+
+  .sheet, .leaf { position: absolute; top: 0; width: 50%; height: 100%; }
+  .sheet { overflow: hidden; background: var(--sheet); box-shadow: var(--sheet-shadow); }
+  .sheet.left  { left: 0;   border-radius: 14px 0 0 14px; }
+  .sheet.right { left: 50%; border-radius: 0 14px 14px 0; }
+
+  .leaf {
+    left: 50%; margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
+    transform-origin: left center; transform-style: preserve-3d;
+    transition: transform .9s var(--ease);
+  }
+  .leaf.flipped { transform: rotateY(-180deg); }
+  .face {
+    position: absolute; inset: 0; overflow: hidden; background: var(--sheet);
+    backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    box-shadow: 0 0 0 1px var(--sheet-ring);
+  }
+  .face.front { border-radius: 0 14px 14px 0; }
+  .face.back  { border-radius: 14px 0 0 14px; transform: rotateY(180deg); }
+
+  img { display: block; width: 100%; height: 100%; object-fit: cover; -webkit-user-drag: none; }
+
+  /* soft shading at the spine */
+  .gutter { position: absolute; top: 0; bottom: 0; width: 10%; pointer-events: none; }
+  .gutter.l { left: 0;  background: linear-gradient(to right, rgba(0,0,0,.10), transparent); }
+  .gutter.r { right: 0; background: linear-gradient(to left,  rgba(0,0,0,.10), transparent); }
+
+  /* Match Play album caption + scrubber chrome */
+  .caption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 auto;
+    gap: 0.15rem;
+    margin: 0;
+    text-align: center;
+  }
+  .caption .title,
+  .caption .sub {
+    margin: 0;
+    font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0.92rem;
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    line-height: 1.25;
+  }
+  .caption .title { color: var(--title); }
+  .caption .sub { color: var(--sub); }
+
+  .ticks {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex: 0 0 auto;
+    gap: 0.52rem;
+    width: fit-content;
+    height: 1.7rem;
+    margin: 0.15rem auto 0;
+    padding: 0.15rem 0.7rem 0;
+    touch-action: none;
+  }
+  .tick {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    width: 1.5px;
+    height: 11px;
+    padding: 0;
+    border: none;
+    border-radius: 1px;
+    background: var(--tick);
+    cursor: pointer;
+    transition:
+      height 0.28s cubic-bezier(0.22, 1, 0.32, 1),
+      width 0.28s ease,
+      background 0.28s ease;
+  }
+  .tick::before {
+    content: "";
+    position: absolute;
+    inset: -12px -8px;
+  }
+  .tick[aria-pressed="true"] {
+    width: 2px;
+    height: 18px;
+    background: var(--tick-on);
+    cursor: default;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tick:hover:not([aria-pressed="true"]) {
+      height: 16px;
+      width: 2px;
+      background: var(--tick-hover);
+    }
+    .tick:hover[aria-pressed="true"] {
+      background: var(--tick-on-hover);
+    }
+  }
+  .tick:focus-visible {
+    outline: none;
+    height: 16px;
+    background: var(--tick-on);
+  }
+</style>
+<script>
+  (function applyThemeFromQuery() {
+    try {
+      var theme = new URLSearchParams(window.location.search).get("theme");
+      document.documentElement.classList.toggle("theme-dark", theme === "dark");
+    } catch (e) { /* ignore */ }
+  })();
+</script>
+</head>
+<body>
+<main class="page">
+  <div class="content">
+    <div class="stage" id="stage"><div class="book" id="book"></div></div>
+    <div class="caption" aria-live="polite">
+      <span class="title" id="capTitle"></span>
+      <span class="sub" id="capSub"></span>
+    </div>
+    <div class="ticks" id="ticks" role="tablist" aria-label="Spread position"></div>
+  </div>
+</main>
+
+<script>
+// ---- Edit your spreads here: left page, right page, caption ----
+const SPREADS = [
+  { left:  { src: "images/girl.jpg",         alt: "Colored pencil drawing of a girl with a brown bob and wide eyes, wired earbuds and star bursts floating around her" },
+    right: { src: "images/person.jpg",       alt: "Graphite sketch of the person sitting in front, head bowed and eyes lowered" },
+    title: "Earbuds & Person in front", sub: "colored pencil, graphite" },
+  { left:  { src: "images/hands.jpg",        alt: "Pencil studies of hands, a curled fist and an open palm" },
+    right: { src: "images/feet.jpg",         alt: "Pencil studies of two feet seen from below, toes curled" },
+    title: "Finger sketches & Feet", sub: "graphite" },
+  { left:  { src: "images/birds-L.jpg",      alt: "Left half of a colored pencil study: an eagle's head with color swatches" },
+    right: { src: "images/birds-R.jpg",      alt: "Right half of the study: a grey heron's head with a yellow beak" },
+    title: "Eagle & Heron", sub: "colored pencil" },
+];
+const LAST = SPREADS.length - 1;
+
+const book = document.getElementById("book");
+const ticksEl = document.getElementById("ticks");
+const capTitle = document.getElementById("capTitle");
+const capSub = document.getElementById("capSub");
+
+function pageImg(p, side) {
+  return `<img src="${p.src}" alt="${p.alt}" draggable="false"><span class="gutter ${side}" aria-hidden="true"></span>`;
+}
+
+// Static first-left and last-right pages; leaves in between.
+// Leaf i: front = right page of spread i, back = left page of spread i+1.
+book.innerHTML =
+  `<div class="sheet left">${pageImg(SPREADS[0].left, "r")}</div>` +
+  `<div class="sheet right">${pageImg(SPREADS[LAST].right, "l")}</div>`;
+const leaves = [];
+for (let i = 0; i < LAST; i++) {
+  const leaf = document.createElement("button");
+  leaf.type = "button";
+  leaf.className = "leaf";
+  leaf.innerHTML =
+    `<span class="face front">${pageImg(SPREADS[i].right, "l")}</span>` +
+    `<span class="face back">${pageImg(SPREADS[i + 1].left, "r")}</span>`;
+  leaf.addEventListener("click", () => {
+    if (swiped) { swiped = false; return; }
+    go(i < k ? i : i + 1);
+  });
+  book.appendChild(leaf);
+  leaves.push(leaf);
+}
+
+const ticks = SPREADS.map((_, i) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "tick";
+  b.setAttribute("role", "tab");
+  b.setAttribute("aria-label", `Spread ${i + 1}`);
+  b.addEventListener("click", () => go(i));
+  ticksEl.appendChild(b);
+  return b;
+});
+
+let k = 0, turning = -1, turnTimer, swiped = false;
+
+function render() {
+  leaves.forEach((leaf, i) => {
+    const flipped = i < k;
+    leaf.classList.toggle("flipped", flipped);
+    leaf.style.zIndex = i === turning ? 20 : (flipped ? i + 1 : 10 - i);
+    leaf.setAttribute("aria-label", flipped ? "Turn back a page" : "Turn the page");
+  });
+  ticks.forEach((t, i) => {
+    const on = i === k;
+    t.setAttribute("aria-pressed", String(on));
+    t.setAttribute("aria-selected", String(on));
+  });
+  capTitle.textContent = SPREADS[k].title;
+  capSub.textContent = SPREADS[k].sub;
+}
+
+function go(target) {
+  const next = Math.max(0, Math.min(LAST, target));
+  if (next === k) return;
+  turning = Math.abs(next - k) === 1 ? Math.min(next, k) : -1;
+  k = next;
+  render();
+  clearTimeout(turnTimer);
+  turnTimer = setTimeout(() => { turning = -1; render(); }, 950);
+}
+
+// Scroll / trackpad
+let lastWheel = 0;
+document.getElementById("stage").addEventListener("wheel", (e) => {
+  const d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+  if (Math.abs(d) < 14) return;
+  const now = Date.now();
+  if (now - lastWheel < 850) return;
+  lastWheel = now;
+  go(k + (d > 0 ? 1 : -1));
+}, { passive: true });
+
+// Swipe / drag
+let downX = null;
+const stage = document.getElementById("stage");
+stage.addEventListener("pointerdown", (e) => { downX = e.clientX; });
+stage.addEventListener("pointerup", (e) => {
+  if (downX === null) return;
+  const dx = e.clientX - downX;
+  downX = null;
+  if (Math.abs(dx) > 50) {
+    swiped = true;
+    go(k + (dx < 0 ? 1 : -1));
+    setTimeout(() => { swiped = false; }, 400);
+  }
+});
+
+render();
+</script>
+</body>
+</html>

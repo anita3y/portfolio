@@ -46,7 +46,7 @@ export default function SiteFooter() {
                 className="tab"
                 href={link.href}
                 aria-label={link.label}
-                data-cursor-hover=""
+                data-cursor-morph=""
                 {...(link.external
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}

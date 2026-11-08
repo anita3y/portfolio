@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getPlayStudy } from "../data/play/index.js";
+import { hapticTick, pulseHapticClass } from "../utils/haptics.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
-import StickerPlayground from "./StickerPlayground.jsx";
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -21,17 +21,23 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-function cardTransform(offset, reduced) {
+function cardTransform(offset, reduced, spread = 1) {
   const abs = Math.abs(offset);
   const rotateY = reduced || offset === 0 ? 0 : offset < 0 ? 58 : -58;
-  const x = offset * (reduced ? 9.6 : 8.55);
+  // Tighter coverflow gaps — neighbors sit closer to the active cover.
+  const x = offset * (reduced ? 6.85 : 6.05) * spread;
   const z = offset === 0 ? 56 : 22 - abs * 16;
-  const scale = offset === 0 ? 1.04 : Math.max(0.82, 1 - abs * 0.06);
+  // Keep selected at 1 — scale>1 caused a light AA hairline on dark charcoal.
+  const scale = offset === 0 ? 1 : Math.max(0.82, 1 - abs * 0.06);
+  // Covers stay fully opaque — depth is blur/scale/perspective only.
+  const hide = abs > 3;
 
   return {
     transform: `translate(-50%, -50%) translateX(${x}rem) translateZ(${z}px) rotateY(${rotateY}deg) scale(${scale})`,
     zIndex: 40 - abs,
-    opacity: abs > 3 ? 0 : 1
+    opacity: 1,
+    visibility: hide ? "hidden" : "visible",
+    pointerEvents: hide ? "none" : undefined
   };
 }
 
@@ -89,7 +95,8 @@ function PlayVideoEmbed({ project, study }) {
   );
 }
 
-export function PlayPicker({ projects, selectedId, onSelect }) {
+/** Cover-flow picker. Items need `{ id, cover, title, artist? }`. */
+export function PlayPicker({ projects, selectedId, onSelect, ariaLabel = "Play covers", spread = 1 }) {
   const reducedMotion = usePrefersReducedMotion();
   const selectedIndex = Math.max(
     0,
@@ -111,7 +118,10 @@ export function PlayPicker({ projects, selectedId, onSelect }) {
     (index) => {
       const next = clamp(index, 0, projects.length - 1);
       const project = projects[next];
-      if (project && project.id !== selectedId) onSelect(project.id);
+      if (!project || project.id === selectedId) return;
+      const vibrated = hapticTick(8);
+      if (!vibrated) pulseHapticClass(stageRef.current, "is-haptic-tick", 150);
+      onSelect(project.id);
     },
     [onSelect, projects, selectedId]
   );
@@ -225,7 +235,7 @@ export function PlayPicker({ projects, selectedId, onSelect }) {
           className="play-flow"
           tabIndex={0}
           role="listbox"
-          aria-label="Play case studies"
+          aria-label={ariaLabel}
           aria-activedescendant={`play-cover-${selected.id}`}
           onPointerDown={onStagePointerDown}
         >
@@ -241,24 +251,36 @@ export function PlayPicker({ projects, selectedId, onSelect }) {
               role="option"
               aria-selected={isSelected}
               className={`play-flow__card${isSelected ? " is-selected" : ""}`}
-              style={cardTransform(offset, reducedMotion)}
+              style={cardTransform(offset, reducedMotion, spread)}
               onClick={(event) => onCardClick(event, project.id)}
             >
               <span className="play-flow__lift">
                 <img src={project.cover} alt="" draggable={false} />
               </span>
-              <span className="visually-hidden">{project.title}</span>
+              <span className="visually-hidden">
+                {project.title}
+                {project.artist ? ` — ${project.artist}` : ""}
+              </span>
             </button>
           );
         })}
         </div>
+        <span className="play-flow-edge play-flow-edge--left" aria-hidden="true" />
+        <span className="play-flow-edge play-flow-edge--right" aria-hidden="true" />
       </div>
+
+      {selected && "artist" in selected ? (
+        <div className="play-picker__meta" aria-live="polite">
+          <p className="play-picker__title">{selected.title}</p>
+          <p className="play-picker__artist">{selected.artist}</p>
+        </div>
+      ) : null}
 
       <div
         ref={scrubberRef}
         className="play-scrubber"
         role="tablist"
-        aria-label="Case study position"
+        aria-label="Cover position"
         onPointerDown={onScrubberPointerDown}
       >
         {projects.map((project) => {
@@ -269,7 +291,9 @@ export function PlayPicker({ projects, selectedId, onSelect }) {
               type="button"
               role="tab"
               aria-selected={isSelected}
-              aria-label={project.title}
+              aria-label={
+                project.artist ? `${project.title} by ${project.artist}` : project.title
+              }
               className={`play-scrubber__tick${isSelected ? " is-selected" : ""}`}
               onClick={() => onSelect(project.id)}
               data-cursor-hover=""
@@ -314,9 +338,7 @@ export function PlayStudy({ projects, selectedId, onSelect }) {
   return (
     <div className="play-stage__study" ref={studyRef}>
       <div key={selected.id}>
-        {study?.playground ? (
-          <StickerPlayground project={selected} />
-        ) : study?.videoOnly ? (
+        {study?.videoOnly ? (
           <PlayVideoEmbed project={selected} study={study} />
         ) : study?.sections ? (
           <CaseStudyFullContent

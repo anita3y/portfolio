@@ -1,5 +1,6 @@
 import { WORK_PROJECTS, getRelatedProjects } from "../data/projects.js";
 import { getCaseStudy } from "../data/caseStudies/index.js";
+import { ProjectCardMedia } from "./ProjectCard.jsx";
 
 function resolveThumbSrc(project) {
   if (project.thumbnail) return { type: "image", src: project.thumbnail };
@@ -63,8 +64,24 @@ export default function CaseStudySeeMore({ studyId, onSelect }) {
             onClick={() => onSelect?.(project.id)}
             aria-label={`Open ${project.title}`}
           >
+            {/* Same live thumbnail as the Work card: slides cycle, videos play. */}
             <div className={`cs-see-more__thumb cs-see-more__thumb--${project.theme || "default"}`}>
-              <SeeMoreThumb project={project} />
+              <span className={`project-card__media project-card__media--${project.theme}`}>
+                <span className="project-card__visual">
+                  <ProjectCardMedia
+                    thumbnail={project.thumbnail}
+                    thumbnailVideo={project.thumbnailVideo}
+                    thumbnailSlides={project.thumbnailSlides}
+                    thumbnailSlideInterval={project.thumbnailSlideInterval}
+                    thumbnailSlideOnHover={false}
+                    thumbnailStack={project.thumbnailStack}
+                    thumbMissing={false}
+                    setThumbMissing={() => {}}
+                    isHovered
+                    comingSoon={null}
+                  />
+                </span>
+              </span>
             </div>
             <p className="cs-see-more__title">{project.title}</p>
           </button>

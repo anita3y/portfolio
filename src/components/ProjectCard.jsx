@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const DEFAULT_SLIDE_MS = 500;
 
-function ProjectCardMedia({
+export function ProjectCardMedia({
   thumbnail,
   thumbnailVideo,
   thumbnailSlides,

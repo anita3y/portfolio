@@ -1,13 +1,13 @@
-import { CHATGPT_BRANCHES_CASE_STUDY } from "./chatgpt-branches.js";
+import { AI_WORKFLOW_CASE_STUDY } from "./ai-workflow.js";
 import { DFA_CASE_STUDY } from "./dfa.js";
 import { POSTER_DESIGNS_CASE_STUDY } from "./poster-designs.js";
-import { PIVOTAL_MOMENTS_CASE_STUDY } from "./pivotal-moments.js";
+import { TANGENTS_CASE_STUDY } from "./tangents.js";
 
 export const CASE_BY_ID = {
-  "chatgpt-branches": CHATGPT_BRANCHES_CASE_STUDY,
+  "ai-workflow": AI_WORKFLOW_CASE_STUDY,
   "design-for-america": DFA_CASE_STUDY,
   "poster-designs": POSTER_DESIGNS_CASE_STUDY,
-  "pivotal-moments": PIVOTAL_MOMENTS_CASE_STUDY
+  tangents: TANGENTS_CASE_STUDY
 };
 
 export function getCaseStudy(id) {

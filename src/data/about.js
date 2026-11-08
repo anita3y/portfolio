@@ -64,23 +64,35 @@ export const ABOUT_INTRO =
   "My approach to problem-solving is rooted in craft and simplicity. I’m constantly cutting through complexity to make experiences feel obvious, from redesigning multi-step flows into single, low-friction screens to building systems that hold up under real-world pressure.";
 
 export const ABOUT_LETTER = {
-  paragraphs: [
-    "My name is Anita. I came into design with a love for making things (painting, crafts, baking) and combined it with my interests of marketing and psychology to better understand who i design for.",
-    "Talk to me about anything creative & design-related (i love architects like Wang Shu + Bjarke Ingels, pottery, Dieter Rams, and Japandi furniture) or ask me about my beli and the best co-working spaces around the city!",
-    "My design philosophy is to approach problem solving with craft and simplicity. Simplicity only comes from understanding complexity and complex problems. Designing with craft means packaging these solutions as enjoyable experiences!"
-  ],
-  signoff: "sincerely,",
+  paragraphs: [],
+  signoff:
+    "Designer focused on craft and simplicity. Outside of design I like rock climbing + architecture!",
   note: "let’s make something together!"
 };
 
 export const ABOUT_QUOTE = {
   text: "Simplicity is earned, not given. “Simple” design is achieved by wrestling with complexity and compressing it into a digestible form. Easy is what comes after hard.",
-  attribution: "Ryo Lu",
-  source: {
-    label: "from Jackson Dahl's Substack",
-    href: "https://jdahl.substack.com/p/cursors-ryo-lu-on-soulful-design"
-  }
+  attribution: "Ryo Lu"
 };
+
+/** Photos under the About connect links — collage board. */
+export const ABOUT_COLLAGE = [
+  {
+    id: "climbing",
+    src: assetUrl("/about/collage/climbing.jpg"),
+    alt: "Anita bouldering on a dark indoor climbing wall"
+  },
+  {
+    id: "figma-edu",
+    src: assetUrl("/about/collage/figma-edu.jpg"),
+    alt: "Anita with friends at a Figma for Edu gathering"
+  },
+  {
+    id: "architecture",
+    src: assetUrl("/about/collage/architecture.jpg"),
+    alt: "Wooden lattice roof architecture under a clear sky"
+  }
+];
 
 export const ABOUT_QUOTE_CARDS = [
   {
@@ -143,14 +155,6 @@ export const ABOUT_COMMUNITY = [
       "A student club that brings speakers from industry—Google, Figma, and more—and hosts hands-on workshops on tools like Framer and Luma.",
     image: assetUrl("/about/community-ux-nyu.png"),
     alt: "UX@NYU members at a speaker event in front of a brick wall"
-  },
-  {
-    id: "nydc-pivotal",
-    title: "New York Design Club · Pivotal Moments",
-    description:
-      "I helped market Pivotal Moments, NYDC's special zine edition book launch celebrating pivotal moments in design.",
-    image: assetUrl("/about/community-nydc-pivotal.png"),
-    alt: "Pivotal Moments books and zines at the New York Design Club launch table"
   },
   {
     id: "a-studio",

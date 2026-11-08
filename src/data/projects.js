@@ -2,6 +2,23 @@ import { assetUrl } from "../utils/assetUrl.js";
 
 export const WORK_PROJECTS = [
   {
+    id: "ai-workflow",
+    title: "AI Workflow",
+    headline: "AI Workflow (Use-Research)",
+    company: "NYU Design Research",
+    status: "In progress",
+    year: "2026",
+    tags: ["User research", "Figma desktop", "AI"],
+    href: "#",
+    thumbnailSlides: [
+      assetUrl("/case-studies/ai-workflow/frame-01.svg"),
+      assetUrl("/case-studies/ai-workflow/frame-02.svg"),
+      assetUrl("/case-studies/ai-workflow/frame-03.svg")
+    ],
+    thumbnailSlideInterval: 900,
+    theme: "ai-workflow"
+  },
+  {
     id: "design-for-america",
     title: "Design for America",
     headline: "Modular Framer website, with handoff-first IA",
@@ -20,26 +37,21 @@ export const WORK_PROJECTS = [
     theme: "dfa"
   },
   {
-    id: "poster-designs",
-    title: "Poster Designs",
-    headline: "Poster Designs",
-    company: "Personal",
-    status: "Exploration",
+    id: "tangents",
+    title: "Tangents",
+    headline: "Tangents",
+    company: "Tangents",
+    status: "In progress",
     year: "2026",
-    tags: ["Visual design", "Posters"],
+    tags: [],
     href: "#",
     thumbnailSlides: [
-      assetUrl("/thumbnails/poster-designs/frame-01.png"),
-      assetUrl("/thumbnails/poster-designs/frame-02.png"),
-      assetUrl("/thumbnails/poster-designs/frame-03.png"),
-      assetUrl("/thumbnails/poster-designs/frame-04.png"),
-      assetUrl("/thumbnails/poster-designs/frame-05.png"),
-      assetUrl("/thumbnails/poster-designs/frame-06.png"),
-      assetUrl("/thumbnails/poster-designs/frame-07.png")
+      assetUrl("/case-studies/tangents/frame-01.svg"),
+      assetUrl("/case-studies/tangents/frame-02.svg"),
+      assetUrl("/case-studies/tangents/frame-03.svg")
     ],
-    thumbnailSlideInterval: 380,
-    thumbnailSlideOnHover: true,
-    theme: "poster-designs"
+    thumbnailSlideInterval: 900,
+    theme: "tangents"
   },
   {
     id: "vanity-beauty",
@@ -54,32 +66,6 @@ export const WORK_PROJECTS = [
     thumbnailVideo: assetUrl("/thumbnails/vanity/card.mov"),
     theme: "vanity",
     displayOnly: true
-  },
-  {
-    id: "chatgpt-branches",
-    title: "ChatGPT Branches",
-    headline: "Familiar navigation for long AI chats",
-    company: "ChatGPT Branches",
-    status: "Concept",
-    year: "2026",
-    tags: ["Concept", "AI product", "Research"],
-    href: "#",
-    thumbnail: assetUrl("/case-studies/chatgpt-branches/banner.png"),
-    thumbnailVideo: assetUrl("/thumbnails/chatgpt-branches-card.mov"),
-    theme: "branches"
-  },
-  {
-    id: "pivotal-moments",
-    title: "New York Design Club",
-    headline: "Making 10k+ impressions through Instagram posts and reels",
-    company: "New York Design Club",
-    status: "Marketing",
-    year: "2026",
-    tags: ["Instagram", "Growth", "Editorial"],
-    href: "#",
-    thumbnail: assetUrl("/thumbnails/new-york-design-club-cover.png"),
-    thumbnailVideo: assetUrl("/thumbnails/nydc/card.mov"),
-    theme: "pivotal"
   }
 ];
 
@@ -110,18 +96,6 @@ export const PLAY_PROJECTS = [
     thumbnailVideo: assetUrl("/thumbnails/anatomy-of-a-memory-card.mov"),
     cover: assetUrl("/thumbnails/play/anatomy-of-a-memory.png"),
     theme: "memory"
-  },
-  {
-    id: "sticker-collection",
-    title: "Sticker Collection",
-    headline: "Sticker collection",
-    company: "Personal",
-    status: "Exploration",
-    year: "2026",
-    tags: ["Visual design"],
-    href: "#",
-    cover: assetUrl("/thumbnails/play/sticker-collection.png") + "?v=4",
-    theme: "stickers"
   },
   {
     id: "my-bookshelf",
