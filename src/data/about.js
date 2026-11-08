@@ -72,12 +72,27 @@ export const ABOUT_LETTER = {
 
 export const ABOUT_QUOTE = {
   text: "Simplicity is earned, not given. “Simple” design is achieved by wrestling with complexity and compressing it into a digestible form. Easy is what comes after hard.",
-  attribution: "Ryo Lu",
-  source: {
-    label: "from Jackson Dahl's Substack",
-    href: "https://jdahl.substack.com/p/cursors-ryo-lu-on-soulful-design"
-  }
+  attribution: "Ryo Lu"
 };
+
+/** Photos under the About connect links — collage board. */
+export const ABOUT_COLLAGE = [
+  {
+    id: "climbing",
+    src: assetUrl("/about/collage/climbing.jpg"),
+    alt: "Anita bouldering on a dark indoor climbing wall"
+  },
+  {
+    id: "figma-edu",
+    src: assetUrl("/about/collage/figma-edu.jpg"),
+    alt: "Anita with friends at a Figma for Edu gathering"
+  },
+  {
+    id: "architecture",
+    src: assetUrl("/about/collage/architecture.jpg"),
+    alt: "Wooden lattice roof architecture under a clear sky"
+  }
+];
 
 export const ABOUT_QUOTE_CARDS = [
   {

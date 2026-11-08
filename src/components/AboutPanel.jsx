@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { ABOUT_LETTER, ABOUT_QUOTE } from "../data/about.js";
+import { ABOUT_COLLAGE, ABOUT_LETTER, ABOUT_QUOTE } from "../data/about.js";
 import AboutTags from "./AboutTags.jsx";
 import { assetUrl } from "../utils/assetUrl.js";
 
@@ -64,6 +64,27 @@ function AboutIdCard() {
   );
 }
 
+function AboutCollage() {
+  return (
+    <section className="about-collage" aria-label="Photos and a favorite quote">
+      <div className="about-collage__board">
+        {ABOUT_COLLAGE.map((photo) => (
+          <figure
+            key={photo.id}
+            className={`about-collage__photo about-collage__photo--${photo.id}`}
+          >
+            <img src={photo.src} alt={photo.alt} loading="lazy" decoding="async" draggable={false} />
+          </figure>
+        ))}
+        <aside className="about-collage__sticky" aria-label={`Quote by ${ABOUT_QUOTE.attribution}`}>
+          <p className="about-collage__sticky-text">{ABOUT_QUOTE.text}</p>
+          <p className="about-collage__sticky-who">— {ABOUT_QUOTE.attribution}</p>
+        </aside>
+      </div>
+    </section>
+  );
+}
+
 export default function AboutPanel() {
   return (
     <div className="about-page">
@@ -101,28 +122,7 @@ export default function AboutPanel() {
         </div>
       </section>
 
-      <div className="about-page__bio">
-        <blockquote className="about-page__quote">
-          <p className="about-page__quote-text">“{ABOUT_QUOTE.text}”</p>
-          <footer className="about-page__quote-attr">
-            — {ABOUT_QUOTE.attribution}
-            {ABOUT_QUOTE.source ? (
-              <>
-                {" ("}
-                <a
-                  className="about-page__quote-source"
-                  href={ABOUT_QUOTE.source.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {ABOUT_QUOTE.source.label}
-                </a>
-                {")"}
-              </>
-            ) : null}
-          </footer>
-        </blockquote>
-      </div>
+      <AboutCollage />
     </div>
   );
 }
