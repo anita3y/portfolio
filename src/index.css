@@ -20,6 +20,11 @@
   --pill-radius-sm: 0.5rem;
   --pill-radius-inner: calc(var(--pill-radius) - 0.04rem);
   --pill-radius-label: calc(var(--pill-radius) - 0.06rem);
+
+  /* iOS-like text selection — soft sticky-note turquoise */
+  --selection-bg: #c2f0ec;
+  --selection-text: #111111;
+  --caret-color: #9ad9d1;
 }
 
 * {
@@ -39,6 +44,17 @@ body {
   background: transparent;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
+  caret-color: var(--caret-color);
+}
+
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+::-moz-selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
 }
 
 @media (hover: hover) and (pointer: fine) {
