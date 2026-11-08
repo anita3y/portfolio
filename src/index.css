@@ -21,10 +21,10 @@
   --pill-radius-inner: calc(var(--pill-radius) - 0.04rem);
   --pill-radius-label: calc(var(--pill-radius) - 0.06rem);
 
-  /* iOS-like text selection — solid turquoise wash */
-  --selection-bg: #40e0d0;
+  /* iOS-like text selection — soft sticky-note turquoise */
+  --selection-bg: #c2f0ec;
   --selection-text: #111111;
-  --caret-color: #2dd4bf;
+  --caret-color: #9ad9d1;
 }
 
 * {
