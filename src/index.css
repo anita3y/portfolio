@@ -579,6 +579,32 @@ button:focus-visible {
     0 2px 5px rgba(28, 30, 38, 0.05);
 }
 
+.site-footer__gmail {
+  position: relative;
+}
+
+.site-footer__copied {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.28rem);
+  transform: translateX(-50%) rotate(-7deg);
+  white-space: nowrap;
+  pointer-events: none;
+  font-family: "Petrona", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.7rem;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: #1eb5b0;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+
+.site-footer__gmail.is-copied .site-footer__copied {
+  opacity: 1;
+}
+
 @media (max-width: 720px) {
   .site-footer__row {
     flex-direction: column;
@@ -11917,16 +11943,20 @@ a.about-browser__url:hover .about-browser__url-text {
   overflow-wrap: anywhere;
 }
 
-/* Match Work / Play / About `.tabs--select` track + active pill. */
+/* Match Work / Play / About `.tabs--select` track + active pill.
+   Stacking: white pill (0) < cursor morph (1) < label (2). */
 .cs-snapshot__btn {
   --snapshot-btn-h: 2.02rem;
   --snapshot-btn-pad: 0.14rem;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   height: var(--snapshot-btn-h);
-  padding: var(--snapshot-btn-pad);
+  padding: var(--snapshot-btn-pad) 1.05rem;
   border: none;
   border-radius: 999px;
   background: #ececee;
@@ -11945,44 +11975,47 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .cs-snapshot__btn-pill {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  height: calc(var(--snapshot-btn-h) - 2 * var(--snapshot-btn-pad));
-  padding: 0 1.05rem;
+  position: absolute;
+  inset: var(--snapshot-btn-pad);
+  z-index: 0;
   border-radius: 999px;
   background: #ffffff;
+  pointer-events: none;
   box-shadow:
     0 1px 2px rgba(28, 30, 38, 0.06),
     0 2px 5px rgba(28, 30, 38, 0.05);
   transition: box-shadow 0.25s ease;
 }
 
-/* Hover morph sits under label/icon — flat tint, no frost wash over glyphs. */
-.cs-snapshot__btn-pill .custom-cursor-tab-morph {
-  z-index: 0;
-  background: rgba(142, 145, 156, 0.16);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  box-shadow: none;
-}
-
-.cs-snapshot__btn-pill .custom-cursor-tab-morph--visible {
-  opacity: 1;
-}
-
-.cs-snapshot__btn-pill .custom-cursor-tab-morph--pressing {
-  opacity: 1;
-  background: rgba(130, 134, 146, 0.22);
-}
-
-.cs-snapshot__btn-pill > :not(.custom-cursor-tab-morph) {
+.cs-snapshot__btn-label {
   position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  height: calc(var(--snapshot-btn-h) - 2 * var(--snapshot-btn-pad));
+  pointer-events: none;
+}
+
+/* Hover morph paints ABOVE the white pill, under the label glyphs. */
+.cs-snapshot__btn .custom-cursor-tab-morph {
   z-index: 1;
+  background: rgba(142, 145, 156, 0.18);
+  backdrop-filter: blur(8px) saturate(1.1);
+  -webkit-backdrop-filter: blur(8px) saturate(1.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.14);
+}
+
+.cs-snapshot__btn .custom-cursor-tab-morph--visible {
+  opacity: 0.92;
+}
+
+.cs-snapshot__btn .custom-cursor-tab-morph--pressing {
+  opacity: 1;
+  background: rgba(130, 134, 146, 0.24);
 }
 
 .cs-snapshot__btn:hover {
@@ -12026,10 +12059,6 @@ a.about-browser__url:hover .about-browser__url-text {
   .cs-snapshot__btn {
     width: 100%;
     justify-content: center;
-  }
-
-  .cs-snapshot__btn-pill {
-    width: 100%;
   }
 }
 
