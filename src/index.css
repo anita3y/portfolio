@@ -11945,6 +11945,9 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .cs-snapshot__btn-pill {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -11957,6 +11960,29 @@ a.about-browser__url:hover .about-browser__url-text {
     0 1px 2px rgba(28, 30, 38, 0.06),
     0 2px 5px rgba(28, 30, 38, 0.05);
   transition: box-shadow 0.25s ease;
+}
+
+/* Hover morph sits under label/icon — flat tint, no frost wash over glyphs. */
+.cs-snapshot__btn-pill .custom-cursor-tab-morph {
+  z-index: 0;
+  background: rgba(142, 145, 156, 0.16);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
+
+.cs-snapshot__btn-pill .custom-cursor-tab-morph--visible {
+  opacity: 1;
+}
+
+.cs-snapshot__btn-pill .custom-cursor-tab-morph--pressing {
+  opacity: 1;
+  background: rgba(130, 134, 146, 0.22);
+}
+
+.cs-snapshot__btn-pill > :not(.custom-cursor-tab-morph) {
+  position: relative;
+  z-index: 1;
 }
 
 .cs-snapshot__btn:hover {

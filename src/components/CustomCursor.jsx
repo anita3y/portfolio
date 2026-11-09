@@ -38,7 +38,8 @@ const LAYERED_MORPH_HOSTS = [
   { match: ".cs-study-footer__next[data-cursor-morph]", host: ".cs-study-footer__next-host" },
   { match: ".tag-option[data-cursor-morph]", host: ".tag-menu-inner" },
   { match: ".chip-icon[data-cursor-morph]", host: ".tag-chip" },
-  { match: ".site-footer__link[data-cursor-morph]", host: ".site-footer__nav" }
+  { match: ".site-footer__link[data-cursor-morph]", host: ".site-footer__nav" },
+  { match: ".cs-snapshot__btn-pill[data-cursor-morph]", host: ".cs-snapshot__btn-pill" }
 ];
 
 const DEFAULT_SIZE = 26;
@@ -54,8 +55,8 @@ const LAYER_MORPH_EASE = 0.1;
 const POS_EASE = 0.16;
 
 function getMorphRadius(element, w, h) {
-  // Work / Play / About tabs are pills — morph should match that roundness.
-  if (element?.matches?.(".tab")) {
+  // Work / Play / About tabs + copy-email pill — morph should match that roundness.
+  if (element?.matches?.(".tab, .cs-snapshot__btn-pill")) {
     return Math.min(w, h) / 2;
   }
   return Math.min(8, Math.min(w, h) * 0.28);

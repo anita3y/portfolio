@@ -41,8 +41,8 @@ export default function CaseStudySnapshot({ email }) {
           Reach out to <span ref={emailRef} className="cs-snapshot__email">{email}</span> for the full story.
         </p>
       </div>
-      <button type="button" className={`cs-snapshot__btn${copied ? " is-copied" : ""}`} onClick={copy} data-cursor-morph="">
-        <span className="cs-snapshot__btn-pill">
+      <button type="button" className={`cs-snapshot__btn${copied ? " is-copied" : ""}`} onClick={copy}>
+        <span className="cs-snapshot__btn-pill" data-cursor-morph="">
           <span aria-live="polite">{copied ? "Copied!" : "Copy email"}</span>
           <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
             {copied ? (
