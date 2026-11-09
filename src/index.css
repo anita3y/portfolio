@@ -11926,8 +11926,8 @@ a.about-browser__url:hover .about-browser__url-text {
 .cs-snapshot__sub {
   margin: 0;
   font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 0.875rem;
+  line-height: 1.5;
   letter-spacing: -0.02em;
 }
 
@@ -11937,10 +11937,11 @@ a.about-browser__url:hover .about-browser__url-text {
 
 .cs-snapshot__sub {
   color: #6f6c68;
+  white-space: nowrap;
 }
 
 .cs-snapshot__email {
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
 }
 
 /* Match Work / Play / About `.tabs--select` track + active pill.
@@ -11996,6 +11997,20 @@ a.about-browser__url:hover .about-browser__url-text {
   gap: 0.4rem;
   height: calc(var(--snapshot-btn-h) - 2 * var(--snapshot-btn-pad));
   pointer-events: none;
+}
+
+/* Keep "copy email" / "copied!" the same width so the row doesn’t reflow. */
+.cs-snapshot__btn-text {
+  display: inline-grid;
+  justify-items: center;
+}
+
+.cs-snapshot__btn-text > span {
+  grid-area: 1 / 1;
+}
+
+.cs-snapshot__btn-text > span.is-idle {
+  visibility: hidden;
 }
 
 /* Hover morph sits under the white pill (same as `.tabs` thumb layering). */
@@ -12054,6 +12069,10 @@ a.about-browser__url:hover .about-browser__url-text {
   .cs-snapshot {
     flex-wrap: wrap;
     gap: 1rem;
+  }
+
+  .cs-snapshot__sub {
+    white-space: normal;
   }
 
   .cs-snapshot__btn {
