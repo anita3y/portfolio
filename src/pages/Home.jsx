@@ -1,4 +1,6 @@
 import {
+  lazy,
+  Suspense,
   useCallback,
   useEffect,
   useRef,
@@ -12,7 +14,7 @@ import WorkCardDeal from "../components/WorkCardDeal.jsx";
 import ProgressiveBlur from "../components/ProgressiveBlur.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import StatusCorner from "../components/StatusCorner.jsx";
-import WorkExpandPanel from "../components/WorkExpandPanel.jsx";
+import WorkExpandSafe from "../components/WorkExpandSafe.jsx";
 import {
   PLAY_ARTIFACTS,
   PLAY_ARTIFACT_IDS,
@@ -27,6 +29,9 @@ import {
 } from "../data/tabs.js";
 import { assetUrl } from "../utils/assetUrl.js";
 import { hapticTick, pulseHapticClass } from "../utils/haptics.js";
+
+/** Lazy so CaseStudyContent HMR/render failures cannot white-screen Work cards. */
+const WorkExpandPanel = lazy(() => import("../components/WorkExpandPanel.jsx"));
 
 const TABS = SITE_TABS;
 const TAB_IDS = SITE_TAB_IDS;
@@ -359,15 +364,19 @@ export default function Home() {
       <SiteFooter />
 
       {openWorkId && (
-        <WorkExpandPanel
-          workId={openWorkId}
-          onClose={() => setOpenWorkId(null)}
-          onNavigate={setOpenWorkId}
-          onSelectTab={(tabId) => {
-            setOpenWorkId(null);
-            selectTab(tabId);
-          }}
-        />
+        <WorkExpandSafe workId={openWorkId} onClose={() => setOpenWorkId(null)}>
+          <Suspense fallback={null}>
+            <WorkExpandPanel
+              workId={openWorkId}
+              onClose={() => setOpenWorkId(null)}
+              onNavigate={setOpenWorkId}
+              onSelectTab={(tabId) => {
+                setOpenWorkId(null);
+                selectTab(tabId);
+              }}
+            />
+          </Suspense>
+        </WorkExpandSafe>
       )}
 
       {openPlayArtifactId && (
