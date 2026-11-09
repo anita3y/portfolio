@@ -3,8 +3,8 @@ import { assetUrl } from "../utils/assetUrl.js";
 export const WORK_PROJECTS = [
   {
     id: "ai-workflow",
-    title: "AI Workflow",
-    headline: "AI Workflow (Use-Research)",
+    title: "Adapting Figma for AI Workflows (In-Progress)",
+    headline: "Adapting Figma for AI Workflows (In-Progress)",
     company: "NYU Design Research",
     status: "In progress",
     year: "2026",

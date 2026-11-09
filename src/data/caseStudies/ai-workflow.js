@@ -12,7 +12,7 @@ const frame = (n) => assetUrl(`/case-studies/ai-workflow/frame-${n}.svg`);
 export const AI_WORKFLOW_CASE_STUDY = {
   id: "ai-workflow",
   template: "v2",
-  title: "AI Workflow (Use-Research)",
+  title: "Adapting Figma for AI Workflows (In-Progress)",
 
   /* One motion showcase after the intro. Swap `src` for `video: assetUrl("/case-studies/ai-workflow/showcase.mp4")` when it's ready. */
   heroShowcase: {
