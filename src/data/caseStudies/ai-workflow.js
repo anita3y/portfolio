@@ -7,23 +7,20 @@ import { assetUrl } from "../../utils/assetUrl.js";
  * The messy process lives in the deck. TODO = swap in real content.
  */
 
-const frame = (n) => assetUrl(`/case-studies/ai-workflow/frame-${n}.svg`);
-
 export const AI_WORKFLOW_CASE_STUDY = {
   id: "ai-workflow",
   template: "v2",
-  title: "AI Workflow (Use-Research)",
-
-  /* One motion showcase after the intro. Swap `src` for `video: assetUrl("/case-studies/ai-workflow/showcase.mp4")` when it's ready. */
-  heroShowcase: {
-    src: frame("01"),
-    label: "TODO motion showcase",
-    aspectRatio: "16 / 10"
-  },
+  title: "Adapting Figma for AI Workflows (In-Progress)",
 
   intro: [
     "A semester of user research into how designers work now that their workflows have become AI-heavy, culminating in a set of Figma desktop features that support the industry's shift in how design work *actually* gets done."
   ],
+
+  /* Empty grey product showcase after hero/meta; yellow under-construction sticky centered inside. */
+  heroShowcase: {
+    aspectRatio: "16 / 10"
+  },
+  constructionSticky: true,
 
   /* End card: "just a snapshot" + copy-email button. */
   snapshot: true,
@@ -72,20 +69,6 @@ export const AI_WORKFLOW_CASE_STUDY = {
               note: "Where AI tools and Figma trade places."
             }
           ]
-        },
-        {
-          id: "overview-showcase",
-          title: "Product showcase",
-          blocks: [
-            {
-              heading: "TODO one-line solution headline.",
-              text: "TODO one sentence on what the Figma desktop features do.",
-              layout: "mediaSlot",
-              label: "TODO hero screen",
-              aspectRatio: "16 / 10",
-              note: "TODO caption."
-            }
-          ]
         }
       ]
     },
@@ -119,7 +102,7 @@ export const AI_WORKFLOW_CASE_STUDY = {
         },
         {
           id: "hypothesis-to-hmw",
-          title: "Hypothesis → Findings → How Might We",
+          title: "Turning our Findings to How Might Wes",
           blocks: [
             {
               eyebrow: "Findings",
@@ -161,22 +144,6 @@ export const AI_WORKFLOW_CASE_STUDY = {
           ]
         },
         {
-          id: "product-showcase",
-          title: "Product showcase",
-          blocks: [
-            {
-              heading: "TODO final solution headline.",
-              text: "TODO one or two lines on the final design and why.",
-              layout: "showcase",
-              items: [
-                { label: "TODO flow / prototype video", aspectRatio: "16 / 9", wide: true },
-                { label: "TODO component close-up", aspectRatio: "1 / 1" },
-                { label: "TODO before / after", aspectRatio: "1 / 1" }
-              ]
-            }
-          ]
-        },
-        {
           id: "key-learnings",
           title: "Key learnings",
           blocks: [
@@ -186,10 +153,6 @@ export const AI_WORKFLOW_CASE_STUDY = {
                 {
                   lead: "Rejection is redirection.",
                   text: "Interviews on mobile-desktop kept running short. Bring up AI and people suddenly had a lot to say. I realized I couldn't research how designers work now without looking at AI, so that became the detour."
-                },
-                {
-                  lead: "The insights came from synthesis, not the interviews.",
-                  text: "88 quotes alone were hard to turn into insight. Clustering them, regrouping them, and testing each theme against my hypotheses is where patterns like the missing shared trail showed up."
                 },
                 {
                   lead: "AI is changing workflows faster than we can study them.",

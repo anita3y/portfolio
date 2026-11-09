@@ -3,19 +3,14 @@ import { assetUrl } from "../utils/assetUrl.js";
 export const WORK_PROJECTS = [
   {
     id: "ai-workflow",
-    title: "AI Workflow",
-    headline: "AI Workflow (Use-Research)",
+    title: "Adapting Figma for AI Workflows (In-Progress)",
+    headline: "Adapting Figma for AI Workflows (In-Progress)",
     company: "NYU Design Research",
     status: "In progress",
     year: "2026",
     tags: ["User research", "Figma desktop", "AI"],
     href: "#",
-    thumbnailSlides: [
-      assetUrl("/case-studies/ai-workflow/frame-01.svg"),
-      assetUrl("/case-studies/ai-workflow/frame-02.svg"),
-      assetUrl("/case-studies/ai-workflow/frame-03.svg")
-    ],
-    thumbnailSlideInterval: 900,
+    thumbnailVideo: assetUrl("/thumbnails/ai-workflow/ai-workflow-cs.mp4"),
     theme: "ai-workflow"
   },
   {
@@ -43,28 +38,11 @@ export const WORK_PROJECTS = [
     company: "Tangents",
     status: "In progress",
     year: "2026",
+    tabYear: "Coming soon",
     tags: [],
     href: "#",
-    thumbnailSlides: [
-      assetUrl("/case-studies/tangents/frame-01.svg"),
-      assetUrl("/case-studies/tangents/frame-02.svg"),
-      assetUrl("/case-studies/tangents/frame-03.svg")
-    ],
-    thumbnailSlideInterval: 900,
-    theme: "tangents"
-  },
-  {
-    id: "vanity-beauty",
-    title: "Vanity Beauty App",
-    headline: "Low-friction onboarding for iOS app",
-    company: "Vanity Beauty App",
-    status: "Shipping...",
-    year: "2026",
-    tabYear: "coming soon..",
-    tags: ["iOS", "Onboarding", "Mobile"],
-    href: "#",
-    thumbnailVideo: assetUrl("/thumbnails/vanity/card.mov"),
-    theme: "vanity",
+    thumbnailVideo: assetUrl("/thumbnails/tangents/09-companion-on-black.mp4"),
+    theme: "tangents",
     displayOnly: true
   }
 ];

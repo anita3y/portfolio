@@ -1,4 +1,6 @@
 import {
+  lazy,
+  Suspense,
   useCallback,
   useEffect,
   useRef,
@@ -12,7 +14,7 @@ import WorkCardDeal from "../components/WorkCardDeal.jsx";
 import ProgressiveBlur from "../components/ProgressiveBlur.jsx";
 import SiteFooter from "../components/SiteFooter.jsx";
 import StatusCorner from "../components/StatusCorner.jsx";
-import WorkExpandPanel from "../components/WorkExpandPanel.jsx";
+import WorkExpandSafe from "../components/WorkExpandSafe.jsx";
 import {
   PLAY_ARTIFACTS,
   PLAY_ARTIFACT_IDS,
@@ -27,6 +29,9 @@ import {
 } from "../data/tabs.js";
 import { assetUrl } from "../utils/assetUrl.js";
 import { hapticTick, pulseHapticClass } from "../utils/haptics.js";
+
+/** Lazy so CaseStudyContent HMR/render failures cannot white-screen Work cards. */
+const WorkExpandPanel = lazy(() => import("../components/WorkExpandPanel.jsx"));
 
 const TABS = SITE_TABS;
 const TAB_IDS = SITE_TAB_IDS;
@@ -194,7 +199,10 @@ export default function Home() {
       if (id === "about") {
         window.requestAnimationFrame(() => {
           document.querySelector(".chrome-sticky")?.scrollIntoView({
-            behavior: "smooth",
+            behavior: window.matchMedia("(prefers-reduced-motion: reduce)")
+              .matches
+              ? "auto"
+              : "smooth",
             block: "start"
           });
         });
@@ -339,7 +347,13 @@ export default function Home() {
       </div>
 
       <section
-        className={`tab-panel${activeTab === "about" ? " tab-panel--about" : ""}`}
+        className={`tab-panel${
+          activeTab === "about"
+            ? " tab-panel--about"
+            : activeTab === "play"
+              ? " tab-panel--play"
+              : ""
+        }`}
         id={`panel-${activeTab}`}
         aria-label={activeTab}
       >
@@ -359,15 +373,19 @@ export default function Home() {
       <SiteFooter />
 
       {openWorkId && (
-        <WorkExpandPanel
-          workId={openWorkId}
-          onClose={() => setOpenWorkId(null)}
-          onNavigate={setOpenWorkId}
-          onSelectTab={(tabId) => {
-            setOpenWorkId(null);
-            selectTab(tabId);
-          }}
-        />
+        <WorkExpandSafe workId={openWorkId} onClose={() => setOpenWorkId(null)}>
+          <Suspense fallback={null}>
+            <WorkExpandPanel
+              workId={openWorkId}
+              onClose={() => setOpenWorkId(null)}
+              onNavigate={setOpenWorkId}
+              onSelectTab={(tabId) => {
+                setOpenWorkId(null);
+                selectTab(tabId);
+              }}
+            />
+          </Suspense>
+        </WorkExpandSafe>
       )}
 
       {openPlayArtifactId && (

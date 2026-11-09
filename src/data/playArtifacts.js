@@ -4,12 +4,29 @@ import { POSTER_FRAMES } from "./play/posters.js";
 /** Individual Play page entries — easy to append more later. */
 export const PLAY_ARTIFACTS = [
   {
+    id: "stopmotion",
+    title: "Stopmotion",
+    kind: "video",
+    size: "md",
+    hideChromeLabel: true,
+    thumbnailVideo: assetUrl("/play/stopmotion/stopMotionCollageBlack.mp4") + "?v=1",
+    video: assetUrl("/play/stopmotion/stopMotionCollageBlack.mp4") + "?v=1"
+  },
+  {
     id: "carousel",
     title: "Album carousel",
     kind: "carousel",
     size: "md",
     hideChromeLabel: true,
-    thumbnail: assetUrl("/play/thumbs/album-carousel.gif")
+    thumbnailVideo: assetUrl("/play/carousel/carousel.mov") + "?v=1"
+  },
+  {
+    id: "stickers",
+    title: "Stickers",
+    kind: "stickers",
+    size: "md",
+    hideChromeLabel: true,
+    thumbnailVideo: assetUrl("/play/stickers/stickerSheet.mp4") + "?v=1"
   },
   {
     id: "posters",
@@ -18,24 +35,6 @@ export const PLAY_ARTIFACTS = [
     size: "md",
     thumbnail: POSTER_FRAMES[0]?.src,
     thumbnailSlides: POSTER_FRAMES.map((frame) => frame.src)
-  },
-  {
-    id: "figma-animation",
-    title: "Figma animation",
-    kind: "video",
-    size: "md",
-    hideChromeLabel: true,
-    thumbnailVideo: assetUrl("/play/figma/anita-yan-figma-thumb.mp4") + "?v=3",
-    video: assetUrl("/play/figma/anita-yan-figma.mp4") + "?v=3"
-  },
-  {
-    id: "digital-journal",
-    title: "Sketchbook",
-    kind: "iframe",
-    size: "md",
-    hideChromeLabel: true,
-    thumbnail: assetUrl("/play/thumbs/digital-journal.jpg"),
-    iframeSrc: assetUrl("/play/sketchbook/index.html")
   }
 ];
 

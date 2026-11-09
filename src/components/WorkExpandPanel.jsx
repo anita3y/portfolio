@@ -5,7 +5,7 @@ import { hapticSnap, pulseHapticClass } from "../utils/haptics.js";
 import { CaseStudyFullContent } from "./CaseStudyContent.jsx";
 import ProgressiveBlur from "./ProgressiveBlur.jsx";
 
-/** Expandable Work studies only — skip display-only cards like Vanity. */
+/** Expandable Work studies only — skip display-only cards. */
 const EXPANDABLE_WORK_IDS = WORK_PROJECTS.filter(
   (project) => !project.displayOnly && getCaseStudy(project.id)
 ).map((project) => project.id);

@@ -210,13 +210,6 @@ export const DFA_CASE_STUDY = {
           }
         },
         {
-          heading: "Final Wireframes",
-          paragraphs: [
-            "Page frames for Home, Projects, About, and Team, plus an optional Newsletter. Get Involved was explored as its own frame, then cut; join CTAs stay in the header and on pages with context. Folder tabs and layered cards stay consistent so one developer can implement a shared pattern and reuse it across pages."
-          ],
-          layout: "dfaWireframes"
-        },
-        {
           heading: "Key Flows",
           paragraphs: [
             "Every major page routes visitors toward one of three goals: discover what we do, join the club, or get in touch. I mapped how each CTA connects pages before wireframing the details."

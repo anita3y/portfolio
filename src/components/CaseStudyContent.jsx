@@ -11,6 +11,7 @@ import ResearchPathsGraph from "./ResearchPathsGraph.jsx";
 import CaseStudyHeroSlider from "./CaseStudyHeroSlider.jsx";
 import InsightPanels from "./InsightPanels.jsx";
 import CaseStudySnapshot from "./CaseStudySnapshot.jsx";
+import CaseStudyConstructionSticky from "./CaseStudyConstructionSticky.jsx";
 import SiteFooter from "./SiteFooter.jsx";
 import { PLAY_PROJECTS, WORK_PROJECTS } from "../data/projects.js";
 import {
@@ -319,9 +320,9 @@ function CaseStudyMediaSlot({ item, className }) {
           <img src={item.src} alt={item.alt ?? ""} loading="lazy" decoding="async" />
         ) : item.video ? (
           <video src={item.video} autoPlay loop muted playsInline preload="metadata" />
-        ) : (
+        ) : item.label ? (
           <span className="cs-slot__label">{item.label}</span>
-        )}
+        ) : null}
       </div>
       {item.caption ? <figcaption className="cs-slot__caption">{item.caption}</figcaption> : null}
     </figure>
@@ -959,10 +960,6 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
               )}
             </p>
           ))}
-          {/* Single motion showcase right after the intro (replaces the banner carousel). */}
-          {study.heroShowcase ? (
-            <CaseStudyMediaSlot item={study.heroShowcase} className="cs-intro__showcase" />
-          ) : null}
         </div>
       )}
       {detailItems.length > 0 && (
@@ -981,6 +978,23 @@ export function CaseStudyPreview({ study, compact = false, hideTabs = false, onS
           ))}
         </div>
       )}
+      {/* Grey product showcase after hero/meta, before Findings; yellow WIP sticky centered inside. */}
+      {template && study.heroShowcase ? (
+        <div className="cs-intro__showcase">
+          <figure className="cs-slot">
+            <div
+              className="cs-slot__frame"
+              style={
+                study.heroShowcase.aspectRatio
+                  ? { aspectRatio: study.heroShowcase.aspectRatio }
+                  : undefined
+              }
+            >
+              {study.constructionSticky ? <CaseStudyConstructionSticky /> : null}
+            </div>
+          </figure>
+        </div>
+      ) : null}
     </header>
   );
 }
