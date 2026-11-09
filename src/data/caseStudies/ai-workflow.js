@@ -119,26 +119,26 @@ export const AI_WORKFLOW_CASE_STUDY = {
         },
         {
           id: "hypothesis-to-hmw",
-          title: "Hypothesis → Findings → How might we",
+          title: "Hypothesis → Findings → HMW",
           blocks: [
             {
-              layout: "hmwFlow",
-              rows: [
-                {
-                  hypothesis: "H1 · Creation → reference",
-                  finding: "Figma is cycled back into, never opened first.",
-                  hmw: "HMW make Figma the place AI work gets reviewed?"
-                },
-                {
-                  hypothesis: "H2 · Catch-up gap",
-                  finding: "No shared record of what AI produced, or why.",
-                  hmw: "HMW show what changed since someone last looked?"
-                },
-                {
-                  hypothesis: "H3 · Personal patches",
-                  finding: "Every workaround is built by one person, for one person.",
-                  hmw: "HMW turn private workarounds into a team default?"
-                }
+              eyebrow: "Findings",
+              layout: "findings",
+              variant: "plain",
+              items: [
+                { tag: "F1", title: "Figma is cycled back into, never opened first." },
+                { tag: "F2", title: "No shared record of what AI produced, or why." },
+                { tag: "F3", title: "Every workaround is built by one person, for one person." }
+              ]
+            },
+            {
+              eyebrow: "HMW",
+              layout: "findings",
+              variant: "plain",
+              items: [
+                { tag: "H1", title: "HMW make Figma the place AI work gets reviewed?" },
+                { tag: "H2", title: "HMW show what changed since someone last looked?" },
+                { tag: "H3", title: "HMW turn private workarounds into a team default?" }
               ]
             }
           ]
