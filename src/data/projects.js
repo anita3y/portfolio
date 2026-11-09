@@ -10,12 +10,7 @@ export const WORK_PROJECTS = [
     year: "2026",
     tags: ["User research", "Figma desktop", "AI"],
     href: "#",
-    thumbnailSlides: [
-      assetUrl("/case-studies/ai-workflow/frame-01.svg"),
-      assetUrl("/case-studies/ai-workflow/frame-02.svg"),
-      assetUrl("/case-studies/ai-workflow/frame-03.svg")
-    ],
-    thumbnailSlideInterval: 900,
+    thumbnailVideo: assetUrl("/thumbnails/ai-workflow/ai-workflow-cs.mp4"),
     theme: "ai-workflow"
   },
   {
