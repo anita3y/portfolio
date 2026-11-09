@@ -50,7 +50,14 @@ export default function CaseStudySnapshot({ email }) {
         {/* White chrome sits above the cursor morph; label stays on top. */}
         <span className="cs-snapshot__btn-pill" aria-hidden="true" />
         <span className="cs-snapshot__btn-label">
-          <span aria-live="polite">{copied ? "Copied!" : "Copy email"}</span>
+          <span className="cs-snapshot__btn-text" aria-live="polite">
+            <span className={copied ? "is-idle" : undefined} aria-hidden={copied || undefined}>
+              Copy email
+            </span>
+            <span className={!copied ? "is-idle" : undefined} aria-hidden={!copied || undefined}>
+              Copied!
+            </span>
+          </span>
           <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
             {copied ? (
               <path d="M3 8.5 L6.5 12 L13 4.5" />
