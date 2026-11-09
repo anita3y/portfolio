@@ -119,7 +119,7 @@ export const AI_WORKFLOW_CASE_STUDY = {
         },
         {
           id: "hypothesis-to-hmw",
-          title: "Hypothesis → Findings → HMW",
+          title: "Hypothesis → Findings → How Might We",
           blocks: [
             {
               eyebrow: "Findings",
@@ -132,13 +132,13 @@ export const AI_WORKFLOW_CASE_STUDY = {
               ]
             },
             {
-              eyebrow: "HMW",
+              eyebrow: "How Might We",
               layout: "findings",
               variant: "plain",
               items: [
-                { tag: "H1", title: "HMW make Figma the place AI work gets reviewed?" },
-                { tag: "H2", title: "HMW show what changed since someone last looked?" },
-                { tag: "H3", title: "HMW turn private workarounds into a team default?" }
+                { tag: "HMW 1", title: "HMW make Figma the place AI work gets reviewed?" },
+                { tag: "HMW 2", title: "HMW show what changed since someone last looked?" },
+                { tag: "HMW 3", title: "HMW turn private workarounds into a team default?" }
               ]
             }
           ]
