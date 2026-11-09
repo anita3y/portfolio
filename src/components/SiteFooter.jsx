@@ -26,7 +26,7 @@ const FOOTER_LINKS = [
   {
     id: "resume",
     label: "Resume",
-    href: "https://drive.google.com/file/d/1wljlB9Q8NTNJkXMHq58ADp5DeAbFEW-5/view?usp=sharing",
+    href: "https://drive.google.com/file/d/13nPyWPW9mGbElq2e7on_iw-K27GMD3-K/view?usp=sharing",
     external: true
   }
 ];
