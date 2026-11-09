@@ -142,16 +142,13 @@ function ArtifactThumb({ artifact, onOpen }) {
       aria-label={`Open ${artifact.title}`}
       aria-haspopup="dialog"
       data-cursor-hover=""
+      style={{
+        transform: `perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) scale(${
+          tilt.hovering ? 1.03 : 1
+        })`
+      }}
     >
-      <span
-        ref={wrapRef}
-        className="play-artifact__lift"
-        style={{
-          transform: `perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg) scale(${
-            tilt.hovering ? 1.03 : 1
-          })`
-        }}
-      >
+      <span ref={wrapRef} className="play-artifact__lift">
         <ArtifactThumbMedia artifact={artifact} />
       </span>
     </button>

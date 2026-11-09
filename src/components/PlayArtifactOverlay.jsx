@@ -7,6 +7,7 @@ import {
 import { getPlayArtifact } from "../data/playArtifacts.js";
 import { PlayPicker } from "./PlayStage.jsx";
 import PosterArtifactViewer from "./PosterArtifactViewer.jsx";
+import StickerPlayground from "./StickerPlayground.jsx";
 
 const ALBUM_THEME_KEY = "play-album-theme";
 const SKETCH_THEME_KEY = "play-sketchbook-theme";
@@ -54,12 +55,9 @@ export default function PlayArtifactOverlay({
     }
     return CAROUSEL_START_ID;
   });
-  const [albumTheme, setAlbumTheme] = useState(() =>
-    readTheme(ALBUM_THEME_KEY, "albumTheme")
-  );
-  const [sketchTheme, setSketchTheme] = useState(() =>
-    readTheme(SKETCH_THEME_KEY, "sketchTheme")
-  );
+  /* Play is dark-only — no light theme toggle. */
+  const albumTheme = "dark";
+  const sketchTheme = "dark";
 
   useEffect(() => {
     if (!artifact) return undefined;
@@ -87,24 +85,6 @@ export default function PlayArtifactOverlay({
   }, [initialCarouselId]);
 
   useEffect(() => {
-    if (artifact?.kind !== "carousel") return;
-    try {
-      sessionStorage.setItem(ALBUM_THEME_KEY, albumTheme);
-    } catch {
-      /* ignore */
-    }
-  }, [albumTheme, artifact?.kind]);
-
-  useEffect(() => {
-    if (artifact?.kind !== "iframe") return;
-    try {
-      sessionStorage.setItem(SKETCH_THEME_KEY, sketchTheme);
-    } catch {
-      /* ignore */
-    }
-  }, [sketchTheme, artifact?.kind]);
-
-  useEffect(() => {
     if (artifact?.kind !== "video" || !artifact.video) return undefined;
     const video = videoRef.current;
     if (!video) return undefined;
@@ -126,23 +106,16 @@ export default function PlayArtifactOverlay({
 
   if (!artifact) return null;
 
+  const stickerProject = {
+    id: "sticker-collection",
+    title: "Sticker sheet",
+    headline: "Sticker sheet"
+  };
+
   const showChromeLabel = !artifact.hideChromeLabel && Boolean(artifact.title);
   const isCarousel = artifact.kind === "carousel";
   const isSketchbook = artifact.kind === "iframe";
-  const isAlbumDark = isCarousel && albumTheme === "dark";
-  const isSketchDark = isSketchbook && sketchTheme === "dark";
-  const isDark = isAlbumDark || isSketchDark;
-  const themeLabel = isCarousel ? "album carousel" : "sketchbook";
-  const activeTheme = isCarousel ? albumTheme : sketchTheme;
-  const toggleTheme = () => {
-    if (isCarousel) {
-      setAlbumTheme((prev) => (prev === "dark" ? "light" : "dark"));
-      return;
-    }
-    if (isSketchbook) {
-      setSketchTheme((prev) => (prev === "dark" ? "light" : "dark"));
-    }
-  };
+  const isDark = true;
 
   const iframeSrc =
     artifact.kind === "iframe" && artifact.iframeSrc
@@ -181,24 +154,7 @@ export default function PlayArtifactOverlay({
             .filter(Boolean)
             .join(" ")}
         >
-          {isCarousel || isSketchbook ? (
-            <span className="play-artifact-overlay__theme-host">
-              <button
-                type="button"
-                className="play-artifact-overlay__theme"
-                onClick={toggleTheme}
-                aria-pressed={isDark}
-                aria-label={
-                  isDark
-                    ? `Switch ${themeLabel} to light mode`
-                    : `Switch ${themeLabel} to dark mode`
-                }
-                data-cursor-morph=""
-              >
-                {activeTheme === "dark" ? "Light" : "Dark"}
-              </button>
-            </span>
-          ) : null}
+          <span className="play-artifact-overlay__theme-host" aria-hidden="true" />
           {showChromeLabel ? (
             <span className="play-artifact-overlay__label">{artifact.title}</span>
           ) : (
@@ -224,6 +180,11 @@ export default function PlayArtifactOverlay({
               onSelect={setCarouselId}
               ariaLabel="Album covers"
             />
+          ) : null}
+          {artifact.kind === "stickers" ? (
+            <div className="play-artifact-overlay__stickers-pad">
+              <StickerPlayground project={stickerProject} demoOnly />
+            </div>
           ) : null}
           {artifact.kind === "posters" ? <PosterArtifactViewer /> : null}
           {artifact.kind === "video" && artifact.video ? (

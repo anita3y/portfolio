@@ -64,9 +64,11 @@ export const ABOUT_INTRO =
   "My approach to problem-solving is rooted in craft and simplicity. I’m constantly cutting through complexity to make experiences feel obvious, from redesigning multi-step flows into single, low-friction screens to building systems that hold up under real-world pressure.";
 
 export const ABOUT_LETTER = {
-  paragraphs: [],
-  signoff:
-    "Designer focused on craft and simplicity. Outside of design I like rock climbing + architecture!",
+  paragraphs: [
+    "Hi, my name is Anita! I'm a designer focused on craft and simplicity.",
+    "Outside of design I like rock climbing + architecture!"
+  ],
+  signoff: "",
   note: "let’s make something together!"
 };
 

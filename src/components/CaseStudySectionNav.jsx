@@ -58,6 +58,11 @@ export default function CaseStudySectionNav({
     const navHeight = fixedHeader ? 0 : 0;
     const scrollInset = fixedHeader ? 10 : 12;
 
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? "auto"
+      : "smooth";
+
     if (container) {
       const top =
         el.getBoundingClientRect().top -
@@ -65,12 +70,12 @@ export default function CaseStudySectionNav({
         container.scrollTop -
         navHeight -
         scrollInset;
-      container.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      container.scrollTo({ top: Math.max(0, top), behavior });
       return;
     }
 
     const top = el.getBoundingClientRect().top + window.scrollY - navHeight - 12;
-    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    window.scrollTo({ top: Math.max(0, top), behavior });
   };
 
   return (
