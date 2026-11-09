@@ -586,17 +586,17 @@ button:focus-visible {
 .site-footer__copied {
   position: absolute;
   left: 50%;
-  bottom: calc(100% + 0.28rem);
-  transform: translateX(-50%) rotate(-7deg);
+  bottom: calc(100% + 1.1rem);
+  transform: translateX(-50%);
   white-space: nowrap;
   pointer-events: none;
-  font-family: "Petrona", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
-  font-style: italic;
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-style: normal;
   font-weight: 400;
   font-size: 0.7rem;
   letter-spacing: -0.01em;
   line-height: 1;
-  color: #1eb5b0;
+  color: #111111;
   opacity: 0;
   transition: opacity 0.18s ease;
 }
