@@ -47,7 +47,7 @@ export default function CaseStudySnapshot({ email }) {
         onClick={copy}
         data-cursor-morph=""
       >
-        {/* White chrome sits under the cursor morph; label stays above. */}
+        {/* White chrome sits above the cursor morph; label stays on top. */}
         <span className="cs-snapshot__btn-pill" aria-hidden="true" />
         <span className="cs-snapshot__btn-label">
           <span aria-live="polite">{copied ? "Copied!" : "Copy email"}</span>

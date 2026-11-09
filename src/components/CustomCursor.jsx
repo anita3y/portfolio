@@ -39,7 +39,7 @@ const LAYERED_MORPH_HOSTS = [
   { match: ".tag-option[data-cursor-morph]", host: ".tag-menu-inner" },
   { match: ".chip-icon[data-cursor-morph]", host: ".tag-chip" },
   { match: ".site-footer__link[data-cursor-morph]", host: ".site-footer__nav" },
-  /* Snapshot copy-email: morph hosts on the grey track so it can paint ABOVE the white pill. */
+  /* Snapshot copy-email: morph hosts on the grey track, under the white pill (like `.tabs`). */
   { match: ".cs-snapshot__btn[data-cursor-morph]", host: ".cs-snapshot__btn" }
 ];
 
