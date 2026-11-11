@@ -10446,7 +10446,9 @@ a.about-browser__url:hover .about-browser__url-text {
 .rpg__panel {
   position: absolute;
   top: 1rem;
-  left: 1rem;
+  left: auto;
+  right: 1rem;
+  z-index: 3;
   max-width: 17rem;
   padding: 0.65rem 0.8rem;
   border-radius: 10px;
@@ -11632,7 +11634,8 @@ a.about-browser__url:hover .about-browser__url-text {
 }
 
 .rpg--bleed .rpg__panel {
-  left: var(--cs-pad-x, 1.5rem);
+  left: auto;
+  right: var(--cs-pad-x, 1.5rem);
   background: rgba(255, 255, 255, 0.75);
 }
 
